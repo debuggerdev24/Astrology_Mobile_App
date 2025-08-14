@@ -1,0 +1,24 @@
+class AppAssets {
+  AppAssets._();
+
+  // icons
+  static const _iconPath = "assets/icons";
+  static const homeIcon = "$_iconPath/homeIcon.svg";
+  static const consultIcon = "$_iconPath/consultIcon.svg";
+  static const mantrasIcon = "$_iconPath/mantrasIcon.svg";
+  static const remediesIcon = "$_iconPath/remediesIcon.svg";
+  static const settingsIcon = "$_iconPath/settingsIcon.svg";
+  static const languageIcon = "$_iconPath/languageIcon.svg";
+  static const editIcon = "$_iconPath/editIcon.svg";
+  static const paymentIcon = "$_iconPath/paymentIcon.svg";
+  static const omIcon = "$_iconPath/omIcon.svg";
+  static const tIcon = "$_iconPath/tIcons.svg";
+  static const playIcon = "$_iconPath/playIcon.svg";
+
+  // images
+  static const _imagePath = "assets/images";
+  static const palm1 = "$_imagePath/palm1.png";
+  static const palm2 = "$_imagePath/palm2.png";
+
+  // static const _imagePath = "assets/images";
+}

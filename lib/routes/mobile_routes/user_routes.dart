@@ -1,0 +1,16 @@
+enum MobileAppRoutes {
+  splashScreen,
+  signUpScreen,
+  signInScreen,
+  errorMsgScreen,
+  onBoardingScreen,
+  forgotPasswordScreen,
+  otpScreen,
+  drawerScreen,
+  profileScreen,
+  homeScreen,
+  userDashBoardScreen,
+  appInfoScreen,
+  privacyPolicyScreen,
+  editProfileScreen,
+}
