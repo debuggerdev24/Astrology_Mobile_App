@@ -52,32 +52,30 @@ class EditProfileScreen extends StatelessWidget {
                         children: [
                           // Date of Birth Field
                           Expanded(
-                            child: GestureDetector(
+                            child: AppTextField(
                               onTap: () =>
                                   profileProvider.pickBirthDate(context),
-                              child: AppTextField(
-                                hintText: "Enter your DOB",
-
-                                title: "Date Of Birth",
-                                controller: TextEditingController(
-                                  text: profileProvider.formattedBirthDate,
-                                ),
+                              hintText: "Enter your DOB",
+                              readOnly: true,
+                              title: "Date Of Birth",
+                              controller: TextEditingController(
+                                text: profileProvider.formattedBirthDate,
                               ),
                             ),
                           ),
 
                           // Time of Birth Field
                           Expanded(
-                            child: GestureDetector(
+                            child: AppTextField(
                               onTap: () =>
                                   profileProvider.pickBirthTime(context),
-                              child: AppTextField(
-                                hintText: "Enter your TOB",
+                              readOnly: true,
 
-                                title: "Time Of Birth",
-                                controller: TextEditingController(
-                                  text: profileProvider.formattedBirthTime,
-                                ),
+                              hintText: "Enter your TOB",
+
+                              title: "Time Of Birth",
+                              controller: TextEditingController(
+                                text: profileProvider.formattedBirthTime,
                               ),
                             ),
                           ),
