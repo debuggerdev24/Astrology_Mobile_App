@@ -62,7 +62,7 @@ class SignUpScreen extends StatelessWidget {
                 ),
               ],
             ),
-            AppButtonPrimary(
+            AppButton(
               title: "Sign Up",
               margin: EdgeInsets.only(top: 52.h, bottom: 8.h),
             ),

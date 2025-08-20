@@ -14,11 +14,17 @@ class AppAssets {
   static const omIcon = "$_iconPath/omIcon.svg";
   static const tIcon = "$_iconPath/tIcons.svg";
   static const playIcon = "$_iconPath/playIcon.svg";
+  static const uploadImageIcon = "$_iconPath/uploadImageIcon.svg";
+  static const lockIcon = "$_iconPath/lockIcon.svg";
+  static const sunIcon = "$_iconPath/sunIcon.svg";
 
   // images
   static const _imagePath = "assets/images";
   static const palm1 = "$_imagePath/palm1.png";
   static const palm2 = "$_imagePath/palm2.png";
+  static const omImage = "$_imagePath/omImage.png";
+  static const failedPayment = "$_imagePath/failedPayment.svg";
+  static const successPayment = "$_imagePath/successPayment.svg";
 
   // static const _imagePath = "assets/images";
 }

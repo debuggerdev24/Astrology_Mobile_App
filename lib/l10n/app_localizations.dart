@@ -63,8 +63,7 @@ import 'app_localizations_ta.dart';
 /// be consistent with the languages listed in the AppLocalizations.supportedLocales
 /// property.
 abstract class AppLocalizations {
-  AppLocalizations(String locale)
-    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  AppLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -72,8 +71,7 @@ abstract class AppLocalizations {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
 
-  static const LocalizationsDelegate<AppLocalizations> delegate =
-      _AppLocalizationsDelegate();
+  static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -85,19 +83,18 @@ abstract class AppLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
-      <LocalizationsDelegate<dynamic>>[
-        delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ];
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
+    delegate,
+    GlobalMaterialLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+  ];
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
     Locale('en'),
     Locale('hi'),
-    Locale('ta'),
+    Locale('ta')
   ];
 
   /// No description provided for @settings.
@@ -110,7 +107,7 @@ abstract class AppLocalizations {
   ///
   /// In en, this message translates to:
   /// **'Profile'**
-  String get profileScreen;
+  String get profile;
 
   /// No description provided for @appInfo.
   ///
@@ -123,6 +120,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Notification'**
   String get notification;
+
+  /// No description provided for @premium.
+  ///
+  /// In en, this message translates to:
+  /// **'Premium'**
+  String get premium;
 
   /// No description provided for @privacyPolicy.
   ///
@@ -147,10 +150,573 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Terms & Conditions'**
   String get termsAndConditions;
+
+  /// No description provided for @fullName.
+  ///
+  /// In en, this message translates to:
+  /// **'Full Name'**
+  String get fullName;
+
+  /// No description provided for @goodMorning.
+  ///
+  /// In en, this message translates to:
+  /// **'Good Morning'**
+  String get goodMorning;
+
+  /// No description provided for @seeAll.
+  ///
+  /// In en, this message translates to:
+  /// **'See All'**
+  String get seeAll;
+
+  /// No description provided for @dasha.
+  ///
+  /// In en, this message translates to:
+  /// **'Dasha'**
+  String get dasha;
+
+  /// No description provided for @moonSign.
+  ///
+  /// In en, this message translates to:
+  /// **'Moon Sign'**
+  String get moonSign;
+
+  /// No description provided for @dailyMantra.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Mantra'**
+  String get dailyMantra;
+
+  /// No description provided for @home.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get home;
+
+  /// No description provided for @mantras.
+  ///
+  /// In en, this message translates to:
+  /// **'Mantras'**
+  String get mantras;
+
+  /// No description provided for @remedies.
+  ///
+  /// In en, this message translates to:
+  /// **'Remedies'**
+  String get remedies;
+
+  /// No description provided for @consult.
+  ///
+  /// In en, this message translates to:
+  /// **'Consult'**
+  String get consult;
+
+  /// No description provided for @viewDetailedReading.
+  ///
+  /// In en, this message translates to:
+  /// **'View Detailed Reading'**
+  String get viewDetailedReading;
+
+  /// No description provided for @dailyMantraLog.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Mantra Log'**
+  String get dailyMantraLog;
+
+  /// No description provided for @pleaseUploadYourPalmImageFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Please upload your palm image first.'**
+  String get pleaseUploadYourPalmImageFirst;
+
+  /// No description provided for @leftHand.
+  ///
+  /// In en, this message translates to:
+  /// **'Left Hand'**
+  String get leftHand;
+
+  /// No description provided for @rightHand.
+  ///
+  /// In en, this message translates to:
+  /// **'Right Hand'**
+  String get rightHand;
+
+  /// No description provided for @submitForReading.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit For Reading'**
+  String get submitForReading;
+
+  /// No description provided for @uploadImageScreenPara.
+  ///
+  /// In en, this message translates to:
+  /// **'Your personalized palm reading will only be generated after uploading your palm photo.  Once the analysis is complete, tailored remedies will be suggested based on your palm and horoscope alignment.'**
+  String get uploadImageScreenPara;
+
+  /// No description provided for @palmReading.
+  ///
+  /// In en, this message translates to:
+  /// **'Palm Reading'**
+  String get palmReading;
+
+  /// No description provided for @summary.
+  ///
+  /// In en, this message translates to:
+  /// **'Summary'**
+  String get summary;
+
+  /// No description provided for @mountAnalysis.
+  ///
+  /// In en, this message translates to:
+  /// **'Mount Analysis'**
+  String get mountAnalysis;
+
+  /// No description provided for @lifeLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Life Line'**
+  String get lifeLine;
+
+  /// No description provided for @headLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Head Line'**
+  String get headLine;
+
+  /// No description provided for @heartLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Heart Line'**
+  String get heartLine;
+
+  /// No description provided for @mountOfJupiter.
+  ///
+  /// In en, this message translates to:
+  /// **'Mount Of Jupiter'**
+  String get mountOfJupiter;
+
+  /// No description provided for @mountOfVenus.
+  ///
+  /// In en, this message translates to:
+  /// **'Mount Of Venus'**
+  String get mountOfVenus;
+
+  /// No description provided for @viewRemedies.
+  ///
+  /// In en, this message translates to:
+  /// **'View Remedies'**
+  String get viewRemedies;
+
+  /// No description provided for @matchWithBirthCart.
+  ///
+  /// In en, this message translates to:
+  /// **'Match With Birth Cart'**
+  String get matchWithBirthCart;
+
+  /// No description provided for @viewDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'View Details'**
+  String get viewDetails;
+
+  /// No description provided for @type.
+  ///
+  /// In en, this message translates to:
+  /// **'Type'**
+  String get type;
+
+  /// No description provided for @description.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get description;
+
+  /// No description provided for @planet.
+  ///
+  /// In en, this message translates to:
+  /// **'Planet'**
+  String get planet;
+
+  /// No description provided for @birthChart.
+  ///
+  /// In en, this message translates to:
+  /// **'Birth Chart'**
+  String get birthChart;
+
+  /// No description provided for @birthChartSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Birth Chart Summary'**
+  String get birthChartSummary;
+
+  /// No description provided for @palmReadingSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Palm Reading Summary'**
+  String get palmReadingSummary;
+
+  /// No description provided for @interpretation.
+  ///
+  /// In en, this message translates to:
+  /// **'Interpretation'**
+  String get interpretation;
+
+  /// No description provided for @active.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get active;
+
+  /// No description provided for @moonInPisces.
+  ///
+  /// In en, this message translates to:
+  /// **'Moon in Pisces'**
+  String get moonInPisces;
+
+  /// No description provided for @meaning.
+  ///
+  /// In en, this message translates to:
+  /// **'Meaning'**
+  String get meaning;
+
+  /// No description provided for @suggestedAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Suggested Actions'**
+  String get suggestedAction;
+
+  /// No description provided for @textInstruction.
+  ///
+  /// In en, this message translates to:
+  /// **'Text Instruction'**
+  String get textInstruction;
+
+  /// No description provided for @spiritualMeaning.
+  ///
+  /// In en, this message translates to:
+  /// **'Spiritual Meaning'**
+  String get spiritualMeaning;
+
+  /// No description provided for @setReminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Set Reminder'**
+  String get setReminder;
+
+  /// No description provided for @reminderTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminder Title'**
+  String get reminderTitle;
+
+  /// No description provided for @reminderTitleHintText.
+  ///
+  /// In en, this message translates to:
+  /// **'Morning Pooja for Mars Remedy'**
+  String get reminderTitleHintText;
+
+  /// No description provided for @daily.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily'**
+  String get daily;
+
+  /// No description provided for @weekly.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly'**
+  String get weekly;
+
+  /// No description provided for @monthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly'**
+  String get monthly;
+
+  /// No description provided for @custom.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom'**
+  String get custom;
+
+  /// No description provided for @selectDateAndTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Date & Time'**
+  String get selectDateAndTime;
+
+  /// No description provided for @saveReminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Reminder'**
+  String get saveReminder;
+
+  /// No description provided for @download.
+  ///
+  /// In en, this message translates to:
+  /// **'Download'**
+  String get download;
+
+  /// No description provided for @share.
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  String get share;
+
+  /// No description provided for @chooseYourPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose Your Plan'**
+  String get chooseYourPlan;
+
+  /// No description provided for @free.
+  ///
+  /// In en, this message translates to:
+  /// **'Free'**
+  String get free;
+
+  /// No description provided for @basicHoroscope.
+  ///
+  /// In en, this message translates to:
+  /// **'Basic Horoscope'**
+  String get basicHoroscope;
+
+  /// No description provided for @dailyTips.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Tips'**
+  String get dailyTips;
+
+  /// No description provided for @tier.
+  ///
+  /// In en, this message translates to:
+  /// **'Tier'**
+  String get tier;
+
+  /// No description provided for @dailyMantras.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Mantras'**
+  String get dailyMantras;
+
+  /// No description provided for @historyAccess.
+  ///
+  /// In en, this message translates to:
+  /// **'History Access'**
+  String get historyAccess;
+
+  /// No description provided for @basicRemedies.
+  ///
+  /// In en, this message translates to:
+  /// **'Basic Remedies'**
+  String get basicRemedies;
+
+  /// No description provided for @month.
+  ///
+  /// In en, this message translates to:
+  /// **'Month'**
+  String get month;
+
+  /// No description provided for @months.
+  ///
+  /// In en, this message translates to:
+  /// **'Months'**
+  String get months;
+
+  /// No description provided for @choosePlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose Plan'**
+  String get choosePlan;
+
+  /// No description provided for @palmistry.
+  ///
+  /// In en, this message translates to:
+  /// **'Palmistry'**
+  String get palmistry;
+
+  /// No description provided for @birthChartMatching.
+  ///
+  /// In en, this message translates to:
+  /// **'Birth Chart Matching'**
+  String get birthChartMatching;
+
+  /// No description provided for @detailedRemedies.
+  ///
+  /// In en, this message translates to:
+  /// **'Detailed Remedies'**
+  String get detailedRemedies;
+
+  /// No description provided for @consultBooking.
+  ///
+  /// In en, this message translates to:
+  /// **'Consult Booking'**
+  String get consultBooking;
+
+  /// No description provided for @allFeaturesUnlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'All features unlocked'**
+  String get allFeaturesUnlocked;
+
+  /// No description provided for @advanced.
+  ///
+  /// In en, this message translates to:
+  /// **'Advanced'**
+  String get advanced;
+
+  /// No description provided for @elite.
+  ///
+  /// In en, this message translates to:
+  /// **'Elite'**
+  String get elite;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @payAndSubscribe.
+  ///
+  /// In en, this message translates to:
+  /// **'Pay & Subscribe'**
+  String get payAndSubscribe;
+
+  /// No description provided for @upgradePlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Upgrade Plan'**
+  String get upgradePlan;
+
+  /// No description provided for @purchasePlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase Plan'**
+  String get purchasePlan;
+
+  /// No description provided for @choosePaymentMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose Payment Method'**
+  String get choosePaymentMethod;
+
+  /// No description provided for @payNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Pay Now'**
+  String get payNow;
+
+  /// No description provided for @paymentConfirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Confirmation'**
+  String get paymentConfirmation;
+
+  /// No description provided for @paymentFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Failed!'**
+  String get paymentFailed;
+
+  /// No description provided for @paymentWasSuccessful.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Was Successful'**
+  String get paymentWasSuccessful;
+
+  /// No description provided for @paymentWasFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Was Failed'**
+  String get paymentWasFailed;
+
+  /// No description provided for @thanks.
+  ///
+  /// In en, this message translates to:
+  /// **'Thanks'**
+  String get thanks;
+
+  /// No description provided for @done.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get done;
+
+  /// No description provided for @tryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Try Again'**
+  String get tryAgain;
+
+  /// No description provided for @price.
+  ///
+  /// In en, this message translates to:
+  /// **'Price'**
+  String get price;
+
+  /// No description provided for @subscriptionDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscription Date'**
+  String get subscriptionDate;
+
+  /// No description provided for @subscriptionValidity.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscription Validity'**
+  String get subscriptionValidity;
+
+  /// No description provided for @dateOfBirth.
+  ///
+  /// In en, this message translates to:
+  /// **'Date Of Birth'**
+  String get dateOfBirth;
+
+  /// No description provided for @timeOfBirth.
+  ///
+  /// In en, this message translates to:
+  /// **'Time Of Birth'**
+  String get timeOfBirth;
+
+  /// No description provided for @placeOfBirth.
+  ///
+  /// In en, this message translates to:
+  /// **'Place Of Birth'**
+  String get placeOfBirth;
+
+  /// No description provided for @currentLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Location'**
+  String get currentLocation;
+
+  /// No description provided for @currentSubscription.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Subscription'**
+  String get currentSubscription;
+
+  /// No description provided for @uploadedPalm.
+  ///
+  /// In en, this message translates to:
+  /// **'Uploaded Palm'**
+  String get uploadedPalm;
+
+  /// No description provided for @uploadPalm.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload Palm'**
+  String get uploadPalm;
+
+  /// No description provided for @checkYourCurrentPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Check Your Current Plan'**
+  String get checkYourCurrentPlan;
 }
 
-class _AppLocalizationsDelegate
-    extends LocalizationsDelegate<AppLocalizations> {
+class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
 
   @override
@@ -159,28 +725,26 @@ class _AppLocalizationsDelegate
   }
 
   @override
-  bool isSupported(Locale locale) =>
-      <String>['en', 'hi', 'ta'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['en', 'hi', 'ta'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
 }
 
 AppLocalizations lookupAppLocalizations(Locale locale) {
+
+
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'en':
-      return AppLocalizationsEn();
-    case 'hi':
-      return AppLocalizationsHi();
-    case 'ta':
-      return AppLocalizationsTa();
+    case 'en': return AppLocalizationsEn();
+    case 'hi': return AppLocalizationsHi();
+    case 'ta': return AppLocalizationsTa();
   }
 
   throw FlutterError(
     'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
     'an issue with the localizations generation tool. Please file an issue '
     'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.',
+    'that was used.'
   );
 }

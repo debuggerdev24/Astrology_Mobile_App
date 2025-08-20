@@ -4,36 +4,51 @@ import 'package:astrology_app/core/widgets/app_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class AppButtonPrimary extends StatelessWidget {
-  final String title;
+class AppButton extends StatelessWidget {
+  final String? title;
   final EdgeInsets? margin;
-  final double? width;
-  final VoidCallback? onTap;
-  const AppButtonPrimary({
+  final double? width, fontSize, verticalPadding, horizontalPadding;
+  final Color? color;
+  final VoidCallback? onTap, onLongPress;
+  final Widget? child;
+  const AppButton({
     super.key,
-    required this.title,
+    this.title,
     this.margin,
     this.onTap,
     this.width,
+    this.color,
+    this.child,
+    this.fontSize,
+    this.verticalPadding,
+    this.onLongPress,
+    this.horizontalPadding,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onLongPress: onLongPress,
       onTap: onTap,
       child: Container(
         width: width ?? double.infinity,
         alignment: Alignment.center,
         margin: margin,
-        padding: EdgeInsets.symmetric(vertical: 15.h),
+        padding: EdgeInsets.symmetric(
+          vertical: verticalPadding == null ? 14.h : verticalPadding!.h,
+          horizontal: horizontalPadding == null ? 0 : verticalPadding!.w,
+        ),
         decoration: BoxDecoration(
-          color: AppColors.primary,
+          color: color ?? AppColors.primary,
           borderRadius: BorderRadius.circular(12.r),
         ),
-        child: AppText(
-          text: title,
-          style: bold(fontSize: 16, color: AppColors.black),
-        ),
+        child: (title == null)
+            ? child
+            : AppText(
+                overflow: TextOverflow.ellipsis,
+                text: title ?? "",
+                style: bold(fontSize: fontSize ?? 16, color: AppColors.black),
+              ),
       ),
     );
   }

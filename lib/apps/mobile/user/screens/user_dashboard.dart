@@ -1,9 +1,10 @@
 import 'package:astrology_app/apps/mobile/user/screens/consult/consult_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/home/home_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/mantras/daily_mantra_screen.dart';
-import 'package:astrology_app/apps/mobile/user/screens/remedies/remedies_screen.dart';
+import 'package:astrology_app/apps/mobile/user/screens/remedies/palm_upload_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/settings/settings_screen.dart';
 import 'package:astrology_app/core/constants/text_style.dart';
+import 'package:astrology_app/extension/context_extension.dart';
 import 'package:astrology_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,7 +21,7 @@ final ValueNotifier<int> indexTabUser = ValueNotifier<int>(0);
 List<Widget> pages = [
   HomeScreen(),
   DailyMantraScreen(),
-  RemediesScreen(),
+  PalmUploadScreen(),
   ConsultScreen(),
   SettingScreen(),
 ];
@@ -30,6 +31,7 @@ class UserDashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final translator = context.translator;
     return ValueListenableBuilder<int>(
       valueListenable: indexTabUser,
       builder: (BuildContext context, int index, Widget? child) {
@@ -47,7 +49,7 @@ class UserDashboard extends StatelessWidget {
           //
           bottomNavigationBar: SafeArea(
             child: Container(
-              height: 78.h,
+              height: 80.h,
               width: 1.sw,
               decoration: BoxDecoration(
                 color: AppColors.white,
@@ -59,11 +61,19 @@ class UserDashboard extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  myBottomBrItem(AppAssets.homeIcon, "Home", 0),
-                  myBottomBrItem(AppAssets.mantrasIcon, "Mantras", 1),
-                  myBottomBrItem(AppAssets.remediesIcon, "Remedies", 2),
-                  myBottomBrItem(AppAssets.consultIcon, "Consult", 3),
-                  myBottomBrItem(AppAssets.settingsIcon, "Settings", 4),
+                  myBottomBrItem(AppAssets.homeIcon, translator.home, 0),
+                  myBottomBrItem(AppAssets.mantrasIcon, translator.mantras, 1),
+                  myBottomBrItem(
+                    AppAssets.remediesIcon,
+                    translator.remedies,
+                    2,
+                  ),
+                  myBottomBrItem(AppAssets.consultIcon, translator.consult, 3),
+                  myBottomBrItem(
+                    AppAssets.settingsIcon,
+                    translator.settings,
+                    4,
+                  ),
                 ],
               ),
             ),
@@ -82,6 +92,7 @@ class UserDashboard extends StatelessWidget {
         },
         child: AnimatedContainer(
           curve: Curves.easeInOut,
+          padding: EdgeInsets.symmetric(horizontal: 2),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(10.r),
@@ -92,26 +103,34 @@ class UserDashboard extends StatelessWidget {
             color: isCurrent ? Color(0xff575778) : Colors.transparent,
           ),
           duration: Duration(milliseconds: 300),
-          child: Column(
-            spacing: 4.h,
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SVGImages(
-                color: isCurrent ? AppColors.white : AppColors.darkBlue,
-                width: 21.w,
-                path: iconPath,
-              ),
-              AppText(
-                text: title,
-                textAlign: TextAlign.center,
-                overflow: TextOverflow.ellipsis,
-                style: regular(
-                  color: isCurrent ? Colors.white : AppColors.darkBlue,
-                  fontSize: 11.5.sp,
+          child: Center(
+            child: Column(
+              spacing: 4.h,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SVGImages(
+                  color: isCurrent ? AppColors.white : AppColors.darkBlue,
+                  width: 21.w,
+                  path: iconPath,
                 ),
-              ),
-            ],
+                Row(
+                  children: [
+                    Expanded(
+                      child: AppText(
+                        text: title,
+                        textAlign: TextAlign.center,
+                        // overflow: TextOverflow.ellipsis,
+                        style: regular(
+                          color: isCurrent ? Colors.white : AppColors.darkBlue,
+                          fontSize: 11.5.sp,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

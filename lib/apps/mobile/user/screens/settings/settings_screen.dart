@@ -1,4 +1,5 @@
 import 'package:astrology_app/apps/mobile/user/provider/setting/locale_provider.dart';
+import 'package:astrology_app/apps/mobile/user/provider/setting/notification_provider.dart';
 import 'package:astrology_app/apps/mobile/user/screens/user_dashboard.dart';
 import 'package:astrology_app/core/constants/app_assets.dart';
 import 'package:astrology_app/core/constants/app_colors.dart';
@@ -8,6 +9,7 @@ import 'package:astrology_app/core/widgets/global_methods.dart';
 import 'package:astrology_app/core/widgets/svg_image.dart';
 import 'package:astrology_app/extension/context_extension.dart';
 import 'package:astrology_app/routes/mobile_routes/user_routes.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -52,7 +54,7 @@ class SettingScreen extends StatelessWidget {
                   const PopupMenuItem(value: "Tamil", child: Text("தமிழ்")),
                 ],
                 child: SizedBox(
-                  height: 22.h,
+                  height: 28.h,
                   width: 22.w,
                   child: SVGImages(path: AppAssets.languageIcon),
                 ),
@@ -60,7 +62,7 @@ class SettingScreen extends StatelessWidget {
             ),
             32.h.verticalSpace,
             _section(
-              title: context.translator.profileScreen,
+              title: context.translator.profile,
               onTap: () {
                 context.pushNamed(MobileAppRoutes.profileScreen.name);
               },
@@ -73,7 +75,28 @@ class SettingScreen extends StatelessWidget {
               },
             ),
             buildDivider(),
-            _section(title: context.translator.notification, onTap: () {}),
+            Consumer<NotificationProvider>(
+              builder: (context, provider, child) => _section(
+                title: context.translator.notification,
+                trailing: CupertinoSwitch(
+                  inactiveTrackColor: AppColors.greyColor,
+                  value: provider.isNotificationOn,
+                  onChanged: (value) {
+                    provider.isNotificationOn = value;
+                  },
+                ),
+                onTap: () {
+                  provider.isNotificationOn = !provider.isNotificationOn;
+                },
+              ),
+            ),
+            buildDivider(),
+            _section(
+              title: context.translator.premium,
+              onTap: () {
+                context.pushNamed(MobileAppRoutes.premiumPlanScreen.name);
+              },
+            ),
           ],
         ),
       ),
@@ -85,7 +108,11 @@ class SettingScreen extends StatelessWidget {
     child: Divider(color: AppColors.whiteColor.withValues(alpha: 0.6)),
   );
 
-  Widget _section({required String title, required VoidCallback onTap}) {
+  Widget _section({
+    required String title,
+    required VoidCallback onTap,
+    Widget? trailing,
+  }) {
     return ListTile(
       onTap: onTap,
       contentPadding: EdgeInsets.zero,
@@ -93,11 +120,13 @@ class SettingScreen extends StatelessWidget {
         text: title,
         style: medium(fontSize: 18.sp),
       ),
-      trailing: Icon(
-        Icons.arrow_forward_ios_rounded,
-        size: 18.sp,
-        color: AppColors.white,
-      ),
+      trailing:
+          trailing ??
+          Icon(
+            Icons.arrow_forward_ios_rounded,
+            size: 18.sp,
+            color: AppColors.white,
+          ),
     );
   }
 }

@@ -6,28 +6,19 @@ import '../constants/app_colors.dart';
 import '../constants/text_style.dart';
 
 class AppTextField extends StatelessWidget {
-  final String? title;
-  final String? errorMessage;
+  final String? title,errorMessage;
   final TextEditingController controller;
   final FocusNode? focusNode;
+  final Widget? prefix;
   final TextStyle? hintStyle;
-  final String? hintText;
-  final String? icon, suffixIon;
-  final VoidCallback? onSuffixTap;
+  final String? hintText,icon, suffixIon;
+  final VoidCallback? onSuffixTap, onTap;
   final ValueChanged? onChanged;
   final TextInputType? keyboardType;
-  final bool? obscureText;
-  final bool? enabled, isMobile;
+  final bool? obscureText,enabled, isMobile,readOnly;
   final EdgeInsets? suffixIconPadding;
-  final Color? borderColor;
-  final Color? focusBorderColor;
-  final Color? prefixIconColor;
-  final Color? sufixIconColor;
-  final double? borderRedius;
-  final double? borderThickness;
-  final double? iconSize;
-  final double? height, textFieldWidth;
-  final double? sufixIconSize;
+  final Color? borderColor,focusBorderColor,prefixIconColor,sufixIconColor;
+  final double? borderRadius,borderThickness,iconSize,height, textFieldWidth,sufixIconSize;
   final EdgeInsets? padding;
   final List<TextInputFormatter>? inputFormatters;
   final TextAlign? textAlign;
@@ -54,7 +45,7 @@ class AppTextField extends StatelessWidget {
     this.enabled,
     this.borderColor,
     this.focusBorderColor,
-    this.borderRedius,
+    this.borderRadius,
     this.borderThickness,
     this.prefixIconColor,
     this.sufixIconColor,
@@ -65,6 +56,7 @@ class AppTextField extends StatelessWidget {
     this.hintStyle,
     this.isMobile,
     this.textFieldWidth,
+    this.onTap, this.prefix, this.readOnly,
   });
 
   @override
@@ -75,6 +67,8 @@ class AppTextField extends StatelessWidget {
       children: [
         if (title != null) ...[Text(title ?? "", style: medium(fontSize: 16))],
         TextField(
+          readOnly: readOnly ?? false,
+          onTap: onTap,
           onChanged: onChanged,
           keyboardType: keyboardType,
           obscureText: obscureText ?? false,
@@ -87,13 +81,14 @@ class AppTextField extends StatelessWidget {
           style:
               textStyle ?? regular(fontSize: 14, color: AppColors.whiteColor),
           decoration: InputDecoration(
-            border: OutlineInputBorder(
+            prefixIcon: prefix,
+            enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5.r),
               borderSide: BorderSide(color: AppColors.whiteColor),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5.r),
-              borderSide: BorderSide(color: AppColors.primary),
+              borderSide: BorderSide(color: AppColors.white,width: 1.5),
             ),
             hintText: hintText,
             hintStyle: hintStyle ?? regular(fontSize: 14),

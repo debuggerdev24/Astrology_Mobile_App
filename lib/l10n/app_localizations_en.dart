@@ -1,6 +1,5 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
-
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -13,13 +12,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings => 'Settings';
 
   @override
-  String get profileScreen => 'Profile';
+  String get profile => 'Profile';
 
   @override
   String get appInfo => 'App Info';
 
   @override
   String get notification => 'Notification';
+
+  @override
+  String get premium => 'Premium';
 
   @override
   String get privacyPolicy => 'Privacy Policy';
@@ -32,4 +34,286 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get termsAndConditions => 'Terms & Conditions';
+
+  @override
+  String get fullName => 'Full Name';
+
+  @override
+  String get goodMorning => 'Good Morning';
+
+  @override
+  String get seeAll => 'See All';
+
+  @override
+  String get dasha => 'Dasha';
+
+  @override
+  String get moonSign => 'Moon Sign';
+
+  @override
+  String get dailyMantra => 'Daily Mantra';
+
+  @override
+  String get home => 'Home';
+
+  @override
+  String get mantras => 'Mantras';
+
+  @override
+  String get remedies => 'Remedies';
+
+  @override
+  String get consult => 'Consult';
+
+  @override
+  String get viewDetailedReading => 'View Detailed Reading';
+
+  @override
+  String get dailyMantraLog => 'Daily Mantra Log';
+
+  @override
+  String get pleaseUploadYourPalmImageFirst => 'Please upload your palm image first.';
+
+  @override
+  String get leftHand => 'Left Hand';
+
+  @override
+  String get rightHand => 'Right Hand';
+
+  @override
+  String get submitForReading => 'Submit For Reading';
+
+  @override
+  String get uploadImageScreenPara => 'Your personalized palm reading will only be generated after uploading your palm photo.  Once the analysis is complete, tailored remedies will be suggested based on your palm and horoscope alignment.';
+
+  @override
+  String get palmReading => 'Palm Reading';
+
+  @override
+  String get summary => 'Summary';
+
+  @override
+  String get mountAnalysis => 'Mount Analysis';
+
+  @override
+  String get lifeLine => 'Life Line';
+
+  @override
+  String get headLine => 'Head Line';
+
+  @override
+  String get heartLine => 'Heart Line';
+
+  @override
+  String get mountOfJupiter => 'Mount Of Jupiter';
+
+  @override
+  String get mountOfVenus => 'Mount Of Venus';
+
+  @override
+  String get viewRemedies => 'View Remedies';
+
+  @override
+  String get matchWithBirthCart => 'Match With Birth Cart';
+
+  @override
+  String get viewDetails => 'View Details';
+
+  @override
+  String get type => 'Type';
+
+  @override
+  String get description => 'Description';
+
+  @override
+  String get planet => 'Planet';
+
+  @override
+  String get birthChart => 'Birth Chart';
+
+  @override
+  String get birthChartSummary => 'Birth Chart Summary';
+
+  @override
+  String get palmReadingSummary => 'Palm Reading Summary';
+
+  @override
+  String get interpretation => 'Interpretation';
+
+  @override
+  String get active => 'Active';
+
+  @override
+  String get moonInPisces => 'Moon in Pisces';
+
+  @override
+  String get meaning => 'Meaning';
+
+  @override
+  String get suggestedAction => 'Suggested Actions';
+
+  @override
+  String get textInstruction => 'Text Instruction';
+
+  @override
+  String get spiritualMeaning => 'Spiritual Meaning';
+
+  @override
+  String get setReminder => 'Set Reminder';
+
+  @override
+  String get reminderTitle => 'Reminder Title';
+
+  @override
+  String get reminderTitleHintText => 'Morning Pooja for Mars Remedy';
+
+  @override
+  String get daily => 'Daily';
+
+  @override
+  String get weekly => 'Weekly';
+
+  @override
+  String get monthly => 'Monthly';
+
+  @override
+  String get custom => 'Custom';
+
+  @override
+  String get selectDateAndTime => 'Select Date & Time';
+
+  @override
+  String get saveReminder => 'Save Reminder';
+
+  @override
+  String get download => 'Download';
+
+  @override
+  String get share => 'Share';
+
+  @override
+  String get chooseYourPlan => 'Choose Your Plan';
+
+  @override
+  String get free => 'Free';
+
+  @override
+  String get basicHoroscope => 'Basic Horoscope';
+
+  @override
+  String get dailyTips => 'Daily Tips';
+
+  @override
+  String get tier => 'Tier';
+
+  @override
+  String get dailyMantras => 'Daily Mantras';
+
+  @override
+  String get historyAccess => 'History Access';
+
+  @override
+  String get basicRemedies => 'Basic Remedies';
+
+  @override
+  String get month => 'Month';
+
+  @override
+  String get months => 'Months';
+
+  @override
+  String get choosePlan => 'Choose Plan';
+
+  @override
+  String get palmistry => 'Palmistry';
+
+  @override
+  String get birthChartMatching => 'Birth Chart Matching';
+
+  @override
+  String get detailedRemedies => 'Detailed Remedies';
+
+  @override
+  String get consultBooking => 'Consult Booking';
+
+  @override
+  String get allFeaturesUnlocked => 'All features unlocked';
+
+  @override
+  String get advanced => 'Advanced';
+
+  @override
+  String get elite => 'Elite';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get payAndSubscribe => 'Pay & Subscribe';
+
+  @override
+  String get upgradePlan => 'Upgrade Plan';
+
+  @override
+  String get purchasePlan => 'Purchase Plan';
+
+  @override
+  String get choosePaymentMethod => 'Choose Payment Method';
+
+  @override
+  String get payNow => 'Pay Now';
+
+  @override
+  String get paymentConfirmation => 'Payment Confirmation';
+
+  @override
+  String get paymentFailed => 'Payment Failed!';
+
+  @override
+  String get paymentWasSuccessful => 'Payment Was Successful';
+
+  @override
+  String get paymentWasFailed => 'Payment Was Failed';
+
+  @override
+  String get thanks => 'Thanks';
+
+  @override
+  String get done => 'Done';
+
+  @override
+  String get tryAgain => 'Try Again';
+
+  @override
+  String get price => 'Price';
+
+  @override
+  String get subscriptionDate => 'Subscription Date';
+
+  @override
+  String get subscriptionValidity => 'Subscription Validity';
+
+  @override
+  String get dateOfBirth => 'Date Of Birth';
+
+  @override
+  String get timeOfBirth => 'Time Of Birth';
+
+  @override
+  String get placeOfBirth => 'Place Of Birth';
+
+  @override
+  String get currentLocation => 'Current Location';
+
+  @override
+  String get currentSubscription => 'Current Subscription';
+
+  @override
+  String get uploadedPalm => 'Uploaded Palm';
+
+  @override
+  String get uploadPalm => 'Upload Palm';
+
+  @override
+  String get checkYourCurrentPlan => 'Check Your Current Plan';
 }

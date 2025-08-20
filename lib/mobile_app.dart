@@ -1,4 +1,7 @@
+import 'package:astrology_app/apps/mobile/user/provider/remedies/set_reminder_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/setting/locale_provider.dart';
+import 'package:astrology_app/apps/mobile/user/provider/setting/notification_provider.dart';
+import 'package:astrology_app/apps/mobile/user/provider/setting/profile_provider.dart';
 import 'package:astrology_app/routes/mobile_routes/go_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -22,18 +25,33 @@ class AstrologyMobileApp extends StatelessWidget {
         builder: (context, child) {
           final provider = context.watch<LocaleProvider>();
 
-          return MaterialApp.router(
-            theme: AppTheme.appThemeData,
-            locale: Locale(provider.localeCode),
-            supportedLocales: const [Locale("en"), Locale("hi"), Locale("ta")],
-            localizationsDelegates: const [
-              AppLocalizations.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
+          return MultiProvider(
+            providers: [
+              ChangeNotifierProvider(
+                create: (context) => SetReminderProvider(),
+              ),
+              ChangeNotifierProvider(create: (context) => ProfileProvider()),
+              ChangeNotifierProvider(
+                create: (context) => NotificationProvider(),
+              ),
             ],
-            debugShowCheckedModeBanner: false,
-            routerConfig: MobileAppRouter.goRouter,
+            child: MaterialApp.router(
+              theme: AppTheme.appThemeData,
+              locale: Locale(provider.localeCode),
+              supportedLocales: const [
+                Locale("en"),
+                Locale("hi"),
+                Locale("ta"),
+              ],
+              localizationsDelegates: const [
+                AppLocalizations.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              debugShowCheckedModeBanner: false,
+              routerConfig: MobileAppRouter.goRouter,
+            ),
           );
         },
       ),

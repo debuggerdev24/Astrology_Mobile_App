@@ -40,7 +40,7 @@ class ProfileScreen extends StatelessWidget {
               },
               child: Icon(Icons.arrow_back, color: AppColors.white),
             ),
-            title: context.translator.profileScreen,
+            title: context.translator.profile,
             actionIcon: GestureDetector(
               onTap: () {
                 context.pushNamed(MobileAppRoutes.editProfileScreen.name);

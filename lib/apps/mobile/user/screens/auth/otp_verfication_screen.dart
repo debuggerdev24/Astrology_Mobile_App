@@ -67,7 +67,7 @@ class OtpVerificationScreen extends StatelessWidget {
             onCompleted: (code) {},
           ),
           52.h.verticalSpace,
-          AppButtonPrimary(title: "Verify"),
+          AppButton(title: "Verify"),
           8.h.verticalSpace,
           AppText(
             text: "Resend OTP",

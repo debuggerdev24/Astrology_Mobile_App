@@ -1,0 +1,85 @@
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+import '../../../../../core/constants/app_colors.dart';
+
+class SetReminderProvider extends ChangeNotifier {
+  String _selectedFrequency = 'Daily';
+  DateTime? _selectedDate;
+  List<String>? _selectedWeekDays = [];
+
+  DateTime? get selectedDate => _selectedDate;
+  String get selectedFrequency => _selectedFrequency;
+  List<String>? get selectedWeekDays => _selectedWeekDays;
+
+  String get formattedDate => _selectedDate != null
+      ? DateFormat("dd MMM yyyy").format(_selectedDate!)
+      : "";
+
+  void updateFrequency(String value) {
+    _selectedFrequency = value;
+
+    // Clear week days if not custom
+    if (value != 'Custom' && value != 'custom') {
+      _selectedWeekDays?.clear();
+    }
+
+    notifyListeners();
+  }
+
+  // Method to toggle week day selection
+  void toggleWeekDay(String day) {
+    if (_selectedWeekDays == null) {
+      _selectedWeekDays = [];
+    }
+
+    if (_selectedWeekDays!.contains(day)) {
+      _selectedWeekDays!.remove(day);
+    } else {
+      _selectedWeekDays!.add(day);
+    }
+    notifyListeners();
+  }
+
+  Future<void> pickDateTime(BuildContext context) async {
+    // Pick Date
+    DateTime? pickedDate = await showDatePicker(
+      barrierColor: AppColors.black.withValues(alpha: 0.5),
+      context: context,
+      initialDate: _selectedDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2100),
+      builder: (context, child) {
+        return Theme(
+          data: ThemeData.dark().copyWith(
+            colorScheme: ColorScheme.light(
+              primary:
+                  AppColors.greyColor, // Purple/indigo for selected date circle
+              surface: AppColors.whiteColor, // Dark purple/gray background
+              onSurface: AppColors.black, // White text for dates
+              inversePrimary: AppColors.greyColor.withValues(
+                alpha: 0.4,
+              ), // Selected date background
+              outline: const Color(0xFF6B7280), // Grid lines color
+              surfaceContainerHighest: const Color(
+                0xFF4A4A5C,
+              ), // Header background
+            ),
+            textSelectionTheme: TextSelectionThemeData(
+              selectionColor: AppColors.white,
+              selectionHandleColor: AppColors.greyColor,
+            ),
+          ),
+          child: child!,
+        );
+      },
+    );
+
+    if (pickedDate == null) return;
+
+    // combine Date + Time
+    _selectedDate = DateTime(pickedDate.year, pickedDate.month, pickedDate.day);
+
+    notifyListeners();
+  }
+}

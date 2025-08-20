@@ -1,7 +1,9 @@
 import 'package:astrology_app/core/widgets/app_layout.dart';
 import 'package:astrology_app/extension/context_extension.dart';
+import 'package:astrology_app/routes/mobile_routes/user_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../../../core/constants/app_colors.dart';
 import '../../../../../../core/constants/text_style.dart';
@@ -20,16 +22,33 @@ class AppInfo extends StatelessWidget {
           40.h.verticalSpace,
           topBar(context: context, title: context.translator.appInfo),
           32.h.verticalSpace,
-          _section(title: context.translator.privacyPolicy, onTap: () {}),
+          _section(
+            title: context.translator.privacyPolicy,
+            onTap: () {
+              context.pushNamed(MobileAppRoutes.privacyPolicyScreen.name);
+            },
+          ),
           buildDivider(),
           _section(
             title: context.translator.spiritualDisclaimers,
-            onTap: () {},
+            onTap: () {
+              context.pushNamed(MobileAppRoutes.spiritualDisclaimerScreen.name);
+            },
           ),
           buildDivider(),
-          _section(title: context.translator.faqS, onTap: () {}),
+          _section(
+            title: context.translator.faqS,
+            onTap: () {
+              context.pushNamed(MobileAppRoutes.faqScreen.name);
+            },
+          ),
           buildDivider(),
-          _section(title: context.translator.termsAndConditions, onTap: () {}),
+          _section(
+            title: context.translator.termsAndConditions,
+            onTap: () {
+              context.pushNamed(MobileAppRoutes.termsAndConditionScreen.name);
+            },
+          ),
         ],
       ),
     );

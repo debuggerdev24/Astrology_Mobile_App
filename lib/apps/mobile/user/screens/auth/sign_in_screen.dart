@@ -63,7 +63,7 @@ class SignInScreen extends StatelessWidget {
             ),
           ),
           52.h.verticalSpace,
-          AppButtonPrimary(
+          AppButton(
             title: "Sign In",
             onTap: () {
               context.pushNamed(MobileAppRoutes.userDashBoardScreen.name);

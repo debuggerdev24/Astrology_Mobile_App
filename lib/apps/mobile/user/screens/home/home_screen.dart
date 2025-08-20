@@ -1,12 +1,17 @@
+import 'package:astrology_app/apps/mobile/user/screens/user_dashboard.dart';
 import 'package:astrology_app/core/constants/app_assets.dart';
 import 'package:astrology_app/core/constants/text_style.dart';
 import 'package:astrology_app/core/widgets/app_layout.dart';
 import 'package:astrology_app/core/widgets/svg_image.dart';
+import 'package:astrology_app/extension/context_extension.dart';
+import 'package:astrology_app/routes/mobile_routes/user_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../../core/constants/app_colors.dart';
 import '../../../../../core/widgets/app_text.dart';
+import '../../../../../core/widgets/global_methods.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -18,24 +23,49 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           children: [
             16.h.verticalSpace,
-            userTopBar(),
+            userTopBar(context: context),
             16.h.verticalSpace,
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AppText(
-                  text: "Dasha : Venus-Mars",
-                  style: bold(fontSize: 14.sp),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+
+                  children: [
+                    AppText(
+                      text: context.translator.dasha,
+                      style: bold(fontSize: 14.sp),
+                    ),
+                    AppText(
+                      text: ": Venus-Mars ",
+                      style: bold(fontSize: 14.sp),
+                    ),
+                  ],
                 ),
-                Container(height: 20, width: 1, color: AppColors.whiteColor),
-                AppText(
-                  text: "Moon Sign : Virgo",
-                  style: bold(fontSize: 14.sp),
+
+                SizedBox(
+                  height: 20, // 👈 give it a height
+                  child: VerticalDivider(color: Colors.red, thickness: 1),
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AppText(
+                      text: context.translator.moonSign,
+                      overflow: TextOverflow.ellipsis,
+                      style: bold(fontSize: 14.sp),
+                    ),
+                    AppText(
+                      text: ": Virgo",
+                      style: bold(fontSize: 14.sp),
+                    ),
+                  ],
                 ),
               ],
             ),
-            mantraPlayer(),
-            Container(
+            mantraPlayer(context: context),
+            greyColoredBox(
               margin: EdgeInsets.only(bottom: 20.h),
               padding: EdgeInsets.only(
                 top: 16.h,
@@ -43,11 +73,7 @@ class HomeScreen extends StatelessWidget {
                 bottom: 16.h,
                 right: 22.w,
               ),
-              decoration: BoxDecoration(
-                border: Border.all(color: AppColors.whiteColor),
-                borderRadius: BorderRadius.circular(8.r),
-                color: AppColors.greyColor,
-              ),
+
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 spacing: 14.h,
@@ -173,16 +199,17 @@ class HomeScreen extends StatelessWidget {
                   ),
                   Container(
                     margin: EdgeInsets.only(top: 5.h),
-                    decoration: BoxDecoration(color: AppColors.white,
-                    borderRadius: BorderRadius.circular(12.r)
+                    decoration: BoxDecoration(
+                      color: AppColors.white,
+                      borderRadius: BorderRadius.circular(12.r),
                     ),
                     padding: EdgeInsets.symmetric(
                       vertical: 12.h,
                       horizontal: 20.w,
                     ),
                     child: AppText(
-                      text: "View Detailed Reading",
-                      style: bold(fontSize: 14.sp, color: AppColors.black,),
+                      text: context.translator.viewDetailedReading,
+                      style: bold(fontSize: 14.sp, color: AppColors.black),
                     ),
                   ),
                 ],
@@ -194,7 +221,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget mantraPlayer() {
+  Widget mantraPlayer({required BuildContext context}) {
     return Container(
       margin: EdgeInsets.only(top: 18.h, bottom: 20.h),
       decoration: BoxDecoration(
@@ -216,7 +243,7 @@ class HomeScreen extends StatelessWidget {
               spacing: 12.h,
               children: [
                 AppText(
-                  text: "Daily Mantra",
+                  text: context.translator.dailyMantra,
                   style: bold(
                     color: Colors.grey,
                     fontSize: 20.sp,
@@ -234,7 +261,14 @@ class HomeScreen extends StatelessWidget {
                     ),
                     Spacer(),
                     SVGImages(path: AppAssets.tIcon, height: 34.w),
-                    SVGImages(path: AppAssets.playIcon, height: 34.w),
+                    GestureDetector(
+                      onTap: () {
+                        context.pushNamed(
+                          MobileAppRoutes.playMantraScreen.name,
+                        );
+                      },
+                      child: SVGImages(path: AppAssets.playIcon, height: 34.w),
+                    ),
                   ],
                 ),
               ],
@@ -244,9 +278,15 @@ class HomeScreen extends StatelessWidget {
             alignment: Alignment.topRight,
             child: Padding(
               padding: EdgeInsets.only(top: 8.h, right: 16.w),
-              child: AppText(
-                text: "See All",
-                style: medium(fontSize: 12.sp, color: AppColors.black),
+              child: GestureDetector(
+                onTap: () {
+                  indexTabUser.value = 1;
+                },
+
+                child: AppText(
+                  text: context.translator.seeAll,
+                  style: medium(fontSize: 12.sp, color: AppColors.black),
+                ),
               ),
             ),
           ),
@@ -255,16 +295,19 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget userTopBar() {
+  Widget userTopBar({required BuildContext context}) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        AppText(
-          text: "Good Morning,\nPriya",
-          style: bold(
-            fontFamily: AppFonts.secondary,
-            height: 1.1,
-            fontSize: 28.sp,
+        Expanded(
+          child: AppText(
+            text: "${context.translator.goodMorning},\nPriya",
+            style: bold(
+              fontFamily: AppFonts.secondary,
+              height: 1.1,
+              fontSize: 28.sp,
+            ),
           ),
         ),
         Row(

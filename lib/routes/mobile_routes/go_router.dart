@@ -1,7 +1,25 @@
 import 'package:astrology_app/apps/mobile/user/screens/auth/forgot_password_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/auth/otp_verfication_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/auth/sign_in_screen.dart';
+import 'package:astrology_app/apps/mobile/user/screens/mantras/mantra_player_screen.dart';
+import 'package:astrology_app/apps/mobile/user/screens/premium/current_plan_screen.dart';
+import 'package:astrology_app/apps/mobile/user/screens/premium/failed_payment_screen.dart';
+import 'package:astrology_app/apps/mobile/user/screens/premium/payment_detail_screen.dart';
+import 'package:astrology_app/apps/mobile/user/screens/premium/premium_plan_screen.dart';
+import 'package:astrology_app/apps/mobile/user/screens/premium/selected_plan_screen.dart';
+import 'package:astrology_app/apps/mobile/user/screens/premium/success_payment_screen.dart';
+import 'package:astrology_app/apps/mobile/user/screens/remedies/birth_chart_screen.dart';
+import 'package:astrology_app/apps/mobile/user/screens/remedies/palm_reading_screen.dart';
+import 'package:astrology_app/apps/mobile/user/screens/remedies/palm_upload_screen.dart';
+import 'package:astrology_app/apps/mobile/user/screens/remedies/remedies_detail_screen.dart';
+import 'package:astrology_app/apps/mobile/user/screens/remedies/remedies_list_screen.dart';
+import 'package:astrology_app/apps/mobile/user/screens/remedies/remedy_player_screen.dart';
+import 'package:astrology_app/apps/mobile/user/screens/remedies/set_reminder_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/settings/app_info/app_info.dart';
+import 'package:astrology_app/apps/mobile/user/screens/settings/app_info/faq_screen.dart';
+import 'package:astrology_app/apps/mobile/user/screens/settings/app_info/privacy_policy_screen.dart';
+import 'package:astrology_app/apps/mobile/user/screens/settings/app_info/spiritual_disclaimer_screen.dart';
+import 'package:astrology_app/apps/mobile/user/screens/settings/app_info/terms_and_condition.dart';
 import 'package:astrology_app/apps/mobile/user/screens/settings/profile/profile_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/user_dashboard.dart';
 import 'package:astrology_app/extension/routes_extension.dart';
@@ -65,13 +83,7 @@ class MobileAppRouter {
         return AppInfo();
       },
     ),
-    GoRoute(
-      path: MobileAppRoutes.privacyPolicyScreen.path,
-      name: MobileAppRoutes.privacyPolicyScreen.name,
-      builder: (context, state) {
-        return AppInfo();
-      },
-    ),
+
     GoRoute(
       path: MobileAppRoutes.profileScreen.path,
       name: MobileAppRoutes.profileScreen.name,
@@ -84,6 +96,133 @@ class MobileAppRouter {
       name: MobileAppRoutes.editProfileScreen.name,
       builder: (context, state) {
         return EditProfileScreen();
+      },
+    ),
+    GoRoute(
+      path: MobileAppRoutes.playMantraScreen.path,
+      name: MobileAppRoutes.playMantraScreen.name,
+      builder: (context, state) {
+        return PlayMantraScreen();
+      },
+    ),
+    GoRoute(
+      path: MobileAppRoutes.palmReadingScreen.path,
+      name: MobileAppRoutes.palmReadingScreen.name,
+      builder: (context, state) {
+        return PalmReadingScreen();
+      },
+    ),
+    GoRoute(
+      path: MobileAppRoutes.birthChartScreen.path,
+      name: MobileAppRoutes.birthChartScreen.name,
+      builder: (context, state) {
+        return BirthChartScreen();
+      },
+    ),
+    GoRoute(
+      path: MobileAppRoutes.palmUploadScreen.path,
+      name: MobileAppRoutes.palmUploadScreen.name,
+      builder: (context, state) {
+        return PalmUploadScreen();
+      },
+    ),
+    GoRoute(
+      path: MobileAppRoutes.remediesListScreen.path,
+      name: MobileAppRoutes.remediesListScreen.name,
+      builder: (context, state) {
+        return RemediesScreen();
+      },
+    ),
+    GoRoute(
+      path: MobileAppRoutes.remedyDetailsScreen.path,
+      name: MobileAppRoutes.remedyDetailsScreen.name,
+      builder: (context, state) {
+        return RemediesDetailScreen();
+      },
+    ),
+    GoRoute(
+      path: MobileAppRoutes.setReminderScreen.path,
+      name: MobileAppRoutes.setReminderScreen.name,
+      builder: (context, state) {
+        return SetReminderScreen();
+      },
+    ),
+    GoRoute(
+      path: MobileAppRoutes.remedyPlayerScreen.path,
+      name: MobileAppRoutes.remedyPlayerScreen.name,
+      builder: (context, state) {
+        return RemedyPlayerScreen();
+      },
+    ),
+    GoRoute(
+      path: MobileAppRoutes.premiumPlanScreen.path,
+      name: MobileAppRoutes.premiumPlanScreen.name,
+      builder: (context, state) {
+        return PremiumPlanScreen();
+      },
+    ),
+    GoRoute(
+      path: MobileAppRoutes.selectedPlanScreen.path,
+      name: MobileAppRoutes.selectedPlanScreen.name,
+      builder: (context, state) {
+        final Map<String, dynamic> plan = state.extra as Map<String, dynamic>;
+        return SelectedPlanScreen(plan: plan);
+      },
+    ),
+    GoRoute(
+      path: MobileAppRoutes.paymentDetailScreen.path,
+      name: MobileAppRoutes.paymentDetailScreen.name,
+      builder: (context, state) {
+        return PaymentDetailScreen();
+      },
+    ),
+    GoRoute(
+      path: MobileAppRoutes.successpaymentScreen.path,
+      name: MobileAppRoutes.successpaymentScreen.name,
+      builder: (context, state) {
+        return SuccessPaymentScreen();
+      },
+    ),
+    GoRoute(
+      path: MobileAppRoutes.failedPaymentScreen.path,
+      name: MobileAppRoutes.failedPaymentScreen.name,
+      builder: (context, state) {
+        return FailedPaymentScreen();
+      },
+    ),
+    GoRoute(
+      path: MobileAppRoutes.currentPlanScreen.path,
+      name: MobileAppRoutes.currentPlanScreen.name,
+      builder: (context, state) {
+        return CurrentPlanScreen();
+      },
+    ),
+    GoRoute(
+      path: MobileAppRoutes.faqScreen.path,
+      name: MobileAppRoutes.faqScreen.name,
+      builder: (context, state) {
+        return FaqScreen();
+      },
+    ),
+    GoRoute(
+      path: MobileAppRoutes.termsAndConditionScreen.path,
+      name: MobileAppRoutes.termsAndConditionScreen.name,
+      builder: (context, state) {
+        return TermsAndCondition();
+      },
+    ),
+    GoRoute(
+      path: MobileAppRoutes.spiritualDisclaimerScreen.path,
+      name: MobileAppRoutes.spiritualDisclaimerScreen.name,
+      builder: (context, state) {
+        return SpiritualDisclaimerScreen();
+      },
+    ),
+    GoRoute(
+      path: MobileAppRoutes.privacyPolicyScreen.path,
+      name: MobileAppRoutes.privacyPolicyScreen.name,
+      builder: (context, state) {
+        return PrivacyPolicyScreen();
       },
     ),
   ];

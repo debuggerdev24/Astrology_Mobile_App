@@ -45,7 +45,7 @@ class ForgotPasswordScreen extends StatelessWidget {
             hintText: "Enter Your Email",
           ),
           52.h.verticalSpace,
-          AppButtonPrimary(
+          AppButton(
             title: "Send Mail",
             onTap: () {
               context.pushNamed(MobileAppRoutes.otpScreen.name);
