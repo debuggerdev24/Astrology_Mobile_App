@@ -1,6 +1,7 @@
 import 'package:astrology_app/apps/mobile/user/screens/auth/forgot_password_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/auth/otp_verfication_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/auth/sign_in_screen.dart';
+import 'package:astrology_app/apps/mobile/user/screens/create_profile_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/mantras/mantra_player_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/premium/current_plan_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/premium/failed_payment_screen.dart';
@@ -31,7 +32,7 @@ import '../../apps/mobile/user/screens/settings/profile/edit_profile_screen.dart
 
 class MobileAppRouter {
   static final GoRouter goRouter = GoRouter(
-    initialLocation: MobileAppRoutes.userDashBoardScreen.path, //
+    initialLocation: MobileAppRoutes.signUpScreen.path, //
     routes: routes,
   );
 
@@ -223,6 +224,13 @@ class MobileAppRouter {
       name: MobileAppRoutes.privacyPolicyScreen.name,
       builder: (context, state) {
         return PrivacyPolicyScreen();
+      },
+    ),
+    GoRoute(
+      path: MobileAppRoutes.createProfileScreen.path,
+      name: MobileAppRoutes.createProfileScreen.name,
+      builder: (context, state) {
+        return CreateProfileScreen();
       },
     ),
   ];

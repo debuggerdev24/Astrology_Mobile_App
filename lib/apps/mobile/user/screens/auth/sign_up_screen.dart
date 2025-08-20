@@ -28,7 +28,7 @@ class SignUpScreen extends StatelessWidget {
             40.h.verticalSpace,
             AppText(
               text: "Sign Up",
-              style: bold(fontFamily: AppFonts.secondary, fontSize: 46.sp),
+              style: bold(fontFamily: AppFonts.secondary, fontSize: 46),
             ),
             12.h.verticalSpace,
             AppText(
@@ -76,12 +76,12 @@ class SignUpScreen extends StatelessWidget {
                   children: [
                     TextSpan(
                       text: "Already have an account? ",
-                      style: regular(fontSize: 15.sp, fontFamily: "Primary"),
+                      style: regular(fontSize: 15, fontFamily: "Primary"),
                     ),
                     TextSpan(
                       text: "Sign In",
                       style: semiBold(
-                        fontSize: 15.sp,
+                        fontSize: 15,
                         color: AppColors.primary,
                         fontFamily: "Primary",
                       ),

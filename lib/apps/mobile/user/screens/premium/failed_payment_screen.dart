@@ -24,7 +24,7 @@ class FailedPaymentScreen extends StatelessWidget {
             showBackButton: false,
           ),
           80.h.verticalSpace,
-          SVGImages(path: AppAssets.failedPayment),
+          SVGImage(path: AppAssets.failedPayment),
           65.h.verticalSpace,
           AppText(
             textAlign: TextAlign.center,

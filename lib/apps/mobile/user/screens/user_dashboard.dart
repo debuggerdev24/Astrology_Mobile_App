@@ -109,7 +109,7 @@ class UserDashboard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SVGImages(
+                SVGImage(
                   color: isCurrent ? AppColors.white : AppColors.darkBlue,
                   width: 21.w,
                   path: iconPath,

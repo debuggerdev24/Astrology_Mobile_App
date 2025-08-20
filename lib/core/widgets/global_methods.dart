@@ -41,7 +41,6 @@ Widget topBar({
     children: [
       showBackButton ?? true
           ? GestureDetector(
-              behavior: HitTestBehavior.deferToChild,
               onTap: () {
                 context.pop();
               },

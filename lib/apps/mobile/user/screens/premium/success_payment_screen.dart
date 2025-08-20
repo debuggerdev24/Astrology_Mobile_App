@@ -25,7 +25,7 @@ class SuccessPaymentScreen extends StatelessWidget {
             showBackButton: false,
           ),
           80.h.verticalSpace,
-          SVGImages(path: AppAssets.successPayment),
+          SVGImage(path: AppAssets.successPayment),
           65.h.verticalSpace,
           AppText(
             textAlign: TextAlign.center,

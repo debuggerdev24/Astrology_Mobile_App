@@ -30,4 +30,5 @@ enum MobileAppRoutes {
   faqScreen,
   termsAndConditionScreen,
   spiritualDisclaimerScreen,
+  createProfileScreen,
 }

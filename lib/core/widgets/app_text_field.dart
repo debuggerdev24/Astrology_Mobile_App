@@ -6,19 +6,24 @@ import '../constants/app_colors.dart';
 import '../constants/text_style.dart';
 
 class AppTextField extends StatelessWidget {
-  final String? title,errorMessage;
+  final String? title, errorMessage;
   final TextEditingController controller;
   final FocusNode? focusNode;
-  final Widget? prefix;
-  final TextStyle? hintStyle;
-  final String? hintText,icon, suffixIon;
+  final Widget? prefix, suffix;
+  final TextStyle? hintStyle, titleTextStyle;
+  final String? hintText, icon;
   final VoidCallback? onSuffixTap, onTap;
   final ValueChanged? onChanged;
   final TextInputType? keyboardType;
-  final bool? obscureText,enabled, isMobile,readOnly;
+  final bool? obscureText, enabled, isMobile, readOnly;
   final EdgeInsets? suffixIconPadding;
-  final Color? borderColor,focusBorderColor,prefixIconColor,sufixIconColor;
-  final double? borderRadius,borderThickness,iconSize,height, textFieldWidth,sufixIconSize;
+  final Color? borderColor, focusBorderColor, prefixIconColor, sufixIconColor;
+  final double? borderRadius,
+      borderThickness,
+      iconSize,
+      height,
+      textFieldWidth,
+      sufixIconSize;
   final EdgeInsets? padding;
   final List<TextInputFormatter>? inputFormatters;
   final TextAlign? textAlign;
@@ -37,7 +42,7 @@ class AppTextField extends StatelessWidget {
     this.hintText,
     this.onChanged,
     this.icon,
-    this.suffixIon,
+    this.suffix,
     this.onSuffixTap,
     this.inputFormatters,
     this.keyboardType,
@@ -56,7 +61,10 @@ class AppTextField extends StatelessWidget {
     this.hintStyle,
     this.isMobile,
     this.textFieldWidth,
-    this.onTap, this.prefix, this.readOnly,
+    this.onTap,
+    this.prefix,
+    this.readOnly,
+    this.titleTextStyle,
   });
 
   @override
@@ -65,7 +73,9 @@ class AppTextField extends StatelessWidget {
       spacing: 6.h,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (title != null) ...[Text(title ?? "", style: medium(fontSize: 16))],
+        if (title != null) ...[
+          Text(title ?? "", style: titleTextStyle ?? medium(fontSize: 16)),
+        ],
         TextField(
           readOnly: readOnly ?? false,
           onTap: onTap,
@@ -82,16 +92,22 @@ class AppTextField extends StatelessWidget {
               textStyle ?? regular(fontSize: 14, color: AppColors.whiteColor),
           decoration: InputDecoration(
             prefixIcon: prefix,
+            suffixIcon: suffix,
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5.r),
               borderSide: BorderSide(color: AppColors.whiteColor),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5.r),
-              borderSide: BorderSide(color: AppColors.white,width: 1.5),
+              borderSide: BorderSide(color: AppColors.white, width: 1.5),
             ),
             hintText: hintText,
-            hintStyle: hintStyle ?? regular(fontSize: 14),
+            hintStyle:
+                hintStyle ??
+                regular(
+                  fontSize: 14,
+                  color: AppColors.whiteColor.withValues(alpha: 0.7),
+                ),
           ),
         ),
         //if (suffixIon != null) ...[

@@ -111,10 +111,10 @@ class AppLocalizationsHi extends AppLocalizations {
   String get mountOfVenus => 'शुक्र पर्वत';
 
   @override
-  String get viewRemedies => 'View Remedies';
+  String get viewRemedies => 'उपाय देखें';
 
   @override
-  String get matchWithBirthCart => 'Match With Birth Cart';
+  String get matchWithBirthCart => 'जन्म कुंडली से मिलान करें';
 
   @override
   String get viewDetails => 'विवरण देखें';
@@ -186,10 +186,10 @@ class AppLocalizationsHi extends AppLocalizations {
   String get saveReminder => 'अनुस्मारक सहेजें';
 
   @override
-  String get download => 'डाउनलोड करना';
+  String get download => 'डाउनलोड करे ';
 
   @override
-  String get share => 'शेयर करना';
+  String get share => 'शेयर करे';
 
   @override
   String get chooseYourPlan => 'अपनी योजना चुनें';

@@ -1,6 +1,7 @@
 import 'package:astrology_app/core/constants/app_colors.dart';
 import 'package:astrology_app/core/constants/text_style.dart';
 import 'package:astrology_app/core/widgets/app_text.dart';
+import 'package:astrology_app/extension/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -18,7 +19,10 @@ class SpiritualDisclaimerScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             40.h.verticalSpace,
-            topBar(context: context, title: "Spiritual Disclaimers"),
+            topBar(
+              context: context,
+              title: context.translator.spiritualDisclaimers,
+            ),
             30.h.verticalSpace,
             _section(
               topic: "Purpose",

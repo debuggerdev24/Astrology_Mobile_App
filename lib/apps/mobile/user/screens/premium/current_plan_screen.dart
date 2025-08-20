@@ -67,7 +67,7 @@ class CurrentPlanScreen extends StatelessWidget {
                   children: [
                     Expanded(
                       child: AppButton(
-                        title: "Upgrade Plan",
+                        title: context.translator.upgradePlan,
                         verticalPadding: 11.h,
                         onTap: () {},
                       ),
@@ -75,7 +75,7 @@ class CurrentPlanScreen extends StatelessWidget {
                     Expanded(
                       child: AppButton(
                         color: AppColors.secondary,
-                        title: "Cancel",
+                        title: context.translator.cancel,
                         verticalPadding: 11.h,
                         onTap: () {},
                       ),

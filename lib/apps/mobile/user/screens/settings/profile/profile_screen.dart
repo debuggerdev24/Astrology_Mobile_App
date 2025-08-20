@@ -45,7 +45,7 @@ class ProfileScreen extends StatelessWidget {
               onTap: () {
                 context.pushNamed(MobileAppRoutes.editProfileScreen.name);
               },
-              child: SVGImages(path: AppAssets.editIcon),
+              child: SVGImage(path: AppAssets.editIcon),
             ),
           ),
           32.h.verticalSpace,

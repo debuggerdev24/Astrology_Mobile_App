@@ -56,7 +56,7 @@ class SettingScreen extends StatelessWidget {
                 child: SizedBox(
                   height: 28.h,
                   width: 22.w,
-                  child: SVGImages(path: AppAssets.languageIcon),
+                  child: SVGImage(path: AppAssets.languageIcon),
                 ),
               ),
             ),

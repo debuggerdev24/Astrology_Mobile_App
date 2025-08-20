@@ -1,5 +1,6 @@
 import 'package:astrology_app/core/widgets/app_button.dart';
 import 'package:astrology_app/core/widgets/app_layout.dart';
+import 'package:astrology_app/core/widgets/svg_image.dart';
 import 'package:astrology_app/extension/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -29,7 +30,7 @@ class _RemedyPlayerScreenState extends State<RemedyPlayerScreen> {
             40.h.verticalSpace,
             topBar(context: context, title: "Surya Remedy"),
             60.h.verticalSpace,
-            Image.asset(AppAssets.omImage),
+            SVGImage(path: AppAssets.sunImage),
             60.h.verticalSpace,
 
             //todo --------------------> song details
@@ -94,15 +95,15 @@ class _RemedyPlayerScreenState extends State<RemedyPlayerScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("2.05", style: medium(fontSize: 12.sp)),
-                  Text("10.05", style: medium(fontSize: 12.sp)),
+                  Text("2.05", style: medium(fontSize: 14)),
+                  Text("10.05", style: medium(fontSize: 14)),
                 ],
               ),
 
-              15.h.verticalSpace,
+              25.h.verticalSpace,
               //todo --------------------> control
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 50.w),
+                padding: EdgeInsets.symmetric(horizontal: 40.w),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -140,23 +141,20 @@ class _RemedyPlayerScreenState extends State<RemedyPlayerScreen> {
                 ),
               ),
             ],
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 20.h),
-              child: Row(
-                spacing: 10.w,
-                children: [
-                  Expanded(
-                    child: AppButton(title: context.translator.download),
+            35.h.verticalSpace,
+            Row(
+              spacing: 10.w,
+              children: [
+                Expanded(child: AppButton(title: context.translator.download)),
+                Expanded(
+                  child: AppButton(
+                    title: context.translator.share,
+                    color: AppColors.secondary,
                   ),
-                  Expanded(
-                    child: AppButton(
-                      title: context.translator.share,
-                      color: AppColors.secondary,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
+            20.h.verticalSpace,
           ],
         ),
       ),

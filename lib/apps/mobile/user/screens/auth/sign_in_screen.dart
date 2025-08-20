@@ -24,8 +24,8 @@ class SignInScreen extends StatelessWidget {
         children: [
           40.h.verticalSpace,
           AppText(
-            text: "Sign Up",
-            style: bold(fontFamily: AppFonts.secondary, fontSize: 46.sp),
+            text: "Sign In",
+            style: bold(fontFamily: AppFonts.secondary, fontSize: 46),
           ),
           12.h.verticalSpace,
           AppText(
@@ -58,7 +58,7 @@ class SignInScreen extends StatelessWidget {
               },
               child: AppText(
                 text: "Forgot Password?",
-                style: regular(fontSize: 12.sp),
+                style: regular(fontSize: 12),
               ),
             ),
           ),
@@ -66,7 +66,7 @@ class SignInScreen extends StatelessWidget {
           AppButton(
             title: "Sign In",
             onTap: () {
-              context.pushNamed(MobileAppRoutes.userDashBoardScreen.name);
+              context.pushNamed(MobileAppRoutes.createProfileScreen.name);
             },
           ),
           8.h.verticalSpace,

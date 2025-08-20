@@ -27,7 +27,7 @@ class ForgotPasswordScreen extends StatelessWidget {
             text: "Forgot Password",
             style: bold(
               fontFamily: AppFonts.secondary,
-              fontSize: 46.sp,
+              fontSize: 46,
               height: 1.2,
             ),
           ),

@@ -72,7 +72,7 @@ class DailyMantraScreen extends StatelessWidget {
         children: [
           Row(
             children: [
-              SVGImages(path: AppAssets.omIcon, height: 24.h),
+              SVGImage(path: AppAssets.omIcon, height: 24.h),
               12.w.horizontalSpace,
               AppText(
                 text: "Om Namah Shivaya",
@@ -93,12 +93,12 @@ class DailyMantraScreen extends StatelessWidget {
                 style: regular(fontSize: 12.sp, color: Colors.grey),
               ),
               Spacer(),
-              SVGImages(path: AppAssets.tIcon, height: 34.w),
+              SVGImage(path: AppAssets.tIcon, height: 34.w),
               GestureDetector(
                 onTap: () {
                   context.pushNamed(MobileAppRoutes.playMantraScreen.name);
                 },
-                child: SVGImages(path: AppAssets.playIcon, height: 34.w),
+                child: SVGImage(path: AppAssets.playIcon, height: 34.w),
               ),
             ],
           ),

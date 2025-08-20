@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class SVGImages extends StatelessWidget {
+class SVGImage extends StatelessWidget {
   final String path;
   final double? height;
   final double? width;
   final Color? color;
   final VoidCallback? onTap;
 
-  const SVGImages({
+  const SVGImage({
     super.key,
     required this.path,
     this.height,

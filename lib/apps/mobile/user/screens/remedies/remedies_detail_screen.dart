@@ -127,7 +127,7 @@ class RemediesDetailScreen extends StatelessWidget {
           Row(
             spacing: 12.w,
             children: [
-              SVGImages(path: AppAssets.sunIcon),
+              SVGImage(path: AppAssets.sunIcon),
               AppText(
                 text: "Om Surya Naamh",
                 style: regular(fontSize: 18, color: AppColors.black),
@@ -143,12 +143,12 @@ class RemediesDetailScreen extends StatelessWidget {
                   style: regular(fontSize: 14.sp, color: Colors.grey),
                 ),
               ),
-              SVGImages(path: AppAssets.tIcon, height: 34.w),
+              SVGImage(path: AppAssets.tIcon, height: 34.w),
               GestureDetector(
                 onTap: () {
                   context.pushNamed(MobileAppRoutes.remedyPlayerScreen.name);
                 },
-                child: SVGImages(path: AppAssets.playIcon, height: 34.w),
+                child: SVGImage(path: AppAssets.playIcon, height: 34.w),
               ),
             ],
           ),

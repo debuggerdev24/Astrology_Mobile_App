@@ -20,10 +20,15 @@ class OtpVerificationScreen extends StatelessWidget {
       topPadding: 32.h,
       body: Column(
         children: [
+          40.h.verticalSpace,
           AppText(
             text: "Enter 4-Digit Code",
             textAlign: TextAlign.center,
-            style: bold(fontFamily: AppFonts.secondary, fontSize: 46.sp),
+            style: bold(
+              height: 1.1,
+              fontFamily: AppFonts.secondary,
+              fontSize: 42,
+            ),
           ),
           12.h.verticalSpace,
           AppText(
@@ -38,7 +43,7 @@ class OtpVerificationScreen extends StatelessWidget {
             defaultPinTheme: PinTheme(
               height: 55.h,
               width: 55.w,
-              textStyle: bold(fontSize: 18.sp),
+              textStyle: bold(fontSize: 18),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(05.r),
                 border: Border.all(color: Colors.grey.shade400),
@@ -47,7 +52,7 @@ class OtpVerificationScreen extends StatelessWidget {
             focusedPinTheme: PinTheme(
               height: 55.h,
               width: 55.w,
-              textStyle: bold(fontSize: 18.sp),
+              textStyle: bold(fontSize: 18),
               decoration: BoxDecoration(
                 // color: Colors.white,
                 borderRadius: BorderRadius.circular(8.r), // Less Radius
@@ -57,7 +62,7 @@ class OtpVerificationScreen extends StatelessWidget {
             submittedPinTheme: PinTheme(
               height: 55.h,
               width: 55.w,
-              textStyle: bold(fontSize: 18.sp),
+              textStyle: bold(fontSize: 18),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8.r),
                 border: Border.all(color: Colors.grey.shade400),
@@ -69,10 +74,7 @@ class OtpVerificationScreen extends StatelessWidget {
           52.h.verticalSpace,
           AppButton(title: "Verify"),
           8.h.verticalSpace,
-          AppText(
-            text: "Resend OTP",
-            style: regular(fontSize: 15.sp),
-          ),
+          AppText(text: "Resend OTP", style: regular(fontSize: 15)),
         ],
       ),
     );

@@ -25,6 +25,7 @@ class AppAssets {
   static const omImage = "$_imagePath/omImage.png";
   static const failedPayment = "$_imagePath/failedPayment.svg";
   static const successPayment = "$_imagePath/successPayment.svg";
+  static const sunImage = "$_imagePath/sunImage.svg";
 
   // static const _imagePath = "assets/images";
 }

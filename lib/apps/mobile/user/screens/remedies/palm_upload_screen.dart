@@ -67,7 +67,6 @@ class PalmUploadScreen extends StatelessWidget {
               ),
               AppButton(
                 margin: EdgeInsets.only(bottom: 25.h, top: 50.h),
-
                 onTap: () {
                   context.pushNamed(MobileAppRoutes.palmReadingScreen.name);
                 },
@@ -92,7 +91,7 @@ class PalmUploadScreen extends StatelessWidget {
           alignment: Alignment.center,
           padding: EdgeInsets.symmetric(vertical: 58.h),
 
-          child: SVGImages(path: AppAssets.uploadImageIcon),
+          child: SVGImage(path: AppAssets.uploadImageIcon),
         ),
       ),
     );

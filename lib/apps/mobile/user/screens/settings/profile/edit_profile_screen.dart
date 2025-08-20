@@ -31,7 +31,7 @@ class EditProfileScreen extends StatelessWidget {
                   topBar(
                     context: context,
                     title: context.translator.profile,
-                    actionIcon: SVGImages(path: AppAssets.editIcon),
+                    actionIcon: SVGImage(path: AppAssets.editIcon),
                   ),
                   32.h.verticalSpace,
                   Column(
@@ -40,6 +40,8 @@ class EditProfileScreen extends StatelessWidget {
                     children: [
                       // Full Name Field
                       AppTextField(
+                        hintText: "Enter your Full Name",
+
                         title: "Full Name",
                         controller: profileProvider.nameController,
                       ),
@@ -53,12 +55,12 @@ class EditProfileScreen extends StatelessWidget {
                             child: GestureDetector(
                               onTap: () =>
                                   profileProvider.pickBirthDate(context),
-                              child: AbsorbPointer(
-                                child: AppTextField(
-                                  title: "Date Of Birth",
-                                  controller: TextEditingController(
-                                    text: profileProvider.formattedBirthDate,
-                                  ),
+                              child: AppTextField(
+                                hintText: "Enter your DOB",
+
+                                title: "Date Of Birth",
+                                controller: TextEditingController(
+                                  text: profileProvider.formattedBirthDate,
                                 ),
                               ),
                             ),
@@ -69,12 +71,12 @@ class EditProfileScreen extends StatelessWidget {
                             child: GestureDetector(
                               onTap: () =>
                                   profileProvider.pickBirthTime(context),
-                              child: AbsorbPointer(
-                                child: AppTextField(
-                                  title: "Time Of Birth",
-                                  controller: TextEditingController(
-                                    text: profileProvider.formattedBirthTime,
-                                  ),
+                              child: AppTextField(
+                                hintText: "Enter your TOB",
+
+                                title: "Time Of Birth",
+                                controller: TextEditingController(
+                                  text: profileProvider.formattedBirthTime,
                                 ),
                               ),
                             ),
@@ -84,12 +86,16 @@ class EditProfileScreen extends StatelessWidget {
 
                       // Place of Birth Field
                       AppTextField(
+                        hintText: "Enter your Birth Place",
+
                         title: "Place Of Birth",
                         controller: profileProvider.placeOfBirthController,
                       ),
 
                       // Current Location Field
                       AppTextField(
+                        hintText: "Enter your Current Location",
+
                         title: "Current Location",
                         controller: profileProvider.currentLocationController,
                       ),

@@ -167,6 +167,7 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
               onTap: () {
                 context.pushNamed(MobileAppRoutes.birthChartScreen.name);
               },
+
               child: AppButton(
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 18.w),
@@ -182,7 +183,7 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
                           style: bold(fontSize: 16, color: AppColors.black),
                         ),
                       ),
-                      SVGImages(
+                      SVGImage(
                         path: AppAssets.lockIcon,
                         color: AppColors.darkBlue,
                       ),
@@ -208,7 +209,7 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
               text: translator.mountAnalysis,
               style: semiBold(fontSize: 18.sp, color: AppColors.primary),
             ),
-            SVGImages(path: AppAssets.lockIcon, height: 18.h),
+            SVGImage(path: AppAssets.lockIcon, height: 18.h),
           ],
         ),
         10.h.verticalSpace,

@@ -38,7 +38,7 @@ class HomeScreen extends StatelessWidget {
                       style: bold(fontSize: 14.sp),
                     ),
                     AppText(
-                      text: ": Venus-Mars ",
+                      text: " : Venus-Mars ",
                       style: bold(fontSize: 14.sp),
                     ),
                   ],
@@ -57,7 +57,7 @@ class HomeScreen extends StatelessWidget {
                       style: bold(fontSize: 14.sp),
                     ),
                     AppText(
-                      text: ": Virgo",
+                      text: " : Virgo",
                       style: bold(fontSize: 14.sp),
                     ),
                   ],
@@ -252,7 +252,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    SVGImages(path: AppAssets.omIcon, height: 24.h),
+                    SVGImage(path: AppAssets.omIcon, height: 24.h),
                     12.w.horizontalSpace,
 
                     AppText(
@@ -260,14 +260,14 @@ class HomeScreen extends StatelessWidget {
                       style: regular(fontSize: 17.sp, color: AppColors.black),
                     ),
                     Spacer(),
-                    SVGImages(path: AppAssets.tIcon, height: 34.w),
+                    SVGImage(path: AppAssets.tIcon, height: 34.w),
                     GestureDetector(
                       onTap: () {
                         context.pushNamed(
                           MobileAppRoutes.playMantraScreen.name,
                         );
                       },
-                      child: SVGImages(path: AppAssets.playIcon, height: 34.w),
+                      child: SVGImage(path: AppAssets.playIcon, height: 34.w),
                     ),
                   ],
                 ),
@@ -314,7 +314,7 @@ class HomeScreen extends StatelessWidget {
           spacing: 12.w,
           mainAxisSize: MainAxisSize.min,
           children: [
-            SVGImages(path: AppAssets.paymentIcon),
+            SVGImage(path: AppAssets.paymentIcon),
             Container(
               height: 40.h,
               width: 40.w,

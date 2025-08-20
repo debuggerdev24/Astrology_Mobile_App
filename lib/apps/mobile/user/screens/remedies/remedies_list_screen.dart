@@ -120,7 +120,7 @@ class RemediesScreen extends StatelessWidget {
                                       color: AppColors.black,
                                     ),
                                   ),
-                                  SVGImages(
+                                  SVGImage(
                                     path: AppAssets.lockIcon,
                                     color: AppColors.black,
                                   ),
