@@ -62,7 +62,6 @@ class PalmUploadScreen extends StatelessWidget {
               AppText(
                 textAlign: TextAlign.center,
                 text: context.translator.uploadImageScreenPara,
-                // "Your personalized palm reading will only be generated after uploading your palm photo Once the analysis is complete, tailored remedies will be suggested based on your palm and horoscope alignment.",
                 style: regular(fontSize: 18),
               ),
               AppButton(
@@ -85,12 +84,12 @@ class PalmUploadScreen extends StatelessWidget {
         options: RoundedRectDottedBorderOptions(
           color: AppColors.whiteColor,
           radius: Radius.circular(12.r),
+          dashPattern: [4, 3],
+          strokeWidth: 1.5,
         ),
-
         child: Container(
           alignment: Alignment.center,
           padding: EdgeInsets.symmetric(vertical: 58.h),
-
           child: SVGImage(path: AppAssets.uploadImageIcon),
         ),
       ),

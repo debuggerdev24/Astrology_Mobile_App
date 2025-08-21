@@ -1,3 +1,4 @@
+import 'package:astrology_app/apps/mobile/user/provider/auth/auth_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/remedies/set_reminder_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/setting/locale_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/setting/notification_provider.dart';
@@ -31,6 +32,7 @@ class AstrologyMobileApp extends StatelessWidget {
                 create: (context) => SetReminderProvider(),
               ),
               ChangeNotifierProvider(create: (context) => ProfileProvider()),
+              ChangeNotifierProvider(create: (context) => UserAuthProvider()),
               ChangeNotifierProvider(
                 create: (context) => NotificationProvider(),
               ),

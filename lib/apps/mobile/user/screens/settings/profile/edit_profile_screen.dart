@@ -58,6 +58,10 @@ class EditProfileScreen extends StatelessWidget {
                               hintText: "Enter your DOB",
                               readOnly: true,
                               title: "Date Of Birth",
+                              suffix: Icon(
+                                Icons.keyboard_arrow_down_rounded,
+                                color: AppColors.whiteColor,
+                              ),
                               controller: TextEditingController(
                                 text: profileProvider.formattedBirthDate,
                               ),
@@ -70,9 +74,11 @@ class EditProfileScreen extends StatelessWidget {
                               onTap: () =>
                                   profileProvider.pickBirthTime(context),
                               readOnly: true,
-
+                              suffix: Icon(
+                                Icons.keyboard_arrow_down_rounded,
+                                color: AppColors.whiteColor,
+                              ),
                               hintText: "Enter your TOB",
-
                               title: "Time Of Birth",
                               controller: TextEditingController(
                                 text: profileProvider.formattedBirthTime,
@@ -81,7 +87,6 @@ class EditProfileScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-
                       // Place of Birth Field
                       AppTextField(
                         hintText: "Enter your Birth Place",

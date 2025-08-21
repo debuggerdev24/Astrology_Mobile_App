@@ -14,8 +14,8 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../../routes/mobile_routes/user_routes.dart';
 
-class RemediesDetailScreen extends StatelessWidget {
-  const RemediesDetailScreen({super.key});
+class RemedyDetailScreen extends StatelessWidget {
+  const RemedyDetailScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,12 +34,7 @@ class RemediesDetailScreen extends StatelessWidget {
               text:
                   "This remedy enhances confidence, boosts focus, and reduces ego imbalance.",
             ),
-            GestureDetector(
-              onTap: () {
-                context.pushNamed(MobileAppRoutes.remedyPlayerScreen.name);
-              },
-              child: remedyPlayer(context, translator),
-            ),
+            remedyPlayer(context, translator),
 
             AppText(
               text: translator.suggestedAction,
@@ -143,10 +138,21 @@ class RemediesDetailScreen extends StatelessWidget {
                   style: regular(fontSize: 14.sp, color: Colors.grey),
                 ),
               ),
-              SVGImage(path: AppAssets.tIcon, height: 34.w),
               GestureDetector(
                 onTap: () {
-                  context.pushNamed(MobileAppRoutes.remedyPlayerScreen.name);
+                  context.pushNamed(
+                    MobileAppRoutes.remedyPlayerScreen.name,
+                    extra: true,
+                  );
+                },
+                child: SVGImage(path: AppAssets.tIcon, height: 34.w),
+              ),
+              GestureDetector(
+                onTap: () {
+                  context.pushNamed(
+                    MobileAppRoutes.remedyPlayerScreen.name,
+                    extra: false,
+                  );
                 },
                 child: SVGImage(path: AppAssets.playIcon, height: 34.w),
               ),

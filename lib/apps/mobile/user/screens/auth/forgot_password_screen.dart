@@ -1,21 +1,20 @@
+import 'package:astrology_app/apps/mobile/user/provider/auth/auth_provider.dart';
 import 'package:astrology_app/core/widgets/app_button.dart';
 import 'package:astrology_app/core/widgets/app_layout.dart';
-import 'package:astrology_app/routes/mobile_routes/user_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../core/constants/text_style.dart';
 import '../../../../../core/widgets/app_text.dart';
 import '../../../../../core/widgets/app_text_field.dart';
-
-TextEditingController _txtEmail = TextEditingController();
 
 class ForgotPasswordScreen extends StatelessWidget {
   const ForgotPasswordScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final provider = context.read<UserAuthProvider>();
     return AppLayout(
       horizontalPadding: 16.w,
       body: Column(
@@ -28,7 +27,7 @@ class ForgotPasswordScreen extends StatelessWidget {
             style: bold(
               fontFamily: AppFonts.secondary,
               fontSize: 46,
-              height: 1.2,
+              height: 1.1,
             ),
           ),
           14.h.verticalSpace,
@@ -40,15 +39,17 @@ class ForgotPasswordScreen extends StatelessWidget {
           32.h.verticalSpace,
 
           AppTextField(
-            controller: _txtEmail,
-            title: "Name",
+            controller: provider.forgotEmailCtr,
+            title: "Email",
             hintText: "Enter Your Email",
+            errorMessage: provider.forgotEmailErr,
           ),
           52.h.verticalSpace,
           AppButton(
             title: "Send Mail",
             onTap: () {
-              context.pushNamed(MobileAppRoutes.otpScreen.name);
+              provider.forgotPassword(context);
+              // context.pushNamed(MobileAppRoutes.verifyOtpScreen.name);
             },
           ),
         ],

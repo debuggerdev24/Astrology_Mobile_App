@@ -1,12 +1,15 @@
+import 'package:astrology_app/apps/mobile/user/provider/auth/auth_provider.dart';
 import 'package:astrology_app/core/widgets/app_button.dart';
 import 'package:astrology_app/core/widgets/app_layout.dart';
 import 'package:astrology_app/routes/mobile_routes/user_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../core/constants/app_colors.dart';
 import '../../../../../core/constants/text_style.dart';
+import '../../../../../core/utils/de_bouncing.dart';
 import '../../../../../core/widgets/app_text.dart';
 import '../../../../../core/widgets/app_text_field.dart';
 
@@ -20,82 +23,93 @@ class SignInScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppLayout(
       horizontalPadding: 16.w,
-      body: Column(
-        children: [
-          40.h.verticalSpace,
-          AppText(
-            text: "Sign In",
-            style: bold(fontFamily: AppFonts.secondary, fontSize: 46),
-          ),
-          12.h.verticalSpace,
-          AppText(
-            textAlign: TextAlign.center,
-            text: "Reconnect with your cosmic journey.",
-            style: regular(),
-          ),
-          32.h.verticalSpace,
-          Column(
-            spacing: 22.h,
+      body: SingleChildScrollView(
+        child: Consumer<UserAuthProvider>(
+          builder: (context, provider, child) => Column(
             children: [
-              AppTextField(
-                controller: _txtEmail,
-                title: "Name",
-                hintText: "Enter Your Email",
+              40.h.verticalSpace,
+              AppText(
+                text: "Sign In",
+                style: bold(fontFamily: AppFonts.secondary, fontSize: 46),
               ),
-              AppTextField(
-                controller: _txtPassword,
-                title: "Name",
-                hintText: "Enter Your Password",
+              12.h.verticalSpace,
+              AppText(
+                textAlign: TextAlign.center,
+                text: "Reconnect with your cosmic journey.",
+                style: regular(),
               ),
-            ],
-          ),
-          6.h.verticalSpace,
-          Align(
-            alignment: Alignment.centerRight,
-            child: GestureDetector(
-              onTap: () {
-                context.pushNamed(MobileAppRoutes.forgotPasswordScreen.name);
-              },
-              child: AppText(
-                text: "Forgot Password?",
-                style: regular(fontSize: 12),
-              ),
-            ),
-          ),
-          52.h.verticalSpace,
-          AppButton(
-            title: "Sign In",
-            onTap: () {
-              context.pushNamed(MobileAppRoutes.createProfileScreen.name);
-            },
-          ),
-          8.h.verticalSpace,
-          GestureDetector(
-            onTap: () {
-              // removeFocusFromAllFiled();
-              context.pop();
-            },
-            child: RichText(
-              text: TextSpan(
-                //Login with email, when email is found in system
+              32.h.verticalSpace,
+              Column(
+                spacing: 22.h,
                 children: [
-                  TextSpan(
-                    text: "Don't have an account? ",
-                    style: regular(fontSize: 15.sp, fontFamily: "Primary"),
+                  AppTextField(
+                    controller: provider.loginEmailCtr,
+                    title: "Email",
+                    hintText: "Enter Your Email",
+                    errorMessage: provider.loginEmailErr,
                   ),
-                  TextSpan(
-                    text: "Sign Up",
-                    style: semiBold(
-                      fontSize: 15.sp,
-                      color: AppColors.primary,
-                      fontFamily: "Primary",
-                    ),
+                  AppTextField(
+                    controller: provider.loginPassCtr,
+                    title: "Password",
+                    hintText: "Enter Your Password",
+                    errorMessage: provider.loginPassErr,
                   ),
                 ],
               ),
-            ),
+              6.h.verticalSpace,
+              Align(
+                alignment: Alignment.centerRight,
+                child: GestureDetector(
+                  onTap: () {
+                    context.pushNamed(
+                      MobileAppRoutes.forgotPasswordScreen.name,
+                    );
+                  },
+                  child: AppText(
+                    text: "Forgot Password?",
+                    style: regular(fontSize: 13.5),
+                  ),
+                ),
+              ),
+              52.h.verticalSpace,
+              AppButton(
+                title: "Sign In",
+                onTap: () {
+                  deBouncer.run(() {
+                    provider.loginUser(context);
+                  });
+                  // context.pushNamed(MobileAppRoutes.resetPasswordScreen.name);
+                },
+              ),
+              8.h.verticalSpace,
+              GestureDetector(
+                onTap: () {
+                  // removeFocusFromAllFiled();
+                  context.pop();
+                },
+                child: RichText(
+                  text: TextSpan(
+                    //Login with email, when email is found in system
+                    children: [
+                      TextSpan(
+                        text: "Don't have an account? ",
+                        style: regular(fontSize: 15.sp, fontFamily: "Primary"),
+                      ),
+                      TextSpan(
+                        text: "Sign Up",
+                        style: semiBold(
+                          fontSize: 15.sp,
+                          color: AppColors.primary,
+                          fontFamily: "Primary",
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

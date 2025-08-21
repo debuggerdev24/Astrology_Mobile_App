@@ -76,27 +76,37 @@ class DailyMantraScreen extends StatelessWidget {
               12.w.horizontalSpace,
               AppText(
                 text: "Om Namah Shivaya",
-                style: regular(fontSize: 17.sp, color: AppColors.black),
+                style: regular(fontSize: 18, color: AppColors.black),
               ),
               Spacer(),
               AppText(
                 text: "6 Aug 2025",
-                style: regular(fontSize: 12.sp, color: Colors.grey),
+                style: regular(fontSize: 14, color: Colors.grey),
               ),
             ],
           ),
           Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               AppText(
                 text: "Meaning : I bow to Lord Shiva",
-                style: regular(fontSize: 12.sp, color: Colors.grey),
+                style: regular(fontSize: 18, color: Colors.grey),
               ),
               Spacer(),
-              SVGImage(path: AppAssets.tIcon, height: 34.w),
               GestureDetector(
                 onTap: () {
-                  context.pushNamed(MobileAppRoutes.playMantraScreen.name);
+                  context.pushNamed(
+                    MobileAppRoutes.playMantraScreen.name,
+                    extra: false,
+                  );
+                },
+                child: SVGImage(path: AppAssets.tIcon, height: 34.w),
+              ),
+              GestureDetector(
+                onTap: () {
+                  context.pushNamed(
+                    MobileAppRoutes.playMantraScreen.name,
+                    extra: true,
+                  );
                 },
                 child: SVGImage(path: AppAssets.playIcon, height: 34.w),
               ),

@@ -11,7 +11,7 @@ class ConsultScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppLayout(
       body: Center(
-        child: AppText(text: "Consult Screen", style: regular()),
+        child: AppText(text: "Consult Section", style: regular()),
       ),
     );
   }

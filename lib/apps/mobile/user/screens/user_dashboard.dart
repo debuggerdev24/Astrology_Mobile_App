@@ -32,6 +32,7 @@ class UserDashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final translator = context.translator;
+    final isTamil = context.isTamil;
     return ValueListenableBuilder<int>(
       valueListenable: indexTabUser,
       builder: (BuildContext context, int index, Widget? child) {
@@ -61,18 +62,35 @@ class UserDashboard extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  myBottomBrItem(AppAssets.homeIcon, translator.home, 0),
-                  myBottomBrItem(AppAssets.mantrasIcon, translator.mantras, 1),
+                  myBottomBrItem(
+                    AppAssets.homeIcon,
+                    translator.home,
+                    0,
+                    isTamil,
+                  ),
+                  myBottomBrItem(
+                    AppAssets.mantrasIcon,
+                    translator.mantras,
+                    1,
+                    isTamil,
+                  ),
                   myBottomBrItem(
                     AppAssets.remediesIcon,
                     translator.remedies,
                     2,
+                    isTamil,
                   ),
-                  myBottomBrItem(AppAssets.consultIcon, translator.consult, 3),
+                  myBottomBrItem(
+                    AppAssets.consultIcon,
+                    translator.consult,
+                    3,
+                    isTamil,
+                  ),
                   myBottomBrItem(
                     AppAssets.settingsIcon,
                     translator.settings,
                     4,
+                    isTamil,
                   ),
                 ],
               ),
@@ -83,7 +101,12 @@ class UserDashboard extends StatelessWidget {
     );
   }
 
-  Widget myBottomBrItem(String iconPath, String title, int index) {
+  Widget myBottomBrItem(
+    String iconPath,
+    String title,
+    int index,
+    bool isTamil,
+  ) {
     bool isCurrent = index == indexTabUser.value;
     return Expanded(
       child: GestureDetector(
@@ -92,7 +115,7 @@ class UserDashboard extends StatelessWidget {
         },
         child: AnimatedContainer(
           curve: Curves.easeInOut,
-          padding: EdgeInsets.symmetric(horizontal: 2),
+          padding: EdgeInsets.symmetric(horizontal: 3),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(10.r),
@@ -103,34 +126,32 @@ class UserDashboard extends StatelessWidget {
             color: isCurrent ? Color(0xff575778) : Colors.transparent,
           ),
           duration: Duration(milliseconds: 300),
-          child: Center(
-            child: Column(
-              spacing: 4.h,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SVGImage(
-                  color: isCurrent ? AppColors.white : AppColors.darkBlue,
-                  width: 21.w,
-                  path: iconPath,
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: AppText(
-                        text: title,
-                        textAlign: TextAlign.center,
-                        // overflow: TextOverflow.ellipsis,
-                        style: regular(
-                          color: isCurrent ? Colors.white : AppColors.darkBlue,
-                          fontSize: 11.5.sp,
-                        ),
+          child: Column(
+            spacing: 4.h,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              2.h.verticalSpace,
+              SVGImage(
+                color: isCurrent ? AppColors.white : AppColors.darkBlue,
+                width: 21.w,
+                path: iconPath,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: AppText(
+                      text: title,
+                      textAlign: TextAlign.center,
+                      style: regular(
+                        color: isCurrent ? Colors.white : AppColors.darkBlue,
+                        fontSize: isTamil ? 10 : 12,
                       ),
                     ),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),

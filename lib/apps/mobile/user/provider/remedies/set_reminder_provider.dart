@@ -29,9 +29,7 @@ class SetReminderProvider extends ChangeNotifier {
 
   // Method to toggle week day selection
   void toggleWeekDay(String day) {
-    if (_selectedWeekDays == null) {
-      _selectedWeekDays = [];
-    }
+    _selectedWeekDays ??= [];
 
     if (_selectedWeekDays!.contains(day)) {
       _selectedWeekDays!.remove(day);
@@ -46,7 +44,7 @@ class SetReminderProvider extends ChangeNotifier {
     DateTime? pickedDate = await showDatePicker(
       barrierColor: AppColors.black.withValues(alpha: 0.5),
       context: context,
-      initialDate: _selectedDate,
+      initialDate: _selectedDate ?? DateTime.now(),
       firstDate: DateTime(2000),
       lastDate: DateTime(2100),
       builder: (context, child) {
@@ -57,13 +55,6 @@ class SetReminderProvider extends ChangeNotifier {
                   AppColors.greyColor, // Purple/indigo for selected date circle
               surface: AppColors.whiteColor, // Dark purple/gray background
               onSurface: AppColors.black, // White text for dates
-              inversePrimary: AppColors.greyColor.withValues(
-                alpha: 0.4,
-              ), // Selected date background
-              outline: const Color(0xFF6B7280), // Grid lines color
-              surfaceContainerHighest: const Color(
-                0xFF4A4A5C,
-              ), // Header background
             ),
             textSelectionTheme: TextSelectionThemeData(
               selectionColor: AppColors.white,

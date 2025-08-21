@@ -47,7 +47,7 @@ class RemediesScreen extends StatelessWidget {
                               fontFamily: AppFonts.secondary,
                               decoration: TextDecoration.underline,
                               decorationColor: AppColors.greenColor,
-                              color: AppColors.greenColor,
+                              color: Color(0xff4CB5AB),
                             ),
                           ),
                           16.h.verticalSpace,
@@ -143,20 +143,23 @@ class RemediesScreen extends StatelessWidget {
 
   Widget topicWithDetails({required String topic, required String details}) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 12.h),
+      padding: EdgeInsets.only(bottom: 10.h),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         spacing: 8.w,
         children: [
-          AppText(
-            text: topic,
-            style: regular(fontSize: 18.sp),
+          Expanded(
+            child: AppText(
+              text: topic,
+              style: regular(fontSize: 18.sp),
+            ),
           ),
           AppText(
             text: ":",
             style: regular(fontSize: 18.sp),
           ),
           Expanded(
+            flex: 2,
             child: AppText(
               text: details,
               style: regular(fontSize: 18.sp),

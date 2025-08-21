@@ -41,10 +41,19 @@ Widget topBar({
     children: [
       showBackButton ?? true
           ? GestureDetector(
+              behavior: HitTestBehavior.deferToChild,
               onTap: () {
                 context.pop();
               },
-              child: Icon(Icons.arrow_back, color: AppColors.white, size: 25.w),
+              child: SizedBox(
+                height: 28.h,
+                width: 28.w,
+                child: Icon(
+                  Icons.arrow_back,
+                  color: AppColors.white,
+                  size: 25.w,
+                ),
+              ),
             )
           : SizedBox(width: 20.w),
       Expanded(
@@ -61,8 +70,8 @@ Widget buildPageTitle({required String title, required BuildContext context}) {
     textAlign: TextAlign.center,
     style: bold(
       fontSize: (context.watch<LocaleProvider>().localeCode == "ta")
-          ? 24.sp
-          : 28.sp,
+          ? 22.sp
+          : 26.sp,
       fontFamily: AppFonts.secondary,
     ),
   );
@@ -125,7 +134,7 @@ Future<dynamic> showPremiumDialog({
                         context.pop();
                       },
                       title: "Cancel",
-                      color: AppColors.secondary,
+                      buttonColor: AppColors.secondary,
                     ),
                   ),
                 ],

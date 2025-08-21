@@ -25,9 +25,11 @@ class BirthChartScreen extends StatelessWidget {
             40.h.verticalSpace,
             topBar(context: context, title: translator.birthChart),
             12.h.verticalSpace,
-            AppText(
-              text: "Palm + Birth Chart Alignment",
-              style: bold(fontSize: 20, fontFamily: AppFonts.secondary),
+            Center(
+              child: AppText(
+                text: "Palm + Birth Chart Alignment",
+                style: bold(fontSize: 20, fontFamily: AppFonts.secondary),
+              ),
             ),
             32.h.verticalSpace,
             AppText(
@@ -39,9 +41,39 @@ class BirthChartScreen extends StatelessWidget {
               topic: translator.moonInPisces,
               details: "emotional depth",
             ),
-            topicWithDetails(
-              topic: translator.dasha,
-              details: "Jupiter-Mercury (Active)",
+            Padding(
+              padding: EdgeInsets.only(bottom: 12.h),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                spacing: 8.w,
+                children: [
+                  AppText(
+                    text: translator.dasha,
+                    style: medium(fontSize: 16.sp, color: AppColors.secondary),
+                  ),
+                  AppText(
+                    text: ":",
+                    style: medium(fontSize: 16.sp),
+                  ),
+                  Expanded(
+                    child: Row(
+                      children: [
+                        AppText(
+                          text: "Jupiter-Mercury ",
+                          style: medium(fontSize: 16.sp),
+                        ),
+                        AppText(
+                          text: "(Active)",
+                          style: medium(
+                            fontSize: 16.sp,
+                            color: AppColors.greenColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
             32.h.verticalSpace,
             AppText(

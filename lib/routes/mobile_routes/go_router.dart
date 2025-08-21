@@ -1,5 +1,6 @@
 import 'package:astrology_app/apps/mobile/user/screens/auth/forgot_password_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/auth/otp_verfication_screen.dart';
+import 'package:astrology_app/apps/mobile/user/screens/auth/reset_password_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/auth/sign_in_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/create_profile_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/mantras/mantra_player_screen.dart';
@@ -12,8 +13,8 @@ import 'package:astrology_app/apps/mobile/user/screens/premium/success_payment_s
 import 'package:astrology_app/apps/mobile/user/screens/remedies/birth_chart_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/remedies/palm_reading_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/remedies/palm_upload_screen.dart';
-import 'package:astrology_app/apps/mobile/user/screens/remedies/remedies_detail_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/remedies/remedies_list_screen.dart';
+import 'package:astrology_app/apps/mobile/user/screens/remedies/remedy_detail_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/remedies/remedy_player_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/remedies/set_reminder_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/settings/app_info/app_info.dart';
@@ -22,6 +23,7 @@ import 'package:astrology_app/apps/mobile/user/screens/settings/app_info/privacy
 import 'package:astrology_app/apps/mobile/user/screens/settings/app_info/spiritual_disclaimer_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/settings/app_info/terms_and_condition.dart';
 import 'package:astrology_app/apps/mobile/user/screens/settings/profile/profile_screen.dart';
+import 'package:astrology_app/apps/mobile/user/screens/splash_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/user_dashboard.dart';
 import 'package:astrology_app/extension/routes_extension.dart';
 import 'package:astrology_app/routes/mobile_routes/user_routes.dart';
@@ -32,11 +34,18 @@ import '../../apps/mobile/user/screens/settings/profile/edit_profile_screen.dart
 
 class MobileAppRouter {
   static final GoRouter goRouter = GoRouter(
-    initialLocation: MobileAppRoutes.signUpScreen.path, //
+    initialLocation: MobileAppRoutes.splashScreen.path, //
     routes: routes,
   );
 
   static final List<RouteBase> routes = [
+    GoRoute(
+      path: MobileAppRoutes.splashScreen.path,
+      name: MobileAppRoutes.splashScreen.name,
+      builder: (context, state) {
+        return SplashScreen();
+      },
+    ),
     GoRoute(
       path: MobileAppRoutes.signUpScreen.path,
       name: MobileAppRoutes.signUpScreen.name,
@@ -62,11 +71,19 @@ class MobileAppRouter {
       },
     ),
     GoRoute(
-      path: MobileAppRoutes.otpScreen.path,
-      name: MobileAppRoutes.otpScreen.name,
+      path: MobileAppRoutes.verifyOtpScreen.path,
+      name: MobileAppRoutes.verifyOtpScreen.name,
       builder: (context, state) {
-        // final String name = state.extra as String;
-        return OtpVerificationScreen();
+        final String userId = state.extra as String;
+        return OtpVerificationScreen(userId: userId);
+      },
+    ),
+    GoRoute(
+      path: MobileAppRoutes.resetPasswordScreen.path,
+      name: MobileAppRoutes.resetPasswordScreen.name,
+      builder: (context, state) {
+        final String userId = state.extra as String;
+        return ResetPasswordScreen(userId: userId);
       },
     ),
     GoRoute(
@@ -103,7 +120,9 @@ class MobileAppRouter {
       path: MobileAppRoutes.playMantraScreen.path,
       name: MobileAppRoutes.playMantraScreen.name,
       builder: (context, state) {
-        return PlayMantraScreen();
+        final bool isText = state.extra as bool;
+
+        return MantraPlayScreen(isText: isText);
       },
     ),
     GoRoute(
@@ -138,7 +157,7 @@ class MobileAppRouter {
       path: MobileAppRoutes.remedyDetailsScreen.path,
       name: MobileAppRoutes.remedyDetailsScreen.name,
       builder: (context, state) {
-        return RemediesDetailScreen();
+        return RemedyDetailScreen();
       },
     ),
     GoRoute(
@@ -152,7 +171,8 @@ class MobileAppRouter {
       path: MobileAppRoutes.remedyPlayerScreen.path,
       name: MobileAppRoutes.remedyPlayerScreen.name,
       builder: (context, state) {
-        return RemedyPlayerScreen();
+        final bool isText = state.extra as bool;
+        return RemedyPlayerScreen(isText: isText);
       },
     ),
     GoRoute(
@@ -178,8 +198,8 @@ class MobileAppRouter {
       },
     ),
     GoRoute(
-      path: MobileAppRoutes.successpaymentScreen.path,
-      name: MobileAppRoutes.successpaymentScreen.name,
+      path: MobileAppRoutes.successPaymentScreen.path,
+      name: MobileAppRoutes.successPaymentScreen.name,
       builder: (context, state) {
         return SuccessPaymentScreen();
       },

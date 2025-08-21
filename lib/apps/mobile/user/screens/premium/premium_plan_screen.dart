@@ -117,7 +117,7 @@ class PremiumPlanScreen extends StatelessWidget {
                     onTap: () {
                       context.pushNamed(MobileAppRoutes.currentPlanScreen.name);
                     },
-                    color: AppColors.secondary,
+                    buttonColor: AppColors.secondary,
                     title: translator.chooseYourPlan,
                     margin: EdgeInsets.symmetric(vertical: 20.h),
                   ),

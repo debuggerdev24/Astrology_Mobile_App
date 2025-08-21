@@ -74,7 +74,7 @@ class CurrentPlanScreen extends StatelessWidget {
                     ),
                     Expanded(
                       child: AppButton(
-                        color: AppColors.secondary,
+                        buttonColor: AppColors.secondary,
                         title: context.translator.cancel,
                         verticalPadding: 11.h,
                         onTap: () {},

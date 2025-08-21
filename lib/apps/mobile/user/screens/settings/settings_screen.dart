@@ -1,3 +1,4 @@
+import 'package:astrology_app/apps/mobile/user/provider/auth/auth_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/setting/locale_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/setting/notification_provider.dart';
 import 'package:astrology_app/apps/mobile/user/screens/user_dashboard.dart';
@@ -49,9 +50,60 @@ class SettingScreen extends StatelessWidget {
                   }
                 },
                 itemBuilder: (ctx) => [
-                  const PopupMenuItem(value: "English", child: Text("English")),
-                  const PopupMenuItem(value: "Hindi", child: Text("हिंदी")),
-                  const PopupMenuItem(value: "Tamil", child: Text("தமிழ்")),
+                  PopupMenuItem(
+                    value: "English",
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Radio(
+                          activeColor: AppColors.bgColor,
+                          value: "en",
+                          groupValue: localeProvider.localeCode,
+                          onChanged: (value) {},
+                        ),
+                        AppText(
+                          text: "Eng",
+                          style: regular(fontSize: 16, color: AppColors.black),
+                        ),
+                      ],
+                    ),
+                  ),
+                  PopupMenuItem(
+                    value: "Hindi",
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Radio(
+                          activeColor: AppColors.bgColor,
+                          value: "hi",
+                          groupValue: localeProvider.localeCode,
+                          onChanged: (value) {},
+                        ),
+                        AppText(
+                          text: "हिंदी",
+                          style: regular(fontSize: 16, color: AppColors.black),
+                        ),
+                      ],
+                    ),
+                  ),
+                  PopupMenuItem(
+                    value: "Tamil",
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Radio(
+                          activeColor: AppColors.bgColor,
+                          value: "ta",
+                          groupValue: localeProvider.localeCode,
+                          onChanged: (value) {},
+                        ),
+                        AppText(
+                          text: "தமிழ்",
+                          style: regular(fontSize: 16, color: AppColors.black),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
                 child: SizedBox(
                   height: 28.h,
@@ -97,6 +149,15 @@ class SettingScreen extends StatelessWidget {
                 context.pushNamed(MobileAppRoutes.premiumPlanScreen.name);
               },
             ),
+            buildDivider(),
+            _section(
+              title: "Log Out",
+              titleColor: Colors.red,
+              onTap: () async {
+                await context.read<UserAuthProvider>().logOutUser(context);
+                // context_extension.pushNamed(MobileAppRoutes.premiumPlanScreen.name);
+              },
+            ),
           ],
         ),
       ),
@@ -104,12 +165,13 @@ class SettingScreen extends StatelessWidget {
   }
 
   Widget buildDivider() => Padding(
-    padding: EdgeInsets.symmetric(vertical: 10.h),
+    padding: EdgeInsets.symmetric(vertical: 6.h),
     child: Divider(color: AppColors.whiteColor.withValues(alpha: 0.6)),
   );
 
   Widget _section({
     required String title,
+    Color? titleColor,
     required VoidCallback onTap,
     Widget? trailing,
   }) {
@@ -118,14 +180,14 @@ class SettingScreen extends StatelessWidget {
       contentPadding: EdgeInsets.zero,
       title: AppText(
         text: title,
-        style: medium(fontSize: 18.sp),
+        style: medium(fontSize: 18.sp, color: titleColor),
       ),
       trailing:
           trailing ??
           Icon(
             Icons.arrow_forward_ios_rounded,
             size: 18.sp,
-            color: AppColors.white,
+            color: titleColor ?? AppColors.white,
           ),
     );
   }

@@ -15,10 +15,7 @@ class AppColors {
   static const Color darkBlue = Color(0xff0D0B1F);
   static const Color transparent = Colors.transparent;
   static const Color redColor = Color(0xffF08C8C);
-  // static const Color green = Color(0xff4CAF50);
-  // static const Color lightGray = Color(0xffD9D9D9);
-  // static const Color shimmerBgColor = Color(0xFFF8F8F8);
-  // static const Color darkGray = Color(0xFFA1A1A1);
-  // static const Color black = Colors.black;
-  // static const Color purple = Color(0xff221C35);
+  static final errorBorderColor = Color(0xffcca7b0);
+  static final errorTextColor = Colors.red.shade700;
+  static final errorBackgroundColor = Color(0xffffd8d8);
 }

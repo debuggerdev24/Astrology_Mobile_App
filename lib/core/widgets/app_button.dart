@@ -8,7 +8,7 @@ class AppButton extends StatelessWidget {
   final String? title;
   final EdgeInsets? margin;
   final double? width, fontSize, verticalPadding, horizontalPadding;
-  final Color? color;
+  final Color? buttonColor, titleColor;
   final VoidCallback? onTap, onLongPress;
   final Widget? child;
   const AppButton({
@@ -17,12 +17,13 @@ class AppButton extends StatelessWidget {
     this.margin,
     this.onTap,
     this.width,
-    this.color,
+    this.buttonColor,
     this.child,
     this.fontSize,
     this.verticalPadding,
     this.onLongPress,
     this.horizontalPadding,
+    this.titleColor,
   });
 
   @override
@@ -39,7 +40,7 @@ class AppButton extends StatelessWidget {
           horizontal: horizontalPadding == null ? 0 : verticalPadding!.w,
         ),
         decoration: BoxDecoration(
-          color: color ?? AppColors.primary,
+          color: buttonColor ?? AppColors.primary,
           borderRadius: BorderRadius.circular(12.r),
         ),
         child: (title == null)
@@ -47,7 +48,10 @@ class AppButton extends StatelessWidget {
             : AppText(
                 overflow: TextOverflow.ellipsis,
                 text: title ?? "",
-                style: bold(fontSize: fontSize ?? 16, color: AppColors.black),
+                style: bold(
+                  fontSize: fontSize ?? 16,
+                  color: titleColor ?? AppColors.black,
+                ),
               ),
       ),
     );

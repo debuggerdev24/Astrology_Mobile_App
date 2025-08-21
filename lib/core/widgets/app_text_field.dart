@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../constants/app_colors.dart';
 import '../constants/text_style.dart';
+import '../utils/error_box.dart';
 
 class AppTextField extends StatelessWidget {
   final String? title, errorMessage;
@@ -77,6 +78,9 @@ class AppTextField extends StatelessWidget {
           Text(title ?? "", style: titleTextStyle ?? medium(fontSize: 16)),
         ],
         TextField(
+          onTapOutside: (event) {
+            FocusScope.of(context).unfocus();
+          },
           readOnly: readOnly ?? false,
           onTap: onTap,
           onChanged: onChanged,
@@ -124,18 +128,16 @@ class AppTextField extends StatelessWidget {
         //                   ),
         //                 ),
         //               ],
-        // if (errorMessage?.isNotEmpty ?? false)
-        //   Padding(
-        //     padding: const EdgeInsets.only(top: 6).r,
-        //     child: Text(
-        //       errorMessage!,
-        //       style: medium(
-        //         fontSize: 12,
-        //         color: AppColors.red,
-        //         fontFamily: AppFontFamily.secondary,
-        //       ),
-        //     ),
-        //   ),
+        if (errorMessage?.isNotEmpty ?? false)
+          ErrorBox(errorMessage: errorMessage!),
+        // Padding(
+        //   padding: EdgeInsets.only(top: 0),
+        //   child:
+        // AppText(
+        //   text: errorMessage!,
+        //   style: regular(fontSize: 14, color: Colors.red),
+        // ),
+        // ),
       ],
     );
   }

@@ -7,16 +7,10 @@ import 'package:astrology_app/core/widgets/global_methods.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-bool showDetails = false;
+class MantraPlayScreen extends StatelessWidget {
+  final bool isText;
+  const MantraPlayScreen({super.key, required this.isText});
 
-class PlayMantraScreen extends StatefulWidget {
-  const PlayMantraScreen({super.key});
-
-  @override
-  State<PlayMantraScreen> createState() => _PlayMantraScreenState();
-}
-
-class _PlayMantraScreenState extends State<PlayMantraScreen> {
   @override
   Widget build(BuildContext context) {
     return AppLayout(
@@ -32,39 +26,37 @@ class _PlayMantraScreenState extends State<PlayMantraScreen> {
             //todo --------------------> song details
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                GestureDetector(
-                  onTap: () {
-                    showDetails = !showDetails;
-                    setState(() {});
-                  },
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      AppText(
-                        text: "Om Namah Shivaya",
-                        style: medium(fontSize: 22.sp),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AppText(
+                      text: "Om Namah Shivaya",
+                      style: medium(fontSize: 22.sp),
+                    ),
+                    AppText(
+                      text: "I bow to Lord Shiva",
+                      style: regular(
+                        fontSize: 18.sp,
+                        height: 1.2,
+                        color: AppColors.greyColor,
                       ),
-                      AppText(
-                        text: "I bow to Lord Shiva",
-                        style: regular(
-                          fontSize: 18.sp,
-                          height: 1.2,
-                          color: AppColors.greyColor,
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                Icon(
-                  Icons.favorite_outline_rounded,
-                  color: AppColors.white,
-                  size: 24.sp,
+                Padding(
+                  padding: EdgeInsets.only(top: 8.0),
+                  child: Icon(
+                    Icons.favorite_outline_rounded,
+                    color: AppColors.white,
+                    size: 24.sp,
+                  ),
                 ),
               ],
             ),
             28.h.verticalSpace,
-            if (showDetails)
+            if (isText)
               greyColoredBox(
                 padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 18),
                 child: AppText(
@@ -94,7 +86,7 @@ class _PlayMantraScreenState extends State<PlayMantraScreen> {
                   Text("10.05", style: medium(fontSize: 14.sp)),
                 ],
               ),
-              25.h.verticalSpace,
+              30.h.verticalSpace,
               //todo --------------------> control
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 50.w),

@@ -46,7 +46,10 @@ class HomeScreen extends StatelessWidget {
 
                 SizedBox(
                   height: 20, // 👈 give it a height
-                  child: VerticalDivider(color: Colors.red, thickness: 1),
+                  child: VerticalDivider(
+                    color: AppColors.whiteColor,
+                    thickness: 1,
+                  ),
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -240,16 +243,17 @@ class HomeScreen extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              spacing: 12.h,
               children: [
+                4.verticalSpace,
                 AppText(
                   text: context.translator.dailyMantra,
                   style: bold(
-                    color: Colors.grey,
+                    color: AppColors.greyColor,
                     fontSize: 20.sp,
                     fontFamily: AppFonts.secondary,
                   ),
                 ),
+                12.h.verticalSpace,
                 Row(
                   children: [
                     SVGImage(path: AppAssets.omIcon, height: 24.h),
@@ -282,7 +286,6 @@ class HomeScreen extends StatelessWidget {
                 onTap: () {
                   indexTabUser.value = 1;
                 },
-
                 child: AppText(
                   text: context.translator.seeAll,
                   style: medium(fontSize: 12.sp, color: AppColors.black),

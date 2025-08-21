@@ -17,6 +17,7 @@ class AppAssets {
   static const uploadImageIcon = "$_iconPath/uploadImageIcon.svg";
   static const lockIcon = "$_iconPath/lockIcon.svg";
   static const sunIcon = "$_iconPath/sunIcon.svg";
+  static const errorIcon = "$_iconPath/errorIcon.svg";
 
   // images
   static const _imagePath = "assets/images";

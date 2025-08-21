@@ -134,14 +134,14 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
                 context.pushNamed(MobileAppRoutes.remediesListScreen.name);
               },
               title: translator.viewRemedies,
-              color: AppColors.secondary,
+              buttonColor: AppColors.secondary,
               margin: EdgeInsets.only(top: 48.h, bottom: 14.h),
             ),
             GestureDetector(
               onLongPress: () {
                 showPremiumDialog(
                   context: context,
-                  title: "Premium",
+                  title: "Premium Access",
                   contentBody: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,

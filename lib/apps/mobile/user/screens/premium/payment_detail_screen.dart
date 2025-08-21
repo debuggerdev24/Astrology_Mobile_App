@@ -47,7 +47,7 @@ class PaymentDetailScreen extends StatelessWidget {
           Spacer(),
           AppButton(
             onTap: () {
-              context.pushNamed(MobileAppRoutes.successpaymentScreen.name);
+              context.pushNamed(MobileAppRoutes.successPaymentScreen.name);
             },
             margin: EdgeInsets.only(bottom: 30.h),
             title: translator.payNow,

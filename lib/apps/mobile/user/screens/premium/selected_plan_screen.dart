@@ -31,7 +31,7 @@ class SelectedPlanScreen extends StatelessWidget {
           Spacer(),
           AppButton(
             margin: EdgeInsets.only(bottom: 12.h),
-            color: AppColors.secondary,
+            buttonColor: AppColors.secondary,
             title: translator.cancel,
             onTap: () {
               context.pop();

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:toastification/toastification.dart';
 
 import 'apps.dart';
+import 'core/utils/pref_helper.dart';
 
 ValueNotifier<bool> isOffline = ValueNotifier(true);
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MyApp());
+  await Future.wait([PrefHelper.init()]);
+  runApp(ToastificationWrapper(child: const MyApp()));
 }

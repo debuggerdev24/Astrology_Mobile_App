@@ -11,16 +11,10 @@ import '../../../../../core/constants/text_style.dart';
 import '../../../../../core/widgets/app_text.dart';
 import '../../../../../core/widgets/global_methods.dart';
 
-bool showDetails = false;
+class RemedyPlayerScreen extends StatelessWidget {
+  final bool isText;
+  const RemedyPlayerScreen({super.key, required this.isText});
 
-class RemedyPlayerScreen extends StatefulWidget {
-  const RemedyPlayerScreen({super.key});
-
-  @override
-  State<RemedyPlayerScreen> createState() => _RemedyPlayerScreenState();
-}
-
-class _RemedyPlayerScreenState extends State<RemedyPlayerScreen> {
   @override
   Widget build(BuildContext context) {
     return AppLayout(
@@ -36,39 +30,37 @@ class _RemedyPlayerScreenState extends State<RemedyPlayerScreen> {
             //todo --------------------> song details
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                GestureDetector(
-                  onTap: () {
-                    showDetails = !showDetails;
-                    setState(() {});
-                  },
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      AppText(
-                        text: "Om Surya Naamh",
-                        style: medium(fontSize: 22.sp),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AppText(
+                      text: "Om Surya Naamh",
+                      style: medium(fontSize: 22.sp),
+                    ),
+                    AppText(
+                      text: "I bow to Lord Shiva",
+                      style: regular(
+                        fontSize: 18.sp,
+                        height: 1.2,
+                        color: AppColors.greyColor,
                       ),
-                      AppText(
-                        text: "I bow to Lord Shiva",
-                        style: regular(
-                          fontSize: 18.sp,
-                          height: 1.2,
-                          color: AppColors.greyColor,
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                Icon(
-                  Icons.favorite_outline_rounded,
-                  color: AppColors.white,
-                  size: 24.sp,
+                Padding(
+                  padding: EdgeInsets.only(top: 8.0),
+                  child: Icon(
+                    Icons.favorite_outline_rounded,
+                    color: AppColors.white,
+                    size: 24.sp,
+                  ),
                 ),
               ],
             ),
             24.h.verticalSpace,
-            if (showDetails)
+            if (isText)
               greyColoredBox(
                 padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 18),
                 child: AppText(
@@ -149,7 +141,7 @@ class _RemedyPlayerScreenState extends State<RemedyPlayerScreen> {
                 Expanded(
                   child: AppButton(
                     title: context.translator.share,
-                    color: AppColors.secondary,
+                    buttonColor: AppColors.secondary,
                   ),
                 ),
               ],
