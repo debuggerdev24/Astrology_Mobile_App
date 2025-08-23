@@ -1,4 +1,4 @@
-import 'package:astrology_app/core/utils/pref_helper.dart';
+import 'package:astrology_app/apps/mobile/user/services/locale_storage_service.dart';
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/network/base_api_helper.dart';
@@ -44,7 +44,7 @@ class UserAuthService {
     );
   }
 
-  Future<Either<ApiException, Map<String, dynamic>>> forgetPassword({
+  Future<Either<ApiException, Map<String, dynamic>>> sendOtp({
     required String email,
   }) async {
     return await BaseApiHelper.instance.post<Map<String, dynamic>>(

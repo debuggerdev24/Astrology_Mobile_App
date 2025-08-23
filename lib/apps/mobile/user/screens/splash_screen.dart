@@ -1,4 +1,4 @@
-import 'package:astrology_app/core/utils/pref_helper.dart';
+import 'package:astrology_app/apps/mobile/user/services/locale_storage_service.dart';
 import 'package:astrology_app/core/widgets/app_layout.dart';
 import 'package:astrology_app/routes/mobile_routes/user_routes.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,12 +13,17 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   String userToken = PrefHelper.userToken;
+  bool isProfileCreated = PrefHelper.profileCreated;
 
   @override
   void initState() {
     Future.delayed(Duration(seconds: 2)).then((value) {
       if (userToken.isNotEmpty) {
-        context.goNamed(MobileAppRoutes.userDashBoardScreen.name);
+        context.goNamed(
+          (isProfileCreated)
+              ? MobileAppRoutes.userDashBoardScreen.name
+              : MobileAppRoutes.createProfileScreen.name,
+        );
         return;
       }
       context.goNamed(MobileAppRoutes.signUpScreen.name);

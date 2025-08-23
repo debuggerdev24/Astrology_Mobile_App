@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:toastification/toastification.dart';
 
 import 'apps.dart';
-import 'core/utils/pref_helper.dart';
+import 'apps/mobile/user/services/locale_storage_service.dart';
 
 ValueNotifier<bool> isOffline = ValueNotifier(true);
 

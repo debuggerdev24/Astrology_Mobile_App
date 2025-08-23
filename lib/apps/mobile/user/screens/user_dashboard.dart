@@ -1,3 +1,4 @@
+import 'package:astrology_app/apps/mobile/user/provider/setting/profile_provider.dart';
 import 'package:astrology_app/apps/mobile/user/screens/consult/consult_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/home/home_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/mantras/daily_mantra_screen.dart';
@@ -8,6 +9,7 @@ import 'package:astrology_app/extension/context_extension.dart';
 import 'package:astrology_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../core/constants/app_assets.dart';
 import '../../../../core/constants/app_colors.dart';
@@ -26,8 +28,19 @@ List<Widget> pages = [
   SettingScreen(),
 ];
 
-class UserDashboard extends StatelessWidget {
+class UserDashboard extends StatefulWidget {
   const UserDashboard({super.key});
+
+  @override
+  State<UserDashboard> createState() => _UserDashboardState();
+}
+
+class _UserDashboardState extends State<UserDashboard> {
+  @override
+  void initState() {
+    context.read<UserProfileProvider>().getProfile(context);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

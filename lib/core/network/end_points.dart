@@ -14,4 +14,6 @@ class Endpoints {
   static const String userEditProfile = '/accounts/user-edit-profile/';
   static const String refreshToken = '/accounts/token/refresh/';
   static const String userLogout = '/accounts/logout/';
+  static const String editProfile = '/accounts/user-edit-profile/';
+  static const String getProfile = '/accounts/user-profile/';
 }

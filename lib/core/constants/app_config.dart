@@ -4,7 +4,7 @@ class AppConfig {
   AppConfig._();
   static final UserRole userRole = UserRole.customer;
   static const String apiBaseurl = "http://138.197.92.15/astro/api";
-  static const String imagesBaseurl = "http://138.197.92.15/astro"; //
+  static const String imagesBaseurl = "http://138.197.92.15/"; //
 }
 
 /*

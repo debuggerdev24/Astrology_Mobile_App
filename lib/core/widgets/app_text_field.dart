@@ -221,7 +221,7 @@ class UnderLinedAppTextField extends StatelessWidget {
           textAlign: textAlign ?? TextAlign.left,
           inputFormatters: inputFormatters,
           cursorColor: AppColors.secondary,
-          style: textStyle ?? bold(fontSize: 16, color: AppColors.whiteColor),
+          style: textStyle ?? medium(fontSize: 16, color: AppColors.whiteColor),
           decoration: InputDecoration(
             border: UnderlineInputBorder(
               borderSide: BorderSide(color: AppColors.whiteColor),

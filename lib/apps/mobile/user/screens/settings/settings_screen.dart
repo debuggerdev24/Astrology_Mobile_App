@@ -5,6 +5,7 @@ import 'package:astrology_app/apps/mobile/user/screens/user_dashboard.dart';
 import 'package:astrology_app/core/constants/app_assets.dart';
 import 'package:astrology_app/core/constants/app_colors.dart';
 import 'package:astrology_app/core/constants/text_style.dart';
+import 'package:astrology_app/core/utils/custom_loader.dart';
 import 'package:astrology_app/core/widgets/app_text.dart';
 import 'package:astrology_app/core/widgets/global_methods.dart';
 import 'package:astrology_app/core/widgets/svg_image.dart';
@@ -31,134 +32,162 @@ class SettingScreen extends StatelessWidget {
         return;
       },
       child: AppLayout(
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            40.h.verticalSpace,
-            topBar(
-              showBackButton: false,
-              context: context,
-              title: context.translator.settings,
-              actionIcon: PopupMenuButton<String>(
-                onSelected: (lang) {
-                  if (lang == "English") {
-                    localeProvider.setLocale("en");
-                  } else if (lang == "Hindi") {
-                    localeProvider.setLocale("hi");
-                  } else if (lang == "Tamil") {
-                    localeProvider.setLocale("ta");
-                  }
-                },
-                itemBuilder: (ctx) => [
-                  PopupMenuItem(
-                    value: "English",
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Radio(
-                          activeColor: AppColors.bgColor,
-                          value: "en",
-                          groupValue: localeProvider.localeCode,
-                          onChanged: (value) {},
+        horizontalPadding: 0,
+        body: Consumer<UserAuthProvider>(
+          builder: (context, provider, child) => Stack(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 12.w),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    40.h.verticalSpace,
+                    topBar(
+                      showBackButton: false,
+                      context: context,
+                      title: context.translator.settings,
+
+                      actionIcon: PopupMenuButton<String>(
+                        onSelected: (lang) {
+                          if (lang == "English") {
+                            localeProvider.setLocale("en");
+                          } else if (lang == "Hindi") {
+                            localeProvider.setLocale("hi");
+                          } else if (lang == "Tamil") {
+                            localeProvider.setLocale("ta");
+                          }
+                        },
+                        itemBuilder: (ctx) => [
+                          PopupMenuItem(
+                            value: "English",
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Radio(
+                                  activeColor: AppColors.bgColor,
+                                  value: "en",
+                                  groupValue: localeProvider.localeCode,
+                                  onChanged: (value) {},
+                                ),
+                                AppText(
+                                  text: "Eng",
+                                  style: regular(
+                                    fontSize: 16,
+                                    color: AppColors.black,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          PopupMenuItem(
+                            value: "Hindi",
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Radio(
+                                  activeColor: AppColors.bgColor,
+                                  value: "hi",
+                                  groupValue: localeProvider.localeCode,
+                                  onChanged: (value) {
+                                    localeProvider.setLocale(value!);
+                                  },
+                                ),
+                                AppText(
+                                  text: "हिंदी",
+                                  style: regular(
+                                    fontSize: 16,
+                                    color: AppColors.black,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          PopupMenuItem(
+                            value: "Tamil",
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Radio(
+                                  activeColor: AppColors.bgColor,
+                                  value: "ta",
+                                  groupValue: localeProvider.localeCode,
+                                  onChanged: (value) {},
+                                ),
+                                AppText(
+                                  text: "தமிழ்",
+                                  style: regular(
+                                    fontSize: 16,
+                                    color: AppColors.black,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                        child: SizedBox(
+                          height: 28.h,
+                          width: 22.w,
+                          child: SVGImage(path: AppAssets.languageIcon),
                         ),
-                        AppText(
-                          text: "Eng",
-                          style: regular(fontSize: 16, color: AppColors.black),
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
-                  PopupMenuItem(
-                    value: "Hindi",
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Radio(
-                          activeColor: AppColors.bgColor,
-                          value: "hi",
-                          groupValue: localeProvider.localeCode,
-                          onChanged: (value) {},
-                        ),
-                        AppText(
-                          text: "हिंदी",
-                          style: regular(fontSize: 16, color: AppColors.black),
-                        ),
-                      ],
+                    32.h.verticalSpace,
+                    _section(
+                      title: context.translator.profile,
+                      onTap: () {
+                        context.pushNamed(MobileAppRoutes.profileScreen.name);
+                      },
                     ),
-                  ),
-                  PopupMenuItem(
-                    value: "Tamil",
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Radio(
-                          activeColor: AppColors.bgColor,
-                          value: "ta",
-                          groupValue: localeProvider.localeCode,
-                          onChanged: (value) {},
-                        ),
-                        AppText(
-                          text: "தமிழ்",
-                          style: regular(fontSize: 16, color: AppColors.black),
-                        ),
-                      ],
+                    buildDivider(),
+                    _section(
+                      title: context.translator.appInfo,
+                      onTap: () {
+                        context.pushNamed(MobileAppRoutes.appInfoScreen.name);
+                      },
                     ),
-                  ),
-                ],
-                child: SizedBox(
-                  height: 28.h,
-                  width: 22.w,
-                  child: SVGImage(path: AppAssets.languageIcon),
+                    buildDivider(),
+                    Consumer<NotificationProvider>(
+                      builder: (context, provider, child) => _section(
+                        title: context.translator.notification,
+                        trailing: CupertinoSwitch(
+                          inactiveTrackColor: AppColors.greyColor,
+                          value: provider.isNotificationOn,
+                          onChanged: (value) {
+                            provider.isNotificationOn = value;
+                          },
+                        ),
+                        onTap: () {
+                          provider.isNotificationOn =
+                              !provider.isNotificationOn;
+                        },
+                      ),
+                    ),
+                    buildDivider(),
+                    _section(
+                      title: context.translator.premium,
+                      onTap: () {
+                        context.pushNamed(
+                          MobileAppRoutes.premiumPlanScreen.name,
+                        );
+                      },
+                    ),
+                    buildDivider(),
+                    _section(
+                      title: "Log Out",
+                      titleColor: Colors.red,
+                      onTap: () async {
+                        await context.read<UserAuthProvider>().logOutUser(
+                          context,
+                        );
+                        // context_extension.pushNamed(MobileAppRoutes.premiumPlanScreen.name);
+                      },
+                    ),
+                  ],
                 ),
               ),
-            ),
-            32.h.verticalSpace,
-            _section(
-              title: context.translator.profile,
-              onTap: () {
-                context.pushNamed(MobileAppRoutes.profileScreen.name);
-              },
-            ),
-            buildDivider(),
-            _section(
-              title: context.translator.appInfo,
-              onTap: () {
-                context.pushNamed(MobileAppRoutes.appInfoScreen.name);
-              },
-            ),
-            buildDivider(),
-            Consumer<NotificationProvider>(
-              builder: (context, provider, child) => _section(
-                title: context.translator.notification,
-                trailing: CupertinoSwitch(
-                  inactiveTrackColor: AppColors.greyColor,
-                  value: provider.isNotificationOn,
-                  onChanged: (value) {
-                    provider.isNotificationOn = value;
-                  },
-                ),
-                onTap: () {
-                  provider.isNotificationOn = !provider.isNotificationOn;
-                },
-              ),
-            ),
-            buildDivider(),
-            _section(
-              title: context.translator.premium,
-              onTap: () {
-                context.pushNamed(MobileAppRoutes.premiumPlanScreen.name);
-              },
-            ),
-            buildDivider(),
-            _section(
-              title: "Log Out",
-              titleColor: Colors.red,
-              onTap: () async {
-                await context.read<UserAuthProvider>().logOutUser(context);
-                // context_extension.pushNamed(MobileAppRoutes.premiumPlanScreen.name);
-              },
-            ),
-          ],
+              if (provider.isLogOutLoading) ApiLoadingIndicator(),
+            ],
+          ),
         ),
       ),
     );

@@ -12,6 +12,20 @@ class FieldValidators {
     return null;
   }
 
+  String fullName(String? val) {
+    RegExp namePattern = RegExp(r"^[A-Za-z]+(?: [A-Za-z]+)*$");
+
+    if (val == null || val.isEmpty) {
+      return "Name is required.";
+    }
+
+    if (!namePattern.hasMatch(val) && val.isNotEmpty) {
+      return "Enter a valid name (Only alphabets allowed).";
+    }
+
+    return "";
+  }
+
   String? email(String? val) {
     if (val!.isEmpty) {
       return 'Email is required!';

@@ -11,6 +11,8 @@ class AppToast {
     required BuildContext context,
     required String message,
     required Color backgroundColor,
+    Color? textColor,
+    Icon? icon,
     ToastificationType type = ToastificationType.info,
     Duration duration = const Duration(seconds: 3),
   }) {
@@ -21,9 +23,10 @@ class AppToast {
       backgroundColor: backgroundColor,
       autoCloseDuration: duration,
       direction: TextDirection.ltr,
+      icon: icon,
       title: AppText(
         text: message,
-        style: medium(color: AppColors.whiteColor, fontSize: 16),
+        style: medium(color: textColor ?? AppColors.whiteColor, fontSize: 16),
       ),
     );
   }
@@ -56,8 +59,10 @@ class AppToast {
     show(
       context: context,
       message: message,
+      textColor: AppColors.black,
       type: ToastificationType.warning,
       backgroundColor: Colors.yellow,
+      icon: Icon(Icons.warning_amber_rounded, color: AppColors.black),
     );
   }
 

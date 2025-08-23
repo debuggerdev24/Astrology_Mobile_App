@@ -87,16 +87,18 @@ class DailyMantraScreen extends StatelessWidget {
           ),
           Row(
             children: [
-              AppText(
-                text: "Meaning : I bow to Lord Shiva",
-                style: regular(fontSize: 18, color: Colors.grey),
+              Expanded(
+                child: AppText(
+                  text: "Meaning : I bow to Lord Shiva",
+                  style: regular(fontSize: 18, color: Colors.grey),
+                ),
               ),
-              Spacer(),
+
               GestureDetector(
                 onTap: () {
                   context.pushNamed(
                     MobileAppRoutes.playMantraScreen.name,
-                    extra: false,
+                    extra: true,
                   );
                 },
                 child: SVGImage(path: AppAssets.tIcon, height: 34.w),
@@ -105,7 +107,7 @@ class DailyMantraScreen extends StatelessWidget {
                 onTap: () {
                   context.pushNamed(
                     MobileAppRoutes.playMantraScreen.name,
-                    extra: true,
+                    extra: false,
                   );
                 },
                 child: SVGImage(path: AppAssets.playIcon, height: 34.w),

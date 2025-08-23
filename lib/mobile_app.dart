@@ -31,7 +31,9 @@ class AstrologyMobileApp extends StatelessWidget {
               ChangeNotifierProvider(
                 create: (context) => SetReminderProvider(),
               ),
-              ChangeNotifierProvider(create: (context) => ProfileProvider()),
+              ChangeNotifierProvider(
+                create: (context) => UserProfileProvider(),
+              ),
               ChangeNotifierProvider(create: (context) => UserAuthProvider()),
               ChangeNotifierProvider(
                 create: (context) => NotificationProvider(),

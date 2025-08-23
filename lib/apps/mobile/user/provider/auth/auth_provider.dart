@@ -4,8 +4,8 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../../core/utils/custom_toast.dart';
 import '../../../../../core/utils/field_validator.dart';
-import '../../../../../core/utils/pref_helper.dart';
 import '../../../../../routes/mobile_routes/user_routes.dart';
+import '../../services/locale_storage_service.dart';
 
 class UserAuthProvider extends ChangeNotifier {
   final TextEditingController _registerNameCtr = TextEditingController();
@@ -14,10 +14,9 @@ class UserAuthProvider extends ChangeNotifier {
   final TextEditingController _registerConfirmPassCtr = TextEditingController();
   final TextEditingController _loginEmailCtr = TextEditingController();
   final TextEditingController _loginPassCtr = TextEditingController();
-  final TextEditingController _forgotEmailCtr = TextEditingController();
   final TextEditingController _otpController = TextEditingController();
-  TextEditingController _resetNewPassCtr = TextEditingController();
-  TextEditingController _resetConfirmPassCtr = TextEditingController();
+  final TextEditingController _resetNewPassCtr = TextEditingController();
+  final TextEditingController _resetConfirmPassCtr = TextEditingController();
 
   TextEditingController get registerNameCtr => _registerNameCtr;
   TextEditingController get registerEmailCtr => _registerEmailCtr;
@@ -25,7 +24,6 @@ class UserAuthProvider extends ChangeNotifier {
   TextEditingController get registerConfirmPassCtr => _registerConfirmPassCtr;
   TextEditingController get loginEmailCtr => _loginEmailCtr;
   TextEditingController get loginPassCtr => _loginPassCtr;
-  TextEditingController get forgotEmailCtr => _forgotEmailCtr;
   TextEditingController get otpController => _otpController;
   TextEditingController get resetNewPassCtr => _resetNewPassCtr;
   TextEditingController get resetConfirmPassCtr => _resetConfirmPassCtr;
@@ -43,9 +41,11 @@ class UserAuthProvider extends ChangeNotifier {
   String loginPassErr = '';
 
   //todo ---------------> register user
+  bool isRegisterLoading = false;
   Future<void> registerUser(BuildContext context) async {
     if (_validateRegisterData()) return;
-
+    isRegisterLoading = true;
+    notifyListeners();
     final result = await UserAuthService.instance.registerUser(
       email: _registerEmailCtr.text,
       fullName: _registerNameCtr.text,
@@ -74,12 +74,16 @@ class UserAuthProvider extends ChangeNotifier {
         _registerConfirmPassCtr.clear();
       },
     );
+    isRegisterLoading = false;
+    notifyListeners();
   }
 
   //todo ---------------> login user
+  bool isLoginLoading = false;
   Future<void> loginUser(BuildContext context) async {
     if (_validateLoginData()) return;
-
+    isLoginLoading = true;
+    notifyListeners();
     final result = await UserAuthService.instance.loginWithEmailPassword(
       email: loginEmailCtr.text.trim(),
       password: loginPassCtr.text.trim(),
@@ -99,15 +103,21 @@ class UserAuthProvider extends ChangeNotifier {
         await PrefHelper.setLoggedInUserPassword(_loginPassCtr.text.trim());
 
         // Logger.printInfo(PrefHelper.userToken);
-        context.goNamed(MobileAppRoutes.userDashBoardScreen.name);
+        context.goNamed(MobileAppRoutes.createProfileScreen.name);
         _loginEmailCtr.clear();
         _loginPassCtr.clear();
       },
     );
+    isLoginLoading = false;
+    notifyListeners();
   }
 
-  //todo ---------------> log out user
+  //todo ---------------> log out
+  bool isLogOutLoading = false;
+
   Future<void> logOutUser(BuildContext context) async {
+    isLogOutLoading = true;
+    notifyListeners();
     final result = await UserAuthService.instance.logOutUser();
 
     result.fold(
@@ -115,7 +125,7 @@ class UserAuthProvider extends ChangeNotifier {
         AppToast.error(context: context, message: failure.errorMessage);
       },
       (data) async {
-        AppToast.success(context: context, message: 'Logout Successfully');
+        AppToast.success(context: context, message: 'Logged out successfully.');
         context.goNamed(MobileAppRoutes.signUpScreen.name);
         await PrefHelper.saveUserToken("");
         await PrefHelper.saveUserRefreshToken("");
@@ -126,13 +136,19 @@ class UserAuthProvider extends ChangeNotifier {
         // Logger.printInfo(PrefHelper.userToken);
       },
     );
+    isLogOutLoading = false;
+    notifyListeners();
   }
 
   //todo ---------------> forgot password
-  Future<void> forgotPassword(BuildContext context) async {
-    final result = await UserAuthService.instance.forgetPassword(
-      email: _forgotEmailCtr.text.trim(),
-    );
+  bool isSendOtpLoading = false;
+  Future<void> sendOtp({
+    required BuildContext context,
+    required String email,
+  }) async {
+    isSendOtpLoading = true;
+    notifyListeners();
+    final result = await UserAuthService.instance.sendOtp(email: email);
 
     result.fold(
       (failure) {
@@ -145,15 +161,21 @@ class UserAuthProvider extends ChangeNotifier {
           MobileAppRoutes.verifyOtpScreen.name,
           extra: (data["data"]["user_id"] as int).toString(),
         );
+        _otpController.clear();
       },
     );
+    isSendOtpLoading = false;
+    notifyListeners();
   }
 
   //todo ---------------> verify OTP
+  bool isOtpVerificationLoading = false;
   Future<void> verifyOtp({
     required BuildContext context,
     required String userId,
   }) async {
+    isOtpVerificationLoading = true;
+    notifyListeners();
     final result = await UserAuthService.instance.verifyOtp(
       otp: _otpController.text.trim(),
       userId: userId,
@@ -164,20 +186,30 @@ class UserAuthProvider extends ChangeNotifier {
         AppToast.error(context: context, message: failure.errorMessage);
       },
       (data) async {
-        AppToast.success(context: context, message: data['message']);
+        AppToast.success(
+          context: context,
+          message: "OTP verified successfully",
+        );
         context.pushNamed(
           MobileAppRoutes.resetPasswordScreen.name,
           extra: userId,
         );
+        _resetNewPassCtr.clear();
+        _resetConfirmPassCtr.clear();
       },
     );
+    isOtpVerificationLoading = false;
+    notifyListeners();
   }
 
   //todo ---------------> reset password
+  bool isResetPasswordLoading = false;
   Future<void> resetPassword({
     required BuildContext context,
     required String userId,
   }) async {
+    isResetPasswordLoading = true;
+    notifyListeners();
     // if (_validateResetPasswordData()) return;
     final result = await UserAuthService.instance.resetPassword(
       userId: userId,
@@ -194,8 +226,12 @@ class UserAuthProvider extends ChangeNotifier {
         context.pop();
         context.pop();
         context.pop();
+        _resetNewPassCtr.clear();
+        _resetConfirmPassCtr.clear();
       },
     );
+    isResetPasswordLoading = false;
+    notifyListeners();
   }
 
   //todo --------> validation functions for all fields are below

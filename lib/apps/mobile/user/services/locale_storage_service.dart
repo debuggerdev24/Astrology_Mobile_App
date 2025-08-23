@@ -15,6 +15,7 @@ class PrefHelper {
   static const String _loggedInUserPasswordKey = "logged_in_user_password";
   static const String _loggedInCustomerEmailKey = "logged_in_user_email";
   static const String _loggedInCustomerpasswrodKey = "logged_in_user_password";
+  static const String _isProfileCreated = "is_profile_created";
 
   // save and get the value of is user logged in
   static bool get isUserLoggedIn => _pref.getBool(_isUserLoggedInKey) ?? false;
@@ -52,6 +53,11 @@ class PrefHelper {
       _pref.getString(_loggedInCustomerpasswrodKey) ?? '';
   static Future<void> setLoggedInCustomerPassword(String value) async =>
       await _pref.setString(_loggedInCustomerpasswrodKey, value);
+
+  // check is profile crested or not.
+  static bool get profileCreated => _pref.getBool(_isProfileCreated) ?? false;
+  static Future<void> setProfileCreated(bool value) async =>
+      await _pref.setBool(_isProfileCreated, value);
 
   static Future<void> clearUserTokens() async {
     await _pref.remove(_userTokenKey);
