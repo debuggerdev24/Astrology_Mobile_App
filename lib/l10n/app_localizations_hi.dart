@@ -316,4 +316,43 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get checkYourCurrentPlan => 'अपनी वर्तमान योजना की जाँच करें';
+
+  @override
+  String get logOut => 'लॉग आउट';
+
+  @override
+  String get save => 'सेव';
+
+  @override
+  String get checkBoxWarningMessage => 'कृपया शर्तों से सहमत होने और जारी रखने के लिए बॉक्स पर निशान लगाएँ।';
+
+  @override
+  String get internetConnectionMessage => 'कनेक्ट नहीं हो पा रहा है। कृपया अपना इंटरनेट कनेक्शन जांचें।';
+
+  @override
+  String get noChangesFoundMessage => 'कोई अपडेट नहीं मिला। कृपया सहेजने से पहले बदलाव करें।';
+
+  @override
+  String get profileUpdatedSuccessfully => 'प्रोफ़ाइल सफलतापूर्वक अपडेट की गई हे ';
+
+  @override
+  String get pleaseEnterPalmImage => 'कृपया हथेली की छवि दर्ज करें';
+
+  @override
+  String get isRequired => 'आवश्यक है';
+
+  @override
+  String get validNameError => 'मान्य नाम दर्ज करें (केवल अक्षर अनुमत हैं).';
+
+  @override
+  String get birthPlace => 'जन्म स्थान';
+
+  @override
+  String get enterYourFullName => 'अपना पूरा नाम भरें';
+
+  @override
+  String get enterYourBirthPlace => 'अपना जन्म स्थान दर्ज करें';
+
+  @override
+  String get enterYourCurrentLocation => 'अपना वर्तमान स्थान दर्ज करें';
 }

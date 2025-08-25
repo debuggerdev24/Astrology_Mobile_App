@@ -316,4 +316,43 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get checkYourCurrentPlan => 'Check Your Current Plan';
+
+  @override
+  String get logOut => 'Log Out';
+
+  @override
+  String get save => 'Save';
+
+  @override
+  String get checkBoxWarningMessage => 'Please check the box to agree to the terms and continue.';
+
+  @override
+  String get internetConnectionMessage => 'Unable to connect. Please check your internet connection.';
+
+  @override
+  String get noChangesFoundMessage => 'No updates found. Please make changes before saving.';
+
+  @override
+  String get profileUpdatedSuccessfully => 'Profile Updated Successfully';
+
+  @override
+  String get pleaseEnterPalmImage => 'Please enter palm image';
+
+  @override
+  String get isRequired => 'is required';
+
+  @override
+  String get validNameError => 'Enter a valid name (Only alphabets allowed).';
+
+  @override
+  String get birthPlace => 'Birth Place';
+
+  @override
+  String get enterYourFullName => 'Enter your Full Name';
+
+  @override
+  String get enterYourBirthPlace => 'Enter your Birth Place';
+
+  @override
+  String get enterYourCurrentLocation => 'Enter your Current Location';
 }

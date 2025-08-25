@@ -28,12 +28,10 @@ class UserProfileService {
         "birth_time": birthTime,
         "birth_place": birthPlace,
         "current_location": currentLocation,
-        "palm_image_left": (leftPalmImage == null)
-            ? null
-            : await MultipartFile.fromFile(leftPalmImage),
-        "palm_image_right": (rightPalmImage == null)
-            ? null
-            : await MultipartFile.fromFile(rightPalmImage),
+        if (leftPalmImage != null)
+          "palm_image_left": await MultipartFile.fromFile(leftPalmImage),
+        if (rightPalmImage != null)
+          "palm_image_right": await MultipartFile.fromFile(rightPalmImage),
       }),
     );
   }

@@ -2,12 +2,17 @@ import 'dart:io';
 
 import 'package:astrology_app/apps/mobile/user/services/profile_api_service.dart';
 import 'package:astrology_app/core/utils/field_validator.dart';
+import 'package:astrology_app/core/utils/logger.dart';
+import 'package:astrology_app/extension/context_extension.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../../core/constants/app_colors.dart';
 import '../../../../../core/utils/custom_toast.dart';
+import '../../../../../main.dart';
 import '../../../../../routes/mobile_routes/user_routes.dart';
 import '../../model/settings/profile_model.dart';
 import '../../services/locale_storage_service.dart';
@@ -26,26 +31,24 @@ class UserProfileProvider extends ChangeNotifier {
   TextEditingController editBirthTimeController = TextEditingController();
   TextEditingController editBirthDateController = TextEditingController();
 
-  String? leftHandImageUrl;
-  String? rightHandImageUrl;
+  String? leftHandImageUrl, rightHandImageUrl;
   DateTime? _birthDate;
   TimeOfDay? _birthTime;
 
   DateTime get birthDate => _birthDate!;
   TimeOfDay get birthTime => _birthTime!;
 
-  File? leftHandImageFile;
-  File? rightHandImageFile;
+  File? leftHandImageFile, rightHandImageFile;
   final ImagePicker _picker = ImagePicker();
 
   bool _isAgreementChecked = false;
   bool get isAgreementChecked => _isAgreementChecked;
 
-  String errorNameStr = "";
-  String errorPlaceOfBirthStr = "";
-  String errorCurrentLocationStr = "";
-  String errorDOBStr = "";
-  String errorTOBStr = "";
+  String errorNameStr = "",
+      errorPlaceOfBirthStr = "",
+      errorCurrentLocationStr = "",
+      errorDOBStr = "",
+      errorTOBStr = "";
 
   void toggleAgreement() {
     _isAgreementChecked = !_isAgreementChecked;
@@ -87,8 +90,6 @@ class UserProfileProvider extends ChangeNotifier {
         leftHandImageUrl = profile.palmImageLeft;
         rightHandImageUrl = profile.palmImageRight;
 
-        //todo edit profile screen controller assigned here
-
         isGetProfileLoading = false;
         notifyListeners();
       },
@@ -103,72 +104,93 @@ class UserProfileProvider extends ChangeNotifier {
     editBirthDateController.text = birthDateController.text;
     leftHandImageFile = null;
     rightHandImageFile = null;
+    errorNameStr = "";
+    errorPlaceOfBirthStr = "";
+    errorCurrentLocationStr = "";
+    errorDOBStr = "";
+    errorTOBStr = "";
   }
 
   //todo ---------------> edit profile
   bool isUpdateProfileLoading = false;
   Future<void> updateProfile({
     required BuildContext context,
-    bool? isFromEditScreen,
+    bool? isFromEdit,
   }) async {
-    if (_validateEditFields()) return;
-    isUpdateProfileLoading = true;
-    notifyListeners();
-    final result = (isFromEditScreen ?? false)
-        ? await UserProfileService.instance.updateProfile(
-            fullName: editNameController.text.trim(),
-            birthDate: editBirthDateController.text.trim(),
-            birthTime: editBirthTimeController.text.trim(),
-            birthPlace: editBirthPlaceController.text.trim(),
-            currentLocation: editCurrentLocationController.text.trim(),
-            leftPalmImage: (leftHandImageFile == null)
-                ? null
-                : leftHandImageFile!.path,
-            rightPalmImage: (rightHandImageFile == null)
-                ? null
-                : rightHandImageFile!.path,
-          )
-        : await UserProfileService.instance.updateProfile(
-            fullName: nameController.text.trim(),
-            birthDate: birthDateController.text.trim(),
-            birthTime: birthTimeController.text.trim(),
-            birthPlace: birthPlaceController.text.trim(),
-            currentLocation: currentLocationController.text.trim(),
-            leftPalmImage: leftHandImageFile!.path,
-            rightPalmImage: rightHandImageFile!.path,
-          );
-
-    result.fold(
-      (failure) {
-        AppToast.error(context: context, message: failure.errorMessage);
-      },
-      (data) async {
-        AppToast.success(
+    if (isFromEdit ?? false) {
+      if (_validateEditFields(context)) return;
+    } else {
+      if (_validateFields(context)) return;
+    }
+    if (isAgreementChecked) {
+      if (!isNetworkConnected.value) {
+        AppToast.info(
           context: context,
-          message: 'Profile Updated Successfully',
+          message: "Unable to connect. Please check your internet connection.",
         );
-        context.pushNamed(MobileAppRoutes.userDashBoardScreen.name);
-        PrefHelper.setProfileCreated(true);
-      },
-    );
-    isUpdateProfileLoading = false;
+        return;
+      }
+      if (!_isProfileChanged()) {
+        AppToast.info(
+          context: context,
+          message: "No updates found. Please make changes before saving.",
+        );
+        return;
+      }
+      isUpdateProfileLoading = true;
+      notifyListeners();
+      final result = (isFromEdit ?? false)
+          ? await UserProfileService.instance.updateProfile(
+              fullName: editNameController.text.trim(),
+              birthDate: editBirthDateController.text.trim(),
+              birthTime: editBirthTimeController.text.trim(),
+              birthPlace: editBirthPlaceController.text.trim(),
+              currentLocation: editCurrentLocationController.text.trim(),
+              leftPalmImage: (leftHandImageFile == null)
+                  ? null
+                  : leftHandImageFile!.path,
+              rightPalmImage: (rightHandImageFile == null)
+                  ? null
+                  : rightHandImageFile!.path,
+            )
+          : await UserProfileService.instance.updateProfile(
+              fullName: nameController.text.trim(),
+              birthDate: birthDateController.text.trim(),
+              birthTime: birthTimeController.text.trim(),
+              birthPlace: birthPlaceController.text.trim(),
+              currentLocation: currentLocationController.text.trim(),
+              leftPalmImage: leftHandImageFile!.path,
+              rightPalmImage: rightHandImageFile!.path,
+            );
 
-    notifyListeners();
+      result.fold(
+        (failure) {
+          AppToast.error(context: context, message: failure.errorMessage);
+        },
+        (data) async {
+          AppToast.success(
+            context: context,
+            message: context.translator.profileUpdatedSuccessfully,
+          );
+          context.pushNamed(MobileAppRoutes.userDashBoardScreen.name);
+          LocaleStoaregService.setProfileCreated(true);
+        },
+      );
+      isUpdateProfileLoading = false;
+      notifyListeners();
+      return;
+    }
+    AppToast.warning(
+      context: context,
+      message: "Please check the box to agree to the terms and continue.",
+    );
   }
 
-  // Format date manually without intl (matching your existing format)
-
-  // Format time manually without intl (matching your existing format)
-  // String get formattedBirthTime {
-  //   if (_birthTime == null) return "";
-  //
-  //   final hour = _birthTime!.hourOfPeriod == 0 ? 12 : _birthTime!.hourOfPeriod;
-  //   // final minute = _birthTime!.minute.toString().padLeft(2, '0');
-  //   // final period = _birthTime!.period == DayPeriod.am ? "AM" : "PM";
-  //   return hour.toString().padLeft(2, '0'); //:$minute $period
-  // }
-
-  Future<void> pickBirthDate(BuildContext context) async {
+  //todo ------------------- Date Picker
+  Future<void> pickBirthDate({
+    required BuildContext context,
+    bool? isFromEdit,
+  }) async {
     final picked = await showDatePicker(
       barrierColor: AppColors.black.withValues(alpha: 0.6),
       context: context,
@@ -199,51 +221,207 @@ class UserProfileProvider extends ChangeNotifier {
       final day = _birthDate!.day.toString().padLeft(2, '0');
       final month = _birthDate!.month.toString().padLeft(2, '0');
       final year = _birthDate!.year.toString();
-      birthDateController.text = "$year-$month-$day";
+
+      if (isFromEdit ?? false) {
+        editBirthDateController.text = "$year-$month-$day";
+      } else {
+        birthDateController.text = "$year-$month-$day";
+      }
 
       notifyListeners();
     }
   }
 
-  Future<void> pickBirthTime(BuildContext context) async {
-    final picked = await showTimePicker(
+  Future<void> pickBirthTime({
+    required BuildContext context,
+    bool? isFromEdit,
+  }) async {
+    showModalBottomSheet(
       context: context,
-      barrierColor: AppColors.black.withValues(alpha: 0.6),
-      initialTime: TimeOfDay.now(),
-      builder: (context, child) {
-        return Theme(
-          data: ThemeData.dark().copyWith(
-            colorScheme: ColorScheme.dark(
-              primary: AppColors.whiteColor,
-              // Purple for selected date
-              onPrimary: AppColors.black,
-              outline: AppColors.whiteColor,
-              surface: AppColors.bgColor,
-              // Dark background
-              onSurface: AppColors.whiteColor,
-              brightness: Brightness.light,
+      showDragHandle: true,
+      backgroundColor: AppColors.bgColor,
+
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+      builder: (BuildContext context) {
+        Duration initialTimer = Duration(
+          hours: _birthTime?.hour ?? TimeOfDay.now().hour,
+          minutes: _birthTime?.minute ?? TimeOfDay.now().minute,
+          seconds: 0,
+        );
+
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Done button
+            Align(
+              alignment: Alignment.centerRight,
+              child: TextButton(
+                onPressed: () {
+                  context.pop();
+                },
+                child: Text(
+                  "Done",
+                  style: TextStyle(color: AppColors.whiteColor),
+                ),
+              ),
             ),
-          ),
-          child: child!,
+            CupertinoTheme(
+              data: CupertinoThemeData(
+                primaryColor: AppColors.redColor,
+                brightness: Brightness.dark,
+              ),
+
+              child: CupertinoTimerPicker(
+                mode: CupertinoTimerPickerMode.hms, // hours:minutes:seconds
+                initialTimerDuration: initialTimer,
+
+                onTimerDurationChanged: (Duration newTime) {
+                  final hours = newTime.inHours;
+                  final minutes = newTime.inMinutes % 60;
+                  final seconds = newTime.inSeconds % 60;
+
+                  // Save in your variable
+                  _birthTime = TimeOfDay(hour: hours, minute: minutes);
+
+                  // Update text controller with HH:MM:SS
+                  final time =
+                      "${hours.toString().padLeft(2, '0')}:"
+                      "${minutes.toString().padLeft(2, '0')}:"
+                      "${seconds.toString().padLeft(2, '0')}";
+                  if (isFromEdit ?? false) {
+                    editBirthTimeController.text = time;
+                  } else {
+                    birthTimeController.text = time;
+                  }
+                },
+              ),
+            ),
+            20.h.verticalSpace,
+          ],
         );
       },
     );
-
-    if (picked != null) {
-      _birthTime = picked;
-      final hour = _birthTime!.hourOfPeriod == 0
-          ? 12
-          : _birthTime!.hourOfPeriod.toString().padLeft(2, '0');
-      final minute = _birthTime!.minute.toString().padLeft(2, '0');
-
-      birthTimeController.text = "$hour:$minute";
-      notifyListeners();
-    }
   }
 
-  bool _validateEditFields() {
-    errorNameStr = FieldValidators().fullName(editNameController.text.trim());
-    if (errorNameStr.isNotEmpty) {
+  bool _isProfileChanged() {
+    final isTextChanged =
+        nameController.text.trim() != editNameController.text.trim() ||
+        currentLocationController.text.trim() !=
+            editCurrentLocationController.text.trim() ||
+        birthPlaceController.text.trim() !=
+            editBirthPlaceController.text.trim() ||
+        birthTimeController.text.trim() !=
+            editBirthTimeController.text.trim() ||
+        birthDateController.text.trim() != editBirthDateController.text.trim();
+
+    final isImageChanged =
+        leftHandImageFile != null || rightHandImageFile != null;
+
+    return isTextChanged || isImageChanged;
+  }
+
+  //todo ------------> validation functions
+  bool _validateFields(BuildContext context) {
+    errorNameStr = FieldValidators().fullName(
+      context,
+      nameController.text.trim(),
+    );
+    errorDOBStr =
+        FieldValidators().required(
+          context,
+          birthDateController.text.trim(),
+          context.translator.dateOfBirth,
+        ) ??
+        "";
+    errorTOBStr =
+        FieldValidators().required(
+          context,
+          birthTimeController.text.trim(),
+          context.translator.timeOfBirth,
+        ) ??
+        "";
+    errorPlaceOfBirthStr =
+        FieldValidators().required(
+          context,
+          birthPlaceController.text.trim(),
+          context.translator.placeOfBirth,
+        ) ??
+        "";
+    errorCurrentLocationStr =
+        FieldValidators().required(
+          context,
+          currentLocationController.text.trim(),
+          context.translator.currentLocation,
+        ) ??
+        "";
+    // if()
+
+    if ((leftHandImageFile == null || rightHandImageFile == null)) {
+      AppToast.error(context: context, message: "Please enter palm image");
+    }
+    notifyListeners();
+
+    if (errorNameStr.isNotEmpty ||
+        errorCurrentLocationStr.isNotEmpty ||
+        errorDOBStr.isNotEmpty ||
+        errorTOBStr.isNotEmpty ||
+        errorPlaceOfBirthStr.isNotEmpty ||
+        leftHandImageFile == null ||
+        rightHandImageFile == null) {
+      Logger.printInfo("-----------------------------");
+      Logger.printInfo("|     Validation Error       |");
+      Logger.printInfo("-----------------------------");
+      return true;
+    }
+    return false;
+  }
+
+  bool _validateEditFields(BuildContext context) {
+    errorNameStr = FieldValidators().fullName(
+      context,
+      editNameController.text.trim(),
+    );
+    errorDOBStr =
+        FieldValidators().required(
+          context,
+          birthDateController.text.trim(),
+          "Birth Date",
+        ) ??
+        "";
+    errorTOBStr =
+        FieldValidators().required(
+          context,
+          editBirthTimeController.text.trim(),
+          context.translator.timeOfBirth,
+        ) ??
+        "";
+    errorPlaceOfBirthStr =
+        FieldValidators().required(
+          context,
+          editBirthPlaceController.text.trim(),
+          context.translator.birthPlace,
+        ) ??
+        "";
+    errorCurrentLocationStr =
+        FieldValidators().required(
+          context,
+          editCurrentLocationController.text.trim(),
+          context.translator.currentLocation,
+        ) ??
+        "";
+    notifyListeners();
+
+    if (errorNameStr.isNotEmpty ||
+        errorCurrentLocationStr.isNotEmpty ||
+        errorDOBStr.isNotEmpty ||
+        errorTOBStr.isNotEmpty ||
+        errorPlaceOfBirthStr.isNotEmpty) {
+      Logger.printInfo("-----------------------------");
+      Logger.printInfo("|     Validation Error       |");
+      Logger.printInfo("-----------------------------");
       return true;
     }
     return false;

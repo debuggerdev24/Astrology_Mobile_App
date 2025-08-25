@@ -22,6 +22,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final translator = context.translator;
     return AppLayout(
       body: SingleChildScrollView(
         child: Consumer<UserProfileProvider>(
@@ -51,7 +52,7 @@ class ProfileScreen extends StatelessWidget {
                 children: [
                   UnderLinedAppTextField(
                     readOnly: true,
-                    title: "Full Name",
+                    title: translator.fullName,
                     controller: provider.nameController,
                   ),
                   Row(
@@ -59,14 +60,14 @@ class ProfileScreen extends StatelessWidget {
                       Expanded(
                         child: UnderLinedAppTextField(
                           readOnly: true,
-                          title: "Date Of Birth",
+                          title: translator.dateOfBirth,
                           controller: provider.birthDateController,
                         ),
                       ),
                       Expanded(
                         child: UnderLinedAppTextField(
                           readOnly: true,
-                          title: "Time Of Birth",
+                          title: translator.timeOfBirth,
                           controller: provider.birthTimeController,
                         ),
                       ),
@@ -74,16 +75,16 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   UnderLinedAppTextField(
                     readOnly: true,
-                    title: "Place Of Birth",
+                    title: translator.placeOfBirth,
                     controller: provider.birthPlaceController,
                   ),
                   UnderLinedAppTextField(
                     readOnly: true,
-                    title: "Current Location",
+                    title: translator.currentLocation,
                     controller: provider.currentLocationController,
                   ),
                   AppText(
-                    text: "Uploaded Palm",
+                    text: translator.uploadedPalm,
                     style: medium(fontSize: 14.sp),
                   ),
                   Row(
@@ -91,13 +92,11 @@ class ProfileScreen extends StatelessWidget {
                     children: [
                       buildPalmSection(
                         palmImage:
-                            AppConfig.imagesBaseurl +
-                            provider.leftHandImageUrl!,
+                            "${AppConfig.imagesBaseurl}${provider.leftHandImageUrl ?? ""}",
                       ),
                       buildPalmSection(
                         palmImage:
-                            AppConfig.imagesBaseurl +
-                            provider.rightHandImageUrl!,
+                            "${AppConfig.imagesBaseurl}${provider.rightHandImageUrl ?? ""}",
                       ),
                     ],
                   ),

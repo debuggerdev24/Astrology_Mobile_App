@@ -32,6 +32,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final translator = context.translator;
     return AppLayout(
       horizontalPadding: 0,
       body: Consumer<UserProfileProvider>(
@@ -51,12 +52,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       children: [
                         // Full Name Field
                         AppTextField(
-                          hintText: "Enter your Full Name",
-                          title: "Full Name",
+                          hintText: translator.enterYourFullName,
+                          title: translator.fullName,
                           controller: provider.editNameController,
                           errorMessage: provider.errorNameStr,
                         ),
-
                         // Date and Time Row
                         Row(
                           spacing: 15.w,
@@ -64,14 +64,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             // Date of Birth Field
                             Expanded(
                               child: AppTextField(
-                                onTap: () => provider.pickBirthDate(context),
+                                onTap: () => provider.pickBirthDate(
+                                  context: context,
+                                  isFromEdit: true,
+                                ),
                                 hintText: "yyyy-mm-dd",
                                 readOnly: true,
-                                title: "Date Of Birth",
+                                title: translator.dateOfBirth,
                                 suffix: Icon(
                                   Icons.calendar_month,
                                   color: AppColors.whiteColor,
                                 ),
+                                errorMessage: provider.errorTOBStr,
                                 controller: provider.editBirthDateController,
                               ),
                             ),
@@ -79,14 +83,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             // Time of Birth Field
                             Expanded(
                               child: AppTextField(
-                                onTap: () => provider.pickBirthTime(context),
+                                onTap: () => provider.pickBirthTime(
+                                  context: context,
+                                  isFromEdit: true,
+                                ),
                                 readOnly: true,
                                 suffix: Icon(
                                   Icons.access_time_rounded,
                                   color: AppColors.whiteColor,
                                 ),
                                 hintText: "Enter your TOB",
-                                title: "Time Of Birth",
+                                title: translator.timeOfBirth,
+                                errorMessage: provider.errorDOBStr,
+
                                 controller: provider.editBirthTimeController,
                               ),
                             ),
@@ -94,16 +103,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         ),
                         // Place of Birth Field
                         AppTextField(
-                          hintText: "Enter your Birth Place",
-                          title: "Place Of Birth",
+                          hintText: translator.enterYourBirthPlace,
+                          title: translator.placeOfBirth,
+                          errorMessage: provider.errorPlaceOfBirthStr,
+
                           controller: provider.editBirthPlaceController,
                         ),
 
                         // Current Location Field
                         AppTextField(
-                          hintText: "Enter your Current Location",
+                          hintText: translator.enterYourCurrentLocation,
+                          errorMessage: provider.errorCurrentLocationStr,
 
-                          title: "Current Location",
+                          title: translator.currentLocation,
                           controller: provider.editCurrentLocationController,
                         ),
 
@@ -140,11 +152,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         deBouncer.run(
                           () => provider.updateProfile(
                             context: context,
-                            isFromEditScreen: true,
+                            isFromEdit: true,
                           ),
                         );
                       },
-                      title: "Save",
+                      title: translator.save,
                       margin: EdgeInsets.symmetric(vertical: 30.h),
                     ),
                   ],

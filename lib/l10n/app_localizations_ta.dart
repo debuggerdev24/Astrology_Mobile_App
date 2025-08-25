@@ -316,4 +316,43 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get checkYourCurrentPlan => 'உங்கள் தற்போதைய திட்டத்தைச் சரிபார்க்கவும்';
+
+  @override
+  String get logOut => 'வெளியேறு';
+
+  @override
+  String get save => 'சேமிக்கவும்';
+
+  @override
+  String get checkBoxWarningMessage => 'விதிமுறைகளை ஏற்றுக்கொண்டு தொடர பெட்டியைத் தேர்வுசெய்யவும்.';
+
+  @override
+  String get internetConnectionMessage => 'இணைக்க முடியவில்லை. உங்கள் இணைய இணைப்பைச் சரிபார்க்கவும்.';
+
+  @override
+  String get noChangesFoundMessage => 'புதுப்பிப்புகள் எதுவும் இல்லை. சேமிப்பதற்கு முன் மாற்றங்களைச் செய்யவும்.';
+
+  @override
+  String get profileUpdatedSuccessfully => 'சுயவிவரம் வெற்றிகரமாகப் புதுப்பிக்கப்பட்டது.';
+
+  @override
+  String get pleaseEnterPalmImage => 'உள்ளங்கைப் படத்தை உள்ளிடவும்.';
+
+  @override
+  String get isRequired => 'அவசியம்';
+
+  @override
+  String get validNameError => 'செல்லுபடியாகும் பெயரை உள்ளிடவும் (எழுத்துக்கள் மட்டுமே அனுமதிக்கப்படும்).';
+
+  @override
+  String get birthPlace => 'பிறந்த இடம்';
+
+  @override
+  String get enterYourFullName => 'உங்கள் முழுப் பெயரை உள்ளிடவும்';
+
+  @override
+  String get enterYourBirthPlace => 'உங்கள் பிறந்த இடத்தை உள்ளிடவும்';
+
+  @override
+  String get enterYourCurrentLocation => 'உங்கள் தற்போதைய இருப்பிடத்தை உள்ளிடவும்';
 }

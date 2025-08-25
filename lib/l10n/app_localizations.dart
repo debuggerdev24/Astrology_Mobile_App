@@ -714,6 +714,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Check Your Current Plan'**
   String get checkYourCurrentPlan;
+
+  /// No description provided for @logOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Log Out'**
+  String get logOut;
+
+  /// No description provided for @save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
+  /// No description provided for @checkBoxWarningMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please check the box to agree to the terms and continue.'**
+  String get checkBoxWarningMessage;
+
+  /// No description provided for @internetConnectionMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to connect. Please check your internet connection.'**
+  String get internetConnectionMessage;
+
+  /// No description provided for @noChangesFoundMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'No updates found. Please make changes before saving.'**
+  String get noChangesFoundMessage;
+
+  /// No description provided for @profileUpdatedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile Updated Successfully'**
+  String get profileUpdatedSuccessfully;
+
+  /// No description provided for @pleaseEnterPalmImage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter palm image'**
+  String get pleaseEnterPalmImage;
+
+  /// No description provided for @isRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'is required'**
+  String get isRequired;
+
+  /// No description provided for @validNameError.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a valid name (Only alphabets allowed).'**
+  String get validNameError;
+
+  /// No description provided for @birthPlace.
+  ///
+  /// In en, this message translates to:
+  /// **'Birth Place'**
+  String get birthPlace;
+
+  /// No description provided for @enterYourFullName.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your Full Name'**
+  String get enterYourFullName;
+
+  /// No description provided for @enterYourBirthPlace.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your Birth Place'**
+  String get enterYourBirthPlace;
+
+  /// No description provided for @enterYourCurrentLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your Current Location'**
+  String get enterYourCurrentLocation;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

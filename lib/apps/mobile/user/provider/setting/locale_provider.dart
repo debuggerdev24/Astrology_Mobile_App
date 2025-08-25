@@ -1,3 +1,4 @@
+import 'package:astrology_app/apps/mobile/user/services/locale_storage_service.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/utils/logger.dart';
@@ -16,6 +17,7 @@ class LocaleProvider extends ChangeNotifier {
     }
 
     _localeCode = code;
+    LocaleStoaregService.setLocaleCode(code);
     Logger.printInfo("Locale updated to: $_localeCode");
     notifyListeners();
   }

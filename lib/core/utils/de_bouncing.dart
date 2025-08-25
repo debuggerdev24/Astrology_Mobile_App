@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-DeBouncer deBouncer = DeBouncer(milliSecond: 500);
+DeBouncer deBouncer = DeBouncer(milliSecond: 450);
 
 class DeBouncer {
   final int milliSecond;

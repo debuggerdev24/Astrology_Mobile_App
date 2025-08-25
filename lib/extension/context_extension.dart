@@ -7,4 +7,6 @@ import '../l10n/app_localizations.dart';
 extension LocalizationExtension on BuildContext {
   AppLocalizations get translator => AppLocalizations.of(this)!;
   bool get isTamil => read<LocaleProvider>().localeCode == "ta";
+  bool get isHindi => read<LocaleProvider>().localeCode == "hi";
+  bool get isEng => read<LocaleProvider>().localeCode == "en";
 }

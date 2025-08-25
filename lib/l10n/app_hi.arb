@@ -101,6 +101,20 @@
   "currentSubscription": "वर्तमान सदस्यता",
   "uploadedPalm": "अपलोड किया गया पाम",
   "uploadPalm": "पाम अपलोड करें",
-  "checkYourCurrentPlan": "अपनी वर्तमान योजना की जाँच करें"
+  "checkYourCurrentPlan": "अपनी वर्तमान योजना की जाँच करें",
+  "logOut": "लॉग आउट",
+  "save": "सेव",
+  "checkBoxWarningMessage": "कृपया शर्तों से सहमत होने और जारी रखने के लिए बॉक्स पर निशान लगाएँ।",
+  "internetConnectionMessage": "कनेक्ट नहीं हो पा रहा है। कृपया अपना इंटरनेट कनेक्शन जांचें।",
+  "noChangesFoundMessage": "कोई अपडेट नहीं मिला। कृपया सहेजने से पहले बदलाव करें।",
+  "profileUpdatedSuccessfully": "प्रोफ़ाइल सफलतापूर्वक अपडेट की गई हे ",
+  "pleaseEnterPalmImage": "कृपया हथेली की छवि दर्ज करें",
+  "isRequired": "आवश्यक है",
+  "validNameError": "मान्य नाम दर्ज करें (केवल अक्षर अनुमत हैं).",
+  "birthPlace": "जन्म स्थान",
+  "enterYourFullName": "अपना पूरा नाम भरें",
+  "enterYourBirthPlace": "अपना जन्म स्थान दर्ज करें",
+  "enterYourCurrentLocation": "अपना वर्तमान स्थान दर्ज करें"
+
 
 }

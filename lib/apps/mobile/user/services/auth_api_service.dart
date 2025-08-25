@@ -40,7 +40,7 @@ class UserAuthService {
   Future<Either<ApiException, Map<String, dynamic>>> logOutUser() async {
     return await BaseApiHelper.instance.post(
       Endpoints.userLogout,
-      data: {"refresh": PrefHelper.userRefreshToken},
+      data: {"refresh": LocaleStoaregService.userRefreshToken},
     );
   }
 

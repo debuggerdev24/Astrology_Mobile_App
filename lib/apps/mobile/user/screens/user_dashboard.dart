@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:astrology_app/apps/mobile/user/provider/setting/profile_provider.dart';
 import 'package:astrology_app/apps/mobile/user/screens/consult/consult_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/home/home_screen.dart';
@@ -6,16 +8,13 @@ import 'package:astrology_app/apps/mobile/user/screens/remedies/palm_upload_scre
 import 'package:astrology_app/apps/mobile/user/screens/settings/settings_screen.dart';
 import 'package:astrology_app/core/constants/text_style.dart';
 import 'package:astrology_app/extension/context_extension.dart';
-import 'package:astrology_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/constants/app_assets.dart';
 import '../../../../core/constants/app_colors.dart';
-import '../../../../core/widgets/app_layout.dart';
 import '../../../../core/widgets/app_text.dart';
-import '../../../../core/widgets/global_methods.dart';
 import '../../../../core/widgets/svg_image.dart';
 
 final ValueNotifier<int> indexTabUser = ValueNotifier<int>(0);
@@ -38,7 +37,9 @@ class UserDashboard extends StatefulWidget {
 class _UserDashboardState extends State<UserDashboard> {
   @override
   void initState() {
-    context.read<UserProfileProvider>().getProfile(context);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      context.read<UserProfileProvider>().getProfile(context);
+    });
     super.initState();
   }
 
@@ -50,16 +51,17 @@ class _UserDashboardState extends State<UserDashboard> {
       valueListenable: indexTabUser,
       builder: (BuildContext context, int index, Widget? child) {
         return Scaffold(
-          body: ValueListenableBuilder(
-            valueListenable: isOffline,
-            builder: (context, connection, child) {
-              if (connection) {
-                return pages[index];
-              }
-              showToast("No Internet Connection!", 5);
-              return Center(child: myIndicator());
-            },
-          ),
+          body: pages[index],
+          // ValueListenableBuilder(
+          //   valueListenable: isOffline,
+          //   builder: (context, connection, child) {
+          //     if (connection) {
+          //       return ;
+          //     }
+          //     showToast("No Internet Connection!", 5);
+          //     return Center(child: myIndicator());
+          //   },
+          // ),
           //
           bottomNavigationBar: SafeArea(
             child: Container(
@@ -138,9 +140,9 @@ class _UserDashboardState extends State<UserDashboard> {
             ),
             color: isCurrent ? Color(0xff575778) : Colors.transparent,
           ),
-          duration: Duration(milliseconds: 300),
+          duration: Duration(milliseconds: 450),
           child: Column(
-            spacing: 4.h,
+            spacing: 6,
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -156,10 +158,19 @@ class _UserDashboardState extends State<UserDashboard> {
                     child: AppText(
                       text: title,
                       textAlign: TextAlign.center,
-                      style: regular(
-                        color: isCurrent ? Colors.white : AppColors.darkBlue,
-                        fontSize: isTamil ? 10 : 12,
-                      ),
+                      style: !context.isEng && Platform.isIOS
+                          ? bold(
+                              color: isCurrent
+                                  ? Colors.white
+                                  : AppColors.darkBlue,
+                              fontSize: 12,
+                            )
+                          : regular(
+                              color: isCurrent
+                                  ? Colors.white
+                                  : AppColors.darkBlue,
+                              fontSize: isTamil ? 10 : 12,
+                            ),
                     ),
                   ),
                 ],

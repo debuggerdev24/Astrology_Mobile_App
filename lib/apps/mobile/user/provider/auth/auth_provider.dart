@@ -1,4 +1,6 @@
+import 'package:astrology_app/apps/mobile/user/screens/user_dashboard.dart';
 import 'package:astrology_app/apps/mobile/user/services/auth_api_service.dart';
+import 'package:astrology_app/core/utils/logger.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 
@@ -6,6 +8,7 @@ import '../../../../../core/utils/custom_toast.dart';
 import '../../../../../core/utils/field_validator.dart';
 import '../../../../../routes/mobile_routes/user_routes.dart';
 import '../../services/locale_storage_service.dart';
+import '../../services/profile_api_service.dart';
 
 class UserAuthProvider extends ChangeNotifier {
   final TextEditingController _registerNameCtr = TextEditingController();
@@ -43,7 +46,7 @@ class UserAuthProvider extends ChangeNotifier {
   //todo ---------------> register user
   bool isRegisterLoading = false;
   Future<void> registerUser(BuildContext context) async {
-    if (_validateRegisterData()) return;
+    if (_validateRegisterData(context)) return;
     isRegisterLoading = true;
     notifyListeners();
     final result = await UserAuthService.instance.registerUser(
@@ -60,10 +63,10 @@ class UserAuthProvider extends ChangeNotifier {
       (data) async {
         AppToast.success(context: context, message: 'Registered Successfully');
 
-        await PrefHelper.setLoggedInCustomerEmail(
+        await LocaleStoaregService.setLoggedInCustomerEmail(
           _registerEmailCtr.text.trim(),
         );
-        await PrefHelper.setLoggedInCustomerPassword(
+        await LocaleStoaregService.setLoggedInCustomerPassword(
           _registerPasswordCtr.text.trim(),
         );
 
@@ -95,21 +98,46 @@ class UserAuthProvider extends ChangeNotifier {
       },
       (data) async {
         AppToast.success(context: context, message: 'Login Successfully');
-        await PrefHelper.saveUserToken(data['data']['access']);
-        await PrefHelper.saveUserRefreshToken(data['data']['refresh']);
-        await PrefHelper.setIsUserLoggedIn();
+        await LocaleStoaregService.saveUserToken(data['data']['access']);
 
-        await PrefHelper.setLoggedInUserEmail(_loginEmailCtr.text.trim());
-        await PrefHelper.setLoggedInUserPassword(_loginPassCtr.text.trim());
+        await LocaleStoaregService.saveUserRefreshToken(
+          data['data']['refresh'],
+        );
 
+        await LocaleStoaregService.setIsUserLoggedIn();
+
+        await LocaleStoaregService.setLoggedInUserEmail(
+          _loginEmailCtr.text.trim(),
+        );
+        await LocaleStoaregService.setLoggedInUserPassword(
+          _loginPassCtr.text.trim(),
+        );
+
+        decideFirstScreen(context);
         // Logger.printInfo(PrefHelper.userToken);
-        context.goNamed(MobileAppRoutes.createProfileScreen.name);
+
         _loginEmailCtr.clear();
         _loginPassCtr.clear();
       },
     );
     isLoginLoading = false;
     notifyListeners();
+  }
+
+  Future<void> decideFirstScreen(BuildContext context) async {
+    final result = await UserProfileService.instance.getProfile();
+    result.fold((l) {}, (r) {
+      final data = r["data"]["palm_image_left"];
+
+      if (data == null) {
+        Logger.printInfo(
+          "Going to the profile screen by using yoiur new logic",
+        );
+        context.goNamed(MobileAppRoutes.createProfileScreen.name);
+        return;
+      }
+      context.goNamed(MobileAppRoutes.userDashBoardScreen.name);
+    });
   }
 
   //todo ---------------> log out
@@ -127,11 +155,12 @@ class UserAuthProvider extends ChangeNotifier {
       (data) async {
         AppToast.success(context: context, message: 'Logged out successfully.');
         context.goNamed(MobileAppRoutes.signUpScreen.name);
-        await PrefHelper.saveUserToken("");
-        await PrefHelper.saveUserRefreshToken("");
-        await PrefHelper.setIsUserLoggedIn(value: false);
-        await PrefHelper.setLoggedInUserEmail("");
-        await PrefHelper.setLoggedInUserPassword("");
+        await LocaleStoaregService.saveUserToken("");
+        await LocaleStoaregService.saveUserRefreshToken("");
+        await LocaleStoaregService.setIsUserLoggedIn(value: false);
+        await LocaleStoaregService.setLoggedInUserEmail("");
+        await LocaleStoaregService.setLoggedInUserPassword("");
+        indexTabUser.value = 0;
 
         // Logger.printInfo(PrefHelper.userToken);
       },
@@ -237,8 +266,9 @@ class UserAuthProvider extends ChangeNotifier {
   //todo --------> validation functions for all fields are below
   bool _validateLoginData() {
     loginEmailErr = FieldValidators().email(_loginEmailCtr.text.trim()) ?? "";
-    loginPassErr =
-        FieldValidators().required(_loginPassCtr.text.trim(), "Password") ?? "";
+    loginPassErr = _loginPassCtr.text.trim().isEmpty
+        ? "Password is Required"
+        : "";
     notifyListeners();
 
     if (loginEmailErr.isNotEmpty || loginPassErr.isNotEmpty) {
@@ -247,10 +277,10 @@ class UserAuthProvider extends ChangeNotifier {
     return false;
   }
 
-  bool _validateRegisterData() {
+  bool _validateRegisterData(BuildContext context) {
     // validate name
     registerNameErr =
-        FieldValidators().required(_registerNameCtr.text.trim(), "Name") ?? "";
+        FieldValidators().fullName(context, _registerNameCtr.text.trim()) ?? "";
 
     // validate email
     registerEmailErr =

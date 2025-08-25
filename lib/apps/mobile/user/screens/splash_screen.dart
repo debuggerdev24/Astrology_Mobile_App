@@ -3,6 +3,10 @@ import 'package:astrology_app/core/widgets/app_layout.dart';
 import 'package:astrology_app/routes/mobile_routes/user_routes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+
+import '../../../../core/network/base_api_helper.dart';
+import '../provider/auth/auth_provider.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -12,23 +16,43 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  String userToken = PrefHelper.userToken;
-  bool isProfileCreated = PrefHelper.profileCreated;
-
+  String userToken = LocaleStoaregService.userToken;
+  bool isProfileCreated = LocaleStoaregService.profileCreated;
   @override
   void initState() {
-    Future.delayed(Duration(seconds: 2)).then((value) {
+    init();
+    super.initState();
+  }
+
+  void init() {
+    Future.delayed(Duration(seconds: 2)).then((value) async {
       if (userToken.isNotEmpty) {
-        context.goNamed(
-          (isProfileCreated)
-              ? MobileAppRoutes.userDashBoardScreen.name
-              : MobileAppRoutes.createProfileScreen.name,
-        );
+        final result = await BaseApiHelper.instance.checkTokenExpired();
+        result.fold((l) {}, (r) async {
+          if (r) {
+            final res = await BaseApiHelper.instance.refreshAuthToken();
+            res.fold(
+              (err) {
+                if (err.code == "token_not_valid") {
+                  LocaleStoaregService.clearUserTokens();
+                  context.goNamed(MobileAppRoutes.signUpScreen.name);
+                }
+              },
+              (_) {
+                context.read<UserAuthProvider>().decideFirstScreen(context);
+              },
+            );
+          }
+        });
+        // context.goNamed(
+        //   (isProfileCreated)
+        //       ? MobileAppRoutes.userDashBoardScreen.name
+        //       : MobileAppRoutes.createProfileScreen.name,
+        // );
         return;
       }
       context.goNamed(MobileAppRoutes.signUpScreen.name);
     });
-    super.initState();
   }
 
   @override

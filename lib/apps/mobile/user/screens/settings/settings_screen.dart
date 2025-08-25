@@ -47,89 +47,7 @@ class SettingScreen extends StatelessWidget {
                       context: context,
                       title: context.translator.settings,
 
-                      actionIcon: PopupMenuButton<String>(
-                        onSelected: (lang) {
-                          if (lang == "English") {
-                            localeProvider.setLocale("en");
-                          } else if (lang == "Hindi") {
-                            localeProvider.setLocale("hi");
-                          } else if (lang == "Tamil") {
-                            localeProvider.setLocale("ta");
-                          }
-                        },
-                        itemBuilder: (ctx) => [
-                          PopupMenuItem(
-                            value: "English",
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Radio(
-                                  activeColor: AppColors.bgColor,
-                                  value: "en",
-                                  groupValue: localeProvider.localeCode,
-                                  onChanged: (value) {},
-                                ),
-                                AppText(
-                                  text: "Eng",
-                                  style: regular(
-                                    fontSize: 16,
-                                    color: AppColors.black,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          PopupMenuItem(
-                            value: "Hindi",
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Radio(
-                                  activeColor: AppColors.bgColor,
-                                  value: "hi",
-                                  groupValue: localeProvider.localeCode,
-                                  onChanged: (value) {
-                                    localeProvider.setLocale(value!);
-                                  },
-                                ),
-                                AppText(
-                                  text: "हिंदी",
-                                  style: regular(
-                                    fontSize: 16,
-                                    color: AppColors.black,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          PopupMenuItem(
-                            value: "Tamil",
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Radio(
-                                  activeColor: AppColors.bgColor,
-                                  value: "ta",
-                                  groupValue: localeProvider.localeCode,
-                                  onChanged: (value) {},
-                                ),
-                                AppText(
-                                  text: "தமிழ்",
-                                  style: regular(
-                                    fontSize: 16,
-                                    color: AppColors.black,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                        child: SizedBox(
-                          height: 28.h,
-                          width: 22.w,
-                          child: SVGImage(path: AppAssets.languageIcon),
-                        ),
-                      ),
+                      actionIcon: languages(localeProvider),
                     ),
                     32.h.verticalSpace,
                     _section(
@@ -173,7 +91,7 @@ class SettingScreen extends StatelessWidget {
                     ),
                     buildDivider(),
                     _section(
-                      title: "Log Out",
+                      title: context.translator.logOut,
                       titleColor: Colors.red,
                       onTap: () async {
                         await context.read<UserAuthProvider>().logOutUser(
@@ -193,10 +111,95 @@ class SettingScreen extends StatelessWidget {
     );
   }
 
-  Widget buildDivider() => Padding(
-    padding: EdgeInsets.symmetric(vertical: 6.h),
-    child: Divider(color: AppColors.whiteColor.withValues(alpha: 0.6)),
-  );
+  PopupMenuButton<String> languages(LocaleProvider localeProvider) {
+    return PopupMenuButton<String>(
+      onSelected: (lang) {
+        if (lang == "English") {
+          localeProvider.setLocale("en");
+        } else if (lang == "Hindi") {
+          localeProvider.setLocale("hi");
+        } else if (lang == "Tamil") {
+          localeProvider.setLocale("ta");
+        }
+      },
+      itemBuilder: (ctx) => [
+        PopupMenuItem(
+          value: "English",
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Radio(
+                activeColor: AppColors.bgColor,
+                value: "en",
+                groupValue: localeProvider.localeCode,
+                onChanged: (value) {
+                  Navigator.pop(ctx);
+
+                  localeProvider.setLocale(value!);
+                },
+              ),
+              AppText(
+                text: "Eng",
+                style: regular(fontSize: 16, color: AppColors.black),
+              ),
+            ],
+          ),
+        ),
+        PopupMenuItem(
+          value: "Hindi",
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Radio(
+                activeColor: AppColors.bgColor,
+                value: "hi",
+                groupValue: localeProvider.localeCode,
+                onChanged: (value) {
+                  Navigator.pop(ctx);
+
+                  localeProvider.setLocale(value!);
+                },
+              ),
+              AppText(
+                text: "हिंदी",
+                style: regular(fontSize: 16, color: AppColors.black),
+              ),
+            ],
+          ),
+        ),
+        PopupMenuItem(
+          value: "Tamil",
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Radio(
+                activeColor: AppColors.bgColor,
+                value: "ta",
+                groupValue: localeProvider.localeCode,
+                onChanged: (value) {
+                  Navigator.pop(ctx);
+
+                  localeProvider.setLocale(value!);
+                },
+              ),
+              AppText(
+                text: "தமிழ்",
+                style: regular(fontSize: 16, color: AppColors.black),
+              ),
+            ],
+          ),
+        ),
+      ],
+      child: SizedBox(
+        height: 28.h,
+        width: 22.w,
+        child: SVGImage(path: AppAssets.languageIcon),
+      ),
+    );
+  }
+
+  Widget buildDivider() =>
+      Divider(color: AppColors.whiteColor.withValues(alpha: 0.6), height: 18.h);
 
   Widget _section({
     required String title,

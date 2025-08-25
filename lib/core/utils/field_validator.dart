@@ -1,3 +1,6 @@
+import 'package:astrology_app/extension/context_extension.dart';
+import 'package:flutter/cupertino.dart';
+
 class FieldValidators {
   FieldValidators._();
 
@@ -5,22 +8,22 @@ class FieldValidators {
 
   factory FieldValidators() => _instance;
 
-  String? required(String? val, String fieldName) {
+  String? required(BuildContext context, String? val, String fieldName) {
     if (val == null || val.isEmpty) {
-      return "$fieldName is Required!";
+      return "$fieldName ${context.translator.isRequired}";
     }
     return null;
   }
 
-  String fullName(String? val) {
+  String fullName(BuildContext context, String? val) {
     RegExp namePattern = RegExp(r"^[A-Za-z]+(?: [A-Za-z]+)*$");
 
     if (val == null || val.isEmpty) {
-      return "Name is required.";
+      return "${context.translator.fullName} ${context.translator.isRequired}";
     }
 
     if (!namePattern.hasMatch(val) && val.isNotEmpty) {
-      return "Enter a valid name (Only alphabets allowed).";
+      return ""; //Enter a valid name (Only alphabets allowed).
     }
 
     return "";

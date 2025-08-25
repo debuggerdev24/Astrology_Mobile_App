@@ -20,7 +20,7 @@ class DioClient {
     dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
-          final token = PrefHelper.userToken;
+          final token = LocaleStoaregService.userToken;
           if (token.isNotEmpty) {
             options.headers['Authorization'] = "Bearer $token";
           }
@@ -210,34 +210,20 @@ class BaseApiHelper {
     }
   }
 
-  /*
-
-{
-    "detail": "Given token not valid for any token type",
-    "code": "token_not_valid",
-    "messages": [
-        {
-            "token_class": "AccessToken",
-            "token_type": "access",
-            "message": "Token is invalid"
-        }
-    ]
-}
-
-*/
   Future<Either<ApiException, bool>> checkTokenExpired() async {
     try {
       final response = await _dio.get(Endpoints.checkTokenExpired);
 
       final result = response.data;
-      if (result['detail'].toString().toLowerCase() ==
-          "given token not valid for any token type") {
+      Logger.printInfo(result["messages"].toString());
+      if (result['details'] == "token_not_valid") {
+        Logger.printInfo("expired");
         return Right(true);
       } else {
         return Right(false);
       }
     } on DioException catch (e) {
-      return Right(false);
+      return Right(true);
     } catch (e) {
       Logger.printError("❌ Exception: $e");
       return Right(false);
@@ -245,8 +231,12 @@ class BaseApiHelper {
   }
 
   Future<Either<ApiException, void>> refreshAuthToken() async {
-    Logger.printInfo("refresh auth token : ${PrefHelper.userRefreshToken}");
-    var data = FormData.fromMap({'refresh': PrefHelper.userRefreshToken});
+    Logger.printInfo(
+      "refresh auth token : ${LocaleStoaregService.userRefreshToken}",
+    );
+    var data = FormData.fromMap({
+      'refresh': LocaleStoaregService.userRefreshToken,
+    });
 
     try {
       final response = await _dio.post(Endpoints.refreshToken, data: data);
@@ -261,8 +251,8 @@ class BaseApiHelper {
           ),
         );
       } else {
-        final newToken = result['access'];
-        await PrefHelper.saveUserToken(newToken);
+        final newToken = result["access"];
+        await LocaleStoaregService.saveUserToken(newToken);
       }
 
       return Right(null);
@@ -270,7 +260,7 @@ class BaseApiHelper {
       return Left(
         ApiException(
           _handleErrorMessage(e),
-          code: e.response?.statusCode.toString(),
+          code: e.response!.data["code"],
           originalErrorMessage: e.message,
         ),
       );

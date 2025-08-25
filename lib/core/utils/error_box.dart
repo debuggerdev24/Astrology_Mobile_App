@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:astrology_app/core/constants/text_style.dart';
 import 'package:astrology_app/core/widgets/svg_image.dart';
+import 'package:astrology_app/extension/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -27,10 +28,9 @@ class ErrorBox extends StatelessWidget {
         curve: Curves.bounceOut,
         margin: EdgeInsets.only(top: 5.sp),
         padding: EdgeInsets.only(
-          top: 14.h,
-          bottom: 14.h,
+          top: 12.h,
+          bottom: 12.h,
           left: paddingLeft ?? 13,
-
           right: 8.w,
         ),
 
@@ -41,6 +41,7 @@ class ErrorBox extends StatelessWidget {
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
+
           children: [
             SVGImage(
               path: AppAssets.errorIcon,
@@ -50,7 +51,9 @@ class ErrorBox extends StatelessWidget {
             Expanded(
               child: AppText(
                 text: errorMessage,
-                style: medium(color: Colors.red.shade900, fontSize: 14),
+                style: !context.isEng
+                    ? bold(color: Colors.red.shade900, fontSize: 14)
+                    : medium(color: Colors.red.shade900, fontSize: 14),
               ),
             ),
           ],

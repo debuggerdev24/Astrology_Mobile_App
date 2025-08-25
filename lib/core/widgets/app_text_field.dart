@@ -114,30 +114,8 @@ class AppTextField extends StatelessWidget {
                 ),
           ),
         ),
-        //if (suffixIon != null) ...[
-        //                 12.horizontalSpace,
-        //                 Padding(
-        //                   padding: suffixIconPadding ?? EdgeInsets.all(0),
-        //                   child: GestureDetector(
-        //                     onTap: onSuffixTap,
-        //                     child: SvgPicture.asset(
-        //                       suffixIon!,
-        //                       height: sufixIconSize?.h ?? 16.h,
-        //                       color: sufixIconColor ?? AppColors.whiteColor,
-        //                     ),
-        //                   ),
-        //                 ),
-        //               ],
         if (errorMessage?.isNotEmpty ?? false)
           ErrorBox(errorMessage: errorMessage!),
-        // Padding(
-        //   padding: EdgeInsets.only(top: 0),
-        //   child:
-        // AppText(
-        //   text: errorMessage!,
-        //   style: regular(fontSize: 14, color: Colors.red),
-        // ),
-        // ),
       ],
     );
   }

@@ -39,7 +39,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                     AppText(
                       text: " : Venus-Mars ",
-                      style: bold(fontSize: 14.sp),
+                      style: medium(fontSize: 14.sp),
                     ),
                   ],
                 ),
@@ -61,7 +61,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                     AppText(
                       text: " : Virgo",
-                      style: bold(fontSize: 14.sp),
+                      style: medium(fontSize: 14.sp),
                     ),
                   ],
                 ),

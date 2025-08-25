@@ -101,5 +101,18 @@
   "currentSubscription": "Current Subscription",
   "uploadedPalm": "Uploaded Palm",
   "uploadPalm": "Upload Palm",
-  "checkYourCurrentPlan": "Check Your Current Plan"
+  "checkYourCurrentPlan": "Check Your Current Plan",
+  "logOut": "Log Out",
+  "save": "Save",
+  "checkBoxWarningMessage": "Please check the box to agree to the terms and continue.",
+  "internetConnectionMessage": "Unable to connect. Please check your internet connection.",
+  "noChangesFoundMessage": "No updates found. Please make changes before saving.",
+  "profileUpdatedSuccessfully": "Profile Updated Successfully",
+  "pleaseEnterPalmImage": "Please enter palm image",
+  "isRequired": "is required",
+  "validNameError": "Enter a valid name (Only alphabets allowed).",
+  "birthPlace": "Birth Place",
+  "enterYourFullName": "Enter your Full Name",
+  "enterYourBirthPlace": "Enter your Birth Place",
+  "enterYourCurrentLocation": "Enter your Current Location"
 }
