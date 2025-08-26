@@ -1,4 +1,3 @@
-import 'package:astrology_app/core/utils/logger.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +13,6 @@ Future<void> checkConnectivity() async {
     } else {
       isNetworkConnected.value = true;
     }
-    Logger.printInfo(isNetworkConnected.toString());
   });
 }
 

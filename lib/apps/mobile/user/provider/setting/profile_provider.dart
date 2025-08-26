@@ -53,6 +53,7 @@ class UserProfileProvider extends ChangeNotifier {
   void toggleAgreement() {
     _isAgreementChecked = !_isAgreementChecked;
     notifyListeners();
+    notifyListeners();
   }
 
   Future<void> pickImage({required bool isLeft}) async {

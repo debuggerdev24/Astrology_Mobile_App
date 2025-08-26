@@ -300,7 +300,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get timeOfBirth => 'Time Of Birth';
 
   @override
-  String get placeOfBirth => 'Place Of Birth';
+  String get placeOfBirth => 'Place of Birth';
 
   @override
   String get currentLocation => 'Current Location';

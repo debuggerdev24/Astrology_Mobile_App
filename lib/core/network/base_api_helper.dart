@@ -10,7 +10,6 @@ import 'end_points.dart';
 class DioClient {
   static final DioClient _instance = DioClient._internal();
   late Dio dio;
-
   factory DioClient() => _instance;
 
   DioClient._internal() {
@@ -42,6 +41,8 @@ class DioClient {
 
 class BaseApiHelper {
   BaseApiHelper._();
+
+  String get token_not_valid => "token_not_valid";
 
   static final BaseApiHelper _instance = BaseApiHelper._();
   static BaseApiHelper get instance => _instance;
@@ -215,7 +216,9 @@ class BaseApiHelper {
       final response = await _dio.get(Endpoints.checkTokenExpired);
 
       final result = response.data;
-      Logger.printInfo(result["messages"].toString());
+      Logger.printInfo(
+        "inside try section -> ${result["messages"].toString()}",
+      );
       if (result['details'] == "token_not_valid") {
         Logger.printInfo("expired");
         return Right(true);
@@ -242,7 +245,7 @@ class BaseApiHelper {
       final response = await _dio.post(Endpoints.refreshToken, data: data);
 
       final result = response.data;
-      if (result['detail'] == "Token is expired") {
+      if (result["code"] == token_not_valid) {
         return Left(
           ApiException(
             'Token is expired',

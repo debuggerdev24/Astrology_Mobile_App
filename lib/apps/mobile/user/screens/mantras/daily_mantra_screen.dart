@@ -72,7 +72,8 @@ class DailyMantraScreen extends StatelessWidget {
         children: [
           Row(
             children: [
-              SVGImage(path: AppAssets.omIcon, height: 24.h),
+              SVGImage(path: AppAssets.omIcon, height: 20.5.w),
+
               12.w.horizontalSpace,
               AppText(
                 text: "Om Namah Shivaya",

@@ -25,48 +25,7 @@ class HomeScreen extends StatelessWidget {
             16.h.verticalSpace,
             userTopBar(context: context),
             16.h.verticalSpace,
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-
-                  children: [
-                    AppText(
-                      text: context.translator.dasha,
-                      style: bold(fontSize: 14.sp),
-                    ),
-                    AppText(
-                      text: " : Venus-Mars ",
-                      style: medium(fontSize: 14.sp),
-                    ),
-                  ],
-                ),
-
-                SizedBox(
-                  height: 20, // 👈 give it a height
-                  child: VerticalDivider(
-                    color: AppColors.whiteColor,
-                    thickness: 1,
-                  ),
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    AppText(
-                      text: context.translator.moonSign,
-                      overflow: TextOverflow.ellipsis,
-                      style: bold(fontSize: 14.sp),
-                    ),
-                    AppText(
-                      text: " : Virgo",
-                      style: medium(fontSize: 14.sp),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+            dashaAndMoonSection(context),
             mantraPlayer(context: context),
             greyColoredBox(
               margin: EdgeInsets.only(bottom: 20.h),
@@ -81,13 +40,21 @@ class HomeScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 spacing: 14.h,
                 children: [
-                  AppText(
-                    text: "Karma Focus",
-                    style: bold(
-                      fontFamily: AppFonts.secondary,
-                      fontSize: 20,
-                      decoration: TextDecoration.underline,
-                      decorationColor: AppColors.whiteColor,
+                  IntrinsicWidth(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AppText(
+                          text: "Karma Focus",
+                          style: bold(
+                            height: 0,
+                            fontFamily: AppFonts.secondary,
+                            fontSize: 20,
+                            decorationColor: AppColors.whiteColor,
+                          ),
+                        ),
+                        Container(height: 1, color: AppColors.whiteColor),
+                      ],
                     ),
                   ),
                   Row(
@@ -151,13 +118,19 @@ class HomeScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 spacing: 14.h,
                 children: [
-                  AppText(
-                    text: "Dasha/Nakshatra Insights :",
-                    style: bold(
-                      fontFamily: AppFonts.secondary,
-                      fontSize: 20,
-                      decoration: TextDecoration.underline,
-                      decorationColor: AppColors.whiteColor,
+                  IntrinsicWidth(
+                    child: Column(
+                      children: [
+                        AppText(
+                          text: "Dasha/Nakshatra Insights :",
+                          style: bold(
+                            height: 0,
+                            fontFamily: AppFonts.secondary,
+                            fontSize: 20,
+                          ),
+                        ),
+                        Container(height: 1.1, color: AppColors.whiteColor),
+                      ],
                     ),
                   ),
                   Row(
@@ -224,6 +197,48 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
+  Row dashaAndMoonSection(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+
+          children: [
+            AppText(
+              text: context.translator.dasha,
+              style: medium(fontSize: 14.sp),
+            ),
+            AppText(
+              text: " : Venus-Mars ",
+              style: medium(fontSize: 14.sp),
+            ),
+          ],
+        ),
+
+        SizedBox(
+          height: 20,
+          child: VerticalDivider(color: AppColors.whiteColor, thickness: 1),
+        ),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AppText(
+              text: context.translator.moonSign,
+              overflow: TextOverflow.ellipsis,
+              style: medium(fontSize: 14.sp),
+            ),
+            AppText(
+              text: " : Virgo",
+              style: medium(fontSize: 14.sp),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
   Widget mantraPlayer({required BuildContext context}) {
     return Container(
       margin: EdgeInsets.only(top: 18.h, bottom: 20.h),
@@ -264,11 +279,22 @@ class HomeScreen extends StatelessWidget {
                       style: regular(fontSize: 17.sp, color: AppColors.black),
                     ),
                     Spacer(),
-                    SVGImage(path: AppAssets.tIcon, height: 34.w),
                     GestureDetector(
                       onTap: () {
                         context.pushNamed(
                           MobileAppRoutes.playMantraScreen.name,
+                          extra: true,
+                        );
+                      },
+                      child: SVGImage(path: AppAssets.tIcon, height: 34.w),
+                    ),
+                    5.w.horizontalSpace,
+
+                    GestureDetector(
+                      onTap: () {
+                        context.pushNamed(
+                          MobileAppRoutes.playMantraScreen.name,
+                          extra: false,
                         );
                       },
                       child: SVGImage(path: AppAssets.playIcon, height: 34.w),

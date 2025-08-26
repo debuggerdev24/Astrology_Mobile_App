@@ -50,16 +50,27 @@ class SetReminderProvider extends ChangeNotifier {
       builder: (context, child) {
         return Theme(
           data: ThemeData.dark().copyWith(
-            colorScheme: ColorScheme.light(
-              primary:
-                  AppColors.greyColor, // Purple/indigo for selected date circle
-              surface: AppColors.whiteColor, // Dark purple/gray background
-              onSurface: AppColors.black, // White text for dates
+            colorScheme: ColorScheme.dark(
+              primary: AppColors.whiteColor,
+              // Purple for selected date
+              onPrimary: AppColors.black,
+              outline: AppColors.whiteColor,
+              surface: AppColors.bgColor,
+              // Dark background
+              onSurface: AppColors.whiteColor,
+              brightness: Brightness.light,
             ),
-            textSelectionTheme: TextSelectionThemeData(
-              selectionColor: AppColors.white,
-              selectionHandleColor: AppColors.greyColor,
-            ),
+            // colorScheme: ColorScheme.light(
+            //   inversePrimary: AppColors.black,
+            //   primary:
+            //       AppColors.greyColor, // Purple/indigo for selected date circle
+            //   surface: AppColors.whiteColor, // Dark purple/gray background
+            //   onSurface: AppColors.black, // White text for dates
+            // ),
+            // textSelectionTheme: TextSelectionThemeData(
+            //   selectionColor: AppColors.white,
+            //   selectionHandleColor: AppColors.greyColor,
+            // ),
           ),
           child: child!,
         );

@@ -120,26 +120,35 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         ),
 
                         // Uploaded Palm Section
-                        AppText(
-                          text: context.translator.uploadPalm,
-                          style: medium(fontSize: 14.sp),
-                        ),
-                        Row(
-                          spacing: 11.w,
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          spacing: 6.h,
                           children: [
-                            palmSection(
-                              onTap: () => provider.pickImage(isLeft: true),
-                              palmImage: (provider.leftHandImageFile == null)
-                                  ? AppConfig.imagesBaseurl +
-                                        provider.leftHandImageUrl!
-                                  : provider.leftHandImageFile,
+                            AppText(
+                              text: context.translator.uploadPalm,
+                              style: medium(fontSize: 14.sp),
                             ),
-                            palmSection(
-                              onTap: () => provider.pickImage(isLeft: false),
-                              palmImage: (provider.rightHandImageFile == null)
-                                  ? AppConfig.imagesBaseurl +
-                                        provider.rightHandImageUrl!
-                                  : provider.rightHandImageFile,
+                            Row(
+                              spacing: 11.w,
+                              children: [
+                                palmSection(
+                                  onTap: () => provider.pickImage(isLeft: true),
+                                  palmImage:
+                                      (provider.leftHandImageFile == null)
+                                      ? AppConfig.imagesBaseurl +
+                                            provider.leftHandImageUrl!
+                                      : provider.leftHandImageFile,
+                                ),
+                                palmSection(
+                                  onTap: () =>
+                                      provider.pickImage(isLeft: false),
+                                  palmImage:
+                                      (provider.rightHandImageFile == null)
+                                      ? AppConfig.imagesBaseurl +
+                                            provider.rightHandImageUrl!
+                                      : provider.rightHandImageFile,
+                                ),
+                              ],
                             ),
                           ],
                         ),

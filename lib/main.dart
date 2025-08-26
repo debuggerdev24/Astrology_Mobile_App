@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:toastification/toastification.dart';
 
 import 'apps.dart';
@@ -8,6 +9,11 @@ ValueNotifier<bool> isNetworkConnected = ValueNotifier(true);
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown, // optional, allows upside-down portrait
+  ]);
 
   await Future.wait([LocaleStoaregService.init()]);
   runApp(ToastificationWrapper(child: const MyApp()));

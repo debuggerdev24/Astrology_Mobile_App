@@ -66,7 +66,7 @@ class SignUpScreen extends StatelessWidget {
                         AppTextField(
                           controller: provider.registerConfirmPassCtr,
                           title: "Confirm Password",
-                          hintText: "Enter Confirm Password",
+                          hintText: "Enter your Confirm Password",
                           errorMessage: provider.registerConfirmPassWordErr,
                         ),
                       ],

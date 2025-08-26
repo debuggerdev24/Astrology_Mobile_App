@@ -15,6 +15,7 @@ class AppColors {
   static const Color darkBlue = Color(0xff0D0B1F);
   static const Color transparent = Colors.transparent;
   static const Color redColor = Color(0xffF08C8C);
+  static const Color tealColor = Color(0xff4CB5AB);
   static final errorBorderColor = Color(0xffcca7b0);
   static final errorTextColor = Colors.red.shade900;
   static final errorBackgroundColor = Color(0xffffd8d8);

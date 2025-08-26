@@ -21,40 +21,22 @@ class AppLayout extends StatefulWidget {
 
 class _AppLayoutState extends State<AppLayout> {
   @override
-  void initState() {
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent, // or your desired color
-        statusBarIconBrightness:
-            Brightness.light, // Dark icons for light background
-      ),
-    );
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    // Optional: Reset to default when leaving screen
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent, // or your desired color
-        statusBarIconBrightness:
-            Brightness.light, // Dark icons for light background
-      ),
-    );
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.only(
-          top: 30.h,
-          left: widget.horizontalPadding ?? 12.w,
-          right: widget.horizontalPadding ?? 12.w,
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.light,
+        statusBarBrightness: Brightness.dark, // For iOS
+      ),
+      child: Scaffold(
+        body: Padding(
+          padding: EdgeInsets.only(
+            top: 30.h,
+            left: widget.horizontalPadding ?? 12.w,
+            right: widget.horizontalPadding ?? 12.w,
+          ),
+          child: widget.body,
         ),
-        child: widget.body,
       ),
     );
   }

@@ -682,7 +682,7 @@ abstract class AppLocalizations {
   /// No description provided for @placeOfBirth.
   ///
   /// In en, this message translates to:
-  /// **'Place Of Birth'**
+  /// **'Place of Birth'**
   String get placeOfBirth;
 
   /// No description provided for @currentLocation.

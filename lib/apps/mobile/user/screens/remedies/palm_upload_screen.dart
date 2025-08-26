@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:astrology_app/core/constants/app_assets.dart';
 import 'package:astrology_app/core/constants/app_colors.dart';
 import 'package:astrology_app/core/constants/text_style.dart';
@@ -12,7 +14,9 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
+import '../../provider/remedies/palm_provider.dart';
 import '../user_dashboard.dart';
 
 class PalmUploadScreen extends StatelessWidget {
@@ -39,9 +43,26 @@ class PalmUploadScreen extends StatelessWidget {
                     .pleaseUploadYourPalmImageFirst, //"Please upload your palm image first.",
               ),
               42.h.verticalSpace,
-              Row(
-                spacing: 11.w,
-                children: [uploadPalmSection(), uploadPalmSection()],
+              Consumer<PalmProvider>(
+                builder: (context, provider, child) => Row(
+                  spacing: 11.w,
+                  children: [
+                    uploadPalmSection(
+                      onTap: () {
+                        provider.pickImage(isLeft: true);
+                      },
+                      provider: provider,
+                      fileImage: provider.leftHandImageFile,
+                    ),
+                    uploadPalmSection(
+                      onTap: () {
+                        provider.pickImage();
+                      },
+                      provider: provider,
+                      fileImage: provider.rightHandImageFile,
+                    ),
+                  ],
+                ),
               ),
               12.h.verticalSpace,
               Row(
@@ -78,7 +99,11 @@ class PalmUploadScreen extends StatelessWidget {
     );
   }
 
-  Widget uploadPalmSection() {
+  Widget uploadPalmSection({
+    required VoidCallback onTap,
+    required PalmProvider provider,
+    required File? fileImage,
+  }) {
     return Expanded(
       child: DottedBorder(
         options: RoundedRectDottedBorderOptions(
@@ -87,10 +112,16 @@ class PalmUploadScreen extends StatelessWidget {
           dashPattern: [4, 3],
           strokeWidth: 1.5,
         ),
-        child: Container(
-          alignment: Alignment.center,
-          padding: EdgeInsets.symmetric(vertical: 58.h),
-          child: SVGImage(path: AppAssets.uploadImageIcon),
+        child: GestureDetector(
+          onTap: onTap,
+          child: Container(
+            height: 158.h,
+            alignment: Alignment.center,
+            padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
+            child: fileImage != null
+                ? Image.file(fileImage, fit: BoxFit.contain)
+                : SVGImage(path: AppAssets.uploadImageIcon),
+          ),
         ),
       ),
     );

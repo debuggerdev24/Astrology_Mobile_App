@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/network/base_api_helper.dart';
+import '../../../../core/utils/logger.dart';
 import '../provider/auth/auth_provider.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -27,6 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void init() {
     Future.delayed(Duration(seconds: 2)).then((value) async {
       if (userToken.isNotEmpty) {
+        Logger.printInfo("API Calling Started");
         final result = await BaseApiHelper.instance.checkTokenExpired();
         result.fold((l) {}, (r) async {
           if (r) {
@@ -44,11 +46,6 @@ class _SplashScreenState extends State<SplashScreen> {
             );
           }
         });
-        // context.goNamed(
-        //   (isProfileCreated)
-        //       ? MobileAppRoutes.userDashBoardScreen.name
-        //       : MobileAppRoutes.createProfileScreen.name,
-        // );
         return;
       }
       context.goNamed(MobileAppRoutes.signUpScreen.name);

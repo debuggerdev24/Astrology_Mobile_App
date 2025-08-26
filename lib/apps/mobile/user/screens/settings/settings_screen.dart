@@ -67,13 +67,17 @@ class SettingScreen extends StatelessWidget {
                     Consumer<NotificationProvider>(
                       builder: (context, provider, child) => _section(
                         title: context.translator.notification,
-                        trailing: CupertinoSwitch(
-                          inactiveTrackColor: AppColors.greyColor,
-                          value: provider.isNotificationOn,
-                          onChanged: (value) {
-                            provider.isNotificationOn = value;
-                          },
+                        trailing: Transform.scale(
+                          scale: 0.8,
+                          child: CupertinoSwitch(
+                            inactiveTrackColor: AppColors.greyColor,
+                            value: provider.isNotificationOn,
+                            onChanged: (value) {
+                              provider.isNotificationOn = value;
+                            },
+                          ),
                         ),
+
                         onTap: () {
                           provider.isNotificationOn =
                               !provider.isNotificationOn;
@@ -113,6 +117,7 @@ class SettingScreen extends StatelessWidget {
 
   PopupMenuButton<String> languages(LocaleProvider localeProvider) {
     return PopupMenuButton<String>(
+      padding: EdgeInsetsGeometry.zero,
       onSelected: (lang) {
         if (lang == "English") {
           localeProvider.setLocale("en");
@@ -123,77 +128,105 @@ class SettingScreen extends StatelessWidget {
         }
       },
       itemBuilder: (ctx) => [
-        PopupMenuItem(
-          value: "English",
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Radio(
-                activeColor: AppColors.bgColor,
-                value: "en",
-                groupValue: localeProvider.localeCode,
-                onChanged: (value) {
-                  Navigator.pop(ctx);
-
-                  localeProvider.setLocale(value!);
-                },
-              ),
-              AppText(
-                text: "Eng",
-                style: regular(fontSize: 16, color: AppColors.black),
-              ),
-            ],
-          ),
+        popupMenuItem(
+          title: "Hindi",
+          ctx: ctx,
+          langCode: "hi",
+          localeProvider: localeProvider,
         ),
-        PopupMenuItem(
-          value: "Hindi",
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Radio(
-                activeColor: AppColors.bgColor,
-                value: "hi",
-                groupValue: localeProvider.localeCode,
-                onChanged: (value) {
-                  Navigator.pop(ctx);
-
-                  localeProvider.setLocale(value!);
-                },
-              ),
-              AppText(
-                text: "हिंदी",
-                style: regular(fontSize: 16, color: AppColors.black),
-              ),
-            ],
-          ),
+        popupMenuItem(
+          title: "English",
+          ctx: ctx,
+          langCode: "en",
+          localeProvider: localeProvider,
         ),
-        PopupMenuItem(
-          value: "Tamil",
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Radio(
-                activeColor: AppColors.bgColor,
-                value: "ta",
-                groupValue: localeProvider.localeCode,
-                onChanged: (value) {
-                  Navigator.pop(ctx);
-
-                  localeProvider.setLocale(value!);
-                },
-              ),
-              AppText(
-                text: "தமிழ்",
-                style: regular(fontSize: 16, color: AppColors.black),
-              ),
-            ],
-          ),
+        popupMenuItem(
+          title: "Tamil",
+          ctx: ctx,
+          langCode: "ta",
+          localeProvider: localeProvider,
         ),
+
+        // PopupMenuItem(
+        //   value: "Hindi",
+        //   child: Row(
+        //     mainAxisSize: MainAxisSize.min,
+        //     children: [
+        //       Radio(
+        //         activeColor: AppColors.bgColor,
+        //         value: "hi",
+        //         groupValue: localeProvider.localeCode,
+        //         onChanged: (value) {
+        //           Navigator.pop(ctx);
+        //
+        //           localeProvider.setLocale(value!);
+        //         },
+        //       ),
+        //       AppText(
+        //         text: "Hindi",
+        //         style: regular(fontSize: 16, color: AppColors.black),
+        //       ),
+        //     ],
+        //   ),
+
+        // ),
+        // PopupMenuItem(
+        //   value: "Tamil",
+        //   child: Row(
+        //     mainAxisSize: MainAxisSize.min,
+        //     children: [
+        //       Radio(
+        //         activeColor: AppColors.bgColor,
+        //         value: "ta",
+        //         groupValue: localeProvider.localeCode,
+        //         onChanged: (value) {
+        //           Navigator.pop(ctx);
+        //
+        //           localeProvider.setLocale(value!);
+        //         },
+        //       ),
+        //       AppText(
+        //         text: "Tamil",
+        //         style: regular(fontSize: 16, color: AppColors.black),
+        //       ),
+        //     ],
+        //   ),
+        // ),
       ],
       child: SizedBox(
         height: 28.h,
         width: 22.w,
         child: SVGImage(path: AppAssets.languageIcon),
+      ),
+    );
+  }
+
+  PopupMenuItem<String> popupMenuItem({
+    required LocaleProvider localeProvider,
+    required BuildContext ctx,
+    required String title,
+    required String langCode,
+  }) {
+    return PopupMenuItem(
+      value: title,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Radio(
+            activeColor: AppColors.bgColor,
+            value: langCode,
+            groupValue: localeProvider.localeCode,
+            onChanged: (value) {
+              Navigator.pop(ctx);
+
+              localeProvider.setLocale(value!);
+            },
+          ),
+          AppText(
+            text: title,
+            style: regular(fontSize: 16, color: AppColors.black),
+          ),
+        ],
       ),
     );
   }

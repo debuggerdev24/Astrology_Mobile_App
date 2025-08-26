@@ -35,69 +35,7 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
             40.h.verticalSpace,
             topBar(context: context, title: translator.palmReading),
             15.h.verticalSpace,
-            Container(
-              padding: EdgeInsets.all(4.r),
-              decoration: BoxDecoration(
-                color: AppColors.whiteColor,
-                borderRadius: BorderRadius.circular(6.r),
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          index = 0;
-                        });
-                      },
-                      child: Container(
-                        alignment: Alignment.center,
-                        padding: EdgeInsets.symmetric(vertical: 8.h),
-                        decoration: BoxDecoration(
-                          color: index == 0
-                              ? AppColors.greyColor
-                              : AppColors.whiteColor,
-                          borderRadius: BorderRadius.circular(4.r),
-                        ),
-                        child: AppText(
-                          text: translator.leftHand,
-                          style: medium(
-                            fontSize: 14.sp,
-                            color: index == 1 ? AppColors.black : null,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          index = 1;
-                        });
-                      },
-                      child: Container(
-                        alignment: Alignment.center,
-                        padding: EdgeInsets.symmetric(vertical: 8.h),
-                        decoration: BoxDecoration(
-                          color: index == 1
-                              ? AppColors.greyColor
-                              : AppColors.whiteColor,
-                          borderRadius: BorderRadius.circular(4.r),
-                        ),
-                        child: AppText(
-                          text: translator.rightHand,
-                          style: medium(
-                            fontSize: 14.sp,
-                            color: index == 0 ? AppColors.black : null,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            toggleLeftRight(translator),
             Align(
               alignment: Alignment.center,
               child: Container(
@@ -151,7 +89,10 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
                         textAlign: TextAlign.center,
                         text:
                             "To view detailed Mount Analysis, please upgrade to a Premium Plan (Tier 2).",
-                        style: medium(fontSize: 16, color: AppColors.black),
+                        style: medium(
+                          fontSize: 16,
+                          color: AppColors.black.withValues(alpha: 0.8),
+                        ),
                       ),
                       8.h.verticalSpace,
                       AppText(
@@ -172,16 +113,14 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 18.w),
                   child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     spacing: 10.w,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Expanded(
-                        child: AppText(
-                          textAlign: TextAlign.center,
-                          text: translator.matchWithBirthCart,
-                          style: bold(fontSize: 16, color: AppColors.black),
-                        ),
+                      AppText(
+                        textAlign: TextAlign.center,
+                        text: translator.matchWithBirthCart,
+                        style: bold(fontSize: 16, color: AppColors.black),
                       ),
                       SVGImage(
                         path: AppAssets.lockIcon,
@@ -194,6 +133,59 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
             ),
             30.h.verticalSpace,
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget toggleLeftRight(AppLocalizations translator) {
+    return Container(
+      padding: EdgeInsets.all(4.r),
+      decoration: BoxDecoration(
+        color: AppColors.whiteColor,
+        borderRadius: BorderRadius.circular(6.r),
+      ),
+      child: Row(
+        children: [
+          toggleButton(
+            text: translator.leftHand,
+            isSelected: index == 0,
+            onTap: () => setState(() => index = 0),
+          ),
+          toggleButton(
+            text: translator.rightHand,
+            isSelected: index == 1,
+            onTap: () => setState(() => index = 1),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget toggleButton({
+    required String text,
+    required bool isSelected,
+    required VoidCallback onTap,
+  }) {
+    return Expanded(
+      child: GestureDetector(
+        onTap: onTap,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 400),
+          curve: Curves.easeInOut,
+          alignment: Alignment.center,
+          padding: EdgeInsets.symmetric(vertical: 8.h),
+          decoration: BoxDecoration(
+            color: isSelected ? AppColors.greyColor : AppColors.whiteColor,
+            borderRadius: BorderRadius.circular(4.r),
+          ),
+          child: AppText(
+            text: text,
+            style: medium(
+              fontSize: 14.sp,
+              color: isSelected ? null : AppColors.black,
+            ),
+          ),
         ),
       ),
     );

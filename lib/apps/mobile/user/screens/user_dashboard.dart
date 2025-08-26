@@ -37,6 +37,13 @@ class UserDashboard extends StatefulWidget {
 class _UserDashboardState extends State<UserDashboard> {
   @override
   void initState() {
+    // SystemChrome.setSystemUIOverlayStyle(
+    //   SystemUiOverlayStyle(
+    //     statusBarColor: Colors.transparent, // or your desired color
+    //     statusBarIconBrightness:
+    //         Brightness.light, // Dark icons for light background
+    //   ),
+    // );
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       context.read<UserProfileProvider>().getProfile(context);
     });
@@ -149,32 +156,37 @@ class _UserDashboardState extends State<UserDashboard> {
               2.h.verticalSpace,
               SVGImage(
                 color: isCurrent ? AppColors.white : AppColors.darkBlue,
-                width: 21.w,
+                width: 20.w,
                 path: iconPath,
               ),
-              Row(
-                children: [
-                  Expanded(
-                    child: AppText(
-                      text: title,
-                      textAlign: TextAlign.center,
-                      style: !context.isEng && Platform.isIOS
-                          ? bold(
-                              color: isCurrent
-                                  ? Colors.white
-                                  : AppColors.darkBlue,
-                              fontSize: 12,
-                            )
-                          : regular(
-                              color: isCurrent
-                                  ? Colors.white
-                                  : AppColors.darkBlue,
-                              fontSize: isTamil ? 10 : 12,
-                            ),
+
+              if (isCurrent)
+                Row(
+                  children: [
+                    Expanded(
+                      child: AppText(
+                        text: title,
+                        textAlign: TextAlign.center,
+                        style: !context.isEng && Platform.isIOS
+                            ? bold(
+                                color: isCurrent
+                                    ? Colors.white
+                                    : AppColors.darkBlue,
+                                fontSize: 12,
+                              )
+                            : regular(
+                                fontWeight: Platform.isIOS
+                                    ? FontWeight.w500
+                                    : FontWeight.w400,
+                                color: isCurrent
+                                    ? Colors.white
+                                    : AppColors.darkBlue,
+                                fontSize: isTamil ? 10 : 12.5,
+                              ),
+                      ),
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
             ],
           ),
         ),
