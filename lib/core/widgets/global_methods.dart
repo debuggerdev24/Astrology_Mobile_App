@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:astrology_app/apps/mobile/user/provider/setting/locale_provider.dart';
 import 'package:astrology_app/core/constants/text_style.dart';
@@ -71,6 +73,8 @@ Widget buildPageTitle({required String title, required BuildContext context}) {
     style: bold(
       fontSize: (context.watch<LocaleProvider>().localeCode == "ta")
           ? 22.sp
+          : (Platform.isAndroid)
+          ? 24.sp
           : 26.sp,
       fontFamily: AppFonts.secondary,
     ),

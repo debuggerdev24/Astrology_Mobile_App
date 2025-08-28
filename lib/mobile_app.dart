@@ -1,8 +1,10 @@
 import 'package:astrology_app/apps/mobile/user/provider/auth/auth_provider.dart';
+import 'package:astrology_app/apps/mobile/user/provider/home/home_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/remedies/palm_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/remedies/set_reminder_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/setting/locale_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/setting/notification_provider.dart';
+import 'package:astrology_app/apps/mobile/user/provider/setting/premium_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/setting/profile_provider.dart';
 import 'package:astrology_app/routes/mobile_routes/go_router.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +39,10 @@ class AstrologyMobileApp extends StatelessWidget {
               ),
               ChangeNotifierProvider(create: (context) => UserAuthProvider()),
               ChangeNotifierProvider(create: (context) => PalmProvider()),
+              ChangeNotifierProvider(create: (context) => HomeProvider()),
+              ChangeNotifierProvider(
+                create: (context) => SubscriptionProvider(),
+              ),
               ChangeNotifierProvider(
                 create: (context) => NotificationProvider(),
               ),

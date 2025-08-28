@@ -8,11 +8,13 @@ import '../constants/app_colors.dart';
 class AppLayout extends StatefulWidget {
   final Widget body;
   final double? horizontalPadding, topPadding;
+  final bool? showApiLoadingIndicator;
   const AppLayout({
     super.key,
     required this.body,
     this.horizontalPadding,
     this.topPadding,
+    this.showApiLoadingIndicator,
   });
 
   @override
@@ -29,6 +31,7 @@ class _AppLayoutState extends State<AppLayout> {
         statusBarBrightness: Brightness.dark, // For iOS
       ),
       child: Scaffold(
+        backgroundColor: AppColors.bgColor,
         body: Padding(
           padding: EdgeInsets.only(
             top: 30.h,

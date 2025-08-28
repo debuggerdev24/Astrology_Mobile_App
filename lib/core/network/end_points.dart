@@ -1,6 +1,5 @@
 class Endpoints {
   Endpoints._();
-
   static const String checkTokenExpired = '/accounts/user-profile/';
   static const String userLogin = '/accounts/login/';
   static const String userRegister = '/accounts/register/user/';
@@ -16,4 +15,8 @@ class Endpoints {
   static const String userLogout = '/accounts/logout/';
   static const String editProfile = '/accounts/user-edit-profile/';
   static const String getProfile = '/accounts/user-profile/';
+  static const String getDailyHoroScope = '/horoscope/daily-horoscope/';
+  static const String getMoonDasha = '/horoscope/moon-dasha/';
+  static const String palmReading = '/horoscope/palm-reading/';
+  static const String getSubscriptionPlans = '/horoscope/subscription_plan/';
 }

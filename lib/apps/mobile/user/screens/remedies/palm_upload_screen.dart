@@ -3,6 +3,9 @@ import 'dart:io';
 import 'package:astrology_app/core/constants/app_assets.dart';
 import 'package:astrology_app/core/constants/app_colors.dart';
 import 'package:astrology_app/core/constants/text_style.dart';
+import 'package:astrology_app/core/utils/custom_loader.dart';
+import 'package:astrology_app/core/utils/custom_toast.dart';
+import 'package:astrology_app/core/utils/de_bouncing.dart';
 import 'package:astrology_app/core/widgets/app_button.dart';
 import 'package:astrology_app/core/widgets/app_layout.dart';
 import 'package:astrology_app/core/widgets/app_text.dart';
@@ -31,68 +34,102 @@ class PalmUploadScreen extends StatelessWidget {
         return;
       },
       child: AppLayout(
+        horizontalPadding: 0,
         body: SingleChildScrollView(
-          child: Column(
-            children: [
-              40.h.verticalSpace,
-              topBar(
-                showBackButton: false,
-                context: context,
-                title: context
-                    .translator
-                    .pleaseUploadYourPalmImageFirst, //"Please upload your palm image first.",
-              ),
-              42.h.verticalSpace,
-              Consumer<PalmProvider>(
-                builder: (context, provider, child) => Row(
-                  spacing: 11.w,
-                  children: [
-                    uploadPalmSection(
-                      onTap: () {
-                        provider.pickImage(isLeft: true);
-                      },
-                      provider: provider,
-                      fileImage: provider.leftHandImageFile,
-                    ),
-                    uploadPalmSection(
-                      onTap: () {
-                        provider.pickImage();
-                      },
-                      provider: provider,
-                      fileImage: provider.rightHandImageFile,
-                    ),
-                  ],
-                ),
-              ),
-              12.h.verticalSpace,
-              Row(
-                spacing: 11.w,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+          child: Consumer<PalmProvider>(
+            builder: (context, provider, child) {
+              return Stack(
                 children: [
-                  AppText(
-                    text: context.translator.leftHand,
-                    style: regular(fontSize: 14, color: AppColors.whiteColor),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 12.w),
+                    child: Column(
+                      children: [
+                        40.h.verticalSpace,
+                        topBar(
+                          showBackButton: false,
+                          context: context,
+                          title: context
+                              .translator
+                              .pleaseUploadYourPalmImageFirst, //"Please upload your palm image first.",
+                        ),
+                        42.h.verticalSpace,
+                        Row(
+                          spacing: 11.w,
+                          children: [
+                            uploadPalmSection(
+                              onTap: () {
+                                provider.pickImage(isLeft: true);
+                              },
+                              provider: provider,
+                              fileImage: provider.leftHandImageFile,
+                            ),
+                            uploadPalmSection(
+                              onTap: () {
+                                provider.pickImage();
+                              },
+                              provider: provider,
+                              fileImage: provider.rightHandImageFile,
+                            ),
+                          ],
+                        ),
+                        12.h.verticalSpace,
+                        Row(
+                          spacing: 11.w,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            AppText(
+                              text: context.translator.leftHand,
+                              style: regular(
+                                fontSize: 14,
+                                color: AppColors.whiteColor,
+                              ),
+                            ),
+                            AppText(
+                              text: context.translator.rightHand,
+                              style: regular(
+                                fontSize: 14,
+                                color: AppColors.whiteColor,
+                              ),
+                            ),
+                          ],
+                        ),
+                        50.h.verticalSpace,
+                        AppText(
+                          textAlign: TextAlign.center,
+                          text: context.translator.uploadImageScreenPara,
+                          style: regular(fontSize: 18),
+                        ),
+                        AppButton(
+                          margin: EdgeInsets.only(bottom: 25.h, top: 50.h),
+                          onTap: () {
+                            deBouncer.run(() {
+                              if (provider.leftHandImageFile != null &&
+                                  provider.rightHandImageFile != null) {
+                                provider.uploadForReading(
+                                  onSuccess: () {
+                                    context.pushNamed(
+                                      MobileAppRoutes.palmReadingScreen.name,
+                                    );
+                                  },
+                                );
+
+                                return;
+                              }
+                              AppToast.error(
+                                context: context,
+                                message: "Please upload palm images",
+                              );
+                            });
+                          },
+                          title: context.translator.submitForReading,
+                        ),
+                      ],
+                    ),
                   ),
-                  AppText(
-                    text: context.translator.rightHand,
-                    style: regular(fontSize: 14, color: AppColors.whiteColor),
-                  ),
+                  if (provider.isUploading) ApiLoadingFullPageIndicator(),
                 ],
-              ),
-              50.h.verticalSpace,
-              AppText(
-                textAlign: TextAlign.center,
-                text: context.translator.uploadImageScreenPara,
-                style: regular(fontSize: 18),
-              ),
-              AppButton(
-                margin: EdgeInsets.only(bottom: 25.h, top: 50.h),
-                onTap: () {
-                  context.pushNamed(MobileAppRoutes.palmReadingScreen.name);
-                },
-                title: context.translator.submitForReading,
-              ),
-            ],
+              );
+            },
           ),
         ),
       ),

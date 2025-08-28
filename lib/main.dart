@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:toastification/toastification.dart';
 
 import 'apps.dart';
-import 'apps/mobile/user/services/locale_storage_service.dart';
+import 'apps/mobile/user/services/settings/locale_storage_service.dart';
 
 ValueNotifier<bool> isNetworkConnected = ValueNotifier(true);
 

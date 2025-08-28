@@ -49,7 +49,7 @@ class ResetPasswordScreen extends StatelessWidget {
                 ],
               ),
             ),
-            if (provider.isResetPasswordLoading) ApiLoadingIndicator(),
+            if (provider.isResetPasswordLoading) ApiLoadingFullPageIndicator(),
           ],
         ),
       ),

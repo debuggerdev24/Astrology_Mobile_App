@@ -2,8 +2,8 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:dio/src/form_data.dart' as form_data;
 
-import '../../../../core/network/base_api_helper.dart';
-import '../../../../core/network/end_points.dart';
+import '../../../../../core/network/base_api_helper.dart';
+import '../../../../../core/network/end_points.dart';
 
 class UserProfileService {
   UserProfileService._();

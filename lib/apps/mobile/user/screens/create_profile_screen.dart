@@ -196,7 +196,8 @@ class CreateProfileScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              if (provider.isUpdateProfileLoading) ApiLoadingIndicator(),
+              if (provider.isUpdateProfileLoading)
+                ApiLoadingFullPageIndicator(),
             ],
           );
         },

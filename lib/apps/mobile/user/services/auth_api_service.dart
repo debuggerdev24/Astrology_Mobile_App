@@ -1,4 +1,4 @@
-import 'package:astrology_app/apps/mobile/user/services/locale_storage_service.dart';
+import 'package:astrology_app/apps/mobile/user/services/settings/locale_storage_service.dart';
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/network/base_api_helper.dart';

@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:astrology_app/apps/mobile/user/provider/home/home_provider.dart';
+import 'package:astrology_app/apps/mobile/user/provider/setting/premium_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/setting/profile_provider.dart';
 import 'package:astrology_app/apps/mobile/user/screens/consult/consult_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/home/home_screen.dart';
@@ -37,17 +39,16 @@ class UserDashboard extends StatefulWidget {
 class _UserDashboardState extends State<UserDashboard> {
   @override
   void initState() {
-    // SystemChrome.setSystemUIOverlayStyle(
-    //   SystemUiOverlayStyle(
-    //     statusBarColor: Colors.transparent, // or your desired color
-    //     statusBarIconBrightness:
-    //         Brightness.light, // Dark icons for light background
-    //   ),
-    // );
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      context.read<UserProfileProvider>().getProfile(context);
+      initApp();
     });
     super.initState();
+  }
+
+  Future<void> initApp() async {
+    await context.read<HomeProvider>().initHomeScreen();
+    await context.read<UserProfileProvider>().getProfile(context);
+    await context.read<SubscriptionProvider>().getSubscriptionPlans();
   }
 
   @override
@@ -156,10 +157,9 @@ class _UserDashboardState extends State<UserDashboard> {
               2.h.verticalSpace,
               SVGImage(
                 color: isCurrent ? AppColors.white : AppColors.darkBlue,
-                width: 20.w,
+                width: (index == 4) ? 25.w : 20.w,
                 path: iconPath,
               ),
-
               if (isCurrent)
                 Row(
                   children: [

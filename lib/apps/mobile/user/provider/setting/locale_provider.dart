@@ -1,7 +1,7 @@
-import 'package:astrology_app/apps/mobile/user/services/locale_storage_service.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/utils/logger.dart';
+import '../../services/settings/locale_storage_service.dart';
 
 class LocaleProvider extends ChangeNotifier {
   String _localeCode = "en";

@@ -1,8 +1,11 @@
+import 'package:astrology_app/apps/mobile/user/model/home/home_model.dart';
+import 'package:astrology_app/apps/mobile/user/model/settings/premium_plan_model.dart';
 import 'package:astrology_app/apps/mobile/user/screens/auth/forgot_password_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/auth/otp_verfication_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/auth/reset_password_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/auth/sign_in_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/create_profile_screen.dart';
+import 'package:astrology_app/apps/mobile/user/screens/home/dasha_nakshtra_details_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/mantras/mantra_player_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/premium/current_plan_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/premium/failed_payment_screen.dart';
@@ -186,7 +189,7 @@ class MobileAppRouter {
       path: MobileAppRoutes.selectedPlanScreen.path,
       name: MobileAppRoutes.selectedPlanScreen.name,
       builder: (context, state) {
-        final Map<String, dynamic> plan = state.extra as Map<String, dynamic>;
+        final SubscriptionPlanModel plan = state.extra as SubscriptionPlanModel;
         return SelectedPlanScreen(plan: plan);
       },
     ),
@@ -251,6 +254,15 @@ class MobileAppRouter {
       name: MobileAppRoutes.createProfileScreen.name,
       builder: (context, state) {
         return CreateProfileScreen();
+      },
+    ),
+    GoRoute(
+      path: MobileAppRoutes.dashaNakshatraDetailsScreen.path,
+      name: MobileAppRoutes.dashaNakshatraDetailsScreen.name,
+      builder: (context, state) {
+        final DailyHoroScopeModel dailyHoroScope =
+            state.extra as DailyHoroScopeModel;
+        return DashaNakshtraDetailsScreen(dailyHoroScope: dailyHoroScope);
       },
     ),
   ];

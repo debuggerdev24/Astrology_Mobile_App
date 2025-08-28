@@ -107,7 +107,7 @@ class SettingScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              if (provider.isLogOutLoading) ApiLoadingIndicator(),
+              if (provider.isLogOutLoading) ApiLoadingFullPageIndicator(),
             ],
           ),
         ),

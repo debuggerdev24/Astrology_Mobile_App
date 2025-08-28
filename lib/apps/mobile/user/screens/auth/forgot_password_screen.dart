@@ -80,7 +80,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 ],
               ),
             ),
-            if (provider.isSendOtpLoading) ApiLoadingIndicator(),
+            if (provider.isSendOtpLoading) ApiLoadingFullPageIndicator(),
           ],
         ),
       ),

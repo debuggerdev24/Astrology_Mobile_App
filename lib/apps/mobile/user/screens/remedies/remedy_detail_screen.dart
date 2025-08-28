@@ -35,7 +35,6 @@ class RemedyDetailScreen extends StatelessWidget {
                   "This remedy enhances confidence, boosts focus, and reduces ego imbalance.",
             ),
             remedyPlayer(context, translator),
-
             AppText(
               text: translator.suggestedAction,
               style: semiBold(fontSize: 18, color: AppColors.primary),

@@ -7,8 +7,8 @@ import 'package:go_router/go_router.dart';
 import '../../../../../core/utils/custom_toast.dart';
 import '../../../../../core/utils/field_validator.dart';
 import '../../../../../routes/mobile_routes/user_routes.dart';
-import '../../services/locale_storage_service.dart';
-import '../../services/profile_api_service.dart';
+import '../../services/settings/locale_storage_service.dart';
+import '../../services/settings/profile_api_service.dart';
 
 class UserAuthProvider extends ChangeNotifier {
   final TextEditingController _registerNameCtr = TextEditingController();
@@ -130,9 +130,7 @@ class UserAuthProvider extends ChangeNotifier {
       final data = r["data"]["palm_image_left"];
 
       if (data == null) {
-        Logger.printInfo(
-          "Going to the profile screen by using yoiur new logic",
-        );
+        Logger.printInfo("Going to the profile screen by using your new logic");
         context.goNamed(MobileAppRoutes.createProfileScreen.name);
         return;
       }
@@ -291,20 +289,23 @@ class UserAuthProvider extends ChangeNotifier {
         FieldValidators().password(_registerPasswordCtr.text.trim()) ?? "";
 
     // validate confirm password
-    if (FieldValidators().match(
+    registerConfirmPassWordErr =
+        FieldValidators().match(
           _registerConfirmPassCtr.text.trim(),
           _registerPasswordCtr.text.trim(),
-          "Password dosen't match",
-        ) !=
-        null) {
-      registerConfirmPassWordErr = FieldValidators().match(
-        _registerConfirmPassCtr.text.trim(),
-        _registerPasswordCtr.text.trim(),
-        "Password not matched!",
-      )!;
-    } else {
-      registerConfirmPassWordErr = "";
-    }
+          "Password not matched!",
+        ) ??
+        "";
+    // if (FieldValidators().match(
+    //       _registerConfirmPassCtr.text.trim(),
+    //       _registerPasswordCtr.text.trim(),
+    //       "Password dosen't match",
+    //     ) !=
+    //     null) {
+    //   !;
+    // } else {
+    //   registerConfirmPassWordErr = "";
+    // }
 
     notifyListeners();
 

@@ -1,6 +1,9 @@
+import 'package:astrology_app/apps/mobile/user/provider/home/home_provider.dart';
+import 'package:astrology_app/apps/mobile/user/provider/setting/profile_provider.dart';
 import 'package:astrology_app/apps/mobile/user/screens/user_dashboard.dart';
 import 'package:astrology_app/core/constants/app_assets.dart';
 import 'package:astrology_app/core/constants/text_style.dart';
+import 'package:astrology_app/core/utils/custom_loader.dart';
 import 'package:astrology_app/core/widgets/app_layout.dart';
 import 'package:astrology_app/core/widgets/svg_image.dart';
 import 'package:astrology_app/extension/context_extension.dart';
@@ -8,6 +11,7 @@ import 'package:astrology_app/routes/mobile_routes/user_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../core/constants/app_colors.dart';
 import '../../../../../core/widgets/app_text.dart';
@@ -19,185 +23,243 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppLayout(
+      horizontalPadding: 0,
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            16.h.verticalSpace,
-            userTopBar(context: context),
-            16.h.verticalSpace,
-            dashaAndMoonSection(context),
-            mantraPlayer(context: context),
-            greyColoredBox(
-              margin: EdgeInsets.only(bottom: 20.h),
-              padding: EdgeInsets.only(
-                top: 16.h,
-                left: 16.w,
-                bottom: 16.h,
-                right: 22.w,
-              ),
+        child: Consumer<UserProfileProvider>(
+          builder: (context, profileProvider, child) => Consumer<HomeProvider>(
+            builder: (context, provider, child) {
+              return Stack(
+                children: [
+                  if (!provider.isMoonDashaLoading &&
+                      !provider.isDailyHoroScopeLoading &&
+                      !profileProvider.isGetProfileLoading)
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 12.w),
+                      child: Column(
+                        children: [
+                          16.h.verticalSpace,
+                          userTopBar(
+                            context: context,
+                            userName: profileProvider.nameController.text,
+                          ),
+                          16.h.verticalSpace,
+                          dashaAndMoonSection(
+                            context: context,
+                            provider: provider,
+                          ),
+                          mantraPlayer(context: context),
+                          greyColoredBox(
+                            margin: EdgeInsets.only(bottom: 20.h),
+                            padding: EdgeInsets.only(
+                              top: 16.h,
+                              left: 16.w,
+                              bottom: 16.h,
+                              right: 22.w,
+                            ),
 
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                spacing: 14.h,
-                children: [
-                  IntrinsicWidth(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        AppText(
-                          text: "Karma Focus",
-                          style: bold(
-                            height: 0,
-                            fontFamily: AppFonts.secondary,
-                            fontSize: 20,
-                            decorationColor: AppColors.whiteColor,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              spacing: 14.h,
+                              children: [
+                                IntrinsicWidth(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      AppText(
+                                        text: "Karma Focus",
+                                        style: bold(
+                                          height: 0,
+                                          fontFamily: AppFonts.secondary,
+                                          fontSize: 20,
+                                          decorationColor: AppColors.whiteColor,
+                                        ),
+                                      ),
+                                      Container(
+                                        height: 1,
+                                        color: AppColors.whiteColor,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Row(
+                                  spacing: 8.w,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    AppText(
+                                      text: "Action",
+                                      style: medium(
+                                        fontSize: 18.sp,
+                                        color: AppColors.greenColor,
+                                      ),
+                                    ),
+                                    AppText(text: "  :"),
+                                    Expanded(
+                                      child: AppText(
+                                        text: provider
+                                            .dailyHoroScopeData!
+                                            .karmaAction, //"Donate something unasked today.",
+                                        style: regular(fontSize: 18.sp),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  spacing: 12.w,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    AppText(
+                                      text: "Caution",
+                                      style: medium(
+                                        fontSize: 18.sp,
+                                        color: AppColors.redColor,
+                                      ),
+                                    ),
+                                    AppText(text: ":"),
+                                    Expanded(
+                                      child: AppText(
+                                        text: provider
+                                            .dailyHoroScopeData!
+                                            .karmaCaution, //"Avoid signing contracts after 2 PM.",
+                                        style: regular(fontSize: 18.sp),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        Container(height: 1, color: AppColors.whiteColor),
-                      ],
-                    ),
-                  ),
-                  Row(
-                    spacing: 8.w,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      AppText(
-                        text: "Action",
-                        style: medium(
-                          fontSize: 18.sp,
-                          color: AppColors.greenColor,
-                        ),
+                          //todo -------------> Dasha Nakshtra
+                          Container(
+                            margin: EdgeInsets.only(bottom: 10.h),
+                            padding: EdgeInsets.only(
+                              top: 16.h,
+                              left: 16.w,
+                              bottom: 16.h,
+                              right: 22.w,
+                            ),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: AppColors.whiteColor),
+                              borderRadius: BorderRadius.circular(8.r),
+                              color: AppColors.greyColor,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              spacing: 14.h,
+                              children: [
+                                IntrinsicWidth(
+                                  child: Column(
+                                    children: [
+                                      AppText(
+                                        text: "Dasha/Nakshatra Insights :",
+                                        style: bold(
+                                          height: 0,
+                                          fontFamily: AppFonts.secondary,
+                                          fontSize: 20,
+                                        ),
+                                      ),
+                                      Container(
+                                        height: 1.1,
+                                        color: AppColors.whiteColor,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Row(
+                                  spacing: 10.w,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    AppText(
+                                      text: "Your ruling planet today",
+                                      style: medium(fontSize: 16.sp),
+                                    ),
+                                    AppText(text: ":"),
+                                    Expanded(
+                                      child: AppText(
+                                        text: provider
+                                            .dailyHoroScopeData!
+                                            .rulingPlanet,
+                                        style: medium(
+                                          fontSize: 18.sp,
+                                          color: AppColors.primary,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  spacing: 10.w,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    AppText(
+                                      text: "Nakshatra",
+                                      style: medium(fontSize: 16.sp),
+                                    ),
+                                    AppText(text: ":"),
+                                    Expanded(
+                                      child: AppText(
+                                        text: provider
+                                            .dailyHoroScopeData!
+                                            .nakshatra, //"Anuradha",
+                                        style: medium(
+                                          fontSize: 18.sp,
+                                          color: AppColors.primary,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    context.pushNamed(
+                                      MobileAppRoutes
+                                          .dashaNakshatraDetailsScreen
+                                          .name,
+                                      extra: provider.dailyHoroScopeData,
+                                    );
+                                  },
+                                  child: Container(
+                                    margin: EdgeInsets.only(top: 5.h),
+                                    decoration: BoxDecoration(
+                                      color: AppColors.white,
+                                      borderRadius: BorderRadius.circular(12.r),
+                                    ),
+                                    padding: EdgeInsets.symmetric(
+                                      vertical: 12.h,
+                                      horizontal: 20.w,
+                                    ),
+                                    child: AppText(
+                                      text: context
+                                          .translator
+                                          .viewDetailedReading,
+                                      style: bold(
+                                        fontSize: 14.sp,
+                                        color: AppColors.black,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
-                      AppText(text: "  :"),
-                      Expanded(
-                        child: AppText(
-                          text: "Donate something unasked today.",
-                          style: regular(fontSize: 18.sp),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    spacing: 12.w,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      AppText(
-                        text: "Caution",
-                        style: medium(
-                          fontSize: 18.sp,
-                          color: AppColors.redColor,
-                        ),
-                      ),
-                      AppText(text: ":"),
-                      Expanded(
-                        child: AppText(
-                          text: "Avoid signing contracts after 2 PM.",
-                          style: regular(fontSize: 18.sp),
-                        ),
-                      ),
-                    ],
-                  ),
+                    )
+                  else
+                    ApiLoadingIndicator(),
                 ],
-              ),
-            ),
-            //todo -------------> Dasha Nakshtra
-            Container(
-              margin: EdgeInsets.only(bottom: 10.h),
-              padding: EdgeInsets.only(
-                top: 16.h,
-                left: 16.w,
-                bottom: 16.h,
-                right: 22.w,
-              ),
-              decoration: BoxDecoration(
-                border: Border.all(color: AppColors.whiteColor),
-                borderRadius: BorderRadius.circular(8.r),
-                color: AppColors.greyColor,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                spacing: 14.h,
-                children: [
-                  IntrinsicWidth(
-                    child: Column(
-                      children: [
-                        AppText(
-                          text: "Dasha/Nakshatra Insights :",
-                          style: bold(
-                            height: 0,
-                            fontFamily: AppFonts.secondary,
-                            fontSize: 20,
-                          ),
-                        ),
-                        Container(height: 1.1, color: AppColors.whiteColor),
-                      ],
-                    ),
-                  ),
-                  Row(
-                    spacing: 10.w,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      AppText(
-                        text: "Your ruling planet today",
-                        style: medium(fontSize: 16.sp),
-                      ),
-                      AppText(text: ":"),
-                      Expanded(
-                        child: AppText(
-                          text: "Jupiter",
-                          style: medium(
-                            fontSize: 18.sp,
-                            color: AppColors.primary,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    spacing: 10.w,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      AppText(
-                        text: "Nakshatra",
-                        style: medium(fontSize: 16.sp),
-                      ),
-                      AppText(text: ":"),
-                      Expanded(
-                        child: AppText(
-                          text: "Anuradha",
-                          style: medium(
-                            fontSize: 18.sp,
-                            color: AppColors.primary,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 5.h),
-                    decoration: BoxDecoration(
-                      color: AppColors.white,
-                      borderRadius: BorderRadius.circular(12.r),
-                    ),
-                    padding: EdgeInsets.symmetric(
-                      vertical: 12.h,
-                      horizontal: 20.w,
-                    ),
-                    child: AppText(
-                      text: context.translator.viewDetailedReading,
-                      style: bold(fontSize: 14.sp, color: AppColors.black),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
+              );
+            },
+          ),
         ),
       ),
     );
   }
 
-  Row dashaAndMoonSection(BuildContext context) {
+  Widget dashaAndMoonSection({
+    required BuildContext context,
+    required HomeProvider provider,
+  }) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -211,7 +273,7 @@ class HomeScreen extends StatelessWidget {
               style: medium(fontSize: 14.sp),
             ),
             AppText(
-              text: " : Venus-Mars ",
+              text: " : ${provider.dasha} ",
               style: medium(fontSize: 14.sp),
             ),
           ],
@@ -230,7 +292,7 @@ class HomeScreen extends StatelessWidget {
               style: medium(fontSize: 14.sp),
             ),
             AppText(
-              text: " : Virgo",
+              text: " : ${provider.moonSign}",
               style: medium(fontSize: 14.sp),
             ),
           ],
@@ -324,14 +386,14 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget userTopBar({required BuildContext context}) {
+  Widget userTopBar({required BuildContext context, required String userName}) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
           child: AppText(
-            text: "${context.translator.goodMorning},\nPriya",
+            text: "${context.translator.goodMorning},\n$userName",
             style: bold(
               fontFamily: AppFonts.secondary,
               height: 1.1,

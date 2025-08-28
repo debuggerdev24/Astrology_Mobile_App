@@ -32,4 +32,5 @@ enum MobileAppRoutes {
   spiritualDisclaimerScreen,
   createProfileScreen,
   resetPasswordScreen,
+  dashaNakshatraDetailsScreen,
 }

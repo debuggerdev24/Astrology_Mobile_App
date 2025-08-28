@@ -1,3 +1,4 @@
+import 'package:astrology_app/apps/mobile/user/model/settings/premium_plan_model.dart';
 import 'package:astrology_app/apps/mobile/user/screens/premium/premium_plan_screen.dart';
 import 'package:astrology_app/core/constants/app_colors.dart';
 import 'package:astrology_app/core/widgets/app_button.dart';
@@ -10,7 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 class SelectedPlanScreen extends StatelessWidget {
-  final Map<String, dynamic> plan;
+  final SubscriptionPlanModel plan;
   const SelectedPlanScreen({super.key, required this.plan});
 
   @override
@@ -20,7 +21,7 @@ class SelectedPlanScreen extends StatelessWidget {
       body: Column(
         children: [
           40.h.verticalSpace,
-          topBar(context: context, title: plan["title"]),
+          topBar(context: context, title: plan.plan),
           24.h.verticalSpace,
 
           premiumPlanBox(

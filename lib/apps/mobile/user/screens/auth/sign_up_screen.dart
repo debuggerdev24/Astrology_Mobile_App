@@ -23,97 +23,102 @@ class SignUpScreen extends StatelessWidget {
       horizontalPadding: 0,
       body: SingleChildScrollView(
         child: Consumer<UserAuthProvider>(
-          builder: (context, provider, child) => Stack(
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.w),
-                child: Column(
-                  children: [
-                    40.h.verticalSpace,
-                    AppText(
-                      text: "Sign Up",
-                      style: bold(fontFamily: AppFonts.secondary, fontSize: 46),
-                    ),
-                    12.h.verticalSpace,
-                    AppText(
-                      textAlign: TextAlign.center,
-                      text:
-                          "Unlock personalized astrological insights just for you.",
-                      style: regular(),
-                    ),
-                    32.h.verticalSpace,
-                    Column(
-                      spacing: 22.h,
-                      children: [
-                        AppTextField(
-                          controller: provider.registerNameCtr,
-                          title: "Name",
-                          hintText: "Enter Your Name",
-                          errorMessage: provider.registerNameErr,
-                        ),
-                        AppTextField(
-                          controller: provider.registerEmailCtr,
-                          title: "Email",
-                          hintText: "Enter Your Email",
-                          errorMessage: provider.registerEmailErr,
-                        ),
-                        AppTextField(
-                          controller: provider.registerPasswordCtr,
-                          title: "Password",
-                          hintText: "Enter Your Password",
-                          errorMessage: provider.registerPasswordErr,
-                        ),
-                        AppTextField(
-                          controller: provider.registerConfirmPassCtr,
-                          title: "Confirm Password",
-                          hintText: "Enter your Confirm Password",
-                          errorMessage: provider.registerConfirmPassWordErr,
-                        ),
-                      ],
-                    ),
-                    AppButton(
-                      onTap: () {
-                        deBouncer.run(() {
-                          provider.registerUser(context);
-                        });
-                      },
-                      title: "Sign Up",
-                      margin: EdgeInsets.only(top: 52.h, bottom: 8.h),
-                    ),
-                    GestureDetector(
-                      onTap: () async {
-                        FocusScope.of(context).unfocus();
-                        context.pushNamed(MobileAppRoutes.signInScreen.name);
-                      },
-                      child: RichText(
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                              text: "Already have an account? ",
-                              style: regular(
-                                fontSize: 15,
-                                fontFamily: "Primary",
-                              ),
-                            ),
-                            TextSpan(
-                              text: "Sign In",
-                              style: semiBold(
-                                fontSize: 15,
-                                color: AppColors.primary,
-                                fontFamily: "Primary",
-                              ),
-                            ),
-                          ],
+          builder: (context, provider, child) {
+            return Stack(
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  child: Column(
+                    children: [
+                      40.h.verticalSpace,
+                      AppText(
+                        text: "Sign Up",
+                        style: bold(
+                          fontFamily: AppFonts.secondary,
+                          fontSize: 46,
                         ),
                       ),
-                    ),
-                    48.h.verticalSpace,
-                  ],
+                      12.h.verticalSpace,
+                      AppText(
+                        textAlign: TextAlign.center,
+                        text:
+                            "Unlock personalized astrological insights just for you.",
+                        style: regular(),
+                      ),
+                      32.h.verticalSpace,
+                      Column(
+                        spacing: 22.h,
+                        children: [
+                          AppTextField(
+                            controller: provider.registerNameCtr,
+                            title: "Name",
+                            hintText: "Enter Your Name",
+                            errorMessage: provider.registerNameErr,
+                          ),
+                          AppTextField(
+                            controller: provider.registerEmailCtr,
+                            title: "Email",
+                            hintText: "Enter Your Email",
+                            errorMessage: provider.registerEmailErr,
+                          ),
+                          AppTextField(
+                            controller: provider.registerPasswordCtr,
+                            title: "Password",
+                            hintText: "Enter Your Password",
+                            errorMessage: provider.registerPasswordErr,
+                          ),
+                          AppTextField(
+                            controller: provider.registerConfirmPassCtr,
+                            title: "Confirm Password",
+                            hintText: "Enter your Confirm Password",
+                            errorMessage: provider.registerConfirmPassWordErr,
+                          ),
+                        ],
+                      ),
+                      AppButton(
+                        onTap: () {
+                          deBouncer.run(() {
+                            provider.registerUser(context);
+                          });
+                        },
+                        title: "Sign Up",
+                        margin: EdgeInsets.only(top: 52.h, bottom: 8.h),
+                      ),
+                      GestureDetector(
+                        onTap: () async {
+                          FocusScope.of(context).unfocus();
+                          context.pushNamed(MobileAppRoutes.signInScreen.name);
+                        },
+                        child: RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: "Already have an account? ",
+                                style: regular(
+                                  fontSize: 15,
+                                  fontFamily: "Primary",
+                                ),
+                              ),
+                              TextSpan(
+                                text: "Sign In",
+                                style: semiBold(
+                                  fontSize: 15,
+                                  color: AppColors.primary,
+                                  fontFamily: "Primary",
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      48.h.verticalSpace,
+                    ],
+                  ),
                 ),
-              ),
-              if (provider.isRegisterLoading) ApiLoadingIndicator(),
-            ],
-          ),
+                if (provider.isRegisterLoading) ApiLoadingFullPageIndicator(),
+              ],
+            );
+          },
         ),
       ),
     );

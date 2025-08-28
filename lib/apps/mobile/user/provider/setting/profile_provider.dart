@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:astrology_app/apps/mobile/user/services/profile_api_service.dart';
+import 'package:astrology_app/apps/mobile/user/services/settings/profile_api_service.dart';
 import 'package:astrology_app/core/utils/field_validator.dart';
 import 'package:astrology_app/core/utils/logger.dart';
 import 'package:astrology_app/extension/context_extension.dart';
@@ -15,7 +15,7 @@ import '../../../../../core/utils/custom_toast.dart';
 import '../../../../../main.dart';
 import '../../../../../routes/mobile_routes/user_routes.dart';
 import '../../model/settings/profile_model.dart';
-import '../../services/locale_storage_service.dart';
+import '../../services/settings/locale_storage_service.dart';
 
 class UserProfileProvider extends ChangeNotifier {
   // Text controllers

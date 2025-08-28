@@ -23,7 +23,7 @@ class FieldValidators {
     }
 
     if (!namePattern.hasMatch(val) && val.isNotEmpty) {
-      return ""; //Enter a valid name (Only alphabets allowed).
+      return "Enter a valid name (Only alphabets allowed)."; //Enter a valid name (Only alphabets allowed).
     }
 
     return "";
@@ -157,7 +157,7 @@ class FieldValidators {
 
   String? match(String? val, String secondValue, String errorMessage) {
     if (val == null || val.trim().isEmpty) {
-      return 'Please enter the password!';
+      return 'Please enter your Confirm password!';
     }
 
     // final pattern = r'^\+?[1-9]\d{10,15}$';

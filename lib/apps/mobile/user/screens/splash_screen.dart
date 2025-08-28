@@ -1,4 +1,3 @@
-import 'package:astrology_app/apps/mobile/user/services/locale_storage_service.dart';
 import 'package:astrology_app/core/widgets/app_layout.dart';
 import 'package:astrology_app/routes/mobile_routes/user_routes.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,6 +7,7 @@ import 'package:provider/provider.dart';
 import '../../../../core/network/base_api_helper.dart';
 import '../../../../core/utils/logger.dart';
 import '../provider/auth/auth_provider.dart';
+import '../services/settings/locale_storage_service.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -44,7 +44,10 @@ class _SplashScreenState extends State<SplashScreen> {
                 context.read<UserAuthProvider>().decideFirstScreen(context);
               },
             );
+            return;
           }
+          context.pushNamed(MobileAppRoutes.userDashBoardScreen.name);
+          return;
         });
         return;
       }
