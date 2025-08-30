@@ -1,4 +1,4 @@
-import 'package:astrology_app/apps/mobile/user/model/home/home_model.dart';
+import 'package:astrology_app/apps/mobile/user/model/home/daily_horo_scope_model.dart';
 import 'package:astrology_app/apps/mobile/user/model/settings/premium_plan_model.dart';
 import 'package:astrology_app/apps/mobile/user/screens/auth/forgot_password_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/auth/otp_verfication_screen.dart';
@@ -123,11 +123,11 @@ class MobileAppRouter {
       path: MobileAppRoutes.playMantraScreen.path,
       name: MobileAppRoutes.playMantraScreen.name,
       builder: (context, state) {
-        final bool isText = state.extra as bool;
-
-        return MantraPlayScreen(isText: isText);
+        final data = state.extra as Map;
+        return MantraPlayScreen(data: data);
       },
     ),
+
     GoRoute(
       path: MobileAppRoutes.palmReadingScreen.path,
       name: MobileAppRoutes.palmReadingScreen.name,

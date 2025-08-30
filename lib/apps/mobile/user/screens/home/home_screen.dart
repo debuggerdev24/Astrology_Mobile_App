@@ -1,4 +1,5 @@
 import 'package:astrology_app/apps/mobile/user/provider/home/home_provider.dart';
+import 'package:astrology_app/apps/mobile/user/provider/home/play_mantra_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/setting/profile_provider.dart';
 import 'package:astrology_app/apps/mobile/user/screens/user_dashboard.dart';
 import 'package:astrology_app/core/constants/app_assets.dart';
@@ -16,6 +17,7 @@ import 'package:provider/provider.dart';
 import '../../../../../core/constants/app_colors.dart';
 import '../../../../../core/widgets/app_text.dart';
 import '../../../../../core/widgets/global_methods.dart';
+import '../../model/home/mantra_model.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -32,7 +34,8 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   if (!provider.isMoonDashaLoading &&
                       !provider.isDailyHoroScopeLoading &&
-                      !profileProvider.isGetProfileLoading)
+                      !profileProvider.isGetProfileLoading &&
+                      !provider.isGetTodayMantraLoading)
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 12.w),
                       child: Column(
@@ -47,7 +50,10 @@ class HomeScreen extends StatelessWidget {
                             context: context,
                             provider: provider,
                           ),
-                          mantraPlayer(context: context),
+                          mantraPlayer(
+                            context: context,
+                            mantra: provider.todayMantra!,
+                          ),
                           greyColoredBox(
                             margin: EdgeInsets.only(bottom: 20.h),
                             padding: EdgeInsets.only(
@@ -56,7 +62,6 @@ class HomeScreen extends StatelessWidget {
                               bottom: 16.h,
                               right: 22.w,
                             ),
-
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               spacing: 14.h,
@@ -301,7 +306,10 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget mantraPlayer({required BuildContext context}) {
+  Widget mantraPlayer({
+    required BuildContext context,
+    required MantraModel mantra,
+  }) {
     return Container(
       margin: EdgeInsets.only(top: 18.h, bottom: 20.h),
       decoration: BoxDecoration(
@@ -337,26 +345,37 @@ class HomeScreen extends StatelessWidget {
                     12.w.horizontalSpace,
 
                     AppText(
-                      text: "Om Namah Shivaya",
+                      text: mantra.name,
+
                       style: regular(fontSize: 17.sp, color: AppColors.black),
                     ),
                     Spacer(),
                     GestureDetector(
                       onTap: () {
+                        Map<String, dynamic> data = {
+                          "isText": true,
+                          "mantra": mantra,
+                        };
                         context.pushNamed(
                           MobileAppRoutes.playMantraScreen.name,
-                          extra: true,
+                          extra: data,
                         );
                       },
                       child: SVGImage(path: AppAssets.tIcon, height: 34.w),
                     ),
                     5.w.horizontalSpace,
-
                     GestureDetector(
-                      onTap: () {
-                        context.pushNamed(
+                      onTap: () async {
+                        Map<String, dynamic> data = {
+                          "isText": false,
+                          "mantra": mantra,
+                        };
+                        context.read<PlayMantraProvider>().loadAndPlayMusic(
+                          mantra.audioFile,
+                        );
+                        await context.pushNamed(
                           MobileAppRoutes.playMantraScreen.name,
-                          extra: false,
+                          extra: data,
                         );
                       },
                       child: SVGImage(path: AppAssets.playIcon, height: 34.w),

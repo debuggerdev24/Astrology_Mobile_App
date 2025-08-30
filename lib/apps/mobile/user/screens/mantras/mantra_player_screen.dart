@@ -1,3 +1,5 @@
+import 'package:astrology_app/apps/mobile/user/provider/home/home_provider.dart';
+import 'package:astrology_app/apps/mobile/user/provider/home/play_mantra_provider.dart';
 import 'package:astrology_app/core/constants/app_assets.dart';
 import 'package:astrology_app/core/constants/app_colors.dart';
 import 'package:astrology_app/core/constants/text_style.dart';
@@ -6,129 +8,189 @@ import 'package:astrology_app/core/widgets/app_text.dart';
 import 'package:astrology_app/core/widgets/global_methods.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
-class MantraPlayScreen extends StatelessWidget {
-  final bool isText;
-  const MantraPlayScreen({super.key, required this.isText});
+import '../../model/home/mantra_model.dart';
+
+class MantraPlayScreen extends StatefulWidget {
+  // final bool isText;
+  // final MantraModel mantra;
+  final Map data;
+  const MantraPlayScreen({super.key, required this.data});
+
+  @override
+  State<MantraPlayScreen> createState() => _MantraPlayScreenState();
+}
+
+class _MantraPlayScreenState extends State<MantraPlayScreen> {
+  @override
+  void initState() {
+    context.read<PlayMantraProvider>().setAudioSetting();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    context.read<PlayMantraProvider>().disposeAudio();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    bool isText = widget.data["isText"];
+    MantraModel mantra = widget.data["mantra"];
     return AppLayout(
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            40.h.verticalSpace,
-            topBar(context: context, title: "Mantra"),
-            60.h.verticalSpace,
-            Image.asset(AppAssets.omImage),
-            60.h.verticalSpace,
-
-            //todo --------------------> song details
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+        child: Consumer<HomeProvider>(
+          builder: (context, homeProvider, child) => Column(
+            children: [
+              40.h.verticalSpace,
+              topBar(context: context, title: "Mantra"),
+              60.h.verticalSpace,
+              Consumer<PlayMantraProvider>(
+                builder: (context, playMantraProvider, child) => Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    AppText(
-                      text: "Om Namah Shivaya",
-                      style: medium(fontSize: 22.sp),
+                    Image.asset(AppAssets.omImage),
+                    60.h.verticalSpace,
+                    //todo --------------------> song details
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            AppText(
+                              text: mantra.name,
+                              style: medium(fontSize: 22.sp),
+                            ),
+                            AppText(
+                              text: mantra.meaning ?? "Meaning",
+                              style: regular(
+                                fontSize: 18.sp,
+                                height: 1.2,
+                                color: AppColors.greyColor,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 8.0),
+                          child: Icon(
+                            Icons.favorite_outline_rounded,
+                            color: AppColors.white,
+                            size: 24.sp,
+                          ),
+                        ),
+                      ],
                     ),
-                    AppText(
-                      text: "I bow to Lord Shiva",
-                      style: regular(
-                        fontSize: 18.sp,
-                        height: 1.2,
-                        color: AppColors.greyColor,
+                    28.h.verticalSpace,
+                    if (isText)
+                      greyColoredBox(
+                        width: double.infinity,
+                        padding: EdgeInsets.symmetric(
+                          vertical: 20.h,
+                          horizontal: 18,
+                        ),
+                        child: Expanded(
+                          child: AppText(
+                            text: mantra.textContent,
+                            style: medium(fontSize: 19.sp),
+                          ),
+                        ),
+                      )
+                    //todo --------------------> slider
+                    else ...[
+                      SliderTheme(
+                        data: const SliderThemeData(trackHeight: 1.6),
+                        child: Slider(
+                          padding: EdgeInsets.symmetric(horizontal: 2.w),
+                          min: 0.0,
+                          max: playMantraProvider.totalDuration.inMilliseconds
+                              .toDouble(),
+                          activeColor: AppColors.white,
+                          inactiveColor: AppColors.greyColor,
+                          value: playMantraProvider
+                              .currentPosition
+                              .inMilliseconds
+                              .toDouble(),
+
+                          onChanged: (value) {
+                            playMantraProvider.seek(
+                              Duration(milliseconds: value.toInt()),
+                            );
+                          },
+                        ),
                       ),
-                    ),
+                      //todo -------------------> Seek numbers
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            playMantraProvider.formatDuration(
+                              playMantraProvider.currentPosition,
+                            ),
+                            style: medium(fontSize: 14.sp),
+                          ),
+                          Text(
+                            playMantraProvider.formatDuration(
+                              playMantraProvider.totalDuration,
+                            ),
+                            style: medium(fontSize: 14.sp),
+                          ),
+                        ],
+                      ),
+                      30.h.verticalSpace,
+                      //todo --------------------> control
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 50.w),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            //todo ------------------> previous
+                            IconButton(
+                              icon: const Icon(
+                                Icons.skip_previous_rounded,
+                                color: AppColors.white,
+                              ),
+                              iconSize: 45.sp,
+                              onPressed: () async {},
+                            ),
+                            //tlocalodo ------------------> play Or pause
+                            IconButton(
+                              icon: Icon(
+                                playMantraProvider.isPlaying
+                                    ? Icons.pause_circle_filled
+                                    : Icons.play_circle_fill,
+                                color: AppColors.white,
+                              ),
+                              iconSize: 75.sp,
+                              onPressed: () {
+                                playMantraProvider.playPause();
+                              },
+                            ),
+
+                            //todo ------------------> next
+                            IconButton(
+                              icon: const Icon(
+                                Icons.skip_next_rounded,
+                                color: AppColors.white,
+                              ),
+                              iconSize: 45.sp,
+                              onPressed: () async {},
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ],
                 ),
-                Padding(
-                  padding: EdgeInsets.only(top: 8.0),
-                  child: Icon(
-                    Icons.favorite_outline_rounded,
-                    color: AppColors.white,
-                    size: 24.sp,
-                  ),
-                ),
-              ],
-            ),
-            28.h.verticalSpace,
-            if (isText)
-              greyColoredBox(
-                padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 18),
-                child: AppText(
-                  text:
-                      "*Namaam‑īśam‑īśāna nirvāṇa‑rūpam Vibhum vyāpakaṃ brahma‑veda‑svarūpam | Nijaṃ nirguṇaṃ nirvikalpaṃ nirīhaṃ Cidākāśam‑ākāśavāsaṃ bhaje’ham ||1||*",
-                  style: medium(fontSize: 19.sp),
-                ),
-              )
-            //todo --------------------> slider
-            else ...[
-              SliderTheme(
-                data: const SliderThemeData(trackHeight: 1.6),
-                child: Slider(
-                  padding: EdgeInsets.zero,
-                  min: 0.0,
-                  max: 100,
-                  activeColor: AppColors.white,
-                  inactiveColor: AppColors.greyColor,
-                  value: 30,
-                  onChanged: (value) {},
-                ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("2.05", style: medium(fontSize: 14.sp)),
-                  Text("10.05", style: medium(fontSize: 14.sp)),
-                ],
-              ),
-              30.h.verticalSpace,
-              //todo --------------------> control
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 50.w),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    //todo ------------------> previous
-                    IconButton(
-                      icon: const Icon(
-                        Icons.skip_previous_rounded,
-                        color: AppColors.white,
-                      ),
-                      iconSize: 45,
-                      onPressed: () async {},
-                    ),
-                    //todo ------------------> play Or pause
-                    IconButton(
-                      icon: Icon(
-                        true
-                            ? Icons.pause_circle_filled
-                            : Icons.play_circle_fill,
-                        color: AppColors.white,
-                      ),
-                      iconSize: 75,
-                      onPressed: () {},
-                    ),
 
-                    //todo ------------------> next
-                    IconButton(
-                      icon: const Icon(
-                        Icons.skip_next_rounded,
-                        color: AppColors.white,
-                      ),
-                      iconSize: 45,
-                      onPressed: () async {},
-                    ),
-                  ],
-                ),
-              ),
+              18.h.verticalSpace,
             ],
-            18.h.verticalSpace,
-          ],
+          ),
         ),
       ),
     );

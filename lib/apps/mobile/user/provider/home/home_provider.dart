@@ -1,16 +1,17 @@
-import 'package:astrology_app/apps/mobile/user/model/home/home_model.dart';
+import 'package:astrology_app/apps/mobile/user/model/home/daily_horo_scope_model.dart';
 import 'package:astrology_app/apps/mobile/user/services/home_api_service.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/utils/logger.dart';
+import '../../model/home/mantra_model.dart';
 
 class HomeProvider extends ChangeNotifier {
   String? dasha, moonSign;
   DailyHoroScopeModel? dailyHoroScopeData;
+  MantraModel? todayMantra;
 
   Future<void> initHomeScreen() async {
-    await getMoonDasha();
-    await getDailyHoroScope();
+    await Future.wait([getMoonDasha(), getDailyHoroScope(), getTodayMantra()]);
   }
 
   bool isMoonDashaLoading = true;
@@ -47,6 +48,23 @@ class HomeProvider extends ChangeNotifier {
       },
     );
     isDailyHoroScopeLoading = false;
+    notifyListeners();
+  }
+
+  bool isGetTodayMantraLoading = false;
+  Future<void> getTodayMantra() async {
+    isGetTodayMantraLoading = true;
+    notifyListeners();
+    final result = await HomeApiService.instance.getTodayMantra();
+    result.fold(
+      (l) {
+        Logger.printError(l.errorMessage);
+      },
+      (r) {
+        todayMantra = MantraModel.fromJson(r["data"]);
+      },
+    );
+    isGetTodayMantraLoading = false;
     notifyListeners();
   }
 }

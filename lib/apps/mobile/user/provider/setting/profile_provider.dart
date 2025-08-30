@@ -173,8 +173,13 @@ class UserProfileProvider extends ChangeNotifier {
             context: context,
             message: context.translator.profileUpdatedSuccessfully,
           );
-          context.pushNamed(MobileAppRoutes.userDashBoardScreen.name);
+          await context.pushNamed(MobileAppRoutes.userDashBoardScreen.name);
           LocaleStoaregService.setProfileCreated(true);
+          nameController.clear();
+          birthDateController.clear();
+          birthTimeController.clear();
+          birthPlaceController.clear();
+          currentLocationController.clear();
         },
       );
       isUpdateProfileLoading = false;

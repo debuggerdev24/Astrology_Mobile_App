@@ -27,6 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void init() {
     Future.delayed(Duration(seconds: 2)).then((value) async {
+      // context.pushNamed(MobileAppRoutes.signUpScreen.name);
       if (userToken.isNotEmpty) {
         Logger.printInfo("API Calling Started");
         final result = await BaseApiHelper.instance.checkTokenExpired();

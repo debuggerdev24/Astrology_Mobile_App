@@ -46,9 +46,11 @@ class _UserDashboardState extends State<UserDashboard> {
   }
 
   Future<void> initApp() async {
-    await context.read<HomeProvider>().initHomeScreen();
-    await context.read<UserProfileProvider>().getProfile(context);
-    await context.read<SubscriptionProvider>().getSubscriptionPlans();
+    await Future.wait([
+      context.read<HomeProvider>().initHomeScreen(),
+      context.read<UserProfileProvider>().getProfile(context),
+      context.read<SubscriptionProvider>().getSubscriptionPlans(),
+    ]);
   }
 
   @override

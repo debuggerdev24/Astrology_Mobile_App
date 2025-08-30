@@ -16,4 +16,8 @@ class HomeApiService {
   Future<Either<ApiException, Map<String, dynamic>>> getDailyHoroScope() async {
     return await BaseApiHelper.instance.post(Endpoints.getDailyHoroScope);
   }
+
+  Future<Either<ApiException, Map<String, dynamic>>> getTodayMantra() async {
+    return await BaseApiHelper.instance.get(Endpoints.getTodayMantra);
+  }
 }

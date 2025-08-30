@@ -84,9 +84,13 @@ Widget buildPageTitle({required String title, required BuildContext context}) {
 Widget greyColoredBox({
   EdgeInsets? margin,
   required EdgeInsets padding,
+  double? height,
+  width,
   required Widget child,
 }) {
   return Container(
+    height: height,
+    width: width,
     margin: margin,
     padding: padding,
     decoration: BoxDecoration(

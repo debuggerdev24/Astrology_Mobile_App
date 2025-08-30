@@ -1,4 +1,4 @@
-import 'package:astrology_app/apps/mobile/user/model/home/home_model.dart';
+import 'package:astrology_app/apps/mobile/user/model/home/daily_horo_scope_model.dart';
 import 'package:astrology_app/core/widgets/app_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
