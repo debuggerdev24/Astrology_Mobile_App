@@ -50,10 +50,18 @@ class HomeScreen extends StatelessWidget {
                             context: context,
                             provider: provider,
                           ),
-                          mantraPlayer(
-                            context: context,
-                            mantra: provider.todayMantra!,
-                          ),
+                          if (provider.todayMantra != null)
+                            mantraPlayer(
+                              context: context,
+                              mantra: provider.todayMantra!,
+                            )
+                          else
+                            Padding(
+                              padding: EdgeInsets.symmetric(vertical: 24.h),
+                              child: AppText(
+                                text: "No mantra scheduled for today",
+                              ),
+                            ),
                           greyColoredBox(
                             margin: EdgeInsets.only(bottom: 20.h),
                             padding: EdgeInsets.only(
@@ -310,97 +318,102 @@ class HomeScreen extends StatelessWidget {
     required BuildContext context,
     required MantraModel mantra,
   }) {
-    return Container(
-      margin: EdgeInsets.only(top: 18.h, bottom: 20.h),
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.circular(8.r),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.white.withValues(alpha: 0.45),
-            blurRadius: 16,
-          ),
-        ],
-      ),
-      child: Stack(
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                4.verticalSpace,
-                AppText(
-                  text: context.translator.dailyMantra,
-                  style: bold(
-                    color: AppColors.greyColor,
-                    fontSize: 20.sp,
-                    fontFamily: AppFonts.secondary,
-                  ),
-                ),
-                12.h.verticalSpace,
-                Row(
-                  children: [
-                    SVGImage(path: AppAssets.omIcon, height: 24.h),
-                    12.w.horizontalSpace,
-
-                    AppText(
-                      text: mantra.name,
-
-                      style: regular(fontSize: 17.sp, color: AppColors.black),
-                    ),
-                    Spacer(),
-                    GestureDetector(
-                      onTap: () {
-                        Map<String, dynamic> data = {
-                          "isText": true,
-                          "mantra": mantra,
-                        };
-                        context.pushNamed(
-                          MobileAppRoutes.playMantraScreen.name,
-                          extra: data,
-                        );
-                      },
-                      child: SVGImage(path: AppAssets.tIcon, height: 34.w),
-                    ),
-                    5.w.horizontalSpace,
-                    GestureDetector(
-                      onTap: () async {
-                        Map<String, dynamic> data = {
-                          "isText": false,
-                          "mantra": mantra,
-                        };
-                        context.read<PlayMantraProvider>().loadAndPlayMusic(
-                          mantra.audioFile,
-                        );
-                        await context.pushNamed(
-                          MobileAppRoutes.playMantraScreen.name,
-                          extra: data,
-                        );
-                      },
-                      child: SVGImage(path: AppAssets.playIcon, height: 34.w),
-                    ),
-                  ],
-                ),
-              ],
+    return GestureDetector(
+      onTap: () {
+        // context.pushNamed(MobileAppRoutes.playMantraScreen.name);
+      },
+      child: Container(
+        margin: EdgeInsets.only(top: 18.h, bottom: 20.h),
+        decoration: BoxDecoration(
+          color: AppColors.white,
+          borderRadius: BorderRadius.circular(8.r),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.white.withValues(alpha: 0.45),
+              blurRadius: 16,
             ),
-          ),
-          Align(
-            alignment: Alignment.topRight,
-            child: Padding(
-              padding: EdgeInsets.only(top: 8.h, right: 16.w),
-              child: GestureDetector(
-                onTap: () {
-                  indexTabUser.value = 1;
-                },
-                child: AppText(
-                  text: context.translator.seeAll,
-                  style: medium(fontSize: 12.sp, color: AppColors.black),
+          ],
+        ),
+        child: Stack(
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  4.verticalSpace,
+                  AppText(
+                    text: context.translator.dailyMantra,
+                    style: bold(
+                      color: AppColors.greyColor,
+                      fontSize: 20.sp,
+                      fontFamily: AppFonts.secondary,
+                    ),
+                  ),
+                  12.h.verticalSpace,
+                  Row(
+                    children: [
+                      SVGImage(path: AppAssets.omIcon, height: 24.h),
+                      12.w.horizontalSpace,
+
+                      AppText(
+                        text: mantra.name,
+
+                        style: regular(fontSize: 17.sp, color: AppColors.black),
+                      ),
+                      Spacer(),
+                      GestureDetector(
+                        onTap: () {
+                          Map<String, dynamic> data = {
+                            "isText": true,
+                            "mantra": mantra,
+                          };
+                          context.pushNamed(
+                            MobileAppRoutes.playMantraScreen.name,
+                            extra: data,
+                          );
+                        },
+                        child: SVGImage(path: AppAssets.tIcon, height: 34.w),
+                      ),
+                      5.w.horizontalSpace,
+                      GestureDetector(
+                        onTap: () async {
+                          Map<String, dynamic> data = {
+                            "isText": false,
+                            "mantra": mantra,
+                          };
+                          context.read<PlayMantraProvider>().loadAndPlayMusic(
+                            mantra.audioFile,
+                          );
+                          await context.pushNamed(
+                            MobileAppRoutes.playMantraScreen.name,
+                            extra: data,
+                          );
+                        },
+                        child: SVGImage(path: AppAssets.playIcon, height: 34.w),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Align(
+              alignment: Alignment.topRight,
+              child: Padding(
+                padding: EdgeInsets.only(top: 8.h, right: 16.w),
+                child: GestureDetector(
+                  onTap: () {
+                    indexTabUser.value = 1;
+                  },
+                  child: AppText(
+                    text: context.translator.seeAll,
+                    style: medium(fontSize: 12.sp, color: AppColors.black),
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

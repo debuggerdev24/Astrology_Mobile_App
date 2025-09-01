@@ -175,11 +175,7 @@ class UserProfileProvider extends ChangeNotifier {
           );
           await context.pushNamed(MobileAppRoutes.userDashBoardScreen.name);
           LocaleStoaregService.setProfileCreated(true);
-          nameController.clear();
-          birthDateController.clear();
-          birthTimeController.clear();
-          birthPlaceController.clear();
-          currentLocationController.clear();
+          clearControllers();
         },
       );
       isUpdateProfileLoading = false;
@@ -190,6 +186,14 @@ class UserProfileProvider extends ChangeNotifier {
       context: context,
       message: "Please check the box to agree to the terms and continue.",
     );
+  }
+
+  clearControllers() {
+    nameController.clear();
+    birthDateController.clear();
+    birthTimeController.clear();
+    birthPlaceController.clear();
+    currentLocationController.clear();
   }
 
   //todo ------------------- Date Picker

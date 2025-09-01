@@ -5,8 +5,8 @@ import 'package:astrology_app/apps/mobile/user/provider/remedies/palm_provider.d
 import 'package:astrology_app/apps/mobile/user/provider/remedies/set_reminder_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/setting/locale_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/setting/notification_provider.dart';
-import 'package:astrology_app/apps/mobile/user/provider/setting/premium_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/setting/profile_provider.dart';
+import 'package:astrology_app/apps/mobile/user/provider/setting/subscription_provider.dart';
 import 'package:astrology_app/routes/mobile_routes/go_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';

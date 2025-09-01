@@ -21,7 +21,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get notification => 'सूचनाएं';
 
   @override
-  String get premium => 'अधिमूल्य';
+  String get subscription => 'सदस्यता';
 
   @override
   String get privacyPolicy => 'गोपनीयता नीति';

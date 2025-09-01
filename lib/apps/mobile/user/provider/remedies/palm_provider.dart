@@ -42,8 +42,10 @@ class PalmProvider extends ChangeNotifier {
       },
       (r) {
         palmReading = PalmReadingModel.fromJson(r["data"]);
-        notifyListeners();
         onSuccess.call();
+        leftHandImageFile = null;
+        rightHandImageFile = null;
+        notifyListeners();
       },
     );
     isUploading = false;

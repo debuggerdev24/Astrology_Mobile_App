@@ -21,7 +21,7 @@ class AppLocalizationsTa extends AppLocalizations {
   String get notification => 'அறிவிப்புகள்';
 
   @override
-  String get premium => 'பிரீமியம்';
+  String get subscription => 'சந்தா';
 
   @override
   String get privacyPolicy => 'தனியுரிமைக் கொள்கை';

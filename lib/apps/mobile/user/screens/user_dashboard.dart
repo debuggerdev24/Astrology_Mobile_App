@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:astrology_app/apps/mobile/user/provider/home/home_provider.dart';
-import 'package:astrology_app/apps/mobile/user/provider/setting/premium_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/setting/profile_provider.dart';
+import 'package:astrology_app/apps/mobile/user/provider/setting/subscription_provider.dart';
 import 'package:astrology_app/apps/mobile/user/screens/consult/consult_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/home/home_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/mantras/daily_mantra_screen.dart';

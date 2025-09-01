@@ -23,6 +23,7 @@ class CreateProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<UserProfileProvider>().clearControllers();
     return AppLayout(
       horizontalPadding: 0,
       body: Consumer<UserProfileProvider>(

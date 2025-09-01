@@ -42,6 +42,7 @@ class SettingScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     40.h.verticalSpace,
+
                     topBar(
                       showBackButton: false,
                       context: context,
@@ -86,7 +87,7 @@ class SettingScreen extends StatelessWidget {
                     ),
                     buildDivider(),
                     _section(
-                      title: context.translator.premium,
+                      title: context.translator.subscription,
                       onTap: () {
                         context.pushNamed(
                           MobileAppRoutes.premiumPlanScreen.name,
@@ -146,52 +147,6 @@ class SettingScreen extends StatelessWidget {
           langCode: "ta",
           localeProvider: localeProvider,
         ),
-
-        // PopupMenuItem(
-        //   value: "Hindi",
-        //   child: Row(
-        //     mainAxisSize: MainAxisSize.min,
-        //     children: [
-        //       Radio(
-        //         activeColor: AppColors.bgColor,
-        //         value: "hi",
-        //         groupValue: localeProvider.localeCode,
-        //         onChanged: (value) {
-        //           Navigator.pop(ctx);
-        //
-        //           localeProvider.setLocale(value!);
-        //         },
-        //       ),
-        //       AppText(
-        //         text: "Hindi",
-        //         style: regular(fontSize: 16, color: AppColors.black),
-        //       ),
-        //     ],
-        //   ),
-
-        // ),
-        // PopupMenuItem(
-        //   value: "Tamil",
-        //   child: Row(
-        //     mainAxisSize: MainAxisSize.min,
-        //     children: [
-        //       Radio(
-        //         activeColor: AppColors.bgColor,
-        //         value: "ta",
-        //         groupValue: localeProvider.localeCode,
-        //         onChanged: (value) {
-        //           Navigator.pop(ctx);
-        //
-        //           localeProvider.setLocale(value!);
-        //         },
-        //       ),
-        //       AppText(
-        //         text: "Tamil",
-        //         style: regular(fontSize: 16, color: AppColors.black),
-        //       ),
-        //     ],
-        //   ),
-        // ),
       ],
       child: SizedBox(
         height: 28.h,
@@ -245,7 +200,7 @@ class SettingScreen extends StatelessWidget {
       contentPadding: EdgeInsets.zero,
       title: AppText(
         text: title,
-        style: medium(fontSize: 18.sp, color: titleColor),
+        style: medium(fontSize: 18, color: titleColor),
       ),
       trailing:
           trailing ??

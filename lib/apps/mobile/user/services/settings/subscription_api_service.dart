@@ -12,4 +12,8 @@ class SubscriptionApiService {
   Future<Either<ApiException, dynamic>> getPlans() async {
     return await BaseApiHelper.instance.get(Endpoints.getSubscriptionPlans);
   }
+
+  Future<Either<ApiException, dynamic>> getCurrentActivePlans() async {
+    return await BaseApiHelper.instance.get(Endpoints.getCurrentPlan);
+  }
 }

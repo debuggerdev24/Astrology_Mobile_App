@@ -1,5 +1,5 @@
 import 'package:astrology_app/apps/mobile/user/model/home/daily_horo_scope_model.dart';
-import 'package:astrology_app/apps/mobile/user/model/settings/premium_plan_model.dart';
+import 'package:astrology_app/apps/mobile/user/model/settings/subscription_plan_model.dart';
 import 'package:astrology_app/apps/mobile/user/screens/auth/forgot_password_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/auth/otp_verfication_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/auth/reset_password_screen.dart';
@@ -7,12 +7,6 @@ import 'package:astrology_app/apps/mobile/user/screens/auth/sign_in_screen.dart'
 import 'package:astrology_app/apps/mobile/user/screens/create_profile_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/home/dasha_nakshtra_details_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/mantras/mantra_player_screen.dart';
-import 'package:astrology_app/apps/mobile/user/screens/premium/current_plan_screen.dart';
-import 'package:astrology_app/apps/mobile/user/screens/premium/failed_payment_screen.dart';
-import 'package:astrology_app/apps/mobile/user/screens/premium/payment_detail_screen.dart';
-import 'package:astrology_app/apps/mobile/user/screens/premium/premium_plan_screen.dart';
-import 'package:astrology_app/apps/mobile/user/screens/premium/selected_plan_screen.dart';
-import 'package:astrology_app/apps/mobile/user/screens/premium/success_payment_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/remedies/birth_chart_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/remedies/palm_reading_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/remedies/palm_upload_screen.dart';
@@ -34,6 +28,12 @@ import 'package:go_router/go_router.dart';
 
 import '../../apps/mobile/user/screens/auth/sign_up_screen.dart';
 import '../../apps/mobile/user/screens/settings/profile/edit_profile_screen.dart';
+import '../../apps/mobile/user/screens/subscription/choose_plan_screen.dart';
+import '../../apps/mobile/user/screens/subscription/current_plan_screen.dart';
+import '../../apps/mobile/user/screens/subscription/failed_payment_screen.dart';
+import '../../apps/mobile/user/screens/subscription/payment_detail_screen.dart';
+import '../../apps/mobile/user/screens/subscription/selected_plan_screen.dart';
+import '../../apps/mobile/user/screens/subscription/success_payment_screen.dart';
 
 class MobileAppRouter {
   static final GoRouter goRouter = GoRouter(
@@ -182,7 +182,7 @@ class MobileAppRouter {
       path: MobileAppRoutes.premiumPlanScreen.path,
       name: MobileAppRoutes.premiumPlanScreen.name,
       builder: (context, state) {
-        return PremiumPlanScreen();
+        return SubscriptionPlansScreen();
       },
     ),
     GoRoute(

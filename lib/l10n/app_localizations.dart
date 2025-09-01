@@ -121,11 +121,11 @@ abstract class AppLocalizations {
   /// **'Notification'**
   String get notification;
 
-  /// No description provided for @premium.
+  /// No description provided for @subscription.
   ///
   /// In en, this message translates to:
-  /// **'Premium'**
-  String get premium;
+  /// **'Subscription'**
+  String get subscription;
 
   /// No description provided for @privacyPolicy.
   ///

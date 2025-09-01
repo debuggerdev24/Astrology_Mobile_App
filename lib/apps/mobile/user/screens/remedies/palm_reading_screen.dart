@@ -11,7 +11,8 @@ import 'package:astrology_app/core/widgets/global_methods.dart';
 import 'package:astrology_app/core/widgets/svg_image.dart';
 import 'package:astrology_app/extension/context_extension.dart';
 import 'package:astrology_app/routes/mobile_routes/user_routes.dart';
-import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -60,7 +61,20 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
                       horizontal: 82.w,
                       vertical: 18.h,
                     ),
-                    child: Image.network(provider.palmReading!.leftPalm.image),
+                    child: CachedNetworkImage(
+                      imageUrl: palm.image,
+                      placeholder: (context, url) => Container(
+                        decoration: BoxDecoration(
+                          color: AppColors.whiteColor,
+                          borderRadius: BorderRadius.circular(5).r,
+                        ),
+                        padding: EdgeInsets.all(12).r,
+                        child: CupertinoActivityIndicator(
+                          radius: 18.h,
+                          color: AppColors.bgColor,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
                 AppText(

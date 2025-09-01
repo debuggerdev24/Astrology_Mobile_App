@@ -1,5 +1,5 @@
-import 'package:astrology_app/apps/mobile/user/model/settings/premium_plan_model.dart';
-import 'package:astrology_app/apps/mobile/user/provider/setting/premium_provider.dart';
+import 'package:astrology_app/apps/mobile/user/model/settings/subscription_plan_model.dart';
+import 'package:astrology_app/apps/mobile/user/provider/setting/subscription_provider.dart';
 import 'package:astrology_app/core/constants/app_colors.dart';
 import 'package:astrology_app/core/constants/text_style.dart';
 import 'package:astrology_app/core/widgets/app_button.dart';
@@ -14,8 +14,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-class PremiumPlanScreen extends StatelessWidget {
-  const PremiumPlanScreen({super.key});
+class SubscriptionPlansScreen extends StatefulWidget {
+  const SubscriptionPlansScreen({super.key});
+
+  @override
+  State<SubscriptionPlansScreen> createState() =>
+      _SubscriptionPlansScreenState();
+}
+
+class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen> {
+  @override
+  void initState() {
+    context.read<SubscriptionProvider>().getActiveSubscriptionPlan();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,27 +47,34 @@ class PremiumPlanScreen extends StatelessWidget {
                   SizedBox(),
                   Consumer<SubscriptionProvider>(
                     builder: (context, provider, child) => Column(
-                      children: List.generate(provider.plans!.length, (index) {
-                        final plan = provider.plans![index];
-                        return premiumPlanBox(
-                          translator: translator,
-                          plan: plan,
-                          onTap: () {
-                            context.pushNamed(
-                              MobileAppRoutes.selectedPlanScreen.name,
-                              extra: plan,
-                            );
-                          },
-                        );
-                      }),
+                      children: List.generate(
+                        provider.subscriptionPlans!.length,
+                        (index) {
+                          final plan = provider.subscriptionPlans![index];
+                          return premiumPlanBox(
+                            translator: translator,
+                            plan: plan,
+                            onTap: () {
+                              context.pushNamed(
+                                MobileAppRoutes.selectedPlanScreen.name,
+                                extra: plan,
+                              );
+                            },
+                          );
+                        },
+                      ),
                     ),
                   ),
                   AppButton(
                     onTap: () {
+                      // context
+                      //     .read<SubscriptionProvider>()
+                      //     .getActiveSubscriptionPlan();
+
                       context.pushNamed(MobileAppRoutes.currentPlanScreen.name);
                     },
                     buttonColor: AppColors.secondary,
-                    title: translator.chooseYourPlan,
+                    title: translator.currentSubscription,
                     margin: EdgeInsets.symmetric(vertical: 20.h),
                   ),
                 ],

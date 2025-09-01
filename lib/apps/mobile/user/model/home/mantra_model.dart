@@ -28,7 +28,7 @@ class MantraModel {
     audioFile: json["audio_file"],
     textContent: json["text_content"],
     availability: json["availability"],
-    lastUpdated: DateTime.parse(json["last_updated"]),
+    lastUpdated: DateTime.parse(json["updated_at"]),
     status: json["status"],
     scheduledDate: DateTime.parse(json["scheduled_date"]),
   );

@@ -21,7 +21,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get notification => 'Notification';
 
   @override
-  String get premium => 'Premium';
+  String get subscription => 'Subscription';
 
   @override
   String get privacyPolicy => 'Privacy Policy';
