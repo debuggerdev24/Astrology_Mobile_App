@@ -15,4 +15,11 @@ class RemedyApiService {
   }) async {
     return await BaseApiHelper.instance.post(Endpoints.palmReading, data: data);
   }
+
+  Future<Either<ApiException, Map<String, dynamic>>>
+  getBirthChartDetails() async {
+    return await BaseApiHelper.instance.post(
+      Endpoints.getPalmAndBirthChartReading,
+    );
+  }
 }

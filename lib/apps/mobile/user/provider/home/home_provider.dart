@@ -1,5 +1,5 @@
 import 'package:astrology_app/apps/mobile/user/model/home/daily_horo_scope_model.dart';
-import 'package:astrology_app/apps/mobile/user/services/home_api_service.dart';
+import 'package:astrology_app/apps/mobile/user/services/home/home_api_service.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/utils/logger.dart';

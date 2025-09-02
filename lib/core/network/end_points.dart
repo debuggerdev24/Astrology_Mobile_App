@@ -22,4 +22,6 @@ class Endpoints {
   static const String getTodayMantra = '/horoscope/today-mantra/';
   static const String getCurrentPlan = '/horoscope/get-current-plan/';
   static const String getMantraHistory = '/horoscope/mantra-history/';
+  static const String getPalmAndBirthChartReading =
+      '/horoscope/palm-birth-chart-reading/';
 }

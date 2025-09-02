@@ -1,5 +1,5 @@
 import 'package:astrology_app/apps/mobile/user/provider/home/home_provider.dart';
-import 'package:astrology_app/apps/mobile/user/provider/home/play_mantra_provider.dart';
+import 'package:astrology_app/apps/mobile/user/provider/mantra/mantra_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/setting/profile_provider.dart';
 import 'package:astrology_app/apps/mobile/user/screens/user_dashboard.dart';
 import 'package:astrology_app/core/constants/app_assets.dart';
@@ -362,33 +362,34 @@ class HomeScreen extends StatelessWidget {
                         style: regular(fontSize: 17.sp, color: AppColors.black),
                       ),
                       Spacer(),
+                      //todo ---------------------------------------> text Content
                       GestureDetector(
                         onTap: () {
+                          context.read<MantraProvider>().resetAudioPlayer();
                           Map<String, dynamic> data = {
                             "isText": true,
                             "mantra": mantra,
                           };
                           context.pushNamed(
-                            MobileAppRoutes.playMantraScreen.name,
+                            MobileAppRoutes.todayMantraPlayerScreen.name,
                             extra: data,
                           );
                         },
                         child: SVGImage(path: AppAssets.tIcon, height: 34.w),
                       ),
+                      //todo --------------------------------------> audio Content
                       5.w.horizontalSpace,
                       GestureDetector(
                         onTap: () async {
-                          Map<String, dynamic> data = {
-                            "isText": false,
-                            "mantra": mantra,
-                          };
-                          context.read<PlayMantraProvider>().loadAndPlayMusic(
-                            mantra.audioFile,
-                          );
-                          await context.pushNamed(
-                            MobileAppRoutes.playMantraScreen.name,
-                            extra: data,
-                          );
+                          Future.wait([
+                            context.read<MantraProvider>().loadAndPlayMusic(
+                              mantra.audioFile,
+                            ),
+                            context.pushNamed(
+                              MobileAppRoutes.todayMantraPlayerScreen.name,
+                              extra: {"mantra": mantra, "isText": false},
+                            ),
+                          ]);
                         },
                         child: SVGImage(path: AppAssets.playIcon, height: 34.w),
                       ),

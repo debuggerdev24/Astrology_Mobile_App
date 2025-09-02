@@ -33,4 +33,5 @@ enum MobileAppRoutes {
   createProfileScreen,
   resetPasswordScreen,
   dashaNakshatraDetailsScreen,
+  todayMantraPlayerScreen,
 }

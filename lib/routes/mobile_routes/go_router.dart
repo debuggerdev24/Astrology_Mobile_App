@@ -27,6 +27,7 @@ import 'package:astrology_app/routes/mobile_routes/user_routes.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../apps/mobile/user/screens/auth/sign_up_screen.dart';
+import '../../apps/mobile/user/screens/mantras/todays_mantra_player_screen.dart';
 import '../../apps/mobile/user/screens/settings/profile/edit_profile_screen.dart';
 import '../../apps/mobile/user/screens/subscription/choose_plan_screen.dart';
 import '../../apps/mobile/user/screens/subscription/current_plan_screen.dart';
@@ -263,6 +264,15 @@ class MobileAppRouter {
         final DailyHoroScopeModel dailyHoroScope =
             state.extra as DailyHoroScopeModel;
         return DashaNakshtraDetailsScreen(dailyHoroScope: dailyHoroScope);
+      },
+    ),
+    GoRoute(
+      path: MobileAppRoutes.todayMantraPlayerScreen.path,
+      name: MobileAppRoutes.todayMantraPlayerScreen.name,
+      builder: (context, state) {
+        final data = state.extra as Map;
+
+        return TodayMantraPlayScreen(data: data);
       },
     ),
   ];

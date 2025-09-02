@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:astrology_app/apps/mobile/user/model/remedies/birth_chart_model.dart';
 import 'package:astrology_app/apps/mobile/user/model/remedies/palm_reading_model.dart';
 import 'package:astrology_app/core/utils/logger.dart';
 import 'package:dio/dio.dart';
@@ -11,6 +12,7 @@ import '../../services/Remedies/remedy_api_service.dart';
 class PalmProvider extends ChangeNotifier {
   File? leftHandImageFile, rightHandImageFile;
   PalmReadingModel? palmReading;
+  BirthChartModel? birthChartDetails;
   final ImagePicker _picker = ImagePicker();
 
   Future<void> pickImage({bool? isLeft}) async {
@@ -57,4 +59,45 @@ class PalmProvider extends ChangeNotifier {
     this.selectedIndex = index;
     notifyListeners();
   }
+
+  bool isGetBirthChartLoading = false;
+  Future<void> getBirthChartDetails() async {
+    isGetBirthChartLoading = true;
+    notifyListeners();
+    final result = await RemedyApiService.instance.getBirthChartDetails();
+    result.fold(
+      (l) {
+        Logger.printError("--------------> ${l.errorMessage}");
+      },
+      (r) {
+        birthChartDetails = BirthChartModel.fromJson(r["data"]);
+      },
+    );
+    isGetBirthChartLoading = false;
+    notifyListeners();
+  }
+
+  // Future<void> getBirthChartDetails({required VoidCallback onSuccess}) async {
+  //   isGetBirthChartLoading = true;
+  //   notifyListeners();
+  //   FormData data = FormData.fromMap({
+  //     "left_palm": await MultipartFile.fromFile(leftHandImageFile!.path),
+  //     "right_palm": await MultipartFile.fromFile(rightHandImageFile!.path),
+  //   });
+  //   final result = await RemedyApiService.instance.uploadPalmFroReading();
+  //   result.fold(
+  //         (l) {
+  //       Logger.printError("--------------> ${l.errorMessage}");
+  //     },
+  //         (r) {
+  //       palmReading = PalmReadingModel.fromJson(r["data"]);
+  //       onSuccess.call();
+  //       leftHandImageFile = null;
+  //       rightHandImageFile = null;
+  //       notifyListeners();
+  //     },
+  //   );
+  //   isGetBirthChartLoading = false;
+  //   notifyListeners();
+  // }
 }

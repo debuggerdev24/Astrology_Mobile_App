@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'package:animate_do/animate_do.dart';
 import 'package:astrology_app/apps/mobile/user/provider/home/home_provider.dart';
+import 'package:astrology_app/apps/mobile/user/provider/mantra/mantra_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/setting/profile_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/setting/subscription_provider.dart';
 import 'package:astrology_app/apps/mobile/user/screens/consult/consult_screen.dart';
@@ -50,6 +52,7 @@ class _UserDashboardState extends State<UserDashboard> {
       context.read<HomeProvider>().initHomeScreen(),
       context.read<UserProfileProvider>().getProfile(context),
       context.read<SubscriptionProvider>().getSubscriptionPlans(),
+      context.read<MantraProvider>().getMantraHistory(),
     ]);
   }
 
@@ -61,18 +64,11 @@ class _UserDashboardState extends State<UserDashboard> {
       valueListenable: indexTabUser,
       builder: (BuildContext context, int index, Widget? child) {
         return Scaffold(
-          body: pages[index],
-          // ValueListenableBuilder(
-          //   valueListenable: isOffline,
-          //   builder: (context, connection, child) {
-          //     if (connection) {
-          //       return ;
-          //     }
-          //     showToast("No Internet Connection!", 5);
-          //     return Center(child: myIndicator());
-          //   },
-          // ),
-          //
+          body: FadeInUp(
+            from: 20,
+            key: ValueKey(indexTabUser.value),
+            child: pages[index],
+          ),
           bottomNavigationBar: SafeArea(
             child: Container(
               height: 80.h,

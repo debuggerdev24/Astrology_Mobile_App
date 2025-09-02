@@ -141,6 +141,9 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
                     context.pushNamed(MobileAppRoutes.birthChartScreen.name);
                   },
                   child: AppButton(
+                    onTap: () {
+                      provider.getBirthChartDetails();
+                    },
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 18.w),
                       child: Row(

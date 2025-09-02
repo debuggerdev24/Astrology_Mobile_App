@@ -90,7 +90,6 @@ class UserProfileProvider extends ChangeNotifier {
         birthDateController.text = profile.birthDate;
         leftHandImageUrl = profile.palmImageLeft;
         rightHandImageUrl = profile.palmImageRight;
-
         isGetProfileLoading = false;
         notifyListeners();
       },
