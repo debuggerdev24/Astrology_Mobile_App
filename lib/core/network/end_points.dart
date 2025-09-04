@@ -24,4 +24,8 @@ class Endpoints {
   static const String getMantraHistory = '/horoscope/mantra-history/';
   static const String getPalmAndBirthChartReading =
       '/horoscope/palm-birth-chart-reading/';
+  static const String getBasicRemedies = '/horoscope/remedy/basic/';
+  static String getRemedyDetails({required String remedyId}) =>
+      '/horoscope/remedy/$remedyId/details/';
+  static String createReminder = '/horoscope/reminders/';
 }

@@ -6,7 +6,6 @@ class AppTheme {
   AppTheme._();
 
   static final ThemeData appThemeData = ThemeData(
-    brightness: Brightness.dark,
     scaffoldBackgroundColor: AppColors.bgColor,
     fontFamily: "Primary",
     // appBarTheme: AppBarTheme(

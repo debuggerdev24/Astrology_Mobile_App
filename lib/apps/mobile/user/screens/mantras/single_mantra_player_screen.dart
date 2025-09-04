@@ -35,14 +35,17 @@ class _TodayMantraPlayScreenState extends State<TodayMantraPlayScreen> {
   @override
   Widget build(BuildContext context) {
     bool isText = widget.data["isText"];
-    final mantra = widget.data["mantra"];
+    String mantraName = widget.data["mantraName"];
+    String meaning = widget.data["meaning"];
+    String textContent = widget.data["textContent"];
+    String title = widget.data["title"] ?? "Mantra";
     return AppLayout(
       body: SingleChildScrollView(
         child: Consumer<HomeProvider>(
           builder: (context, homeProvider, child) => Column(
             children: [
               40.h.verticalSpace,
-              topBar(context: context, title: "Mantra"),
+              topBar(context: context, title: title),
               60.h.verticalSpace,
               Consumer<MantraProvider>(
                 builder: (context, playMantraProvider, child) => Column(
@@ -59,11 +62,11 @@ class _TodayMantraPlayScreenState extends State<TodayMantraPlayScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             AppText(
-                              text: mantra.name,
+                              text: mantraName,
                               style: medium(fontSize: 22.sp),
                             ),
                             AppText(
-                              text: mantra.meaning ?? "Meaning",
+                              text: meaning ?? "Meaning",
                               style: regular(
                                 fontSize: 18.sp,
                                 height: 1.2,
@@ -92,7 +95,7 @@ class _TodayMantraPlayScreenState extends State<TodayMantraPlayScreen> {
                         ),
                         child: Expanded(
                           child: AppText(
-                            text: mantra.textContent,
+                            text: textContent,
                             style: medium(fontSize: 19.sp),
                           ),
                         ),

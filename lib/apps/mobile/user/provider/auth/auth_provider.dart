@@ -277,16 +277,18 @@ class UserAuthProvider extends ChangeNotifier {
 
   bool _validateRegisterData(BuildContext context) {
     // validate name
-    registerNameErr =
-        FieldValidators().fullName(context, _registerNameCtr.text.trim()) ?? "";
+    registerNameErr = FieldValidators().fullName(
+      context,
+      _registerNameCtr.text.trim(),
+    );
 
     // validate email
-    registerEmailErr =
-        FieldValidators().email(_registerEmailCtr.text.trim()) ?? "";
+    registerEmailErr = FieldValidators().email(_registerEmailCtr.text.trim());
 
     // validate password
-    registerPasswordErr =
-        FieldValidators().password(_registerPasswordCtr.text.trim()) ?? "";
+    registerPasswordErr = FieldValidators().password(
+      _registerPasswordCtr.text.trim(),
+    );
 
     // validate confirm password
     registerConfirmPassWordErr =

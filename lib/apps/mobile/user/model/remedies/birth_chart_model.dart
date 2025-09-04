@@ -20,13 +20,6 @@ class BirthChartModel {
         interpretation: json["interpretation"],
         remediesCta: json["remedies_cta"],
       );
-
-  Map<String, dynamic> toJson() => {
-    "birth_chart_summary": birthChartSummary.toJson(),
-    "palm_summary": palmSummary,
-    "interpretation": interpretation,
-    "remedies_cta": remediesCta,
-  };
 }
 
 class BirthChartSummary {
@@ -46,10 +39,4 @@ class BirthChartSummary {
         dasha: json["dasha"],
         summary: json["summary"],
       );
-
-  Map<String, dynamic> toJson() => {
-    "moon_sign": moonSign,
-    "dasha": dasha,
-    "summary": summary,
-  };
 }

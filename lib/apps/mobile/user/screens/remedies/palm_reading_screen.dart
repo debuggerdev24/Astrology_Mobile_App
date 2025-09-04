@@ -99,6 +99,7 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
                 AppButton(
                   onTap: () {
                     context.pushNamed(MobileAppRoutes.remediesListScreen.name);
+                    provider.getRemedies();
                   },
                   title: translator.viewRemedies,
                   buttonColor: AppColors.secondary,
@@ -142,7 +143,10 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
                   },
                   child: AppButton(
                     onTap: () {
-                      provider.getBirthChartDetails();
+                      context.pushNamed(MobileAppRoutes.birthChartScreen.name);
+                      if (provider.birthChartDetails == null) {
+                        provider.getBirthChartDetails();
+                      }
                     },
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 18.w),

@@ -7,12 +7,15 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../model/remedies/remedy_model.dart';
 import '../../services/Remedies/remedy_api_service.dart';
 
 class PalmProvider extends ChangeNotifier {
   File? leftHandImageFile, rightHandImageFile;
   PalmReadingModel? palmReading;
   BirthChartModel? birthChartDetails;
+  RemedyModel? remedies;
+  RemedyDetailsModel? remedyDetails;
   final ImagePicker _picker = ImagePicker();
 
   Future<void> pickImage({bool? isLeft}) async {
@@ -77,27 +80,39 @@ class PalmProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Future<void> getBirthChartDetails({required VoidCallback onSuccess}) async {
-  //   isGetBirthChartLoading = true;
-  //   notifyListeners();
-  //   FormData data = FormData.fromMap({
-  //     "left_palm": await MultipartFile.fromFile(leftHandImageFile!.path),
-  //     "right_palm": await MultipartFile.fromFile(rightHandImageFile!.path),
-  //   });
-  //   final result = await RemedyApiService.instance.uploadPalmFroReading();
-  //   result.fold(
-  //         (l) {
-  //       Logger.printError("--------------> ${l.errorMessage}");
-  //     },
-  //         (r) {
-  //       palmReading = PalmReadingModel.fromJson(r["data"]);
-  //       onSuccess.call();
-  //       leftHandImageFile = null;
-  //       rightHandImageFile = null;
-  //       notifyListeners();
-  //     },
-  //   );
-  //   isGetBirthChartLoading = false;
-  //   notifyListeners();
-  // }
+  bool isGetRemediesLoading = false;
+  Future<void> getRemedies() async {
+    isGetRemediesLoading = true;
+    notifyListeners();
+    final result = await RemedyApiService.instance.getRemedies();
+    result.fold(
+      (l) {
+        Logger.printError("--------------> ${l.errorMessage}");
+      },
+      (r) {
+        remedies = RemedyModel.fromJson(r["data"]);
+      },
+    );
+    isGetRemediesLoading = false;
+    notifyListeners();
+  }
+
+  bool isGetRemediesDetailsLoading = false;
+  Future<void> getRemedyDetails({required String remedyId}) async {
+    isGetRemediesDetailsLoading = true;
+    notifyListeners();
+    final result = await RemedyApiService.instance.getRemedyDetails(
+      remedyId: remedyId,
+    );
+    result.fold(
+      (l) {
+        Logger.printError("--------------> ${l.errorMessage}");
+      },
+      (r) {
+        remedyDetails = RemedyDetailsModel.fromJson(r["data"]);
+      },
+    );
+    isGetRemediesDetailsLoading = false;
+    notifyListeners();
+  }
 }

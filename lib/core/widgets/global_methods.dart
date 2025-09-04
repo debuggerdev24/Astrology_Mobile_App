@@ -31,12 +31,14 @@ Widget myIndicator([Color? color]) {
 
 Widget topBar({
   required BuildContext context,
+  VoidCallback? onLeadingTap,
   bool? showBackButton,
   String? title,
   Widget? actionIcon,
   Widget? leadingIcon,
 }) {
   return Row(
+    // crossAxisAlignment: CrossAxisAlignment.start,
     mainAxisAlignment: title != null
         ? MainAxisAlignment.spaceBetween
         : MainAxisAlignment.start,
@@ -44,9 +46,11 @@ Widget topBar({
       showBackButton ?? true
           ? GestureDetector(
               behavior: HitTestBehavior.deferToChild,
-              onTap: () {
-                context.pop();
-              },
+              onTap:
+                  onLeadingTap ??
+                  () {
+                    context.pop();
+                  },
               child: SizedBox(
                 height: 28.h,
                 width: 28.w,

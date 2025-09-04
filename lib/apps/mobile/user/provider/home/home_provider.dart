@@ -63,9 +63,9 @@ class HomeProvider extends ChangeNotifier {
       (r) {
         Logger.printInfo(r["data"].toString());
         todayMantra = MantraModel.fromJson(r["data"]);
-        isGetTodayMantraLoading = false;
-        notifyListeners();
       },
     );
+    isGetTodayMantraLoading = false;
+    notifyListeners();
   }
 }

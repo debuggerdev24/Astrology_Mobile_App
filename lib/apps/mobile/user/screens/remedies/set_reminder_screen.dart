@@ -1,3 +1,4 @@
+import 'package:astrology_app/core/utils/custom_loader.dart';
 import 'package:astrology_app/core/widgets/app_button.dart';
 import 'package:astrology_app/extension/context_extension.dart';
 import 'package:flutter/material.dart';
@@ -10,11 +11,10 @@ import '../../../../../core/widgets/app_layout.dart';
 import '../../../../../core/widgets/app_text.dart';
 import '../../../../../core/widgets/app_text_field.dart';
 import '../../../../../core/widgets/global_methods.dart';
+import '../../provider/remedies/palm_provider.dart';
 import '../../provider/remedies/set_reminder_provider.dart';
 
 // controllers
-TextEditingController _txtReminderTitle = TextEditingController();
-TextEditingController _txtDateTime = TextEditingController();
 
 class SetReminderScreen extends StatefulWidget {
   const SetReminderScreen({super.key});
@@ -27,68 +27,113 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
   @override
   Widget build(BuildContext context) {
     final translator = context.translator;
-    return Consumer<SetReminderProvider>(
-      builder: (context, provider, child) {
-        return AppLayout(
-          body: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                40.h.verticalSpace,
-                topBar(context: context, title: translator.setReminder),
-                24.h.verticalSpace,
+    return AppLayout(
+      horizontalPadding: 0,
+      body: Consumer<SetReminderProvider>(
+        builder: (context, provider, child) {
+          return Stack(
+            children: [
+              SingleChildScrollView(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 12.w),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      40.h.verticalSpace,
+                      topBar(context: context, title: translator.setReminder),
 
-                /// Reminder title
-                AppTextField(
-                  borderColor: AppColors.whiteColor,
-                  controller: _txtReminderTitle,
-                  title: translator.reminderTitle,
-                  hintText: translator.reminderTitleHintText,
-                ),
+                      24.h.verticalSpace,
 
-                24.h.verticalSpace,
-                primaryColorText(text: "Repeat Frequency"),
-                16.h.verticalSpace,
+                      /// Reminder title
+                      AppTextField(
+                        borderColor: AppColors.whiteColor,
+                        controller: provider.textReminderTitle,
+                        title: translator.reminderTitle,
+                        hintText: translator.reminderTitleHintText,
+                        errorMessage: provider.titleError,
+                      ),
 
-                /// Radio options
-                _buildCustomRadioOption(context, translator.daily),
-                12.h.verticalSpace,
-                _buildCustomRadioOption(context, translator.weekly),
-                12.h.verticalSpace,
-                _buildCustomRadioOption(context, translator.monthly),
-                12.h.verticalSpace,
-                _buildCustomRadioOption(context, translator.custom),
+                      24.h.verticalSpace,
+                      primaryColorText(text: "Repeat Frequency"),
+                      16.h.verticalSpace,
 
-                /// Animated Week Days Section
-                _buildWeekDaysSection(provider),
+                      /// Radio options
+                      _buildCustomRadioOption(context, translator.daily),
+                      12.h.verticalSpace,
+                      _buildCustomRadioOption(context, translator.weekly),
 
-                24.h.verticalSpace,
-                primaryColorText(text: translator.selectDateAndTime),
-                20.h.verticalSpace,
+                      /// Animated Week Days Section
+                      _buildWeekDaysSection(provider),
+                      12.h.verticalSpace,
 
-                /// Date & Time input
-                AppTextField(
-                  readOnly: true,
-                  onTap: () async {
-                    await provider.pickDateTime(context);
-                    _txtDateTime.text = provider.formattedDate;
-                  },
-                  prefix: Icon(
-                    Icons.calendar_month,
-                    color: AppColors.whiteColor,
+                      _buildCustomRadioOption(context, translator.monthly),
+                      12.h.verticalSpace,
+                      _buildCustomRadioOption(context, translator.custom),
+
+                      24.h.verticalSpace,
+                      primaryColorText(text: translator.selectDateAndTime),
+                      8.h.verticalSpace,
+
+                      //todo ------------->  Date & Time input
+                      if (provider.selectedFrequency ==
+                              context.translator.monthly ||
+                          provider.selectedFrequency ==
+                              context.translator.custom)
+                        //todo ---------------------> date picker
+                        AppTextField(
+                          title: "Date",
+                          readOnly: true,
+                          onTap: () async {
+                            await provider.pickDate(context);
+                            provider.textDate.text = provider.formattedDate;
+                          },
+                          prefix: Icon(
+                            Icons.calendar_month,
+                            color: AppColors.whiteColor,
+                          ),
+                          controller: provider.textDate,
+                          hintText: "Select Date",
+                          errorMessage: provider.dateError,
+                        ),
+                      10.h.verticalSpace,
+                      AppTextField(
+                        title: "Time",
+                        readOnly: true,
+                        onTap: () async {
+                          await provider.pickTime(context: context);
+                        },
+                        prefix: Icon(
+                          Icons.access_time_rounded,
+                          color: AppColors.whiteColor,
+                        ),
+                        controller: provider.textTime,
+                        hintText: "Select Time",
+                        errorMessage: provider.timeError,
+                      ),
+                      AppButton(
+                        onTap: () {
+                          provider.createReminder(
+                            remedyId: context
+                                .read<PalmProvider>()
+                                .remedies!
+                                .remedyId
+                                .toString(),
+                            context: context,
+                          );
+                        },
+                        title: "Save Reminder",
+                        margin: EdgeInsets.only(top: 50.h, bottom: 20.h),
+                      ),
+                    ],
                   ),
-                  controller: _txtDateTime,
-                  hintText: translator.selectDateAndTime,
                 ),
-                AppButton(
-                  title: "Save Reminder",
-                  margin: EdgeInsets.only(top: 50.h, bottom: 20.h),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
+              ),
+              if (provider.isCreateReminderLoading)
+                ApiLoadingFullPageIndicator(),
+            ],
+          );
+        },
+      ),
     );
   }
 
@@ -102,58 +147,59 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
       {'short': 'Sat', 'full': 'Saturday'},
       {'short': 'Sun', 'full': 'Sunday'},
     ];
-
     return AnimatedSize(
       alignment: Alignment.center,
       duration: Duration(milliseconds: 400),
       curve: Curves.easeInOut,
       child:
-          provider.selectedFrequency == 'Custom' ||
-              provider.selectedFrequency == context.translator.custom
+          provider.selectedFrequency == 'Weekly' ||
+              provider.selectedFrequency == context.translator.weekly
           ? Container(
               decoration: BoxDecoration(
                 color: AppColors.greyColor,
                 borderRadius: BorderRadius.circular(8.r),
                 border: Border.all(color: Color(0xffE5E5E5)),
               ),
-              margin: EdgeInsets.only(top: 16.h, left: 16.w),
-              padding: EdgeInsets.symmetric(horizontal: 20.h, vertical: 14.w),
+              margin: EdgeInsets.only(top: 10.h, left: 16.w),
+              padding: EdgeInsets.symmetric(horizontal: 14.h, vertical: 10.w),
               child: Column(
-                spacing: 6.h,
+                spacing: 7,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: weekDays.map((day) {
-                  bool isSelected =
-                      provider.selectedWeekDays?.contains(day['short']) ??
-                      false;
+                  String dayShort = day['short']!;
+                  bool isSelected = provider.selectedWeekDays == dayShort;
+
                   return GestureDetector(
                     onTap: () {
-                      provider.toggleWeekDay(day['short']!);
+                      provider.selectSingleWeekDay(dayShort);
                     },
                     child: Row(
+                      spacing: 8.w,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Container(
-                          width: 20.w,
-                          height: 20.w,
-                          decoration: BoxDecoration(
-                            color: isSelected
-                                ? Colors.white
-                                : Colors.transparent,
-                            borderRadius: BorderRadius.circular(3.r),
-                            border: Border.all(
-                              color: Colors.white.withValues(alpha: 0.6),
-                              width: 2,
+                        GestureDetector(
+                          onTap: () {
+                            provider.selectSingleWeekDay(dayShort);
+                          },
+                          child: Container(
+                            width: 19,
+                            height: 19,
+                            padding: EdgeInsets.all(isSelected ? 2.4 : 0),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(color: Colors.white, width: 2),
                             ),
+                            child: isSelected
+                                ? Container(
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Colors.white,
+                                    ),
+                                  )
+                                : null,
                           ),
-                          child: isSelected
-                              ? Icon(
-                                  Icons.check,
-                                  color: Colors.black,
-                                  size: 14.sp,
-                                )
-                              : null,
                         ),
-                        12.w.horizontalSpace,
+
                         Text(
                           day['full']!,
                           style: TextStyle(
@@ -181,7 +227,7 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
 
   Widget _buildCustomRadioOption(BuildContext context, String value) {
     final provider = Provider.of<SetReminderProvider>(context);
-    final isCustom = value == 'Custom' || value == context.translator.custom;
+    final isCustom = value == 'Weekly' || value == context.translator.weekly;
 
     return Row(
       spacing: 8.w,

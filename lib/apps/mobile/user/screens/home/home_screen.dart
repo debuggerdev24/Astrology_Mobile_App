@@ -368,10 +368,12 @@ class HomeScreen extends StatelessWidget {
                           context.read<MantraProvider>().resetAudioPlayer();
                           Map<String, dynamic> data = {
                             "isText": true,
-                            "mantra": mantra,
+                            "mantraName": mantra.name,
+                            "meaning": mantra.meaning,
+                            "textContent": mantra.textContent,
                           };
                           context.pushNamed(
-                            MobileAppRoutes.todayMantraPlayerScreen.name,
+                            MobileAppRoutes.singleMantraPlayerScreen.name,
                             extra: data,
                           );
                         },
@@ -386,8 +388,13 @@ class HomeScreen extends StatelessWidget {
                               mantra.audioFile,
                             ),
                             context.pushNamed(
-                              MobileAppRoutes.todayMantraPlayerScreen.name,
-                              extra: {"mantra": mantra, "isText": false},
+                              MobileAppRoutes.singleMantraPlayerScreen.name,
+                              extra: {
+                                "isText": false,
+                                "mantraName": mantra.name,
+                                "meaning": mantra.meaning,
+                                "textContent": mantra.textContent,
+                              },
                             ),
                           ]);
                         },

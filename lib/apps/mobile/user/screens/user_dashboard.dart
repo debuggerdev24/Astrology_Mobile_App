@@ -5,7 +5,6 @@ import 'package:astrology_app/apps/mobile/user/provider/home/home_provider.dart'
 import 'package:astrology_app/apps/mobile/user/provider/mantra/mantra_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/setting/profile_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/setting/subscription_provider.dart';
-import 'package:astrology_app/apps/mobile/user/screens/consult/consult_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/home/home_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/mantras/daily_mantra_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/remedies/palm_upload_screen.dart';
@@ -23,11 +22,12 @@ import '../../../../core/widgets/svg_image.dart';
 
 final ValueNotifier<int> indexTabUser = ValueNotifier<int>(0);
 
-List<Widget> pages = [
+List<Widget> _pages = [
   HomeScreen(),
   DailyMantraScreen(),
+
   PalmUploadScreen(),
-  ConsultScreen(),
+  // ConsultScreen(),
   SettingScreen(),
 ];
 
@@ -65,9 +65,9 @@ class _UserDashboardState extends State<UserDashboard> {
       builder: (BuildContext context, int index, Widget? child) {
         return Scaffold(
           body: FadeInUp(
-            from: 20,
+            from: 0,
             key: ValueKey(indexTabUser.value),
-            child: pages[index],
+            child: _pages[index],
           ),
           bottomNavigationBar: SafeArea(
             child: Container(
@@ -101,16 +101,16 @@ class _UserDashboardState extends State<UserDashboard> {
                     2,
                     isTamil,
                   ),
-                  myBottomBrItem(
-                    AppAssets.consultIcon,
-                    translator.consult,
-                    3,
-                    isTamil,
-                  ),
+                  // myBottomBrItem(
+                  //   AppAssets.consultIcon,
+                  //   translator.consult,
+                  //   3,
+                  //   isTamil,
+                  // ),
                   myBottomBrItem(
                     AppAssets.settingsIcon,
                     translator.settings,
-                    4,
+                    3,
                     isTamil,
                   ),
                 ],
@@ -142,9 +142,11 @@ class _UserDashboardState extends State<UserDashboard> {
               topLeft: Radius.circular(10.r),
               topRight: Radius.circular(10.r),
               bottomLeft: Radius.circular(index == 0 ? 0.r : 10.r),
-              bottomRight: Radius.circular(index == 4 ? 0.r : 10.r),
+              bottomRight: Radius.circular(index == 3 ? 0.r : 10.r),
             ),
-            color: isCurrent ? Color(0xff575778) : Colors.transparent,
+            color: isCurrent
+                ? Color(0xff4a4a76)
+                : Colors.transparent, //0xff575778
           ),
           duration: Duration(milliseconds: 450),
           child: Column(
@@ -155,7 +157,7 @@ class _UserDashboardState extends State<UserDashboard> {
               2.h.verticalSpace,
               SVGImage(
                 color: isCurrent ? AppColors.white : AppColors.darkBlue,
-                width: (index == 4) ? 25.w : 20.w,
+                width: (index == 3) ? 26 : 20,
                 path: iconPath,
               ),
               if (isCurrent)

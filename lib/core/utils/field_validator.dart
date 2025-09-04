@@ -29,7 +29,7 @@ class FieldValidators {
     return "";
   }
 
-  String? email(String? val) {
+  String email(String? val) {
     if (val!.isEmpty) {
       return 'Email is required!';
     }
@@ -41,10 +41,10 @@ class FieldValidators {
     if (!emailPattern.hasMatch(val ?? "")) {
       return "Enter valid Email!";
     }
-    return null;
+    return "";
   }
 
-  String? password(String? val) {
+  String password(String? val) {
     if (val == null || val.isEmpty) {
       return 'Password is required!';
     }
@@ -56,7 +56,7 @@ class FieldValidators {
     if (!passwordPattern.hasMatch(val)) {
       return "Password must be at least 8 characters, include a capital letter, a number, and a special character!";
     }
-    return null;
+    return "";
   }
 
   String? maxLength(String? val, int max) {

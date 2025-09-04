@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 import '../constants/app_colors.dart';
 
@@ -43,17 +42,4 @@ class _AppLayoutState extends State<AppLayout> {
       ),
     );
   }
-}
-
-void showToast([String? msg, int? seconds]) {
-  Fluttertoast.showToast(
-    fontAsset: "Primary",
-    msg: msg!,
-    toastLength: Toast.LENGTH_SHORT,
-    gravity: ToastGravity.BOTTOM,
-    timeInSecForIosWeb: seconds ?? 2,
-    backgroundColor: AppColors.black,
-    textColor: Colors.white,
-    fontSize: 14,
-  );
 }

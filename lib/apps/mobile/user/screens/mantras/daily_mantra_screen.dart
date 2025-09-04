@@ -1,5 +1,6 @@
 import 'package:astrology_app/apps/mobile/user/provider/mantra/mantra_provider.dart';
 import 'package:astrology_app/apps/mobile/user/screens/subscription/current_plan_screen.dart';
+import 'package:astrology_app/extension/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -32,7 +33,7 @@ class DailyMantraScreen extends StatelessWidget {
           children: [
             16.h.verticalSpace,
             AppText(
-              text: "Daily Mantra Log",
+              text: context.translator.dailyMantraLog,
               style: bold(
                 fontFamily: AppFonts.secondary,
                 height: 1.1,

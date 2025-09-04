@@ -40,7 +40,6 @@ dependencies:
   flutter_screenutil: ^5.9.3
   flutter_svg: ^2.2.0
   pinput: ^5.0.1
-  fluttertoast: ^8.2.12
   flutter_localizations:
     sdk: flutter
   dotted_border: ^3.1.0
@@ -56,6 +55,7 @@ dependencies:
   cached_network_image: ^3.4.1
   connectivity_plus: ^6.1.5
   just_audio: ^0.10.4
+  flutter_local_notifications: ^19.4.1
 
 dev_dependencies:
   flutter_test:

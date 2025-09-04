@@ -26,10 +26,11 @@ class AppToast {
       icon: icon,
       title: AppText(
         text: message,
-        style: medium(color: textColor ?? AppColors.whiteColor, fontSize: 16),
+        style: medium(color: textColor ?? AppColors.whiteColor, fontSize: 15),
       ),
     );
   }
+  //
 
   static void success({
     required BuildContext context,
