@@ -127,18 +127,18 @@ class CurrentPlanScreen extends StatelessWidget {
 
 String formatDate(DateTime date) {
   const List<String> monthNames = [
-    'January',
-    'February',
+    'Jan',
+    'Feb',
     'March',
     'April',
     'May',
     'June',
     'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
   ];
 
   String month = monthNames[date.month - 1];

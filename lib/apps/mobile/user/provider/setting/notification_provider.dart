@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 
+import '../../../../../core/utils/logger.dart';
+import '../../services/settings/profile_api_service.dart';
+
 class NotificationProvider extends ChangeNotifier {
   bool _isNotificationOn = true;
 
@@ -7,6 +10,35 @@ class NotificationProvider extends ChangeNotifier {
 
   set isNotificationOn(bool value) {
     _isNotificationOn = value;
+    setNotificationStatus();
+
+    notifyListeners();
+  }
+
+  bool isSetNotificationLoading = false;
+  Future<void> setNotificationStatus() async {
+    isSetNotificationLoading = true;
+    notifyListeners();
+
+    String notificationStatusString = "True";
+
+    if (_isNotificationOn) {
+      notificationStatusString = "True";
+    } else {
+      notificationStatusString = "False";
+    }
+
+    Map data = {"notification_enabled": notificationStatusString};
+
+    final result = await UserProfileService.instance.setNotificationStatus(
+      data: data,
+    );
+
+    result.fold((l) {
+      Logger.printInfo(l.errorMessage);
+    }, (r) {});
+
+    isSetNotificationLoading = false;
     notifyListeners();
   }
 }

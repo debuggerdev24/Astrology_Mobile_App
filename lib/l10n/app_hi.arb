@@ -114,7 +114,21 @@
   "birthPlace": "जन्म स्थान",
   "enterYourFullName": "अपना पूरा नाम भरें",
   "enterYourBirthPlace": "अपना जन्म स्थान दर्ज करें",
-  "enterYourCurrentLocation": "अपना वर्तमान स्थान दर्ज करें"
-
+  "enterYourCurrentLocation": "अपना वर्तमान स्थान दर्ज करें",
+  "repeatFrequency": "Repeat Frequency",
+  "monday": "Monday",
+  "tuesday": "Tuesday",
+  "wednesday": "Wednesday",
+  "thursday": "Thursday",
+  "friday": "Friday",
+  "saturday": "Saturday",
+  "sunday": "Sunday",
+  "time": "Time",
+  "selectTime": "Select Time",
+  "karmaFocus": "Karma Focus",
+  "action": "Action",
+  "caution": "Caution",
+  "yourRulingPlanetToday": "Your ruling planet today",
+  "nakshatra": "Nakshatra"
 
 }

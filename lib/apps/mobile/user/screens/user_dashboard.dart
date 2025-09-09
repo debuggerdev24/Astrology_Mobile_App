@@ -3,11 +3,12 @@ import 'dart:io';
 import 'package:animate_do/animate_do.dart';
 import 'package:astrology_app/apps/mobile/user/provider/home/home_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/mantra/mantra_provider.dart';
+import 'package:astrology_app/apps/mobile/user/provider/remedies/set_reminder_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/setting/profile_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/setting/subscription_provider.dart';
 import 'package:astrology_app/apps/mobile/user/screens/home/home_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/mantras/daily_mantra_screen.dart';
-import 'package:astrology_app/apps/mobile/user/screens/remedies/palm_upload_screen.dart';
+import 'package:astrology_app/apps/mobile/user/screens/remedies/set_reminder_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/settings/settings_screen.dart';
 import 'package:astrology_app/core/constants/text_style.dart';
 import 'package:astrology_app/extension/context_extension.dart';
@@ -19,14 +20,15 @@ import '../../../../core/constants/app_assets.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/widgets/app_text.dart';
 import '../../../../core/widgets/svg_image.dart';
+import '../services/settings/notification_service.dart';
 
 final ValueNotifier<int> indexTabUser = ValueNotifier<int>(0);
 
 List<Widget> _pages = [
   HomeScreen(),
   DailyMantraScreen(),
-
-  PalmUploadScreen(),
+  // PalmUploadScreen(),
+  SetReminderScreen(),
   // ConsultScreen(),
   SettingScreen(),
 ];
@@ -53,6 +55,10 @@ class _UserDashboardState extends State<UserDashboard> {
       context.read<UserProfileProvider>().getProfile(context),
       context.read<SubscriptionProvider>().getSubscriptionPlans(),
       context.read<MantraProvider>().getMantraHistory(),
+      context.read<SetReminderProvider>().initializeNotifications(
+        context: context,
+      ),
+      NotificationService.instance.init(),
     ]);
   }
 
@@ -157,7 +163,7 @@ class _UserDashboardState extends State<UserDashboard> {
               2.h.verticalSpace,
               SVGImage(
                 color: isCurrent ? AppColors.white : AppColors.darkBlue,
-                width: (index == 3) ? 26 : 20,
+                width: (index == 3) ? 25.w : 18.w,
                 path: iconPath,
               ),
               if (isCurrent)
@@ -181,7 +187,7 @@ class _UserDashboardState extends State<UserDashboard> {
                                 color: isCurrent
                                     ? Colors.white
                                     : AppColors.darkBlue,
-                                fontSize: isTamil ? 10 : 12.5,
+                                fontSize: isTamil ? 10 : 14,
                               ),
                       ),
                     ),

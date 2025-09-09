@@ -1,14 +1,15 @@
 import 'dart:io';
 
 import 'package:animate_do/animate_do.dart';
-import 'package:astrology_app/apps/mobile/user/provider/setting/locale_provider.dart';
 import 'package:astrology_app/core/constants/text_style.dart';
 import 'package:astrology_app/core/widgets/app_text.dart';
+import 'package:astrology_app/extension/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
+import '../../apps/mobile/user/provider/setting/locale_provider.dart';
 import '../constants/app_colors.dart';
 import 'app_button.dart';
 
@@ -83,6 +84,14 @@ Widget buildPageTitle({required String title, required BuildContext context}) {
       fontFamily: AppFonts.secondary,
     ),
   );
+}
+
+double widthh(BuildContext context, double width) {
+  return context.width / width;
+}
+
+double heightt(BuildContext context, double height) {
+  return context.width / height;
 }
 
 Widget greyColoredBox({

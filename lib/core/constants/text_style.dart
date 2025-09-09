@@ -20,7 +20,7 @@ TextStyle light({
   TextDecorationStyle? decorationStyle,
   double? decorationThickness,
 }) => TextStyle(
-  fontSize: fontSize.sp,
+  fontSize: fontSize.spMin,
   color: color ?? AppColors.whiteColor,
   height: height,
   fontFamily: fontFamily,
@@ -42,7 +42,7 @@ TextStyle regular({
   double? decorationThickness,
   FontWeight? fontWeight,
 }) => TextStyle(
-  fontSize: fontSize.sp,
+  fontSize: fontSize.spMin,
   color: color ?? AppColors.whiteColor,
   height: height,
   fontFamily: fontFamily,
@@ -63,7 +63,7 @@ TextStyle medium({
   TextDecorationStyle? decorationStyle,
   double? decorationThickness,
 }) => TextStyle(
-  fontSize: fontSize.sp,
+  fontSize: fontSize.spMin,
   color: color ?? AppColors.whiteColor,
   height: height,
   fontFamily: fontFamily,
@@ -84,7 +84,7 @@ TextStyle semiBold({
   TextDecorationStyle? decorationStyle,
   double? decorationThickness,
 }) => TextStyle(
-  fontSize: fontSize.sp,
+  fontSize: fontSize.spMin,
   color: color ?? AppColors.whiteColor,
   height: height,
   fontFamily: fontFamily,
@@ -96,7 +96,7 @@ TextStyle semiBold({
 );
 
 TextStyle bold({
-  double fontSize = 20,
+  double? fontSize,
   double? height,
   Color? color,
   String? fontFamily,
@@ -106,7 +106,7 @@ TextStyle bold({
   double? decorationThickness,
   FontWeight? fontWeight,
 }) => TextStyle(
-  fontSize: fontSize.sp,
+  fontSize: fontSize?.spMin,
   color: color ?? AppColors.whiteColor,
   height: height,
   fontFamily: fontFamily,

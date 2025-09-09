@@ -39,4 +39,17 @@ class UserProfileService {
   Future<Either<ApiException, dynamic>> getProfile() async {
     return await BaseApiHelper.instance.get(Endpoints.getProfile);
   }
+
+  Future<Either<ApiException, dynamic>> setNotificationStatus({
+    required Map data,
+  }) async {
+    return await BaseApiHelper.instance.post(
+      Endpoints.setNotificationStatus,
+      data: data,
+    );
+  }
+
+  Future<Either<ApiException, dynamic>> getNotification() async {
+    return await BaseApiHelper.instance.get(Endpoints.getNotification);
+  }
 }

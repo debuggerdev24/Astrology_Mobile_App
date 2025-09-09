@@ -28,4 +28,6 @@ class Endpoints {
   static String getRemedyDetails({required String remedyId}) =>
       '/horoscope/remedy/$remedyId/details/';
   static String createReminder = '/horoscope/reminders/';
+  static String setNotificationStatus = '/horoscope/notification-settings/';
+  static String getNotification = '/horoscope/notifications/';
 }

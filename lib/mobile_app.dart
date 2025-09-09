@@ -29,7 +29,6 @@ class AstrologyMobileApp extends StatelessWidget {
         designSize: const Size(375, 812),
         builder: (context, child) {
           final provider = context.watch<LocaleProvider>();
-
           return MultiProvider(
             providers: [
               ChangeNotifierProvider(

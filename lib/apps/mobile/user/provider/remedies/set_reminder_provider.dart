@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 
 import '../../../../../core/constants/app_colors.dart';
 import '../../../../../core/utils/custom_toast.dart';
+import '../../services/settings/notification_service.dart';
 
 class SetReminderProvider extends ChangeNotifier {
   String _selectedFrequency = 'Daily', _selectedWeekDays = "";
@@ -154,8 +155,9 @@ class SetReminderProvider extends ChangeNotifier {
   Future<void> createReminder({
     required String remedyId,
     required BuildContext context,
+    bool? checkDate,
   }) async {
-    if (validate(context: context)) return;
+    if (validate(context: context, checkDate: checkDate ?? false)) return;
 
     isCreateReminderLoading = true;
     notifyListeners();
@@ -175,20 +177,20 @@ class SetReminderProvider extends ChangeNotifier {
     } else if (selectedFrequency == "Custom") {
       data.addAll({"start_date": "2025-10-12"});
     }
-    Logger.printInfo("djbafhewvjevwfvwfbwjkfweew");
     final result = await RemedyApiService.instance.createReminder(data: data);
     result.fold(
       (l) {
         Logger.printError(l.toString());
       },
-      (r) {
+      (r) async {
         AppToast.success(
           context: context,
           message: "Reminder Created Successfully.",
         );
         textTime.clear();
-        textReminderTitle.clear();
         textDate.clear();
+        await scheduleReminderNotification(context: context);
+        textReminderTitle.clear();
       },
     );
 
@@ -196,7 +198,102 @@ class SetReminderProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool validate({required BuildContext context}) {
+  Future<void> scheduleReminderNotification({
+    required BuildContext context,
+  }) async {
+    if (!_isInitialized || _selectedTime == null) return;
+
+    final hour = _selectedTime!.hour;
+    final minute = _selectedTime!.minute;
+    final now = DateTime.now();
+
+    try {
+      if (_selectedFrequency == 'Daily') {
+        await NotificationService.instance.scheduleDailyNotification(
+          id: DateTime.now().millisecondsSinceEpoch ~/ 1000,
+          title: "Reminder",
+          body: "${textReminderTitle.text.trim()} (Daily)",
+          hour: hour,
+          minute: minute,
+          payload: 'daily_reminder_data',
+        );
+        AppToast.success(context: context, message: "Reminder Created");
+      }
+      // ✅ Weekly
+      else if (_selectedFrequency == 'Weekly') {
+        final selectedDay = _selectedWeekDays;
+        if (selectedDay.isNotEmpty) {
+          final weekdays = {
+            'Mon': DateTime.monday,
+            'Tue': DateTime.tuesday,
+            'Wed': DateTime.wednesday,
+            'Thu': DateTime.thursday,
+            'Fri': DateTime.friday,
+            'Sat': DateTime.saturday,
+            'Sun': DateTime.sunday,
+          };
+          final targetWeekday = weekdays[selectedDay]!;
+
+          DateTime targetDate = DateTime(
+            now.year,
+            now.month,
+            now.day,
+            hour,
+            minute,
+          );
+
+          while (targetDate.weekday != targetWeekday ||
+              targetDate.isBefore(now)) {
+            targetDate = targetDate.add(const Duration(days: 1));
+          }
+
+          await NotificationService.instance.scheduleWeeklyNotification(
+            id: DateTime.now().millisecondsSinceEpoch ~/ 1000,
+            title: "Reminder",
+            body: "${textReminderTitle.text.trim()} (Weekly)",
+            weekday: targetWeekday,
+            hour: hour,
+            minute: minute,
+            payload: 'weekly_reminder_data',
+          );
+        }
+      }
+      // ✅ Monthly (repeat every month on same date)
+      else if (_selectedFrequency == 'Monthly' && _selectedDate != null) {
+        await NotificationService.instance.scheduleMonthlyNotification(
+          id: DateTime.now().millisecondsSinceEpoch ~/ 1000,
+          title: "Reminder",
+          body: "${textReminderTitle.text.trim()} (Monthly)",
+          day: _selectedDate!.day,
+          hour: hour,
+          minute: minute,
+          payload: 'monthly_reminder_data',
+        );
+      }
+      // ✅ Custom (one-time only)
+      else if (_selectedFrequency == 'Custom' && _selectedDate != null) {
+        final customDateTime = DateTime(
+          _selectedDate!.year,
+          _selectedDate!.month,
+          _selectedDate!.day,
+          hour,
+          minute,
+        );
+
+        await NotificationService.instance.scheduleCustomNotification(
+          id: DateTime.now().millisecondsSinceEpoch ~/ 1000,
+          title: "Reminder",
+          body: "${textReminderTitle.text.trim()} (Custom)",
+          delay: customDateTime.difference(now),
+          payload: 'custom_reminder_data',
+        );
+      }
+    } catch (e) {
+      Logger.printError("Notification scheduling error: $e");
+    }
+  }
+
+  bool validate({required BuildContext context, required bool checkDate}) {
     titleError =
         FieldValidators().required(
           context,
@@ -205,8 +302,11 @@ class SetReminderProvider extends ChangeNotifier {
         ) ??
         "";
 
-    dateError =
-        FieldValidators().required(context, textDate.text.trim(), "Date") ?? "";
+    if (checkDate) {
+      dateError =
+          FieldValidators().required(context, textDate.text.trim(), "Date") ??
+          "";
+    }
 
     timeError =
         FieldValidators().required(context, textTime.text.trim(), "Time") ?? "";
@@ -215,7 +315,22 @@ class SetReminderProvider extends ChangeNotifier {
     if (timeError.isNotEmpty || dateError.isNotEmpty || titleError.isNotEmpty) {
       return true;
     }
-
     return false;
+  }
+
+  //todo ------------------------> notification initialize function
+  bool _isInitialized = false;
+  Future<void> initializeNotifications({required BuildContext context}) async {
+    try {
+      await NotificationService.instance.init();
+      _isInitialized = true;
+      AppToast.success(
+        context: context,
+        message: "Notifications initialized successfully",
+      );
+    } catch (e) {
+      // Show error to user
+      AppToast.error(context: context, message: e.toString());
+    }
   }
 }

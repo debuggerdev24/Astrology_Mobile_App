@@ -31,7 +31,7 @@ class MantraHistoryModel {
       MantraHistoryModel(
         id: json["id"],
         name: json["name"],
-        meaning: json["meaning"],
+        meaning: json["meaning"] ?? "Meaning",
         audioFile: json["audio_file"],
         textContent: json["text_content"],
         availability: json["availability"],
@@ -39,22 +39,7 @@ class MantraHistoryModel {
         status: json["status"],
         scheduledDate: json["scheduled_date"],
         mantraType: json["mantra_type"],
-        planetName: json["planet_name"],
+        planetName: json["planet_name"] ?? "Planet Name",
         dashaName: json["dasha_name"],
       );
-
-  // Map<String, dynamic> toJson() => {
-  //   "id": id,
-  //   "name": name,
-  //   "meaning": meaning,
-  //   "audio_file": audioFile,
-  //   "text_content": textContent,
-  //   "availability": availability,
-  //   "updated_at": updatedAt.toIso8601String(),
-  //   "status": status,
-  //   "scheduled_date": "${scheduledDate.year.toString().padLeft(4, '0')}-${scheduledDate.month.toString().padLeft(2, '0')}-${scheduledDate.day.toString().padLeft(2, '0')}",
-  //   "mantra_type": mantraType,
-  //   "planet_name": planetName,
-  //   "dasha_name": dashaName,
-  // };
 }

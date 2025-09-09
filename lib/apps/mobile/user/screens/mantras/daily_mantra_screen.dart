@@ -31,13 +31,13 @@ class DailyMantraScreen extends StatelessWidget {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            16.h.verticalSpace,
+            20.h.verticalSpace,
             AppText(
               text: context.translator.dailyMantraLog,
               style: bold(
                 fontFamily: AppFonts.secondary,
                 height: 1.1,
-                fontSize: 28.sp,
+                fontSize: 26.sp,
               ),
             ),
             8.h.verticalSpace,
@@ -94,13 +94,13 @@ class DailyMantraScreen extends StatelessWidget {
           Row(
             children: [
               SVGImage(path: AppAssets.omIcon, height: 20.5.w),
-
               12.w.horizontalSpace,
-              AppText(
-                text: mantra.name,
-                style: regular(fontSize: 18, color: AppColors.black),
+              Expanded(
+                child: AppText(
+                  text: mantra.name,
+                  style: regular(fontSize: 18, color: AppColors.black),
+                ),
               ),
-              Spacer(),
               AppText(
                 text: formatDate(
                   DateTime.parse(mantra.scheduledDate),

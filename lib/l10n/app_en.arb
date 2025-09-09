@@ -114,5 +114,20 @@
   "birthPlace": "Birth Place",
   "enterYourFullName": "Enter your Full Name",
   "enterYourBirthPlace": "Enter your Birth Place",
-  "enterYourCurrentLocation": "Enter your Current Location"
+  "enterYourCurrentLocation": "Enter your Current Location",
+  "repeatFrequency": "Repeat Frequency",
+  "monday": "Monday",
+  "tuesday": "Tuesday",
+  "wednesday": "Wednesday",
+  "thursday": "Thursday",
+  "friday": "Friday",
+  "saturday": "Saturday",
+  "sunday": "Sunday",
+  "time": "Time",
+  "selectTime": "Select Time",
+  "karmaFocus": "Karma Focus",
+  "action": "Action",
+  "caution": "Caution",
+  "yourRulingPlanetToday": "Your ruling planet today",
+  "nakshatra": "Nakshatra"
 }

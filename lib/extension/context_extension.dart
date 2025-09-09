@@ -10,3 +10,9 @@ extension LocalizationExtension on BuildContext {
   bool get isHindi => read<LocaleProvider>().localeCode == "hi";
   bool get isEng => read<LocaleProvider>().localeCode == "en";
 }
+
+extension MediaQueryExtension on BuildContext {
+  Size get size => MediaQuery.of(this).size;
+  double get height => size.height;
+  double get width => size.width;
+}

@@ -114,6 +114,21 @@
   "birthPlace": "பிறந்த இடம்",
   "enterYourFullName": "உங்கள் முழுப் பெயரை உள்ளிடவும்",
   "enterYourBirthPlace": "உங்கள் பிறந்த இடத்தை உள்ளிடவும்",
-  "enterYourCurrentLocation": "உங்கள் தற்போதைய இருப்பிடத்தை உள்ளிடவும்"
+  "enterYourCurrentLocation": "உங்கள் தற்போதைய இருப்பிடத்தை உள்ளிடவும்",
+  "repeatFrequency": "மீண்டும் நிகழும் அதிர்வெண்",
+  "monday": "திங்கள்",
+  "tuesday": "செவ்வாய்",
+  "wednesday": "புதன்கிழமை",
+  "thursday": "வியாழன்",
+  "friday": "வெள்ளி",
+  "saturday": "",
+  "sunday": "Sunday",
+  "time": "Time",
+  "selectTime": "Select Time",
+  "karmaFocus": "Karma Focus",
+  "action": "Action",
+  "caution": "Caution",
+  "yourRulingPlanetToday": "Your ruling planet today",
+  "nakshatra": "Nakshatra"
 
 }

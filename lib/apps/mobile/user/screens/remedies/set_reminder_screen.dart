@@ -7,12 +7,13 @@ import 'package:provider/provider.dart';
 
 import '../../../../../core/constants/app_colors.dart';
 import '../../../../../core/constants/text_style.dart';
+import '../../../../../core/utils/logger.dart';
 import '../../../../../core/widgets/app_layout.dart';
 import '../../../../../core/widgets/app_text.dart';
 import '../../../../../core/widgets/app_text_field.dart';
 import '../../../../../core/widgets/global_methods.dart';
-import '../../provider/remedies/palm_provider.dart';
 import '../../provider/remedies/set_reminder_provider.dart';
+import '../../services/settings/notification_service.dart';
 
 // controllers
 
@@ -54,7 +55,7 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
                       ),
 
                       24.h.verticalSpace,
-                      primaryColorText(text: "Repeat Frequency"),
+                      primaryColorText(text: "translator."),
                       16.h.verticalSpace,
 
                       /// Radio options
@@ -112,17 +113,33 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
                       ),
                       AppButton(
                         onTap: () {
+                          Logger.printInfo(
+                            "Trigger 1 ${provider.selectedFrequency}",
+                          );
+                          Logger.printInfo(
+                            "Trigger 1 ${provider.selectedFrequency}",
+                          );
                           provider.createReminder(
-                            remedyId: context
-                                .read<PalmProvider>()
-                                .remedies!
-                                .remedyId
-                                .toString(),
+                            remedyId: 38.toString(),
+                            // context
+                            //     .read<PalmProvider>()
+                            //     .remedies!
+                            //     .remedyId
+                            //     .toString(),
                             context: context,
+                            checkDate:
+                                provider.selectedFrequency == "Monthly" ||
+                                provider.selectedFrequency == "Custom",
                           );
                         },
-                        title: "Save Reminder",
+                        title: translator.saveReminder,
                         margin: EdgeInsets.only(top: 50.h, bottom: 20.h),
+                      ),
+                      20.h.verticalSpace,
+                      OutlinedButton.icon(
+                        onPressed: _checkPendingNotifications,
+                        icon: const Icon(Icons.list),
+                        label: const Text("Check Pending"),
                       ),
                     ],
                   ),
@@ -135,6 +152,26 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
         },
       ),
     );
+  }
+
+  Future<void> _checkPendingNotifications() async {
+    // if (!_isInitialized) {
+    //   _showMessage('Notifications not initialized yet');
+    //   return;
+    // }
+
+    try {
+      final pending = await NotificationService.instance
+          .getPendingNotifications();
+      Logger.printInfo('Pending notifications: ${pending.length}');
+
+      // Print details to console
+      for (var notification in pending) {
+        print('Pending: ${notification.id} - ${notification.title}');
+      }
+    } catch (e) {
+      Logger.printInfo('Error checking notifications: $e');
+    }
   }
 
   Widget _buildWeekDaysSection(SetReminderProvider provider) {
@@ -199,7 +236,6 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
                                 : null,
                           ),
                         ),
-
                         Text(
                           day['full']!,
                           style: TextStyle(

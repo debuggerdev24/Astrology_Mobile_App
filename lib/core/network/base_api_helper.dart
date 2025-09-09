@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
-
 import '../../apps/mobile/user/services/settings/locale_storage_service.dart';
 import '../constants/app_config.dart';
 import '../utils/logger.dart';
