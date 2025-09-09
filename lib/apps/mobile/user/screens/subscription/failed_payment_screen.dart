@@ -29,7 +29,7 @@ class FailedPaymentScreen extends StatelessWidget {
           AppText(
             textAlign: TextAlign.center,
             text: "Payment Was Failed!",
-            style: bold(fontSize: 22.sp),
+            style: bold(fontSize: 22),
           ),
           Spacer(),
           AppButton(

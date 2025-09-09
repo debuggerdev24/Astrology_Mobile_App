@@ -1,15 +1,16 @@
 import 'package:astrology_app/apps/mobile/user/model/remedies/palm_reading_model.dart';
 import 'package:astrology_app/apps/mobile/user/provider/remedies/palm_provider.dart';
+import 'package:astrology_app/apps/mobile/user/provider/setting/subscription_provider.dart';
 import 'package:astrology_app/core/constants/app_assets.dart';
 import 'package:astrology_app/core/constants/app_colors.dart';
 import 'package:astrology_app/core/constants/text_style.dart';
+import 'package:astrology_app/core/extension/context_extension.dart';
 import 'package:astrology_app/core/utils/custom_loader.dart';
 import 'package:astrology_app/core/widgets/app_button.dart';
 import 'package:astrology_app/core/widgets/app_layout.dart';
 import 'package:astrology_app/core/widgets/app_text.dart';
 import 'package:astrology_app/core/widgets/global_methods.dart';
 import 'package:astrology_app/core/widgets/svg_image.dart';
-import 'package:astrology_app/extension/context_extension.dart';
 import 'package:astrology_app/routes/mobile_routes/user_routes.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -79,7 +80,7 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
                 ),
                 AppText(
                   text: translator.summary,
-                  style: semiBold(fontSize: 18.sp, color: AppColors.primary),
+                  style: semiBold(fontSize: 18, color: AppColors.primary),
                 ),
                 14.h.verticalSpace,
                 topicWithDetails(
@@ -95,80 +96,143 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
                   details: palm.summary.heartline,
                 ),
                 12.h.verticalSpace,
-                mountAnalysis(translator: translator, palm: palm),
-                AppButton(
-                  onTap: () {
-                    context.pushNamed(MobileAppRoutes.remediesListScreen.name);
-                    provider.getRemedies();
-                  },
-                  title: translator.viewRemedies,
-                  buttonColor: AppColors.secondary,
-                  margin: EdgeInsets.only(top: 48.h, bottom: 14.h),
+                Row(
+                  spacing: 10.w,
+                  children: [
+                    AppText(
+                      text: translator.mountAnalysis,
+                      style: semiBold(fontSize: 18, color: AppColors.primary),
+                    ),
+                    SVGImage(path: AppAssets.lockIcon, height: 18.h),
+                  ],
                 ),
-                GestureDetector(
-                  onLongPress: () {
-                    showPremiumDialog(
-                      context: context,
-                      title: "Premium Access",
-                      contentBody: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          18.h.verticalSpace,
-                          AppText(
-                            textAlign: TextAlign.center,
-                            text:
-                                "To view detailed Mount Analysis, please upgrade to a Premium Plan (Tier 2).",
-                            style: medium(
-                              fontSize: 16,
-                              color: AppColors.black.withValues(alpha: 0.8),
+                Consumer<SubscriptionProvider>(
+                  builder: (context, subscriptionProvider, child) {
+                    if (!subscriptionProvider.isTier2Subscribed) {
+                      return GestureDetector(
+                        onTap: () {
+                          showPremiumDialog(
+                            context: context,
+                            title: "Premium Access",
+                            contentBody: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                18.h.verticalSpace,
+                                AppText(
+                                  textAlign: TextAlign.center,
+                                  text:
+                                      "To view detailed Mount Analysis, please upgrade to a Premium Plan (Tier 2).",
+                                  style: medium(
+                                    fontSize: 16,
+                                    color: AppColors.black.withValues(
+                                      alpha: 0.8,
+                                    ),
+                                  ),
+                                ),
+                                8.h.verticalSpace,
+                                AppText(
+                                  textAlign: TextAlign.center,
+                                  text:
+                                      "Unlock personalized insights into your palm’s mounts and their influence on your life path.",
+                                  style: medium(
+                                    fontSize: 16,
+                                    color: AppColors.greyColor,
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
-                          8.h.verticalSpace,
-                          AppText(
-                            textAlign: TextAlign.center,
+                          );
+                        },
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 4.h),
+                          child: AppText(
                             text:
-                                "Unlock personalized insights into your palm’s mounts and their influence on your life path.",
-                            style: medium(
-                              fontSize: 16,
-                              color: AppColors.greyColor,
-                            ),
+                                "Unlock this feature by subscribing to Tier 2",
+                            style: semiBold(fontSize: 16),
                           ),
-                        ],
-                      ),
-                    );
+                        ),
+                      );
+                    }
+                    return mountAnalysis(translator: translator, palm: palm);
                   },
+                ),
+
+                // AppButton(
+                //   onTap: () {
+                //     context.pushNamed(MobileAppRoutes.remediesListScreen.name);
+                //     provider.getRemedies();
+                //   },
+                //   title: translator.viewRemedies,
+                //   buttonColor: AppColors.secondary,
+                //   margin: EdgeInsets.only(top: 48.h, bottom: 14.h),
+                // ),
+                AppButton(
+                  margin: EdgeInsets.only(top: 48.h, bottom: 18.h),
                   onTap: () {
-                    context.pushNamed(MobileAppRoutes.birthChartScreen.name);
-                  },
-                  child: AppButton(
-                    onTap: () {
+                    if (context
+                        .read<SubscriptionProvider>()
+                        .isTier2Subscribed) {
                       context.pushNamed(MobileAppRoutes.birthChartScreen.name);
                       if (provider.birthChartDetails == null) {
                         provider.getBirthChartDetails();
                       }
-                    },
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 18.w),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        spacing: 10.w,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          AppText(
-                            textAlign: TextAlign.center,
-                            text: translator.matchWithBirthCart,
-                            style: bold(fontSize: 16, color: AppColors.black),
-                          ),
-                          SVGImage(
-                            path: AppAssets.lockIcon,
-                            color: AppColors.darkBlue,
-                          ),
-                        ],
-                      ),
+                    } else {
+                      showPremiumDialog(
+                        context: context,
+                        title: "Premium Access",
+                        contentBody: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            18.h.verticalSpace,
+                            AppText(
+                              textAlign: TextAlign.center,
+                              text:
+                                  "To view detailed Mount Analysis, please upgrade to a Premium Plan (Tier 2).",
+                              style: medium(
+                                fontSize: 16,
+                                color: AppColors.black.withValues(alpha: 0.8),
+                              ),
+                            ),
+                            8.h.verticalSpace,
+                            AppText(
+                              textAlign: TextAlign.center,
+                              text:
+                                  "Unlock personalized insights into your palm’s mounts and their influence on your life path.",
+                              style: medium(
+                                fontSize: 16,
+                                color: AppColors.greyColor,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+                  },
+
+                  // ),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 18.w),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      spacing: 10.w,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        AppText(
+                          textAlign: TextAlign.center,
+                          text: translator.matchWithBirthCart,
+                          style: bold(fontSize: 16, color: AppColors.black),
+                        ),
+                        SVGImage(
+                          path: AppAssets.lockIcon,
+                          color: AppColors.darkBlue,
+                        ),
+                      ],
                     ),
                   ),
                 ),
+
                 30.h.verticalSpace,
               ],
             );
@@ -230,7 +294,7 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
           child: AppText(
             text: text,
             style: medium(
-              fontSize: 14.sp,
+              fontSize: 14,
               color: isSelected ? null : AppColors.black,
             ),
           ),
@@ -245,16 +309,6 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
   }) {
     return Column(
       children: [
-        Row(
-          spacing: 10.w,
-          children: [
-            AppText(
-              text: translator.mountAnalysis,
-              style: semiBold(fontSize: 18.sp, color: AppColors.primary),
-            ),
-            SVGImage(path: AppAssets.lockIcon, height: 18.h),
-          ],
-        ),
         10.h.verticalSpace,
 
         if (palm.mountAnalysis.mountOfVenus != null)
@@ -292,17 +346,11 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
         children: [
           AppText(
             text: topic,
-            style: medium(fontSize: 16.sp, color: AppColors.secondary),
+            style: medium(fontSize: 16, color: AppColors.secondary),
           ),
-          AppText(
-            text: ":",
-            style: medium(fontSize: 16.sp),
-          ),
+          AppText(text: ":", style: medium(fontSize: 16)),
           Expanded(
-            child: AppText(
-              text: details,
-              style: medium(fontSize: 16.sp),
-            ),
+            child: AppText(text: details, style: medium(fontSize: 16)),
           ),
         ],
       ),

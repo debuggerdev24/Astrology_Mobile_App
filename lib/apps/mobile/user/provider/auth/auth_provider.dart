@@ -1,5 +1,5 @@
 import 'package:astrology_app/apps/mobile/user/screens/user_dashboard.dart';
-import 'package:astrology_app/apps/mobile/user/services/auth_api_service.dart';
+import 'package:astrology_app/apps/mobile/user/services/auth/auth_api_service.dart';
 import 'package:astrology_app/core/utils/logger.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';

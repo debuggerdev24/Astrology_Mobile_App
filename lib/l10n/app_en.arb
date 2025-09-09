@@ -119,7 +119,7 @@
   "monday": "Monday",
   "tuesday": "Tuesday",
   "wednesday": "Wednesday",
-  "thursday": "Thursday",
+  "thursday": "ThursDay",
   "friday": "Friday",
   "saturday": "Saturday",
   "sunday": "Sunday",
@@ -129,5 +129,6 @@
   "action": "Action",
   "caution": "Caution",
   "yourRulingPlanetToday": "Your ruling planet today",
-  "nakshatra": "Nakshatra"
+  "nakshatra": "Nakshatra",
+  "inSights": "Insights"
 }

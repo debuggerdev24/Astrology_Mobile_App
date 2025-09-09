@@ -2,13 +2,13 @@ import 'dart:io';
 
 import 'package:astrology_app/core/constants/app_assets.dart';
 import 'package:astrology_app/core/constants/text_style.dart';
+import 'package:astrology_app/core/extension/context_extension.dart';
 import 'package:astrology_app/core/utils/custom_loader.dart';
 import 'package:astrology_app/core/widgets/app_button.dart';
 import 'package:astrology_app/core/widgets/app_layout.dart';
 import 'package:astrology_app/core/widgets/app_text.dart';
 import 'package:astrology_app/core/widgets/app_text_field.dart';
 import 'package:astrology_app/core/widgets/svg_image.dart';
-import 'package:astrology_app/extension/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';

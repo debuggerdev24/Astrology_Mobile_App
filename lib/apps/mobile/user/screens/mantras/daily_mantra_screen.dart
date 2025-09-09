@@ -1,6 +1,6 @@
 import 'package:astrology_app/apps/mobile/user/provider/mantra/mantra_provider.dart';
 import 'package:astrology_app/apps/mobile/user/screens/subscription/current_plan_screen.dart';
-import 'package:astrology_app/extension/context_extension.dart';
+import 'package:astrology_app/core/extension/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -14,6 +14,7 @@ import '../../../../../core/widgets/app_text.dart';
 import '../../../../../core/widgets/svg_image.dart';
 import '../../../../../routes/mobile_routes/user_routes.dart';
 import '../../model/mantra/mantra_history_model.dart';
+import '../../provider/setting/subscription_provider.dart';
 import '../user_dashboard.dart';
 
 class DailyMantraScreen extends StatelessWidget {
@@ -34,26 +35,46 @@ class DailyMantraScreen extends StatelessWidget {
             20.h.verticalSpace,
             AppText(
               text: context.translator.dailyMantraLog,
+              textAlign: TextAlign.center,
               style: bold(
                 fontFamily: AppFonts.secondary,
                 height: 1.1,
-                fontSize: 26.sp,
+                fontSize: 26,
               ),
             ),
             8.h.verticalSpace,
             Expanded(
-              child: Consumer<MantraProvider>(
-                builder: (context, provider, child) {
-                  return ListView.builder(
-                    itemCount: provider.mantraHistoryList!.length,
-                    itemBuilder: (context, index) {
-                      final mantra = provider.mantraHistoryList![index];
+              child: Consumer<SubscriptionProvider>(
+                builder: (context, subscriptionProvider, _) {
+                  return Consumer<MantraProvider>(
+                    builder: (context, mantraProvider, _) {
+                      if (!subscriptionProvider.isTier1Subscribed) {
+                        return Center(
+                          child: AppText(
+                            text: "Locked: Tier 1 subscription required.",
+                          ),
+                        );
+                      }
 
-                      return mantraPlayer(
-                        index: index,
-                        context: context,
-                        mantra: mantra,
-                        provider: provider,
+                      final mantraList = mantraProvider.mantraHistoryList;
+
+                      if (mantraList == null || mantraList.isEmpty) {
+                        return Center(
+                          child: Text("No mantra history available."),
+                        );
+                      }
+
+                      return ListView.builder(
+                        itemCount: mantraList.length,
+                        itemBuilder: (context, index) {
+                          final mantra = mantraList[index];
+                          return mantraPlayer(
+                            index: index,
+                            context: context,
+                            mantra: mantra,
+                            provider: mantraProvider,
+                          );
+                        },
                       );
                     },
                   );
@@ -102,9 +123,7 @@ class DailyMantraScreen extends StatelessWidget {
                 ),
               ),
               AppText(
-                text: formatDate(
-                  DateTime.parse(mantra.scheduledDate),
-                ), //"6 Aug 2025",
+                text: formatDate(DateTime.parse(mantra.scheduledDate)),
                 style: regular(fontSize: 14, color: Colors.grey),
               ),
             ],
@@ -113,7 +132,7 @@ class DailyMantraScreen extends StatelessWidget {
             children: [
               Expanded(
                 child: AppText(
-                  text: "Meaning : ${mantra.meaning}",
+                  text: "${context.translator.meaning} : ${mantra.meaning}",
                   style: regular(fontSize: 18, color: Colors.grey),
                 ),
               ),

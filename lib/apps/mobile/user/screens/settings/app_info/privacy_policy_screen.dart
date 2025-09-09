@@ -1,5 +1,5 @@
+import 'package:astrology_app/core/extension/context_extension.dart';
 import 'package:astrology_app/core/widgets/app_layout.dart';
-import 'package:astrology_app/extension/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:url_launcher/url_launcher.dart';

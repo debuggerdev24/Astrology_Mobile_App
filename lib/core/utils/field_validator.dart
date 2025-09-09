@@ -1,4 +1,4 @@
-import 'package:astrology_app/extension/context_extension.dart';
+import 'package:astrology_app/core/extension/context_extension.dart';
 import 'package:flutter/cupertino.dart';
 
 class FieldValidators {

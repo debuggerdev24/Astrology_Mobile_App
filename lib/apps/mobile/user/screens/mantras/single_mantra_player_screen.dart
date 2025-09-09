@@ -63,12 +63,12 @@ class _TodayMantraPlayScreenState extends State<TodayMantraPlayScreen> {
                           children: [
                             AppText(
                               text: mantraName,
-                              style: medium(fontSize: 22.sp),
+                              style: medium(fontSize: 22),
                             ),
                             AppText(
                               text: meaning ?? "Meaning",
                               style: regular(
-                                fontSize: 18.sp,
+                                fontSize: 18,
                                 height: 1.2,
                                 color: AppColors.greyColor,
                               ),
@@ -96,7 +96,7 @@ class _TodayMantraPlayScreenState extends State<TodayMantraPlayScreen> {
                         child: Expanded(
                           child: AppText(
                             text: textContent,
-                            style: medium(fontSize: 19.sp),
+                            style: medium(fontSize: 19),
                           ),
                         ),
                       )
@@ -188,11 +188,11 @@ class _TodayMantraPlayScreenState extends State<TodayMantraPlayScreen> {
       children: [
         Text(
           playMantraProvider.formatDuration(playMantraProvider.currentPosition),
-          style: medium(fontSize: 14.sp),
+          style: medium(fontSize: 14),
         ),
         Text(
           playMantraProvider.formatDuration(playMantraProvider.totalDuration),
-          style: medium(fontSize: 14.sp),
+          style: medium(fontSize: 14),
         ),
       ],
     );

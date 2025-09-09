@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:astrology_app/apps/mobile/user/services/settings/profile_api_service.dart';
+import 'package:astrology_app/core/extension/context_extension.dart';
 import 'package:astrology_app/core/utils/field_validator.dart';
 import 'package:astrology_app/core/utils/logger.dart';
-import 'package:astrology_app/extension/context_extension.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

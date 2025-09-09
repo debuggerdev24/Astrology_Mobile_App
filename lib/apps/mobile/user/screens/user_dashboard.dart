@@ -8,10 +8,10 @@ import 'package:astrology_app/apps/mobile/user/provider/setting/profile_provider
 import 'package:astrology_app/apps/mobile/user/provider/setting/subscription_provider.dart';
 import 'package:astrology_app/apps/mobile/user/screens/home/home_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/mantras/daily_mantra_screen.dart';
-import 'package:astrology_app/apps/mobile/user/screens/remedies/set_reminder_screen.dart';
+import 'package:astrology_app/apps/mobile/user/screens/remedies/palm_upload_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/settings/settings_screen.dart';
 import 'package:astrology_app/core/constants/text_style.dart';
-import 'package:astrology_app/extension/context_extension.dart';
+import 'package:astrology_app/core/extension/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -21,14 +21,15 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/widgets/app_text.dart';
 import '../../../../core/widgets/svg_image.dart';
 import '../services/settings/notification_service.dart';
+import '../services/subscription/subscription_service.dart';
 
 final ValueNotifier<int> indexTabUser = ValueNotifier<int>(0);
 
 List<Widget> _pages = [
   HomeScreen(),
   DailyMantraScreen(),
-  // PalmUploadScreen(),
-  SetReminderScreen(),
+  PalmUploadScreen(),
+  // SetReminderScreen(),
   // ConsultScreen(),
   SettingScreen(),
 ];
@@ -58,6 +59,7 @@ class _UserDashboardState extends State<UserDashboard> {
       context.read<SetReminderProvider>().initializeNotifications(
         context: context,
       ),
+      SubscriptionService().initialize(context),
       NotificationService.instance.init(),
     ]);
   }

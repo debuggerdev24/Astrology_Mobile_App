@@ -792,6 +792,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Enter your Current Location'**
   String get enterYourCurrentLocation;
+
+  /// No description provided for @repeatFrequency.
+  ///
+  /// In en, this message translates to:
+  /// **'Repeat Frequency'**
+  String get repeatFrequency;
+
+  /// No description provided for @monday.
+  ///
+  /// In en, this message translates to:
+  /// **'Monday'**
+  String get monday;
+
+  /// No description provided for @tuesday.
+  ///
+  /// In en, this message translates to:
+  /// **'Tuesday'**
+  String get tuesday;
+
+  /// No description provided for @wednesday.
+  ///
+  /// In en, this message translates to:
+  /// **'Wednesday'**
+  String get wednesday;
+
+  /// No description provided for @thursday.
+  ///
+  /// In en, this message translates to:
+  /// **'ThursDay'**
+  String get thursday;
+
+  /// No description provided for @friday.
+  ///
+  /// In en, this message translates to:
+  /// **'Friday'**
+  String get friday;
+
+  /// No description provided for @saturday.
+  ///
+  /// In en, this message translates to:
+  /// **'Saturday'**
+  String get saturday;
+
+  /// No description provided for @sunday.
+  ///
+  /// In en, this message translates to:
+  /// **'Sunday'**
+  String get sunday;
+
+  /// No description provided for @time.
+  ///
+  /// In en, this message translates to:
+  /// **'Time'**
+  String get time;
+
+  /// No description provided for @selectTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Time'**
+  String get selectTime;
+
+  /// No description provided for @karmaFocus.
+  ///
+  /// In en, this message translates to:
+  /// **'Karma Focus'**
+  String get karmaFocus;
+
+  /// No description provided for @action.
+  ///
+  /// In en, this message translates to:
+  /// **'Action'**
+  String get action;
+
+  /// No description provided for @caution.
+  ///
+  /// In en, this message translates to:
+  /// **'Caution'**
+  String get caution;
+
+  /// No description provided for @yourRulingPlanetToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Your ruling planet today'**
+  String get yourRulingPlanetToday;
+
+  /// No description provided for @nakshatra.
+  ///
+  /// In en, this message translates to:
+  /// **'Nakshatra'**
+  String get nakshatra;
+
+  /// No description provided for @inSights.
+  ///
+  /// In en, this message translates to:
+  /// **'Insights'**
+  String get inSights;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

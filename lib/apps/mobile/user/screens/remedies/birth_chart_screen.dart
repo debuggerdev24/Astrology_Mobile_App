@@ -1,11 +1,11 @@
 import 'package:astrology_app/apps/mobile/user/provider/remedies/palm_provider.dart';
 import 'package:astrology_app/core/constants/text_style.dart';
+import 'package:astrology_app/core/extension/context_extension.dart';
 import 'package:astrology_app/core/utils/custom_loader.dart';
 import 'package:astrology_app/core/widgets/app_button.dart';
 import 'package:astrology_app/core/widgets/app_layout.dart';
 import 'package:astrology_app/core/widgets/app_text.dart';
 import 'package:astrology_app/core/widgets/global_methods.dart';
-import 'package:astrology_app/extension/context_extension.dart';
 import 'package:astrology_app/routes/mobile_routes/user_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -41,7 +41,7 @@ class BirthChartScreen extends StatelessWidget {
                   32.h.verticalSpace,
                   AppText(
                     text: translator.birthChartSummary,
-                    style: semiBold(fontSize: 18.sp, color: AppColors.primary),
+                    style: semiBold(fontSize: 18, color: AppColors.primary),
                   ),
                   14.h.verticalSpace,
                   topicWithDetails(
@@ -57,20 +57,17 @@ class BirthChartScreen extends StatelessWidget {
                         AppText(
                           text: translator.dasha,
                           style: medium(
-                            fontSize: 16.sp,
+                            fontSize: 16,
                             color: AppColors.secondary,
                           ),
                         ),
-                        AppText(
-                          text: ":",
-                          style: medium(fontSize: 16.sp),
-                        ),
+                        AppText(text: ":", style: medium(fontSize: 16)),
                         Expanded(
                           child: Row(
                             children: [
                               AppText(
                                 text: "${birthChart.birthChartSummary.dasha} ",
-                                style: medium(fontSize: 16.sp),
+                                style: medium(fontSize: 16),
                               ),
                             ],
                           ),
@@ -81,7 +78,7 @@ class BirthChartScreen extends StatelessWidget {
                   32.h.verticalSpace,
                   AppText(
                     text: translator.palmReadingSummary,
-                    style: semiBold(fontSize: 18.sp, color: AppColors.primary),
+                    style: semiBold(fontSize: 18, color: AppColors.primary),
                   ),
                   14.h.verticalSpace,
                   AppText(
@@ -96,7 +93,7 @@ class BirthChartScreen extends StatelessWidget {
                   32.h.verticalSpace,
                   AppText(
                     text: translator.interpretation,
-                    style: semiBold(fontSize: 18.sp, color: AppColors.primary),
+                    style: semiBold(fontSize: 18, color: AppColors.primary),
                   ),
                   14.h.verticalSpace,
                   AppText(
@@ -139,17 +136,11 @@ class BirthChartScreen extends StatelessWidget {
         children: [
           AppText(
             text: topic,
-            style: medium(fontSize: 16.sp, color: AppColors.secondary),
+            style: medium(fontSize: 16, color: AppColors.secondary),
           ),
-          AppText(
-            text: ":",
-            style: medium(fontSize: 16.sp),
-          ),
+          AppText(text: ":", style: medium(fontSize: 16)),
           Expanded(
-            child: AppText(
-              text: details,
-              style: medium(fontSize: 16.sp),
-            ),
+            child: AppText(text: details, style: medium(fontSize: 16)),
           ),
         ],
       ),

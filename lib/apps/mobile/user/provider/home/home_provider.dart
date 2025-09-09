@@ -53,6 +53,7 @@ class HomeProvider extends ChangeNotifier {
 
   bool isGetTodayMantraLoading = false;
   Future<void> getTodayMantra() async {
+    todayMantra = null;
     isGetTodayMantraLoading = true;
     notifyListeners();
     final result = await HomeApiService.instance.getTodayMantra();

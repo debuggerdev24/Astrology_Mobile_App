@@ -355,4 +355,52 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get enterYourCurrentLocation => 'अपना वर्तमान स्थान दर्ज करें';
+
+  @override
+  String get repeatFrequency => 'दोहराव आवृत्ति';
+
+  @override
+  String get monday => 'सोमवार';
+
+  @override
+  String get tuesday => 'मंगलवार';
+
+  @override
+  String get wednesday => 'बुधवार';
+
+  @override
+  String get thursday => 'Thursday';
+
+  @override
+  String get friday => 'शुक्रवार';
+
+  @override
+  String get saturday => 'शनिवार';
+
+  @override
+  String get sunday => 'रविवार';
+
+  @override
+  String get time => 'समय';
+
+  @override
+  String get selectTime => 'समय चुनें';
+
+  @override
+  String get karmaFocus => 'कर्म फोकस';
+
+  @override
+  String get action => 'कार्रवाई';
+
+  @override
+  String get caution => 'सावधानी';
+
+  @override
+  String get yourRulingPlanetToday => 'आज आपका शासक ग्रह';
+
+  @override
+  String get nakshatra => 'नक्षत्र';
+
+  @override
+  String get inSights => 'इनसाइट्स';
 }

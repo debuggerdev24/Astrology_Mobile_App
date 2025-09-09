@@ -2,11 +2,11 @@ import 'package:astrology_app/apps/mobile/user/model/settings/subscription_plan_
 import 'package:astrology_app/apps/mobile/user/provider/setting/subscription_provider.dart';
 import 'package:astrology_app/core/constants/app_colors.dart';
 import 'package:astrology_app/core/constants/text_style.dart';
+import 'package:astrology_app/core/extension/context_extension.dart';
 import 'package:astrology_app/core/widgets/app_button.dart';
 import 'package:astrology_app/core/widgets/app_layout.dart';
 import 'package:astrology_app/core/widgets/app_text.dart';
 import 'package:astrology_app/core/widgets/global_methods.dart';
-import 'package:astrology_app/extension/context_extension.dart';
 import 'package:astrology_app/l10n/app_localizations.dart';
 import 'package:astrology_app/routes/mobile_routes/user_routes.dart';
 import 'package:flutter/material.dart';

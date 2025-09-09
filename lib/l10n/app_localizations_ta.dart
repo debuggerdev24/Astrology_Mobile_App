@@ -42,7 +42,7 @@ class AppLocalizationsTa extends AppLocalizations {
   String get goodMorning => 'காலை வணக்கம்';
 
   @override
-  String get seeAll => 'அனைத்தையும் காண்க';
+  String get seeAll => 'பார்வை';
 
   @override
   String get dasha => 'தாஷா';
@@ -355,4 +355,52 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get enterYourCurrentLocation => 'உங்கள் தற்போதைய இருப்பிடத்தை உள்ளிடவும்';
+
+  @override
+  String get repeatFrequency => 'மீண்டும் நிகழும் அதிர்வெண்';
+
+  @override
+  String get monday => 'திங்கள்';
+
+  @override
+  String get tuesday => 'செவ்வாய்';
+
+  @override
+  String get wednesday => 'புதன்கிழமை';
+
+  @override
+  String get thursday => 'வியாழன்';
+
+  @override
+  String get friday => 'வெள்ளி';
+
+  @override
+  String get saturday => 'சனிக்கிழமை';
+
+  @override
+  String get sunday => 'ஞாயிற்றுக்கிழமை';
+
+  @override
+  String get time => 'நேரம்';
+
+  @override
+  String get selectTime => 'நேரத்தைத் தேர்ந்தெடுக்கவும்';
+
+  @override
+  String get karmaFocus => 'கர்ம கவனம்';
+
+  @override
+  String get action => 'செயல்';
+
+  @override
+  String get caution => 'எச்சரிக்கை';
+
+  @override
+  String get yourRulingPlanetToday => 'இன்று உங்களை ஆளும் கிரகம்';
+
+  @override
+  String get nakshatra => 'நட்சத்திரம்';
+
+  @override
+  String get inSights => 'நுண்ணறிவுகள்';
 }

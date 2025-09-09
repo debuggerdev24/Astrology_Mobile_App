@@ -30,7 +30,7 @@ class SuccessPaymentScreen extends StatelessWidget {
           AppText(
             textAlign: TextAlign.center,
             text: "Payment Was Successful\nThanks!",
-            style: bold(fontSize: 22.sp),
+            style: bold(fontSize: 22),
           ),
           Spacer(),
           AppButton(

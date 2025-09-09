@@ -1,7 +1,7 @@
+import 'package:astrology_app/core/extension/context_extension.dart';
 import 'package:astrology_app/core/widgets/app_button.dart';
 import 'package:astrology_app/core/widgets/app_layout.dart';
 import 'package:astrology_app/core/widgets/svg_image.dart';
-import 'package:astrology_app/extension/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -37,12 +37,12 @@ class RemedyPlayerScreen extends StatelessWidget {
                   children: [
                     AppText(
                       text: "Om Surya Naamh",
-                      style: medium(fontSize: 22.sp),
+                      style: medium(fontSize: 22),
                     ),
                     AppText(
                       text: "I bow to Lord Shiva",
                       style: regular(
-                        fontSize: 18.sp,
+                        fontSize: 18,
                         height: 1.2,
                         color: AppColors.greyColor,
                       ),
@@ -66,7 +66,7 @@ class RemedyPlayerScreen extends StatelessWidget {
                 child: AppText(
                   text:
                       "*Namaam‑īśam‑īśāna nirvāṇa‑rūpam Vibhum vyāpakaṃ brahma‑veda‑svarūpam | Nijaṃ nirguṇaṃ nirvikalpaṃ nirīhaṃ Cidākāśam‑ākāśavāsaṃ bhaje’ham ||1||*",
-                  style: medium(fontSize: 16.sp),
+                  style: medium(fontSize: 16),
                 ),
               )
             //todo --------------------> slider

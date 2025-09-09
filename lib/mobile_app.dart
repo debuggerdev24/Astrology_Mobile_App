@@ -49,6 +49,7 @@ class AstrologyMobileApp extends StatelessWidget {
               ChangeNotifierProvider(create: (context) => PalmProvider()),
               ChangeNotifierProvider(create: (context) => HomeProvider()),
               ChangeNotifierProvider(create: (context) => MantraProvider()),
+              ChangeNotifierProvider(create: (_) => SubscriptionProvider()),
             ],
             child: MaterialApp.router(
               theme: AppTheme.appThemeData,

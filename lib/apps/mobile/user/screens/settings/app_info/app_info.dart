@@ -1,5 +1,5 @@
+import 'package:astrology_app/core/extension/context_extension.dart';
 import 'package:astrology_app/core/widgets/app_layout.dart';
-import 'package:astrology_app/extension/context_extension.dart';
 import 'package:astrology_app/routes/mobile_routes/user_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -63,10 +63,7 @@ class AppInfo extends StatelessWidget {
     return ListTile(
       onTap: onTap,
       contentPadding: EdgeInsets.zero,
-      title: AppText(
-        text: title,
-        style: medium(fontSize: 18.sp),
-      ),
+      title: AppText(text: title, style: medium(fontSize: 18)),
       trailing: Icon(
         Icons.arrow_forward_ios_rounded,
         size: 18.sp,

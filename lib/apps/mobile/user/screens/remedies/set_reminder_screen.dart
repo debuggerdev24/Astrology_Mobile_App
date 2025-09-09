@@ -1,6 +1,8 @@
+import 'package:astrology_app/core/enum/app_enums.dart';
+import 'package:astrology_app/core/extension/context_extension.dart';
 import 'package:astrology_app/core/utils/custom_loader.dart';
 import 'package:astrology_app/core/widgets/app_button.dart';
-import 'package:astrology_app/extension/context_extension.dart';
+import 'package:astrology_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -42,7 +44,6 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
                     children: [
                       40.h.verticalSpace,
                       topBar(context: context, title: translator.setReminder),
-
                       24.h.verticalSpace,
 
                       /// Reminder title
@@ -55,7 +56,7 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
                       ),
 
                       24.h.verticalSpace,
-                      primaryColorText(text: "translator."),
+                      primaryColorText(text: translator.repeatFrequency),
                       16.h.verticalSpace,
 
                       /// Radio options
@@ -64,7 +65,10 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
                       _buildCustomRadioOption(context, translator.weekly),
 
                       /// Animated Week Days Section
-                      _buildWeekDaysSection(provider),
+                      _buildWeekDaysSection(
+                        provider: provider,
+                        translator: translator,
+                      ),
                       12.h.verticalSpace,
 
                       _buildCustomRadioOption(context, translator.monthly),
@@ -98,7 +102,7 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
                         ),
                       10.h.verticalSpace,
                       AppTextField(
-                        title: "Time",
+                        title: translator.time,
                         readOnly: true,
                         onTap: () async {
                           await provider.pickTime(context: context);
@@ -108,17 +112,11 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
                           color: AppColors.whiteColor,
                         ),
                         controller: provider.textTime,
-                        hintText: "Select Time",
+                        hintText: translator.selectTime,
                         errorMessage: provider.timeError,
                       ),
                       AppButton(
                         onTap: () {
-                          Logger.printInfo(
-                            "Trigger 1 ${provider.selectedFrequency}",
-                          );
-                          Logger.printInfo(
-                            "Trigger 1 ${provider.selectedFrequency}",
-                          );
                           provider.createReminder(
                             remedyId: 38.toString(),
                             // context
@@ -128,7 +126,8 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
                             //     .toString(),
                             context: context,
                             checkDate:
-                                provider.selectedFrequency == "Monthly" ||
+                                provider.selectedFrequency.toLowerCase() ==
+                                    FrequencyEnum.monthly.name ||
                                 provider.selectedFrequency == "Custom",
                           );
                         },
@@ -174,15 +173,18 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
     }
   }
 
-  Widget _buildWeekDaysSection(SetReminderProvider provider) {
+  Widget _buildWeekDaysSection({
+    required SetReminderProvider provider,
+    required AppLocalizations translator,
+  }) {
     final weekDays = [
-      {'short': 'Mon', 'full': 'Monday'},
-      {'short': 'Tue', 'full': 'Tuesday'},
-      {'short': 'Wed', 'full': 'Wednesday'},
-      {'short': 'Thu', 'full': 'Thursday'},
-      {'short': 'Fri', 'full': 'Friday'},
-      {'short': 'Sat', 'full': 'Saturday'},
-      {'short': 'Sun', 'full': 'Sunday'},
+      {'short': 'Mon', 'full': translator.monday},
+      {'short': 'Tue', 'full': translator.tuesday},
+      {'short': 'Wed', 'full': translator.wednesday},
+      {'short': 'Thu', 'full': translator.thursday},
+      {'short': 'Fri', 'full': translator.friday},
+      {'short': 'Sat', 'full': translator.saturday},
+      {'short': 'Sun', 'full': translator.sunday},
     ];
     return AnimatedSize(
       alignment: Alignment.center,
@@ -240,7 +242,7 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
                           day['full']!,
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 16.sp,
+                            fontSize: 14,
                             fontWeight: FontWeight.w400,
                           ),
                         ),

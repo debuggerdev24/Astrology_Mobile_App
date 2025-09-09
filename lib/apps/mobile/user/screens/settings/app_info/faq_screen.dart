@@ -1,8 +1,8 @@
 import 'package:astrology_app/core/constants/app_colors.dart';
+import 'package:astrology_app/core/extension/context_extension.dart';
 import 'package:astrology_app/core/widgets/app_layout.dart';
 import 'package:astrology_app/core/widgets/faq_card.dart';
 import 'package:astrology_app/core/widgets/global_methods.dart';
-import 'package:astrology_app/extension/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

@@ -84,12 +84,12 @@ class _MantraPlayScreenState extends State<MantraPlayScreen> {
                               children: [
                                 AppText(
                                   text: mantra.name,
-                                  style: medium(fontSize: 22.sp),
+                                  style: medium(fontSize: 22),
                                 ),
                                 AppText(
                                   text: mantra.meaning ?? "Meaning",
                                   style: regular(
-                                    fontSize: 18.sp,
+                                    fontSize: 18,
                                     height: 1.2,
                                     color: AppColors.greyColor,
                                   ),
@@ -117,7 +117,7 @@ class _MantraPlayScreenState extends State<MantraPlayScreen> {
                             child: Expanded(
                               child: AppText(
                                 text: mantra.textContent,
-                                style: medium(fontSize: 19.sp),
+                                style: medium(fontSize: 19),
                               ),
                             ),
                           )
@@ -154,13 +154,13 @@ class _MantraPlayScreenState extends State<MantraPlayScreen> {
                                 playMantraProvider.formatDuration(
                                   playMantraProvider.currentPosition,
                                 ),
-                                style: medium(fontSize: 14.sp),
+                                style: medium(fontSize: 14),
                               ),
                               Text(
                                 playMantraProvider.formatDuration(
                                   playMantraProvider.totalDuration,
                                 ),
-                                style: medium(fontSize: 14.sp),
+                                style: medium(fontSize: 14),
                               ),
                             ],
                           ),

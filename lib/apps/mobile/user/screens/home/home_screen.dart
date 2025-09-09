@@ -4,10 +4,10 @@ import 'package:astrology_app/apps/mobile/user/provider/setting/profile_provider
 import 'package:astrology_app/apps/mobile/user/screens/user_dashboard.dart';
 import 'package:astrology_app/core/constants/app_assets.dart';
 import 'package:astrology_app/core/constants/text_style.dart';
+import 'package:astrology_app/core/extension/context_extension.dart';
 import 'package:astrology_app/core/utils/custom_loader.dart';
 import 'package:astrology_app/core/widgets/app_layout.dart';
 import 'package:astrology_app/core/widgets/svg_image.dart';
-import 'package:astrology_app/extension/context_extension.dart';
 import 'package:astrology_app/routes/mobile_routes/user_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,12 +18,14 @@ import '../../../../../core/constants/app_colors.dart';
 import '../../../../../core/widgets/app_text.dart';
 import '../../../../../core/widgets/global_methods.dart';
 import '../../model/home/mantra_model.dart';
+import '../../provider/setting/subscription_provider.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final translator = context.translator;
     return AppLayout(
       horizontalPadding: 0,
       body: SingleChildScrollView(
@@ -50,29 +52,18 @@ class HomeScreen extends StatelessWidget {
                             context: context,
                             provider: provider,
                           ),
-                          if (provider.todayMantra != null)
-                            mantraPlayer(
-                              context: context,
-                              mantra: provider.todayMantra!,
-                            )
-                          else
-                            Padding(
-                              padding: EdgeInsets.symmetric(vertical: 24.h),
-                              child: AppText(
-                                text: "No mantra scheduled for today",
-                              ),
-                            ),
+                          //todo -----------------------> Karma Focus
+                          todayMantra(provider),
+                          //todo -----------------------> Karma Focus
                           greyColoredBox(
                             margin: EdgeInsets.only(bottom: 20.h),
-                            padding: EdgeInsets.only(
-                              top: 16.h,
-                              left: 16.w,
-                              bottom: 16.h,
-                              right: 22.w,
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 14,
+                              vertical: 12,
                             ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              spacing: 14.h,
+                              spacing: 10.h,
                               children: [
                                 IntrinsicWidth(
                                   child: Column(
@@ -80,11 +71,11 @@ class HomeScreen extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       AppText(
-                                        text: "Karma Focus",
+                                        text: translator.karmaFocus,
                                         style: bold(
                                           height: 0,
                                           fontFamily: AppFonts.secondary,
-                                          fontSize: 20,
+                                          fontSize: 18,
                                           decorationColor: AppColors.whiteColor,
                                         ),
                                       ),
@@ -95,80 +86,42 @@ class HomeScreen extends StatelessWidget {
                                     ],
                                   ),
                                 ),
-                                Row(
-                                  spacing: 8.w,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    AppText(
-                                      text: "Action",
-                                      style: medium(
-                                        fontSize: 18.sp,
-                                        color: AppColors.greenColor,
-                                      ),
-                                    ),
-                                    AppText(text: "  :"),
-                                    Expanded(
-                                      child: AppText(
-                                        text: provider
-                                            .dailyHoroScopeData!
-                                            .karmaAction, //"Donate something unasked today.",
-                                        style: regular(fontSize: 18.sp),
-                                      ),
-                                    ),
-                                  ],
+                                actionCaution(
+                                  title: translator.action,
+                                  detail:
+                                      provider.dailyHoroScopeData!.karmaAction,
                                 ),
-                                Row(
-                                  spacing: 12.w,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    AppText(
-                                      text: "Caution",
-                                      style: medium(
-                                        fontSize: 18.sp,
-                                        color: AppColors.redColor,
-                                      ),
-                                    ),
-                                    AppText(text: ":"),
-                                    Expanded(
-                                      child: AppText(
-                                        text: provider
-                                            .dailyHoroScopeData!
-                                            .karmaCaution, //"Avoid signing contracts after 2 PM.",
-                                        style: regular(fontSize: 18.sp),
-                                      ),
-                                    ),
-                                  ],
+                                actionCaution(
+                                  title: translator.caution,
+                                  detail:
+                                      provider.dailyHoroScopeData!.karmaCaution,
+                                  titleColor: AppColors.redColor,
                                 ),
                               ],
                             ),
                           ),
                           //todo -------------> Dasha Nakshtra
-                          Container(
+                          greyColoredBox(
                             margin: EdgeInsets.only(bottom: 10.h),
-                            padding: EdgeInsets.only(
-                              top: 16.h,
-                              left: 16.w,
-                              bottom: 16.h,
-                              right: 22.w,
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 14,
+                              vertical: 12,
                             ),
-                            decoration: BoxDecoration(
-                              border: Border.all(color: AppColors.whiteColor),
-                              borderRadius: BorderRadius.circular(8.r),
-                              color: AppColors.greyColor,
-                            ),
+
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              spacing: 14.h,
+
                               children: [
                                 IntrinsicWidth(
                                   child: Column(
                                     children: [
                                       AppText(
-                                        text: "Dasha/Nakshatra Insights :",
+                                        text:
+                                            "${translator.dasha}/${translator.nakshatra} ${!(context.isTamil) ? translator.inSights : ""} :",
                                         style: bold(
                                           height: 0,
                                           fontFamily: AppFonts.secondary,
-                                          fontSize: 20,
+                                          fontSize: 18,
                                         ),
                                       ),
                                       Container(
@@ -178,35 +131,40 @@ class HomeScreen extends StatelessWidget {
                                     ],
                                   ),
                                 ),
+                                10.h.verticalSpace,
                                 Row(
-                                  spacing: 10.w,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    AppText(
-                                      text: "Your ruling planet today",
-                                      style: medium(fontSize: 16.sp),
-                                    ),
-                                    AppText(text: ":"),
                                     Expanded(
+                                      flex: 2,
+                                      child: AppText(
+                                        text: translator.yourRulingPlanetToday,
+                                        style: medium(fontSize: 16),
+                                      ),
+                                    ),
+                                    AppText(text: ": "),
+                                    Expanded(
+                                      flex: 1,
                                       child: AppText(
                                         text: provider
                                             .dailyHoroScopeData!
                                             .rulingPlanet,
                                         style: medium(
-                                          fontSize: 18.sp,
+                                          fontSize: 18,
                                           color: AppColors.primary,
                                         ),
                                       ),
                                     ),
                                   ],
                                 ),
+                                4.h.verticalSpace,
                                 Row(
                                   spacing: 10.w,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     AppText(
-                                      text: "Nakshatra",
-                                      style: medium(fontSize: 16.sp),
+                                      text: translator.nakshatra,
+                                      style: medium(fontSize: 16),
                                     ),
                                     AppText(text: ":"),
                                     Expanded(
@@ -215,7 +173,7 @@ class HomeScreen extends StatelessWidget {
                                             .dailyHoroScopeData!
                                             .nakshatra, //"Anuradha",
                                         style: medium(
-                                          fontSize: 18.sp,
+                                          fontSize: 18,
                                           color: AppColors.primary,
                                         ),
                                       ),
@@ -232,7 +190,7 @@ class HomeScreen extends StatelessWidget {
                                     );
                                   },
                                   child: Container(
-                                    margin: EdgeInsets.only(top: 5.h),
+                                    margin: EdgeInsets.only(top: 8.h),
                                     decoration: BoxDecoration(
                                       color: AppColors.white,
                                       borderRadius: BorderRadius.circular(12.r),
@@ -246,7 +204,7 @@ class HomeScreen extends StatelessWidget {
                                           .translator
                                           .viewDetailedReading,
                                       style: bold(
-                                        fontSize: 14.sp,
+                                        fontSize: 14,
                                         color: AppColors.black,
                                       ),
                                     ),
@@ -269,6 +227,54 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
+  Widget todayMantra(HomeProvider provider) {
+    return Consumer<SubscriptionProvider>(
+      builder: (context, subscriptionProvider, _) {
+        final isTier1Subscribed = subscriptionProvider.isTier1Subscribed;
+
+        if (!isTier1Subscribed) {
+          return 30.h.verticalSpace;
+        }
+
+        if (provider.todayMantra != null) {
+          return mantraPlayer(context: context, mantra: provider.todayMantra!);
+        } else {
+          return Padding(
+            padding: EdgeInsets.symmetric(vertical: 24.h),
+            child: AppText(text: "No mantra scheduled for today"),
+          );
+        }
+      },
+    );
+  }
+
+  Widget actionCaution({
+    required String title,
+    required String detail,
+    Color? titleColor,
+  }) {
+    return Row(
+      spacing: 8.w,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        AppText(
+          text: title,
+          style: medium(
+            fontSize: 18,
+            color: titleColor ?? AppColors.greenColor,
+          ),
+        ),
+        AppText(text: ":"),
+        Expanded(
+          child: AppText(
+            text: detail,
+            style: regular(height: 1.2, fontSize: 18),
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget dashaAndMoonSection({
     required BuildContext context,
     required HomeProvider provider,
@@ -283,12 +289,9 @@ class HomeScreen extends StatelessWidget {
           children: [
             AppText(
               text: context.translator.dasha,
-              style: medium(fontSize: 14.sp),
+              style: medium(fontSize: 14),
             ),
-            AppText(
-              text: " : ${provider.dasha} ",
-              style: medium(fontSize: 14.sp),
-            ),
+            AppText(text: " : ${provider.dasha} ", style: medium(fontSize: 14)),
           ],
         ),
 
@@ -302,11 +305,11 @@ class HomeScreen extends StatelessWidget {
             AppText(
               text: context.translator.moonSign,
               overflow: TextOverflow.ellipsis,
-              style: medium(fontSize: 14.sp),
+              style: medium(fontSize: 14),
             ),
             AppText(
               text: " : ${provider.moonSign}",
-              style: medium(fontSize: 14.sp),
+              style: medium(fontSize: 14),
             ),
           ],
         ),
@@ -318,110 +321,105 @@ class HomeScreen extends StatelessWidget {
     required BuildContext context,
     required MantraModel mantra,
   }) {
-    return GestureDetector(
-      onTap: () {
-        // context.pushNamed(MobileAppRoutes.playMantraScreen.name);
-      },
-      child: Container(
-        margin: EdgeInsets.only(top: 18.h, bottom: 20.h),
-        decoration: BoxDecoration(
-          color: AppColors.white,
-          borderRadius: BorderRadius.circular(8.r),
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.white.withValues(alpha: 0.45),
-              blurRadius: 16,
-            ),
-          ],
-        ),
-        child: Stack(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  4.verticalSpace,
-                  AppText(
-                    text: context.translator.dailyMantra,
-                    style: bold(
-                      color: AppColors.greyColor,
-                      fontSize: 20.sp,
-                      fontFamily: AppFonts.secondary,
-                    ),
+    return Container(
+      margin: EdgeInsets.only(top: 18.h, bottom: 20.h),
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(8.r),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.white.withValues(alpha: 0.45),
+            blurRadius: 16,
+          ),
+        ],
+      ),
+      child: Stack(
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                4.verticalSpace,
+                AppText(
+                  text: context.translator.dailyMantra,
+                  style: bold(
+                    color: AppColors.greyColor,
+                    fontSize: 20,
+                    fontFamily: AppFonts.secondary,
                   ),
-                  12.h.verticalSpace,
-                  Row(
-                    children: [
-                      SVGImage(path: AppAssets.omIcon, height: 24.h),
-                      12.w.horizontalSpace,
+                ),
+                12.h.verticalSpace,
+                Row(
+                  children: [
+                    SVGImage(path: AppAssets.omIcon, height: 24),
+                    12.w.horizontalSpace,
 
-                      AppText(
-                        text: mantra.name,
+                    AppText(
+                      text: mantra.name,
 
-                        style: regular(fontSize: 17.sp, color: AppColors.black),
-                      ),
-                      Spacer(),
-                      //todo ---------------------------------------> text Content
-                      GestureDetector(
-                        onTap: () {
-                          context.read<MantraProvider>().resetAudioPlayer();
-                          Map<String, dynamic> data = {
-                            "isText": true,
-                            "mantraName": mantra.name,
-                            "meaning": mantra.meaning,
-                            "textContent": mantra.textContent,
-                          };
+                      style: regular(fontSize: 17, color: AppColors.black),
+                    ),
+                    Spacer(),
+                    //todo ---------------------------------------> text Content
+                    GestureDetector(
+                      onTap: () {
+                        context.read<MantraProvider>().resetAudioPlayer();
+                        Map<String, dynamic> data = {
+                          "isText": true,
+                          "mantraName": mantra.name,
+                          "meaning": mantra.meaning,
+                          "textContent": mantra.textContent,
+                        };
+                        context.pushNamed(
+                          MobileAppRoutes.singleMantraPlayerScreen.name,
+                          extra: data,
+                        );
+                      },
+                      child: SVGImage(path: AppAssets.tIcon, height: 34.w),
+                    ),
+                    //todo --------------------------------------> audio Content
+                    5.w.horizontalSpace,
+                    GestureDetector(
+                      onTap: () async {
+                        Future.wait([
+                          context.read<MantraProvider>().loadAndPlayMusic(
+                            mantra.audioFile,
+                          ),
                           context.pushNamed(
                             MobileAppRoutes.singleMantraPlayerScreen.name,
-                            extra: data,
-                          );
-                        },
-                        child: SVGImage(path: AppAssets.tIcon, height: 34.w),
-                      ),
-                      //todo --------------------------------------> audio Content
-                      5.w.horizontalSpace,
-                      GestureDetector(
-                        onTap: () async {
-                          Future.wait([
-                            context.read<MantraProvider>().loadAndPlayMusic(
-                              mantra.audioFile,
-                            ),
-                            context.pushNamed(
-                              MobileAppRoutes.singleMantraPlayerScreen.name,
-                              extra: {
-                                "isText": false,
-                                "mantraName": mantra.name,
-                                "meaning": mantra.meaning,
-                                "textContent": mantra.textContent,
-                              },
-                            ),
-                          ]);
-                        },
-                        child: SVGImage(path: AppAssets.playIcon, height: 34.w),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                            extra: {
+                              "isText": false,
+                              "mantraName": mantra.name,
+                              "meaning": mantra.meaning,
+                              "textContent": mantra.textContent,
+                            },
+                          ),
+                        ]);
+                      },
+                      child: SVGImage(path: AppAssets.playIcon, height: 34.w),
+                    ),
+                  ],
+                ),
+              ],
             ),
-            Align(
-              alignment: Alignment.topRight,
-              child: Padding(
-                padding: EdgeInsets.only(top: 8.h, right: 16.w),
-                child: GestureDetector(
-                  onTap: () {
-                    indexTabUser.value = 1;
-                  },
-                  child: AppText(
-                    text: context.translator.seeAll,
-                    style: medium(fontSize: 12.sp, color: AppColors.black),
-                  ),
+          ),
+          Align(
+            alignment: Alignment.topRight,
+            child: Padding(
+              padding: EdgeInsets.only(top: 8.h, right: 16.w),
+              child: GestureDetector(
+                onTap: () {
+                  indexTabUser.value = 1;
+                },
+                child: AppText(
+                  text: context.translator.seeAll,
+                  style: medium(fontSize: 12, color: AppColors.black),
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -437,7 +435,7 @@ class HomeScreen extends StatelessWidget {
             style: bold(
               fontFamily: AppFonts.secondary,
               height: 1.1,
-              fontSize: 28.sp,
+              fontSize: 28,
             ),
           ),
         ),

@@ -3,13 +3,13 @@ import 'package:astrology_app/apps/mobile/user/provider/setting/locale_provider.
 import 'package:astrology_app/core/constants/app_assets.dart';
 import 'package:astrology_app/core/constants/app_colors.dart';
 import 'package:astrology_app/core/constants/text_style.dart';
+import 'package:astrology_app/core/extension/context_extension.dart';
 import 'package:astrology_app/core/utils/custom_loader.dart';
 import 'package:astrology_app/core/widgets/app_button.dart';
 import 'package:astrology_app/core/widgets/app_layout.dart';
 import 'package:astrology_app/core/widgets/app_text.dart';
 import 'package:astrology_app/core/widgets/global_methods.dart';
 import 'package:astrology_app/core/widgets/svg_image.dart';
-import 'package:astrology_app/extension/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -179,21 +179,12 @@ class RemediesScreen extends StatelessWidget {
         spacing: 8.w,
         children: [
           Expanded(
-            child: AppText(
-              text: topic,
-              style: regular(fontSize: 18.sp),
-            ),
+            child: AppText(text: topic, style: regular(fontSize: 18)),
           ),
-          AppText(
-            text: ":",
-            style: regular(fontSize: 18.sp),
-          ),
+          AppText(text: ":", style: regular(fontSize: 18)),
           Expanded(
             flex: 2,
-            child: AppText(
-              text: details,
-              style: regular(fontSize: 18.sp),
-            ),
+            child: AppText(text: details, style: regular(fontSize: 18)),
           ),
         ],
       ),

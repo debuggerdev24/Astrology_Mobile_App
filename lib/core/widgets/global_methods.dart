@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:animate_do/animate_do.dart';
 import 'package:astrology_app/core/constants/text_style.dart';
 import 'package:astrology_app/core/widgets/app_text.dart';
-import 'package:astrology_app/extension/context_extension.dart';
+import 'package:astrology_app/routes/mobile_routes/user_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -77,21 +77,13 @@ Widget buildPageTitle({required String title, required BuildContext context}) {
     textAlign: TextAlign.center,
     style: bold(
       fontSize: (context.watch<LocaleProvider>().localeCode == "ta")
-          ? 22.sp
+          ? 22
           : (Platform.isAndroid)
-          ? 24.sp
-          : 26.sp,
+          ? 28
+          : 26,
       fontFamily: AppFonts.secondary,
     ),
   );
-}
-
-double widthh(BuildContext context, double width) {
-  return context.width / width;
-}
-
-double heightt(BuildContext context, double height) {
-  return context.width / height;
 }
 
 Widget greyColoredBox({
@@ -134,7 +126,7 @@ Future<dynamic> showPremiumDialog({
             child: AppText(
               text: title, //"Premium Access"
               style: bold(
-                fontSize: 28.sp,
+                fontSize: 28,
                 color: AppColors.darkBlue,
                 fontFamily: AppFonts.secondary,
               ),
@@ -148,7 +140,17 @@ Future<dynamic> showPremiumDialog({
               Row(
                 spacing: 12.w,
                 children: [
-                  Expanded(child: AppButton(title: "Upgrade Now")),
+                  Expanded(
+                    child: AppButton(
+                      title: "Upgrade Now",
+                      onTap: () {
+                        context.pop();
+                        context.pushNamed(
+                          MobileAppRoutes.premiumPlanScreen.name,
+                        );
+                      },
+                    ),
+                  ),
                   Expanded(
                     child: AppButton(
                       onTap: () {

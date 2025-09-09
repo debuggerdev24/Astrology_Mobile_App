@@ -22,7 +22,7 @@ import 'package:astrology_app/apps/mobile/user/screens/settings/app_info/terms_a
 import 'package:astrology_app/apps/mobile/user/screens/settings/profile/profile_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/splash_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/user_dashboard.dart';
-import 'package:astrology_app/extension/routes_extension.dart';
+import 'package:astrology_app/core/extension/routes_extension.dart';
 import 'package:astrology_app/routes/mobile_routes/user_routes.dart';
 import 'package:go_router/go_router.dart';
 

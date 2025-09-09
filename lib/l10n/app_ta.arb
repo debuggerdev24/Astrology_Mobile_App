@@ -10,7 +10,7 @@
   "termsAndConditions": "விதிமுறைகளும் நிபந்தனைகளும்",
   "fullName": "முழு பெயர்",
   "goodMorning": "காலை வணக்கம்",
-  "seeAll": "அனைத்தையும் காண்க",
+  "seeAll": "பார்வை",
   "dasha": "தாஷா",
   "moonSign": "சந்திரன் \nஅடையாளம்",
   "dailyMantra": "தினசரி மந்திரம்",
@@ -121,14 +121,16 @@
   "wednesday": "புதன்கிழமை",
   "thursday": "வியாழன்",
   "friday": "வெள்ளி",
-  "saturday": "",
-  "sunday": "Sunday",
-  "time": "Time",
-  "selectTime": "Select Time",
-  "karmaFocus": "Karma Focus",
-  "action": "Action",
-  "caution": "Caution",
-  "yourRulingPlanetToday": "Your ruling planet today",
-  "nakshatra": "Nakshatra"
+  "saturday": "சனிக்கிழமை",
+  "sunday": "ஞாயிற்றுக்கிழமை",
+  "time": "நேரம்",
+  "selectTime": "நேரத்தைத் தேர்ந்தெடுக்கவும்",
+  "karmaFocus": "கர்ம கவனம்",
+  "action": "செயல்",
+  "caution": "எச்சரிக்கை",
+  "yourRulingPlanetToday": "இன்று உங்களை ஆளும் கிரகம்",
+  "nakshatra": "நட்சத்திரம்",
+  "inSights": "நுண்ணறிவுகள்"
+
 
 }

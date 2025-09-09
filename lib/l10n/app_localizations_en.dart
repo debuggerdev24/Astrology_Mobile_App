@@ -355,4 +355,52 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get enterYourCurrentLocation => 'Enter your Current Location';
+
+  @override
+  String get repeatFrequency => 'Repeat Frequency';
+
+  @override
+  String get monday => 'Monday';
+
+  @override
+  String get tuesday => 'Tuesday';
+
+  @override
+  String get wednesday => 'Wednesday';
+
+  @override
+  String get thursday => 'ThursDay';
+
+  @override
+  String get friday => 'Friday';
+
+  @override
+  String get saturday => 'Saturday';
+
+  @override
+  String get sunday => 'Sunday';
+
+  @override
+  String get time => 'Time';
+
+  @override
+  String get selectTime => 'Select Time';
+
+  @override
+  String get karmaFocus => 'Karma Focus';
+
+  @override
+  String get action => 'Action';
+
+  @override
+  String get caution => 'Caution';
+
+  @override
+  String get yourRulingPlanetToday => 'Your ruling planet today';
+
+  @override
+  String get nakshatra => 'Nakshatra';
+
+  @override
+  String get inSights => 'Insights';
 }

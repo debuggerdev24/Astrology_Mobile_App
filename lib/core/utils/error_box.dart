@@ -1,7 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:astrology_app/core/constants/text_style.dart';
+import 'package:astrology_app/core/extension/context_extension.dart';
 import 'package:astrology_app/core/widgets/svg_image.dart';
-import 'package:astrology_app/extension/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -26,7 +26,7 @@ class ErrorBox extends StatelessWidget {
       child: AnimatedContainer(
         duration: Duration(seconds: 1),
         curve: Curves.bounceOut,
-        margin: EdgeInsets.only(top: 5.sp),
+        margin: EdgeInsets.only(top: 5.h),
         padding: EdgeInsets.only(
           top: 12.h,
           bottom: 12.h,
