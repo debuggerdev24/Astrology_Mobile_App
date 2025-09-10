@@ -369,7 +369,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get wednesday => 'बुधवार';
 
   @override
-  String get thursday => 'Thursday';
+  String get thursday => 'गुरुवार';
 
   @override
   String get friday => 'शुक्रवार';
@@ -403,4 +403,19 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get inSights => 'इनसाइट्स';
+
+  @override
+  String get logOutConfirmation => 'क्या आप लॉग आउट करना चाहते हैं?';
+
+  @override
+  String get yes => 'हाँ';
+
+  @override
+  String get noMantraToday => 'आज के लिए कोई मंत्र निर्धारित नहीं है';
+
+  @override
+  String get date => 'तारीख';
+
+  @override
+  String get selectDate => 'तारीख़ चुनें';
 }

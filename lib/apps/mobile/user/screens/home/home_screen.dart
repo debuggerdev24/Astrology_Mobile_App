@@ -58,7 +58,7 @@ class HomeScreen extends StatelessWidget {
                           greyColoredBox(
                             margin: EdgeInsets.only(bottom: 20.h),
                             padding: EdgeInsets.symmetric(
-                              horizontal: 14,
+                              horizontal: 12,
                               vertical: 12,
                             ),
                             child: Column(
@@ -104,7 +104,7 @@ class HomeScreen extends StatelessWidget {
                           greyColoredBox(
                             margin: EdgeInsets.only(bottom: 10.h),
                             padding: EdgeInsets.symmetric(
-                              horizontal: 14,
+                              horizontal: 12,
                               vertical: 12,
                             ),
 
@@ -132,17 +132,14 @@ class HomeScreen extends StatelessWidget {
                                   ),
                                 ),
                                 10.h.verticalSpace,
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                Wrap(
+                                  // crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Expanded(
-                                      flex: 2,
-                                      child: AppText(
-                                        text: translator.yourRulingPlanetToday,
-                                        style: medium(fontSize: 16),
-                                      ),
+                                    AppText(
+                                      text: translator.yourRulingPlanetToday,
+                                      style: medium(fontSize: 16),
                                     ),
-                                    AppText(text: ": "),
+                                    AppText(text: " : "),
                                     Expanded(
                                       flex: 1,
                                       child: AppText(
@@ -241,7 +238,10 @@ class HomeScreen extends StatelessWidget {
         } else {
           return Padding(
             padding: EdgeInsets.symmetric(vertical: 24.h),
-            child: AppText(text: "No mantra scheduled for today"),
+            child: AppText(
+              textAlign: TextAlign.center,
+              text: context.translator.noMantraToday,
+            ),
           );
         }
       },

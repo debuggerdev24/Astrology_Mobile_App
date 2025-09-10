@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:astrology_app/apps/mobile/user/provider/auth/auth_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/setting/locale_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/setting/notification_provider.dart';
@@ -24,6 +25,7 @@ class SettingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final translator = context.translator;
     final localeProvider = context.read<LocaleProvider>();
     return PopScope(
       canPop: false,
@@ -78,7 +80,6 @@ class SettingScreen extends StatelessWidget {
                             },
                           ),
                         ),
-
                         onTap: () {
                           provider.isNotificationOn =
                               !provider.isNotificationOn;
@@ -96,12 +97,34 @@ class SettingScreen extends StatelessWidget {
                     ),
                     buildDivider(),
                     _section(
-                      title: context.translator.logOut,
+                      title: translator.logOut,
                       titleColor: Colors.red,
                       onTap: () async {
-                        await context.read<UserAuthProvider>().logOutUser(
-                          context,
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return ZoomIn(
+                              child: AlertDialog(
+                                title: AppText(
+                                  text: translator.logOutConfirmation,
+                                  style: regular(color: AppColors.black),
+                                ),
+                                actions: [
+                                  myActionButtonTheme(() async {
+                                    context.pop();
+                                    await context
+                                        .read<UserAuthProvider>()
+                                        .logOutUser(context);
+                                  }, translator.yes),
+                                  myActionButtonTheme(() {
+                                    context.pop();
+                                  }, translator.cancel),
+                                ],
+                              ),
+                            );
+                          },
                         );
+
                         // context_extension.pushNamed(MobileAppRoutes.premiumPlanScreen.name);
                       },
                     ),
@@ -111,6 +134,19 @@ class SettingScreen extends StatelessWidget {
               if (provider.isLogOutLoading) ApiLoadingFullPageIndicator(),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  TextButton myActionButtonTheme(VoidCallback onPressed, String title) {
+    return TextButton(
+      onPressed: onPressed,
+      child: AppText(
+        text: title,
+        style: regular(
+          color: (title == "Yes") ? AppColors.red : AppColors.black,
+          fontSize: 16.5,
         ),
       ),
     );

@@ -114,7 +114,7 @@ class AppLocalizationsTa extends AppLocalizations {
   String get viewRemedies => 'தீர்வுகளைக் காண்க';
 
   @override
-  String get matchWithBirthCart => 'பிறப்பு விளக்கப்படத்துடன் பொருத்தம்';
+  String get matchWithBirthCart => 'பிறப்பு விளக்கப்படத்துடன்\nபொருத்தம்';
 
   @override
   String get viewDetails => 'விவரங்களைப் பார்';
@@ -403,4 +403,19 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get inSights => 'நுண்ணறிவுகள்';
+
+  @override
+  String get logOutConfirmation => 'நீங்கள் நிச்சயமாக வெளியேற விரும்புகிறீர்களா?';
+
+  @override
+  String get yes => 'ஆம்';
+
+  @override
+  String get noMantraToday => 'இன்று எந்த மந்திரமும் திட்டமிடப்படவில்லை.';
+
+  @override
+  String get date => 'தேதி';
+
+  @override
+  String get selectDate => 'தேதியைத் தேர்ந்தெடுக்கவும்';
 }

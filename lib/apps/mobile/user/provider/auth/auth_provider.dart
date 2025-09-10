@@ -98,6 +98,9 @@ class UserAuthProvider extends ChangeNotifier {
       },
       (data) async {
         AppToast.success(context: context, message: 'Login Successfully');
+
+        await decideFirstScreen(context);
+
         await LocaleStoaregService.saveUserToken(data['data']['access']);
 
         await LocaleStoaregService.saveUserRefreshToken(
@@ -113,7 +116,6 @@ class UserAuthProvider extends ChangeNotifier {
           _loginPassCtr.text.trim(),
         );
 
-        decideFirstScreen(context);
         // Logger.printInfo(PrefHelper.userToken);
 
         _loginEmailCtr.clear();

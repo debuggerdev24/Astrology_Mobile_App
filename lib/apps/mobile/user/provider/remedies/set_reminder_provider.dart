@@ -12,7 +12,8 @@ import '../../../../../core/utils/custom_toast.dart';
 import '../../services/settings/notification_service.dart';
 
 class SetReminderProvider extends ChangeNotifier {
-  String _selectedFrequency = 'Daily', _selectedWeekDays = "";
+  int _selectedFrequency = 1;
+  String _selectedWeekDays = "";
   DateTime? _selectedDate;
   TimeOfDay? _selectedTime;
   TextEditingController textReminderTitle = TextEditingController();
@@ -22,7 +23,7 @@ class SetReminderProvider extends ChangeNotifier {
   DateTime? get selectedDate => _selectedDate;
   TimeOfDay? get selectedTime => _selectedTime;
 
-  String get selectedFrequency => _selectedFrequency;
+  int get selectedFrequency => _selectedFrequency;
   String? get selectedWeekDays => _selectedWeekDays;
   String titleError = "", dateError = "", timeError = "";
 
@@ -30,14 +31,14 @@ class SetReminderProvider extends ChangeNotifier {
       ? DateFormat("dd MMM yyyy").format(_selectedDate!)
       : "";
 
-  void updateFrequency(String value) {
+  void updateFrequency(int value) {
     _selectedFrequency = value;
     titleError = "";
     dateError = "";
     timeError = "";
 
     // Clear week days if not custom
-    if (value != 'Custom' && value != 'custom') {
+    if (value != 4) {
       _selectedWeekDays = "";
     }
 
@@ -164,17 +165,23 @@ class SetReminderProvider extends ChangeNotifier {
 
     Map data = {
       "reminder_name": textReminderTitle.text.trim(),
-      "reminder_type": selectedFrequency,
+      "reminder_type": selectedFrequency == 1
+          ? "Daily"
+          : selectedFrequency == 2
+          ? "Weekly"
+          : selectedFrequency == 3
+          ? "Monthly"
+          : "Custom",
       "remedy_id": remedyId,
       "time": textTime.text.trim(),
     };
-    if (selectedFrequency == "Weekly") {
+    if (selectedFrequency == 2) {
       data.addAll({
         "weekdays": ["Saturday", "Sunday"],
       });
-    } else if (selectedFrequency == "Monthly") {
+    } else if (selectedFrequency == 3) {
       data.addAll({"monthly_date": 15});
-    } else if (selectedFrequency == "Custom") {
+    } else if (selectedFrequency == 4) {
       data.addAll({"start_date": "2025-10-12"});
     }
     final result = await RemedyApiService.instance.createReminder(data: data);
@@ -183,13 +190,10 @@ class SetReminderProvider extends ChangeNotifier {
         Logger.printError(l.toString());
       },
       (r) async {
-        AppToast.success(
-          context: context,
-          message: "Reminder Created Successfully.",
-        );
+        await scheduleReminderNotification(context: context);
+
         textTime.clear();
         textDate.clear();
-        await scheduleReminderNotification(context: context);
         textReminderTitle.clear();
       },
     );
@@ -208,7 +212,7 @@ class SetReminderProvider extends ChangeNotifier {
     final now = DateTime.now();
 
     try {
-      if (_selectedFrequency == 'Daily') {
+      if (_selectedFrequency == 1) {
         await NotificationService.instance.scheduleDailyNotification(
           id: DateTime.now().millisecondsSinceEpoch ~/ 1000,
           title: "Reminder",
@@ -217,10 +221,10 @@ class SetReminderProvider extends ChangeNotifier {
           minute: minute,
           payload: 'daily_reminder_data',
         );
-        AppToast.success(context: context, message: "Reminder Created");
+        AppToast.success(context: context, message: "Daily Reminder Created");
       }
       // ✅ Weekly
-      else if (_selectedFrequency == 'Weekly') {
+      else if (_selectedFrequency == 2) {
         final selectedDay = _selectedWeekDays;
         if (selectedDay.isNotEmpty) {
           final weekdays = {
@@ -256,10 +260,14 @@ class SetReminderProvider extends ChangeNotifier {
             minute: minute,
             payload: 'weekly_reminder_data',
           );
+          AppToast.success(
+            context: context,
+            message: "Weekly Reminder Created",
+          );
         }
       }
       // ✅ Monthly (repeat every month on same date)
-      else if (_selectedFrequency == 'Monthly' && _selectedDate != null) {
+      else if (_selectedFrequency == 3 && _selectedDate != null) {
         await NotificationService.instance.scheduleMonthlyNotification(
           id: DateTime.now().millisecondsSinceEpoch ~/ 1000,
           title: "Reminder",
@@ -269,9 +277,10 @@ class SetReminderProvider extends ChangeNotifier {
           minute: minute,
           payload: 'monthly_reminder_data',
         );
+        AppToast.success(context: context, message: "Monthly Reminder Created");
       }
       // ✅ Custom (one-time only)
-      else if (_selectedFrequency == 'Custom' && _selectedDate != null) {
+      else if (_selectedFrequency == 4 && _selectedDate != null) {
         final customDateTime = DateTime(
           _selectedDate!.year,
           _selectedDate!.month,
@@ -287,6 +296,7 @@ class SetReminderProvider extends ChangeNotifier {
           delay: customDateTime.difference(now),
           payload: 'custom_reminder_data',
         );
+        AppToast.success(context: context, message: "Custom Reminder Created");
       }
     } catch (e) {
       Logger.printError("Notification scheduling error: $e");

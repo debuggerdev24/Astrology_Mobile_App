@@ -119,7 +119,7 @@
   "monday": "सोमवार",
   "tuesday": "मंगलवार",
   "wednesday": "बुधवार",
-  "thursday": "Thursday",
+  "thursday": "गुरुवार",
   "friday": "शुक्रवार",
   "saturday": "शनिवार",
   "sunday": "रविवार",
@@ -130,5 +130,10 @@
   "caution": "सावधानी",
   "yourRulingPlanetToday": "आज आपका शासक ग्रह",
   "nakshatra": "नक्षत्र",
-  "inSights": "इनसाइट्स"
+  "inSights": "इनसाइट्स",
+  "logOutConfirmation": "क्या आप लॉग आउट करना चाहते हैं?",
+  "yes": "हाँ",
+  "noMantraToday": "आज के लिए कोई मंत्र निर्धारित नहीं है",
+  "date": "तारीख",
+  "selectDate": "तारीख़ चुनें"
 }

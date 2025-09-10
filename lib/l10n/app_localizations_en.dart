@@ -403,4 +403,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get inSights => 'Insights';
+
+  @override
+  String get logOutConfirmation => 'Are you sure you want to Log Out?';
+
+  @override
+  String get yes => 'Yes';
+
+  @override
+  String get noMantraToday => 'No mantra scheduled for today';
+
+  @override
+  String get date => 'Date';
+
+  @override
+  String get selectDate => 'Select Date';
 }

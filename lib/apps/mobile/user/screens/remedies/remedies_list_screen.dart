@@ -1,6 +1,4 @@
 import 'package:astrology_app/apps/mobile/user/provider/remedies/palm_provider.dart';
-import 'package:astrology_app/apps/mobile/user/provider/setting/locale_provider.dart';
-import 'package:astrology_app/core/constants/app_assets.dart';
 import 'package:astrology_app/core/constants/app_colors.dart';
 import 'package:astrology_app/core/constants/text_style.dart';
 import 'package:astrology_app/core/extension/context_extension.dart';
@@ -9,7 +7,6 @@ import 'package:astrology_app/core/widgets/app_button.dart';
 import 'package:astrology_app/core/widgets/app_layout.dart';
 import 'package:astrology_app/core/widgets/app_text.dart';
 import 'package:astrology_app/core/widgets/global_methods.dart';
-import 'package:astrology_app/core/widgets/svg_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -41,12 +38,9 @@ class RemediesScreen extends StatelessWidget {
                         ...List.generate(1, (index) {
                           return greyColoredBox(
                             margin: EdgeInsets.only(bottom: 12.h),
-                            padding: EdgeInsets.fromLTRB(
-                              12.w,
-                              16.h,
-                              12.w,
-
-                              16.h,
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 10.w,
+                              vertical: 12.h,
                             ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -112,7 +106,6 @@ class RemediesScreen extends StatelessWidget {
                                       ),
                                     );
                                   },
-
                                   child: AppButton(
                                     onTap: () {
                                       provider.getRemedyDetails(
@@ -124,34 +117,21 @@ class RemediesScreen extends StatelessWidget {
                                             .name,
                                       );
                                     },
-                                    width:
-                                        context
-                                                .read<LocaleProvider>()
-                                                .localeCode ==
-                                            "ta"
-                                        ? null
-                                        : 150.w,
 
-                                    margin: EdgeInsets.only(top: 18.h),
-                                    child: Row(
-                                      spacing: 10.w,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        AppText(
-                                          textAlign: TextAlign.center,
-                                          text: translator.viewDetails,
-                                          style: bold(
-                                            fontSize: 15,
-                                            color: AppColors.black,
-                                          ),
-                                        ),
-                                        SVGImage(
-                                          path: AppAssets.lockIcon,
-                                          color: AppColors.black,
-                                        ),
-                                      ],
+                                    // width:
+                                    //     context
+                                    //             .read<LocaleProvider>()
+                                    //             .localeCode ==
+                                    //         "ta"
+                                    //     ? null
+                                    //     : 150.w,
+                                    margin: EdgeInsets.only(
+                                      top: 18,
+                                      left: 8,
+                                      right: 8,
                                     ),
+                                    title: translator.viewDetails,
+                                    fontSize: 14.sp,
                                   ),
                                 ),
                               ],

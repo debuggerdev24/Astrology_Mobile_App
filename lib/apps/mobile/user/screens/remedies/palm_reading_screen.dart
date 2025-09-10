@@ -224,10 +224,13 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
                           text: translator.matchWithBirthCart,
                           style: bold(fontSize: 16, color: AppColors.black),
                         ),
-                        SVGImage(
-                          path: AppAssets.lockIcon,
-                          color: AppColors.darkBlue,
-                        ),
+                        if (!context
+                            .read<SubscriptionProvider>()
+                            .isTier2Subscribed)
+                          SVGImage(
+                            path: AppAssets.lockIcon,
+                            color: AppColors.darkBlue,
+                          ),
                       ],
                     ),
                   ),

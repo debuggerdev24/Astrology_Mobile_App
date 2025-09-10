@@ -47,14 +47,18 @@ class SubscriptionProvider extends ChangeNotifier {
   }
 
   //todo -----------------> Subscription account service
-  final Set<SubscriptionTier> _activeSubscriptions = {};
+  final Set<SubscriptionTier> _activeSubscriptions = {
+    // SubscriptionTier.tier1,
+    // SubscriptionTier.tier2,
+    // SubscriptionTier.tier3,
+  };
 
   Set<SubscriptionTier> get activeSubscriptions => _activeSubscriptions;
 
   // New state variables for quick access
-  bool isTier1Subscribed = false,
-      isTier2Subscribed = false,
-      isTier3Subscribed = false;
+  bool isTier1Subscribed = true,
+      isTier2Subscribed = true,
+      isTier3Subscribed = true;
 
   // Add a subscription and update flags
   void addSubscription(SubscriptionTier tier) {

@@ -1,6 +1,6 @@
-import 'package:astrology_app/core/enum/app_enums.dart';
 import 'package:astrology_app/core/extension/context_extension.dart';
 import 'package:astrology_app/core/utils/custom_loader.dart';
+import 'package:astrology_app/core/utils/custom_toast.dart';
 import 'package:astrology_app/core/widgets/app_button.dart';
 import 'package:astrology_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -17,8 +17,6 @@ import '../../../../../core/widgets/global_methods.dart';
 import '../../provider/remedies/set_reminder_provider.dart';
 import '../../services/settings/notification_service.dart';
 
-// controllers
-
 class SetReminderScreen extends StatefulWidget {
   const SetReminderScreen({super.key});
 
@@ -30,6 +28,12 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
   @override
   Widget build(BuildContext context) {
     final translator = context.translator;
+    List freqList = [
+      translator.daily,
+      translator.weekly,
+      translator.monthly,
+      translator.custom,
+    ];
     return AppLayout(
       horizontalPadding: 0,
       body: Consumer<SetReminderProvider>(
@@ -60,33 +64,47 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
                       16.h.verticalSpace,
 
                       /// Radio options
-                      _buildCustomRadioOption(context, translator.daily),
+                      _buildCustomRadioOption(
+                        context: context,
+                        value: 1,
+                        displayText: translator.daily,
+                      ),
                       12.h.verticalSpace,
-                      _buildCustomRadioOption(context, translator.weekly),
+                      _buildCustomRadioOption(
+                        context: context,
+                        value: 2,
+                        displayText: translator.weekly,
+                      ),
 
-                      /// Animated Week Days Section
+                      // Animated Week Days Section
                       _buildWeekDaysSection(
                         provider: provider,
                         translator: translator,
                       ),
                       12.h.verticalSpace,
 
-                      _buildCustomRadioOption(context, translator.monthly),
+                      _buildCustomRadioOption(
+                        context: context,
+                        value: 3,
+                        displayText: translator.monthly,
+                      ),
                       12.h.verticalSpace,
-                      _buildCustomRadioOption(context, translator.custom),
+                      _buildCustomRadioOption(
+                        context: context,
+                        value: 4,
+                        displayText: translator.custom,
+                      ),
 
                       24.h.verticalSpace,
                       primaryColorText(text: translator.selectDateAndTime),
-                      8.h.verticalSpace,
-
+                      16.h.verticalSpace,
                       //todo ------------->  Date & Time input
-                      if (provider.selectedFrequency ==
-                              context.translator.monthly ||
-                          provider.selectedFrequency ==
-                              context.translator.custom)
-                        //todo ---------------------> date picker
+                      if (provider.selectedFrequency == 3 ||
+                          provider.selectedFrequency == 4)
+                      //todo ---------------------> date picker
+                      ...[
                         AppTextField(
-                          title: "Date",
+                          title: translator.date,
                           readOnly: true,
                           onTap: () async {
                             await provider.pickDate(context);
@@ -97,10 +115,12 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
                             color: AppColors.whiteColor,
                           ),
                           controller: provider.textDate,
-                          hintText: "Select Date",
+                          hintText: translator.selectDate,
                           errorMessage: provider.dateError,
                         ),
-                      10.h.verticalSpace,
+                        10.h.verticalSpace,
+                      ],
+
                       AppTextField(
                         title: translator.time,
                         readOnly: true,
@@ -125,10 +145,7 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
                             //     .remedyId
                             //     .toString(),
                             context: context,
-                            checkDate:
-                                provider.selectedFrequency.toLowerCase() ==
-                                    FrequencyEnum.monthly.name ||
-                                provider.selectedFrequency == "Custom",
+                            checkDate: provider.selectedFrequency == 3,
                           );
                         },
                         title: translator.saveReminder,
@@ -139,6 +156,11 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
                         onPressed: _checkPendingNotifications,
                         icon: const Icon(Icons.list),
                         label: const Text("Check Pending"),
+                      ),
+                      OutlinedButton.icon(
+                        onPressed: _cancelAllNotification,
+                        icon: const Icon(Icons.list),
+                        label: const Text("Cancel All"),
                       ),
                     ],
                   ),
@@ -162,14 +184,30 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
     try {
       final pending = await NotificationService.instance
           .getPendingNotifications();
-      Logger.printInfo('Pending notifications: ${pending.length}');
+      AppToast.info(
+        context: context,
+        message: 'Pending notifications: ${pending.length}',
+      );
 
       // Print details to console
       for (var notification in pending) {
-        print('Pending: ${notification.id} - ${notification.title}');
+        Logger.printInfo('Pending: ${notification.id} - ${notification.title}');
       }
     } catch (e) {
-      Logger.printInfo('Error checking notifications: $e');
+      AppToast.error(
+        context: context,
+        message: 'Error checking notifications: $e',
+      );
+    }
+  }
+
+  Future<void> _cancelAllNotification() async {
+    try {
+      final pending = await NotificationService.instance
+          .cancelAllNotifications();
+      AppToast.info(context: context, message: 'Cancelled');
+    } catch (e) {
+      AppToast.error(context: context, message: 'Failed to cancel');
     }
   }
 
@@ -178,21 +216,19 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
     required AppLocalizations translator,
   }) {
     final weekDays = [
-      {'short': 'Mon', 'full': translator.monday},
-      {'short': 'Tue', 'full': translator.tuesday},
-      {'short': 'Wed', 'full': translator.wednesday},
-      {'short': 'Thu', 'full': translator.thursday},
-      {'short': 'Fri', 'full': translator.friday},
-      {'short': 'Sat', 'full': translator.saturday},
-      {'short': 'Sun', 'full': translator.sunday},
+      {'short': 'Mon', 'full': translator.monday, "value": "Monday"},
+      {'short': 'Tue', 'full': translator.tuesday, "value": "Tuesday"},
+      {'short': 'Wed', 'full': translator.wednesday, "value": "Wednesday"},
+      {'short': 'Thu', 'full': translator.thursday, "value": "Thursday"},
+      {'short': 'Fri', 'full': translator.friday, "value": "Friday"},
+      {'short': 'Sat', 'full': translator.saturday, "value": "Saturday"},
+      {'short': 'Sun', 'full': translator.sunday, "value": "Sunday"},
     ];
     return AnimatedSize(
       alignment: Alignment.center,
       duration: Duration(milliseconds: 400),
       curve: Curves.easeInOut,
-      child:
-          provider.selectedFrequency == 'Weekly' ||
-              provider.selectedFrequency == context.translator.weekly
+      child: provider.selectedFrequency == 2
           ? Container(
               decoration: BoxDecoration(
                 color: AppColors.greyColor,
@@ -207,7 +243,6 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
                 children: weekDays.map((day) {
                   String dayShort = day['short']!;
                   bool isSelected = provider.selectedWeekDays == dayShort;
-
                   return GestureDetector(
                     onTap: () {
                       provider.selectSingleWeekDay(dayShort);
@@ -221,8 +256,8 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
                             provider.selectSingleWeekDay(dayShort);
                           },
                           child: Container(
-                            width: 19,
-                            height: 19,
+                            width: 18,
+                            height: 18,
                             padding: EdgeInsets.all(isSelected ? 2.4 : 0),
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
@@ -259,21 +294,25 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
   Widget primaryColorText({required String text}) {
     return AppText(
       text: text,
-      style: semiBold(fontSize: 18, color: AppColors.primary),
+      style: semiBold(fontSize: 16, color: AppColors.primary),
     );
   }
 
-  Widget _buildCustomRadioOption(BuildContext context, String value) {
+  Widget _buildCustomRadioOption({
+    required BuildContext context,
+    required int value,
+    required String displayText,
+  }) {
     final provider = Provider.of<SetReminderProvider>(context);
-    final isCustom = value == 'Weekly' || value == context.translator.weekly;
+    final isCustom = value == 2;
 
     return Row(
       spacing: 8.w,
       children: [
-        Radio<String>(
+        Radio<int>(
           value: value,
           groupValue: provider.selectedFrequency,
-          onChanged: (String? newValue) {
+          onChanged: (int? newValue) {
             if (newValue != null) {
               provider.updateFrequency(newValue);
             }
@@ -295,7 +334,7 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
           child: Row(
             children: [
               Text(
-                value,
+                displayText,
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 16,

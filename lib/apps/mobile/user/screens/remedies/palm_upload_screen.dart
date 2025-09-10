@@ -35,12 +35,12 @@ class PalmUploadScreen extends StatelessWidget {
       },
       child: AppLayout(
         horizontalPadding: 0,
-        body: SingleChildScrollView(
-          child: Consumer<PalmProvider>(
-            builder: (context, provider, child) {
-              return Stack(
-                children: [
-                  Padding(
+        body: Consumer<PalmProvider>(
+          builder: (context, provider, child) {
+            return Stack(
+              children: [
+                SingleChildScrollView(
+                  child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 12.w),
                     child: Column(
                       children: [
@@ -126,11 +126,11 @@ class PalmUploadScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  if (provider.isUploading) ApiLoadingFullPageIndicator(),
-                ],
-              );
-            },
-          ),
+                ),
+                if (provider.isUploading) ApiLoadingFullPageIndicator(),
+              ],
+            );
+          },
         ),
       ),
     );

@@ -888,6 +888,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Insights'**
   String get inSights;
+
+  /// No description provided for @logOutConfirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to Log Out?'**
+  String get logOutConfirmation;
+
+  /// No description provided for @yes.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get yes;
+
+  /// No description provided for @noMantraToday.
+  ///
+  /// In en, this message translates to:
+  /// **'No mantra scheduled for today'**
+  String get noMantraToday;
+
+  /// No description provided for @date.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get date;
+
+  /// No description provided for @selectDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Date'**
+  String get selectDate;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

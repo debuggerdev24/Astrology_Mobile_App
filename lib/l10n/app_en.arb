@@ -130,5 +130,10 @@
   "caution": "Caution",
   "yourRulingPlanetToday": "Your ruling planet today",
   "nakshatra": "Nakshatra",
-  "inSights": "Insights"
+  "inSights": "Insights",
+  "logOutConfirmation": "Are you sure you want to Log Out?",
+  "yes": "Yes",
+  "noMantraToday": "No mantra scheduled for today",
+  "date": "Date",
+  "selectDate": "Select Date"
 }

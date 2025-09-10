@@ -49,7 +49,7 @@ class AppButton extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 text: title ?? "",
                 style: bold(
-                  fontSize: fontSize ?? 16,
+                  fontSize: fontSize ?? 16.sp,
                   color: titleColor ?? AppColors.black,
                 ),
               ),

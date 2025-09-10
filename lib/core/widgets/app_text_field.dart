@@ -75,7 +75,7 @@ class AppTextField extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (title != null) ...[
-          Text(title ?? "", style: titleTextStyle ?? medium(fontSize: 16)),
+          Text(title ?? "", style: titleTextStyle ?? medium(fontSize: 14)),
         ],
         TextField(
           onTapOutside: (event) {

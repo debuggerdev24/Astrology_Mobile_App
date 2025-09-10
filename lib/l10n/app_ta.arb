@@ -34,7 +34,7 @@
   "mountOfJupiter": "வியாழன் மலை",
   "mountOfVenus": "வீனஸ் மலை",
   "viewRemedies": "தீர்வுகளைக் காண்க",
-  "matchWithBirthCart": "பிறப்பு விளக்கப்படத்துடன் பொருத்தம்",
+  "matchWithBirthCart": "பிறப்பு விளக்கப்படத்துடன்\nபொருத்தம்",
   "viewDetails": "விவரங்களைப் பார்",
   "type": "வகை",
   "description": "விளக்கம்",
@@ -130,7 +130,10 @@
   "caution": "எச்சரிக்கை",
   "yourRulingPlanetToday": "இன்று உங்களை ஆளும் கிரகம்",
   "nakshatra": "நட்சத்திரம்",
-  "inSights": "நுண்ணறிவுகள்"
-
-
+  "inSights": "நுண்ணறிவுகள்",
+  "logOutConfirmation": "நீங்கள் நிச்சயமாக வெளியேற விரும்புகிறீர்களா?",
+  "yes": "ஆம்",
+  "noMantraToday": "இன்று எந்த மந்திரமும் திட்டமிடப்படவில்லை.",
+  "date": "தேதி",
+  "selectDate": "தேதியைத் தேர்ந்தெடுக்கவும்"
 }
