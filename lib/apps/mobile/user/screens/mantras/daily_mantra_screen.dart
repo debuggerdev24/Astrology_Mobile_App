@@ -55,12 +55,10 @@ class DailyMantraScreen extends StatelessWidget {
                           ),
                         );
                       }
-
                       final mantraList = mantraProvider.mantraHistoryList;
-
                       if (mantraList == null || mantraList.isEmpty) {
                         return Center(
-                          child: Text("No mantra history available."),
+                          child: AppText(text: "No mantra history available."),
                         );
                       }
 

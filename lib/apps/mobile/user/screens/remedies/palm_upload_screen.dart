@@ -103,21 +103,34 @@ class PalmUploadScreen extends StatelessWidget {
                           margin: EdgeInsets.only(bottom: 25.h, top: 50.h),
                           onTap: () {
                             deBouncer.run(() {
-                              if (provider.leftHandImageFile != null &&
-                                  provider.rightHandImageFile != null) {
-                                provider.uploadForReading(
-                                  onSuccess: () {
-                                    context.pushNamed(
-                                      MobileAppRoutes.palmReadingScreen.name,
-                                    );
-                                  },
+                              if (provider.leftHandImageFile == null &&
+                                  provider.rightHandImageFile == null) {
+                                AppToast.error(
+                                  context: context,
+                                  message: "Please upload image",
                                 );
-
                                 return;
                               }
-                              AppToast.error(
-                                context: context,
-                                message: "Please upload palm images",
+                              if (provider.leftHandImageFile == null) {
+                                AppToast.error(
+                                  context: context,
+                                  message: "Please upload left hand image",
+                                );
+                                return;
+                              }
+                              if (provider.rightHandImageFile == null) {
+                                AppToast.error(
+                                  context: context,
+                                  message: "Please upload right hand image",
+                                );
+                                return;
+                              }
+                              provider.uploadForReading(
+                                onSuccess: () {
+                                  context.pushNamed(
+                                    MobileAppRoutes.palmReadingScreen.name,
+                                  );
+                                },
                               );
                             });
                           },
@@ -127,7 +140,7 @@ class PalmUploadScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                if (provider.isUploading) ApiLoadingFullPageIndicator(),
+                if (provider.isUploading) FullPageIndicator(),
               ],
             );
           },

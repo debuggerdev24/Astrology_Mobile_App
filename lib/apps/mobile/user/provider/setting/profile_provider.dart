@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:astrology_app/apps/mobile/user/services/settings/profile_api_service.dart';
@@ -52,7 +53,7 @@ class UserProfileProvider extends ChangeNotifier {
 
   void toggleAgreement() {
     _isAgreementChecked = !_isAgreementChecked;
-    notifyListeners();
+    LocaleStoaregService.setProfileCreated(_isAgreementChecked);
     notifyListeners();
   }
 
@@ -117,12 +118,13 @@ class UserProfileProvider extends ChangeNotifier {
     required BuildContext context,
     bool? isFromEdit,
   }) async {
+    log(LocaleStoaregService.profileCreated.toString());
     if (isFromEdit ?? false) {
       if (_validateEditFields(context)) return;
     } else {
       if (_validateFields(context)) return;
     }
-    if (isAgreementChecked) {
+    if (LocaleStoaregService.profileCreated) {
       if (!isNetworkConnected.value) {
         AppToast.info(
           context: context,
@@ -168,13 +170,13 @@ class UserProfileProvider extends ChangeNotifier {
           AppToast.error(context: context, message: failure.errorMessage);
         },
         (data) async {
+          LocaleStoaregService.setProfileCreated(true);
+
           AppToast.success(
             context: context,
             message: context.translator.profileUpdatedSuccessfully,
           );
           await context.pushNamed(MobileAppRoutes.userDashBoardScreen.name);
-          LocaleStoaregService.setProfileCreated(true);
-          clearControllers();
         },
       );
       isUpdateProfileLoading = false;
@@ -203,9 +205,10 @@ class UserProfileProvider extends ChangeNotifier {
     final picked = await showDatePicker(
       barrierColor: AppColors.black.withValues(alpha: 0.6),
       context: context,
-      initialDate: DateTime.now(),
+      initialDate: DateTime.now().subtract(Duration(days: 1)),
       firstDate: DateTime(1900),
-      lastDate: DateTime(2100),
+      lastDate: DateTime.now().subtract(Duration(days: 1)),
+
       builder: (context, child) {
         return Theme(
           data: ThemeData.dark().copyWith(
@@ -232,9 +235,9 @@ class UserProfileProvider extends ChangeNotifier {
       final year = _birthDate!.year.toString();
 
       if (isFromEdit ?? false) {
-        editBirthDateController.text = "$year-$month-$day";
+        editBirthDateController.text = "$day-$month-$year";
       } else {
-        birthDateController.text = "$year-$month-$day";
+        birthDateController.text = "$day-$month-$year";
       }
 
       notifyListeners();
@@ -249,7 +252,6 @@ class UserProfileProvider extends ChangeNotifier {
       context: context,
       showDragHandle: true,
       backgroundColor: AppColors.bgColor,
-
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),
@@ -259,7 +261,6 @@ class UserProfileProvider extends ChangeNotifier {
           minutes: _birthTime?.minute ?? TimeOfDay.now().minute,
           seconds: 0,
         );
-
         return Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,

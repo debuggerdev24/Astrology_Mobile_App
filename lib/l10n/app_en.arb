@@ -135,5 +135,10 @@
   "yes": "Yes",
   "noMantraToday": "No mantra scheduled for today",
   "date": "Date",
-  "selectDate": "Select Date"
+  "selectDate": "Select Date",
+  "career": "Career",
+  "relationships": "Relationships",
+  "health": "Health",
+  "finance": "Finance",
+  "spirituality": "Spirituality"
 }

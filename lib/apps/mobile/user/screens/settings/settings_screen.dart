@@ -1,4 +1,4 @@
-import 'package:animate_do/animate_do.dart';
+import 'package:app_settings/app_settings.dart';
 import 'package:astrology_app/apps/mobile/user/provider/auth/auth_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/setting/locale_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/setting/notification_provider.dart';
@@ -12,7 +12,6 @@ import 'package:astrology_app/core/widgets/app_text.dart';
 import 'package:astrology_app/core/widgets/global_methods.dart';
 import 'package:astrology_app/core/widgets/svg_image.dart';
 import 'package:astrology_app/routes/mobile_routes/user_routes.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -70,19 +69,22 @@ class SettingScreen extends StatelessWidget {
                     Consumer<NotificationProvider>(
                       builder: (context, provider, child) => _section(
                         title: context.translator.notification,
-                        trailing: Transform.scale(
-                          scale: 0.8,
-                          child: CupertinoSwitch(
-                            inactiveTrackColor: AppColors.greyColor,
-                            value: provider.isNotificationOn,
-                            onChanged: (value) {
-                              provider.isNotificationOn = value;
-                            },
-                          ),
-                        ),
+                        // trailing: Transform.scale(
+                        //   scale: 0.8,
+                        //   child: CupertinoSwitch(
+                        //     inactiveTrackColor: AppColors.greyColor,
+                        //     value: provider.isNotificationOn,
+                        //     onChanged: (value) {
+                        //       provider.isNotificationOn = value;
+                        //     },
+                        //   ),
+                        // ),
                         onTap: () {
                           provider.isNotificationOn =
                               !provider.isNotificationOn;
+                          AppSettings.openAppSettings(
+                            type: AppSettingsType.notification,
+                          );
                         },
                       ),
                     ),
@@ -100,30 +102,34 @@ class SettingScreen extends StatelessWidget {
                       title: translator.logOut,
                       titleColor: Colors.red,
                       onTap: () async {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return ZoomIn(
-                              child: AlertDialog(
-                                title: AppText(
-                                  text: translator.logOutConfirmation,
-                                  style: regular(color: AppColors.black),
-                                ),
-                                actions: [
-                                  myActionButtonTheme(() async {
-                                    context.pop();
-                                    await context
-                                        .read<UserAuthProvider>()
-                                        .logOutUser(context);
-                                  }, translator.yes),
-                                  myActionButtonTheme(() {
-                                    context.pop();
-                                  }, translator.cancel),
-                                ],
-                              ),
-                            );
-                          },
+                        await context.read<UserAuthProvider>().logOutUser(
+                          context,
                         );
+                        // showDialog(
+                        //   context: context,
+                        //   builder: (context) {
+                        //     return ZoomIn(
+                        //       child: AlertDialog(
+                        //         title: AppText(
+                        //           text: translator.logOutConfirmation,
+                        //           style: regular(color: AppColors.black),
+                        //         ),
+                        //         actions: [
+                        //           myActionButtonTheme(() async {
+                        //             context.pop();
+                        //
+                        //             // await context
+                        //             //     .read<UserAuthProvider>()
+                        //             //     .logOutUser(context);
+                        //           }, translator.yes),
+                        //           myActionButtonTheme(() {
+                        //             context.pop();
+                        //           }, translator.cancel),
+                        //         ],
+                        //       ),
+                        //     );
+                        //   },
+                        // );
 
                         // context_extension.pushNamed(MobileAppRoutes.premiumPlanScreen.name);
                       },
@@ -131,7 +137,7 @@ class SettingScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              if (provider.isLogOutLoading) ApiLoadingFullPageIndicator(),
+              if (provider.isLogOutLoading) FullPageIndicator(),
             ],
           ),
         ),

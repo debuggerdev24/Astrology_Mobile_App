@@ -44,24 +44,20 @@ class UserDashboard extends StatefulWidget {
 class _UserDashboardState extends State<UserDashboard> {
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      initApp();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      await Future.wait([
+        context.read<HomeProvider>().initHomeScreen(),
+        context.read<UserProfileProvider>().getProfile(context),
+        context.read<SubscriptionProvider>().getSubscriptionPlans(),
+        context.read<MantraProvider>().getMantraHistory(),
+        context.read<SetReminderProvider>().initializeNotifications(
+          context: context,
+        ),
+        SubscriptionService().initialize(context),
+        NotificationService.instance.init(),
+      ]);
     });
     super.initState();
-  }
-
-  Future<void> initApp() async {
-    await Future.wait([
-      context.read<HomeProvider>().initHomeScreen(),
-      context.read<UserProfileProvider>().getProfile(context),
-      context.read<SubscriptionProvider>().getSubscriptionPlans(),
-      context.read<MantraProvider>().getMantraHistory(),
-      context.read<SetReminderProvider>().initializeNotifications(
-        context: context,
-      ),
-      SubscriptionService().initialize(context),
-      NotificationService.instance.init(),
-    ]);
   }
 
   @override

@@ -133,6 +133,7 @@ class HomeScreen extends StatelessWidget {
                                 ),
                                 10.h.verticalSpace,
                                 Wrap(
+                                  crossAxisAlignment: WrapCrossAlignment.center,
                                   // crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     AppText(
@@ -140,24 +141,21 @@ class HomeScreen extends StatelessWidget {
                                       style: medium(fontSize: 16),
                                     ),
                                     AppText(text: " : "),
-                                    Expanded(
-                                      flex: 1,
-                                      child: AppText(
-                                        text: provider
-                                            .dailyHoroScopeData!
-                                            .rulingPlanet,
-                                        style: medium(
-                                          fontSize: 18,
-                                          color: AppColors.primary,
-                                        ),
+                                    AppText(
+                                      text: provider
+                                          .dailyHoroScopeData!
+                                          .rulingPlanet,
+                                      style: medium(
+                                        fontSize: 18,
+                                        color: AppColors.primary,
                                       ),
                                     ),
                                   ],
                                 ),
-                                4.h.verticalSpace,
+                                2.verticalSpace,
                                 Row(
                                   spacing: 10.w,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     AppText(
                                       text: translator.nakshatra,
@@ -228,11 +226,9 @@ class HomeScreen extends StatelessWidget {
     return Consumer<SubscriptionProvider>(
       builder: (context, subscriptionProvider, _) {
         final isTier1Subscribed = subscriptionProvider.isTier1Subscribed;
-
         if (!isTier1Subscribed) {
           return 30.h.verticalSpace;
         }
-
         if (provider.todayMantra != null) {
           return mantraPlayer(context: context, mantra: provider.todayMantra!);
         } else {
@@ -444,16 +440,21 @@ class HomeScreen extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             SVGImage(path: AppAssets.paymentIcon),
-            Container(
-              height: 40.h,
-              width: 40.w,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: AppColors.white,
-                // image: DecorationImage(
-                //     image:
-                // AssetImage()
-                // ),
+            GestureDetector(
+              onTap: () {
+                context.pushNamed(MobileAppRoutes.profileScreen.name);
+              },
+              child: Container(
+                height: 40.h,
+                width: 40.w,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: AppColors.white,
+                  // image: DecorationImage(
+                  //     image:
+                  // AssetImage()
+                  // ),
+                ),
               ),
             ),
           ],

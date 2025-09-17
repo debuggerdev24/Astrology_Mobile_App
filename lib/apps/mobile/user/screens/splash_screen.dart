@@ -19,6 +19,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   String userToken = LocaleStoaregService.userToken;
   bool isProfileCreated = LocaleStoaregService.profileCreated;
+
   @override
   void initState() {
     init();
@@ -29,6 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(Duration(seconds: 2)).then((value) async {
       // context.pushNamed(MobileAppRoutes.signUpScreen.name);
       if (userToken.isNotEmpty) {
+        //userToken.isNotEmpty
         Logger.printInfo("API Calling Started");
         final result = await BaseApiHelper.instance.checkTokenExpired();
         result.fold((l) {}, (r) async {

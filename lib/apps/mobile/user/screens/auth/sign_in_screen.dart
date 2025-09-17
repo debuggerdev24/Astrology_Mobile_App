@@ -118,7 +118,7 @@ class SignInScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              if (provider.isLoginLoading) ApiLoadingFullPageIndicator(),
+              if (provider.isLoginLoading) FullPageIndicator(),
             ],
           ),
         ),

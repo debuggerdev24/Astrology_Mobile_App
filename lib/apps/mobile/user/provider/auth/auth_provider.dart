@@ -99,8 +99,6 @@ class UserAuthProvider extends ChangeNotifier {
       (data) async {
         AppToast.success(context: context, message: 'Login Successfully');
 
-        await decideFirstScreen(context);
-
         await LocaleStoaregService.saveUserToken(data['data']['access']);
 
         await LocaleStoaregService.saveUserRefreshToken(
@@ -115,9 +113,8 @@ class UserAuthProvider extends ChangeNotifier {
         await LocaleStoaregService.setLoggedInUserPassword(
           _loginPassCtr.text.trim(),
         );
-
+        await decideFirstScreen(context);
         // Logger.printInfo(PrefHelper.userToken);
-
         _loginEmailCtr.clear();
         _loginPassCtr.clear();
       },
@@ -143,6 +140,32 @@ class UserAuthProvider extends ChangeNotifier {
   //todo ---------------> log out
   bool isLogOutLoading = false;
 
+  // Future<void> logOutUser(BuildContext context) async {
+  //   isLogOutLoading = true;
+  //   notifyListeners();
+  //   final result = await UserAuthService.instance.logOutUser();
+  //
+  //   result.fold(
+  //     (failure) {
+  //       AppToast.error(context: context, message: failure.errorMessage);
+  //     },
+  //     (data) async {
+  //       AppToast.success(context: context, message: 'Logged out successfully.');
+  //       Future.microtask(() {
+  //         context.goNamed(MobileAppRoutes.signUpScreen.name);
+  //       });
+  //       await LocaleStoaregService.saveUserToken("");
+  //       await LocaleStoaregService.saveUserRefreshToken("");
+  //       await LocaleStoaregService.setIsUserLoggedIn(value: false);
+  //       await LocaleStoaregService.setLoggedInUserEmail("");
+  //       await LocaleStoaregService.setLoggedInUserPassword("");
+  //       indexTabUser.value = 0;
+  //     },
+  //   );
+  //   isLogOutLoading = false;
+  //   notifyListeners();
+  // }
+
   Future<void> logOutUser(BuildContext context) async {
     isLogOutLoading = true;
     notifyListeners();
@@ -150,11 +173,19 @@ class UserAuthProvider extends ChangeNotifier {
 
     result.fold(
       (failure) {
-        AppToast.error(context: context, message: failure.errorMessage);
+        if (context.mounted) {
+          AppToast.error(context: context, message: failure.errorMessage);
+        }
       },
       (data) async {
-        AppToast.success(context: context, message: 'Logged out successfully.');
-        context.goNamed(MobileAppRoutes.signUpScreen.name);
+        if (context.mounted) {
+          AppToast.success(
+            context: context,
+            message: 'Logged out successfully.',
+          );
+        }
+
+        // Clear local storage first
         await LocaleStoaregService.saveUserToken("");
         await LocaleStoaregService.saveUserRefreshToken("");
         await LocaleStoaregService.setIsUserLoggedIn(value: false);
@@ -162,7 +193,10 @@ class UserAuthProvider extends ChangeNotifier {
         await LocaleStoaregService.setLoggedInUserPassword("");
         indexTabUser.value = 0;
 
-        // Logger.printInfo(PrefHelper.userToken);
+        // Navigate after clearing storage and only if context is still mounted
+        if (context.mounted) {
+          context.goNamed(MobileAppRoutes.signUpScreen.name);
+        }
       },
     );
     isLogOutLoading = false;
@@ -175,6 +209,12 @@ class UserAuthProvider extends ChangeNotifier {
     required BuildContext context,
     required String email,
   }) async {
+    if (email.isEmpty) {
+      forgotEmailErr =
+          FieldValidators().required(context, email, "Email") ?? "";
+      notifyListeners();
+      return;
+    }
     isSendOtpLoading = true;
     notifyListeners();
     final result = await UserAuthService.instance.sendOtp(email: email);
@@ -227,6 +267,7 @@ class UserAuthProvider extends ChangeNotifier {
         _resetConfirmPassCtr.clear();
       },
     );
+
     isOtpVerificationLoading = false;
     notifyListeners();
   }
@@ -237,9 +278,10 @@ class UserAuthProvider extends ChangeNotifier {
     required BuildContext context,
     required String userId,
   }) async {
+    if (_validateResetPasswordData()) return;
+
     isResetPasswordLoading = true;
     notifyListeners();
-    // if (_validateResetPasswordData()) return;
     final result = await UserAuthService.instance.resetPassword(
       userId: userId,
       newPassword: _resetNewPassCtr.text.trim(),
@@ -327,14 +369,15 @@ class UserAuthProvider extends ChangeNotifier {
   bool _validateResetPasswordData() {
     resetNewPassErr =
         FieldValidators().password(_resetNewPassCtr.text.trim()) ?? "";
-    resetConfirmPassErr =
-        (_resetNewPassCtr.text.trim() == _resetConfirmPassCtr.text.trim())
-        ? ""
-        : "Password not matched";
+    resetConfirmPassErr = (_resetConfirmPassCtr.text.isNotEmpty)
+        ? (_resetNewPassCtr.text.trim() == _resetConfirmPassCtr.text.trim())
+              ? ""
+              : "Password not matched"
+        : "Confirm Password is required";
 
     notifyListeners();
 
-    if (loginEmailErr.isNotEmpty || loginPassErr.isNotEmpty) {
+    if (resetNewPassErr.isNotEmpty || resetConfirmPassErr.isNotEmpty) {
       return true;
     }
     return false;

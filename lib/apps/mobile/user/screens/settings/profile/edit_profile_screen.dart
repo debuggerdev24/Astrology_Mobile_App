@@ -172,7 +172,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 ),
               ),
             ),
-            if (provider.isUpdateProfileLoading) ApiLoadingFullPageIndicator(),
+            if (provider.isUpdateProfileLoading) FullPageIndicator(),
           ],
         ),
       ),

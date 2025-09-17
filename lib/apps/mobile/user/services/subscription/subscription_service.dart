@@ -99,6 +99,57 @@ class SubscriptionService {
     }
   }
 
+  Future<void> checkBackendSubscriptionStatus(BuildContext context) async {
+    try {
+      // Replace this with your actual API call logic
+      final response = await _fakeFetchFromBackend();
+
+      final provider = Provider.of<SubscriptionProvider>(
+        context,
+        listen: false,
+      );
+
+      for (var sub in response["subscriptions"]) {
+        final tier = _parseTier(sub["tier"]);
+        final isActive = sub["isActive"] == true;
+
+        if (tier != null) {
+          if (isActive) {
+            provider.addSubscription(tier);
+          } else {
+            provider.removeSubscription(tier);
+          }
+        }
+      }
+    } catch (e) {
+      debugPrint("Subscription check failed: $e");
+    }
+  }
+
+  /// Simulate API response
+  Future<Map<String, dynamic>> _fakeFetchFromBackend() async {
+    await Future.delayed(Duration(seconds: 1)); // Simulate network
+    return {
+      "subscriptions": [
+        {"tier": "tier1", "isActive": true},
+        {"tier": "tier2", "isActive": false},
+      ],
+    };
+  }
+
+  SubscriptionTier? _parseTier(String tierStr) {
+    switch (tierStr.toLowerCase()) {
+      case 'tier1':
+        return SubscriptionTier.tier1;
+      case 'tier2':
+        return SubscriptionTier.tier2;
+      case 'tier3':
+        return SubscriptionTier.tier3;
+      default:
+        return null;
+    }
+  }
+
   void dispose() {
     _subscription.cancel();
   }

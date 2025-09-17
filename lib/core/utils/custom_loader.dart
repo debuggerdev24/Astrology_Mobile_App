@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../constants/app_colors.dart' show AppColors;
 
-class ApiLoadingFullPageIndicator extends StatelessWidget {
-  const ApiLoadingFullPageIndicator({super.key});
+class FullPageIndicator extends StatelessWidget {
+  const FullPageIndicator({super.key});
 
   @override
   Widget build(BuildContext context) {

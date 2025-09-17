@@ -137,7 +137,12 @@ class RemedyPlayerScreen extends StatelessWidget {
             Row(
               spacing: 10.w,
               children: [
-                Expanded(child: AppButton(title: context.translator.download)),
+                Expanded(
+                  child: AppButton(
+                    onTap: () {},
+                    title: context.translator.download,
+                  ),
+                ),
                 Expanded(
                   child: AppButton(
                     title: context.translator.share,

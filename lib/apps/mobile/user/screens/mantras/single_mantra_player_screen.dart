@@ -1,14 +1,21 @@
-import 'package:astrology_app/apps/mobile/user/provider/home/home_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/mantra/mantra_provider.dart';
 import 'package:astrology_app/core/constants/app_assets.dart';
 import 'package:astrology_app/core/constants/app_colors.dart';
 import 'package:astrology_app/core/constants/text_style.dart';
+import 'package:astrology_app/core/extension/context_extension.dart';
+import 'package:astrology_app/core/utils/custom_loader.dart';
 import 'package:astrology_app/core/widgets/app_layout.dart';
 import 'package:astrology_app/core/widgets/app_text.dart';
 import 'package:astrology_app/core/widgets/global_methods.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
+
+import '../../../../../core/utils/custom_toast.dart';
+import '../../../../../core/utils/logger.dart';
+import '../../../../../core/widgets/app_button.dart';
 
 class TodayMantraPlayScreen extends StatefulWidget {
   final Map data;
@@ -35,85 +42,140 @@ class _TodayMantraPlayScreenState extends State<TodayMantraPlayScreen> {
   @override
   Widget build(BuildContext context) {
     bool isText = widget.data["isText"];
+    bool isFromDetailScreen = widget.data["isFromDetailScreen"] ?? false;
     String mantraName = widget.data["mantraName"];
     String meaning = widget.data["meaning"];
+
     String textContent = widget.data["textContent"];
     String title = widget.data["title"] ?? "Mantra";
+    String url = widget.data["audioFile"] ?? "";
     return AppLayout(
       body: SingleChildScrollView(
-        child: Consumer<HomeProvider>(
-          builder: (context, homeProvider, child) => Column(
+        child: Consumer<MantraProvider>(
+          builder: (context, playMantraProvider, child) => Stack(
             children: [
-              40.h.verticalSpace,
-              topBar(context: context, title: title),
-              60.h.verticalSpace,
-              Consumer<MantraProvider>(
-                builder: (context, playMantraProvider, child) => Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Image.asset(AppAssets.omImage),
-                    60.h.verticalSpace,
-                    //todo --------------------> song details
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            AppText(
-                              text: mantraName,
-                              style: medium(fontSize: 22),
-                            ),
-                            AppText(
-                              text: meaning ?? "Meaning",
-                              style: regular(
-                                fontSize: 18,
-                                height: 1.2,
-                                color: AppColors.greyColor,
+              Column(
+                children: [
+                  40.h.verticalSpace,
+                  topBar(context: context, title: title),
+                  60.h.verticalSpace,
+
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Image.asset(AppAssets.omImage),
+                      60.h.verticalSpace,
+                      //todo --------------------> song details
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              AppText(
+                                text: mantraName,
+                                style: medium(fontSize: 22),
                               ),
+                              AppText(
+                                text: meaning ?? "Meaning",
+                                style: regular(
+                                  fontSize: 18,
+                                  height: 1.2,
+                                  color: AppColors.greyColor,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 8.0),
+                            child: Icon(
+                              CupertinoIcons.music_note_2,
+                              color: AppColors.white,
+                              size: 24.sp,
                             ),
-                          ],
+                          ),
+                        ],
+                      ),
+                      28.h.verticalSpace,
+                      if (isText)
+                        greyColoredBox(
+                          width: double.infinity,
+                          padding: EdgeInsets.symmetric(
+                            vertical: 20.h,
+                            horizontal: 18,
+                          ),
+                          child: Expanded(
+                            child: AppText(
+                              text: textContent,
+                              style: medium(fontSize: 19),
+                            ),
+                          ),
+                        )
+                      //todo --------------------> slider
+                      else ...[
+                        mantraSlider(playMantraProvider),
+                        //todo -------------------> Seek numbers
+                        seekNumbers(playMantraProvider),
+                        30.h.verticalSpace,
+                        //todo --------------------> control
+                        controlButtons(playMantraProvider),
+                      ],
+                    ],
+                  ),
+                  if (isFromDetailScreen) ...[
+                    35.h.verticalSpace,
+                    Row(
+                      spacing: 10.w,
+                      children: [
+                        Expanded(
+                          child: AppButton(
+                            title: context.translator.download,
+                            onTap: () async {
+                              playMantraProvider.download(
+                                url: url,
+                                title: title,
+                                onProgress: (progress) {
+                                  Logger.printInfo(
+                                    'Downloading... ${progress * 100}%',
+                                  );
+                                },
+                                onSuccess: (filePath) {
+                                  AppToast.success(
+                                    context: context,
+                                    message: "Downloaded Successfully.",
+                                  );
+                                  Logger.printInfo('Downloaded to: $filePath');
+                                },
+                                onError: (errorMessage) {
+                                  AppToast.error(
+                                    context: context,
+                                    message: 'Download failed: $errorMessage',
+                                  );
+                                },
+                              );
+                            },
+                          ),
                         ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 8.0),
-                          child: Icon(
-                            Icons.favorite_outline_rounded,
-                            color: AppColors.white,
-                            size: 24.sp,
+
+                        Expanded(
+                          child: AppButton(
+                            onTap: () {
+                              SharePlus.instance.share(
+                                ShareParams(text: "http://138.197.92.15$url"),
+                              );
+                            },
+                            title: context.translator.share,
+                            buttonColor: AppColors.secondary,
                           ),
                         ),
                       ],
                     ),
-                    28.h.verticalSpace,
-                    if (isText)
-                      greyColoredBox(
-                        width: double.infinity,
-                        padding: EdgeInsets.symmetric(
-                          vertical: 20.h,
-                          horizontal: 18,
-                        ),
-                        child: Expanded(
-                          child: AppText(
-                            text: textContent,
-                            style: medium(fontSize: 19),
-                          ),
-                        ),
-                      )
-                    //todo --------------------> slider
-                    else ...[
-                      mantraSlider(playMantraProvider),
-                      //todo -------------------> Seek numbers
-                      seekNumbers(playMantraProvider),
-                      30.h.verticalSpace,
-                      //todo --------------------> control
-                      controlButtons(playMantraProvider),
-                    ],
                   ],
-                ),
+                  20.h.verticalSpace,
+                ],
               ),
-
-              18.h.verticalSpace,
+              if (playMantraProvider.isDownloadLoading) FullPageIndicator(),
             ],
           ),
         ),
@@ -168,7 +230,7 @@ class _TodayMantraPlayScreenState extends State<TodayMantraPlayScreen> {
     return SliderTheme(
       data: const SliderThemeData(trackHeight: 1.6),
       child: Slider(
-        padding: EdgeInsets.symmetric(horizontal: 2.w),
+        padding: EdgeInsets.symmetric(horizontal: 10),
         min: 0.0,
         max: playMantraProvider.totalDuration.inMilliseconds.toDouble(),
         activeColor: AppColors.white,

@@ -32,7 +32,6 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen> {
   @override
   Widget build(BuildContext context) {
     final translator = context.translator;
-
     return AppLayout(
       body: Column(
         children: [
@@ -67,10 +66,6 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen> {
                   ),
                   AppButton(
                     onTap: () {
-                      // context
-                      //     .read<SubscriptionProvider>()
-                      //     .getActiveSubscriptionPlan();
-
                       context.pushNamed(MobileAppRoutes.currentPlanScreen.name);
                     },
                     buttonColor: AppColors.secondary,
@@ -103,7 +98,7 @@ Widget premiumPlanBox({
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             AppText(
-              text: plan.plan,
+              text: "${plan.plan} :",
               style: bold(
                 fontSize: 20,
                 fontFamily: AppFonts.secondary,

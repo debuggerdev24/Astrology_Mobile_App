@@ -14,6 +14,7 @@ import '../../../../../core/widgets/app_layout.dart';
 import '../../../../../core/widgets/app_text.dart';
 import '../../../../../core/widgets/app_text_field.dart';
 import '../../../../../core/widgets/global_methods.dart';
+import '../../provider/remedies/palm_provider.dart';
 import '../../provider/remedies/set_reminder_provider.dart';
 import '../../services/settings/notification_service.dart';
 
@@ -75,7 +76,6 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
                         value: 2,
                         displayText: translator.weekly,
                       ),
-
                       // Animated Week Days Section
                       _buildWeekDaysSection(
                         provider: provider,
@@ -138,12 +138,11 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
                       AppButton(
                         onTap: () {
                           provider.createReminder(
-                            remedyId: 38.toString(),
-                            // context
-                            //     .read<PalmProvider>()
-                            //     .remedies!
-                            //     .remedyId
-                            //     .toString(),
+                            remedyId: context
+                                .read<PalmProvider>()
+                                .remedies!
+                                .remedyId
+                                .toString(),
                             context: context,
                             checkDate: provider.selectedFrequency == 3,
                           );
@@ -166,8 +165,7 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
                   ),
                 ),
               ),
-              if (provider.isCreateReminderLoading)
-                ApiLoadingFullPageIndicator(),
+              if (provider.isCreateReminderLoading) FullPageIndicator(),
             ],
           );
         },
@@ -186,7 +184,7 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
           .getPendingNotifications();
       AppToast.info(
         context: context,
-        message: 'Pending notifications: ${pending.length}',
+        message: 'Pending notifications: ${pending.toString()}',
       );
 
       // Print details to console
@@ -241,11 +239,11 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
                 spacing: 7,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: weekDays.map((day) {
-                  String dayShort = day['short']!;
+                  String dayShort = day['value']!;
                   bool isSelected = provider.selectedWeekDays == dayShort;
                   return GestureDetector(
                     onTap: () {
-                      provider.selectSingleWeekDay(dayShort);
+                      provider.selectSingleWeekDay(day["value"]!);
                     },
                     child: Row(
                       spacing: 8.w,
@@ -253,7 +251,7 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            provider.selectSingleWeekDay(dayShort);
+                            provider.selectSingleWeekDay(day["value"]!);
                           },
                           child: Container(
                             width: 18,

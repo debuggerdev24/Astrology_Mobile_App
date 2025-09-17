@@ -97,8 +97,7 @@ class OtpVerificationScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              if (provider.isOtpVerificationLoading)
-                ApiLoadingFullPageIndicator(),
+              if (provider.isOtpVerificationLoading) FullPageIndicator(),
             ],
           );
         },

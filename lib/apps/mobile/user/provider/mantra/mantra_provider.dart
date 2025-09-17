@@ -5,6 +5,7 @@ import 'package:just_audio/just_audio.dart';
 
 import '../../../../../core/utils/logger.dart';
 import '../../model/mantra/mantra_history_model.dart';
+import '../../services/mantras/download_mantra_service.dart';
 import '../../services/mantras/mantra_api_service.dart';
 
 class MantraProvider extends ChangeNotifier {
@@ -15,6 +16,30 @@ class MantraProvider extends ChangeNotifier {
   List<MantraHistoryModel>? mantraHistoryList;
 
   final AudioPlayer _audioPlayer = AudioPlayer();
+
+  bool isDownloadLoading = false;
+  Future<void> download({
+    required String url,
+    required String title,
+    required Function(double) onProgress,
+    required Function(String) onSuccess,
+    required Function(String) onError,
+  }) async {
+    isDownloadLoading = true;
+    notifyListeners();
+    await DownloadManager().downloadRemedy(
+      url: "http://138.197.92.15$url",
+      bhajanId: title,
+      title: title,
+      onProgress: onProgress,
+      onSuccess: onSuccess,
+      onError: onError,
+    );
+
+    isDownloadLoading = false;
+    notifyListeners();
+  }
+
   void setAudioSetting() {
     _audioPlayer.durationStream.listen((duration) {
       if (duration != null) {

@@ -18,12 +18,23 @@ import '../../../../../../core/widgets/global_methods.dart';
 import '../../../../core/utils/de_bouncing.dart';
 import '../provider/setting/profile_provider.dart';
 
-class CreateProfileScreen extends StatelessWidget {
+class CreateProfileScreen extends StatefulWidget {
   const CreateProfileScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  State<CreateProfileScreen> createState() => _CreateProfileScreenState();
+}
+
+class _CreateProfileScreenState extends State<CreateProfileScreen> {
+  @override
+  void initState() {
     context.read<UserProfileProvider>().clearControllers();
+
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return AppLayout(
       horizontalPadding: 0,
       body: Consumer<UserProfileProvider>(
@@ -58,7 +69,7 @@ class CreateProfileScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             spacing: 15.w,
                             children: [
-                              // Date of Birth Field
+                              //todo -----------------------> Date of Birth Field
                               Expanded(
                                 child: AppTextField(
                                   onTap: () =>
@@ -74,7 +85,6 @@ class CreateProfileScreen extends StatelessWidget {
                                   errorMessage: provider.errorDOBStr,
                                 ),
                               ),
-
                               // Time of Birth Field
                               Expanded(
                                 child: AppTextField(
@@ -95,7 +105,6 @@ class CreateProfileScreen extends StatelessWidget {
                             ],
                           ),
                           22.h.verticalSpace,
-
                           // Place of Birth Field
                           AppTextField(
                             hintText: "Enter your Birth Place",
@@ -104,7 +113,6 @@ class CreateProfileScreen extends StatelessWidget {
                             errorMessage: provider.errorPlaceOfBirthStr,
                           ),
                           22.h.verticalSpace,
-
                           // Current Location Field
                           AppTextField(
                             hintText: "Enter your Current Location",
@@ -197,8 +205,7 @@ class CreateProfileScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              if (provider.isUpdateProfileLoading)
-                ApiLoadingFullPageIndicator(),
+              if (provider.isUpdateProfileLoading) FullPageIndicator(),
             ],
           );
         },

@@ -418,4 +418,19 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get selectDate => 'तारीख़ चुनें';
+
+  @override
+  String get career => 'भविष्य ';
+
+  @override
+  String get relationships => 'रिश्ते';
+
+  @override
+  String get health => 'स्वास्थ्य';
+
+  @override
+  String get finance => 'वित्त';
+
+  @override
+  String get spirituality => 'आध्यात्मिकता';
 }

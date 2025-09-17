@@ -135,5 +135,10 @@
   "yes": "हाँ",
   "noMantraToday": "आज के लिए कोई मंत्र निर्धारित नहीं है",
   "date": "तारीख",
-  "selectDate": "तारीख़ चुनें"
+  "selectDate": "तारीख़ चुनें",
+  "career": "भविष्य ",
+  "relationships": "रिश्ते",
+  "health": "स्वास्थ्य",
+  "finance": "वित्त",
+  "spirituality": "आध्यात्मिकता"
 }

@@ -418,4 +418,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get selectDate => 'Select Date';
+
+  @override
+  String get career => 'Career';
+
+  @override
+  String get relationships => 'Relationships';
+
+  @override
+  String get health => 'Health';
+
+  @override
+  String get finance => 'Finance';
+
+  @override
+  String get spirituality => 'Spirituality';
 }

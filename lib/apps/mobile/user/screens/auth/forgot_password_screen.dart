@@ -57,7 +57,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     style: regular(),
                   ),
                   32.h.verticalSpace,
-
                   AppTextField(
                     controller: _sendOTPEmail,
                     title: "Email",
@@ -80,7 +79,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 ],
               ),
             ),
-            if (provider.isSendOtpLoading) ApiLoadingFullPageIndicator(),
+            if (provider.isSendOtpLoading) FullPageIndicator(),
           ],
         ),
       ),

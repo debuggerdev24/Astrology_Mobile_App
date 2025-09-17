@@ -115,7 +115,7 @@ class SignUpScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                if (provider.isRegisterLoading) ApiLoadingFullPageIndicator(),
+                if (provider.isRegisterLoading) FullPageIndicator(),
               ],
             );
           },

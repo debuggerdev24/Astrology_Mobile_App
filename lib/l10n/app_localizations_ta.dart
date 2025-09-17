@@ -418,4 +418,19 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get selectDate => 'தேதியைத் தேர்ந்தெடுக்கவும்';
+
+  @override
+  String get career => 'தொழில்';
+
+  @override
+  String get relationships => 'உறவுகள்';
+
+  @override
+  String get health => 'சுகாதாரம்';
+
+  @override
+  String get finance => 'நிதி';
+
+  @override
+  String get spirituality => 'ஆன்மீகம்';
 }

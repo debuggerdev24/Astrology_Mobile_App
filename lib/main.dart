@@ -18,5 +18,3 @@ Future<void> main() async {
   await Future.wait([LocaleStoaregService.init()]);
   runApp(ToastificationWrapper(child: const MyApp()));
 }
-
-//Upgrade's application-identifier entitlement string (9CD4575D6A.com.vogo.vendor1) does not match installed application's application-identifier string (BBHUT22K5W.com.vogo.vendor1); rejecting upgrade.

@@ -54,7 +54,6 @@ class MobileAppRouter {
       path: MobileAppRoutes.signUpScreen.path,
       name: MobileAppRoutes.signUpScreen.name,
       builder: (context, state) {
-        // final String name = state.extra as String;
         return SignUpScreen();
       },
     ),

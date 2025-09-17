@@ -14,7 +14,7 @@ class AppToast {
     Color? textColor,
     Icon? icon,
     ToastificationType type = ToastificationType.info,
-    Duration duration = const Duration(seconds: 3),
+    Duration duration = const Duration(seconds: 2),
   }) {
     toastification.show(
       primaryColor: AppColors.whiteColor,

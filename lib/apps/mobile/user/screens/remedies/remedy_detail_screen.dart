@@ -161,15 +161,18 @@ class RemedyDetailScreen extends StatelessWidget {
                 onTap: () {
                   context.read<MantraProvider>().resetAudioPlayer();
                   context.pushNamed(
-                    MobileAppRoutes.remedyPlayerScreen.name,
+                    MobileAppRoutes.singleMantraPlayerScreen.name,
                     extra: {
                       "isText": true,
+                      "isFromDetailScreen": true,
                       "mantraName": mantra.name,
                       "meaning": mantra.meaning,
                       "textContent": mantra.text,
+                      "audioFile": mantra.audio,
                     },
                   );
                 },
+
                 child: SVGImage(path: AppAssets.tIcon, height: 34.w),
               ),
               GestureDetector(
@@ -182,9 +185,11 @@ class RemedyDetailScreen extends StatelessWidget {
                       MobileAppRoutes.singleMantraPlayerScreen.name,
                       extra: {
                         "isText": false,
+                        "isFromDetailScreen": true,
                         "mantraName": mantra.name,
                         "meaning": mantra.meaning,
                         "textContent": mantra.text,
+                        "audioFile": mantra.audio,
                       },
                     ),
                   ]);
