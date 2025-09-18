@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:astrology_app/apps/mobile/user/model/remedies/birth_chart_model.dart';
 import 'package:astrology_app/apps/mobile/user/model/remedies/palm_reading_model.dart';
+import 'package:astrology_app/core/utils/custom_toast.dart';
 import 'package:astrology_app/core/utils/logger.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +32,10 @@ class PalmProvider extends ChangeNotifier {
   }
 
   bool isUploading = false;
-  Future<void> uploadForReading({required VoidCallback onSuccess}) async {
+  Future<void> uploadForReading({
+    required VoidCallback onSuccess,
+    required BuildContext context,
+  }) async {
     isUploading = true;
     notifyListeners();
     FormData data = FormData.fromMap({
@@ -44,6 +48,7 @@ class PalmProvider extends ChangeNotifier {
     result.fold(
       (l) {
         Logger.printError("--------------> ${l.errorMessage}");
+        AppToast.error(context: context, message: l.errorMessage);
       },
       (r) {
         palmReading = PalmReadingModel.fromJson(r["data"]);

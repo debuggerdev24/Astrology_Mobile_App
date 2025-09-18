@@ -136,7 +136,7 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
                             AppText(
                               textAlign: TextAlign.center,
                               text:
-                                  "To view detailed Mount Analysis, please upgrade to a Premium Plan (Tier 2).",
+                                  "The Match with Birth Chart feature is available exclusively for Premium Plan (Tier 2) users.",
                               style: medium(
                                 fontSize: 16,
                                 color: AppColors.black.withValues(alpha: 0.8),
@@ -146,7 +146,7 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
                             AppText(
                               textAlign: TextAlign.center,
                               text:
-                                  "Unlock personalized insights into your palm’s mounts and their influence on your life path.",
+                                  "Unlock advanced insights by aligning your palm reading with your birth chart for a more accurate spiritual analysis.",
                               style: medium(
                                 fontSize: 16,
                                 color: AppColors.greyColor,
@@ -275,15 +275,14 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
             topic: translator.mountOfJupiter,
             details: palm.mountAnalysis.mountOfJupiter!,
           ),
-
         if (palm.mountAnalysis.mountOfSaturn!.isNotEmpty)
           topicWithDetails2(
-            topic: "Mount Of Saturn",
+            topic: translator.mountOfSaturn,
             details: palm.mountAnalysis.mountOfSaturn!,
           ),
         if (palm.mountAnalysis.mountOfSun!.isNotEmpty)
           topicWithDetails2(
-            topic: "Mount Of Sun",
+            topic: translator.mountOfSun,
             details: palm.mountAnalysis.mountOfSun!,
           ),
         AppText(
@@ -295,41 +294,72 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
   }
 
   Widget mountAnalysisLocked({required AppLocalizations translator}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          spacing: 10.w,
-          children: [
-            AppText(
-              text: translator.mountAnalysis,
-              style: semiBold(fontSize: 18, color: AppColors.primary),
-            ),
-            SVGImage(path: AppAssets.lockIcon, height: 18.h),
-          ],
-        ),
-
-        12.h.verticalSpace,
-
-        topicWithDetails2(
-          topic: translator.mountOfJupiter,
-          details: "Dominant (leadership)",
-          isLocked: true,
-        ),
-        topicWithDetails2(
-          topic: translator.mountOfVenus,
-          details: "Balanced (love & com-passion)",
-          isLocked: true,
-        ),
-        AppText(
-          text:
-              "Your palm indicates a balance of logic and intuition. Likely to lead with emotional wisdom. Favorable times for career: Aug–Nov.",
-          style: medium(
-            fontSize: 16,
-            color: AppColors.whiteColor.withValues(alpha: 0.2),
+    return GestureDetector(
+      onTap: () {
+        showPremiumDialog(
+          context: context,
+          title: "Premium Access",
+          contentBody: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              18.h.verticalSpace,
+              AppText(
+                textAlign: TextAlign.center,
+                text:
+                    "To view detailed Mount Analysis, please upgrade to a Premium Plan (Tier 2).",
+                style: medium(
+                  fontSize: 16,
+                  color: AppColors.black.withValues(alpha: 0.8),
+                ),
+              ),
+              8.h.verticalSpace,
+              AppText(
+                textAlign: TextAlign.center,
+                text:
+                    "Unlock personalized insights into your palm’s mounts and their influence on your life path.",
+                style: medium(fontSize: 16, color: AppColors.greyColor),
+              ),
+            ],
           ),
-        ),
-      ],
+        );
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            spacing: 10.w,
+            children: [
+              AppText(
+                text: translator.mountAnalysis,
+                style: semiBold(fontSize: 18, color: AppColors.primary),
+              ),
+              SVGImage(path: AppAssets.lockIcon, height: 18.h),
+            ],
+          ),
+
+          12.h.verticalSpace,
+
+          topicWithDetails2(
+            topic: translator.mountOfJupiter,
+            details: "Dominant (leadership)",
+            isLocked: true,
+          ),
+          topicWithDetails2(
+            topic: translator.mountOfVenus,
+            details: "Balanced (love & com-passion)",
+            isLocked: true,
+          ),
+          AppText(
+            text:
+                "Your palm indicates a balance of logic and intuition. Likely to lead with emotional wisdom. Favorable times for career: Aug–Nov.",
+            style: medium(
+              fontSize: 16,
+              color: AppColors.whiteColor.withValues(alpha: 0.2),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -353,7 +383,10 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
           AppText(text: ":", style: medium(fontSize: 16)),
           Expanded(
             flex: 3.5.toInt(),
-            child: AppText(text: details, style: medium(fontSize: 16)),
+            child: AppText(
+              text: details,
+              style: medium(fontSize: 16, height: 1.3),
+            ),
           ),
         ],
       ),
@@ -391,6 +424,7 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
             child: AppText(
               text: details,
               style: medium(
+                height: 1.3,
                 fontSize: 16,
                 color: AppColors.whiteColor.withValues(
                   alpha: (isLocked) ? 0.2 : 1,

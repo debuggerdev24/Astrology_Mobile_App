@@ -140,5 +140,7 @@
   "relationships": "रिश्ते",
   "health": "स्वास्थ्य",
   "finance": "वित्त",
-  "spirituality": "आध्यात्मिकता"
+  "spirituality": "आध्यात्मिकता",
+  "mountOfSaturn": "शनि पर्वत",
+  "mountOfSun": "सूर्य पर्वत"
 }

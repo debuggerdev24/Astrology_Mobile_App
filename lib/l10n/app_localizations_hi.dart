@@ -433,4 +433,10 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get spirituality => 'आध्यात्मिकता';
+
+  @override
+  String get mountOfSaturn => 'शनि पर्वत';
+
+  @override
+  String get mountOfSun => 'सूर्य पर्वत';
 }

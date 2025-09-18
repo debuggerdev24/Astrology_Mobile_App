@@ -62,6 +62,7 @@ class RemediesScreen extends StatelessWidget {
                                       .remedyName, //"SUN REMEDY – Leadership & Confidence",
                                   style: medium(fontSize: 18),
                                 ),
+                                10.h.verticalSpace,
                                 topicWithDetails(
                                   topic: translator.type,
                                   details: remedies
@@ -72,67 +73,18 @@ class RemediesScreen extends StatelessWidget {
                                   details: remedies
                                       .remedyDescription, //"Repeating mantras for specific energies",
                                 ),
-                                GestureDetector(
-                                  onLongPress: () {
-                                    showPremiumDialog(
-                                      context: context,
-                                      title: "Premium Access",
-                                      contentBody: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          18.h.verticalSpace,
-                                          AppText(
-                                            textAlign: TextAlign.center,
-                                            text:
-                                                "Full access to Dasha-specific remedies is available only with a Premium Plan (Tier 2).",
-                                            style: medium(
-                                              fontSize: 16,
-                                              color: AppColors.black,
-                                            ),
-                                          ),
-                                          8.h.verticalSpace,
-                                          AppText(
-                                            textAlign: TextAlign.center,
-                                            text:
-                                                "Unlock personalized guidance and remedies aligned with your current Dasha period for deeper spiritual alignment.",
-                                            style: medium(
-                                              fontSize: 16,
-                                              color: AppColors.greyColor,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                AppButton(
+                                  onTap: () {
+                                    provider.getRemedyDetails(
+                                      remedyId: remedies.remedyId.toString(),
+                                    );
+                                    context.pushNamed(
+                                      MobileAppRoutes.remedyDetailsScreen.name,
                                     );
                                   },
-                                  child: AppButton(
-                                    onTap: () {
-                                      provider.getRemedyDetails(
-                                        remedyId: remedies.remedyId.toString(),
-                                      );
-                                      context.pushNamed(
-                                        MobileAppRoutes
-                                            .remedyDetailsScreen
-                                            .name,
-                                      );
-                                    },
-
-                                    // width:
-                                    //     context
-                                    //             .read<LocaleProvider>()
-                                    //             .localeCode ==
-                                    //         "ta"
-                                    //     ? null
-                                    //     : 150.w,
-                                    margin: EdgeInsets.only(
-                                      top: 18,
-                                      left: 8,
-                                      right: 8,
-                                    ),
-                                    title: translator.viewDetails,
-                                    fontSize: 14.sp,
-                                  ),
+                                  margin: EdgeInsets.only(top: 18),
+                                  title: translator.viewDetails,
+                                  fontSize: 14.sp,
                                 ),
                               ],
                             ),
@@ -153,17 +105,15 @@ class RemediesScreen extends StatelessWidget {
 
   Widget topicWithDetails({required String topic, required String details}) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 10.h),
+      padding: EdgeInsets.only(bottom: 5.h),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
-        spacing: 8.w,
+        spacing: 4,
         children: [
+          AppText(text: topic, style: regular(fontSize: 16)),
+          AppText(text: ":", style: regular(fontSize: 16)),
           Expanded(
-            child: AppText(text: topic, style: regular(fontSize: 18)),
-          ),
-          AppText(text: ":", style: regular(fontSize: 18)),
-          Expanded(
-            flex: 2,
+            flex: 3,
             child: AppText(text: details, style: regular(fontSize: 18)),
           ),
         ],

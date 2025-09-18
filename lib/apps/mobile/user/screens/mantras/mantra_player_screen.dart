@@ -5,6 +5,7 @@ import 'package:astrology_app/core/constants/text_style.dart';
 import 'package:astrology_app/core/widgets/app_layout.dart';
 import 'package:astrology_app/core/widgets/app_text.dart';
 import 'package:astrology_app/core/widgets/global_methods.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -99,7 +100,7 @@ class _MantraPlayScreenState extends State<MantraPlayScreen> {
                             Padding(
                               padding: EdgeInsets.only(top: 8.0),
                               child: Icon(
-                                Icons.favorite_outline_rounded,
+                                CupertinoIcons.music_note_2,
                                 color: AppColors.white,
                                 size: 24.sp,
                               ),

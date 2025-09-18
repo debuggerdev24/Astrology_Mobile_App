@@ -142,6 +142,7 @@ Future<dynamic> showPremiumDialog({
                 children: [
                   Expanded(
                     child: AppButton(
+                      fontSize: 15,
                       title: "Upgrade Now",
                       onTap: () {
                         context.pop();
@@ -156,6 +157,7 @@ Future<dynamic> showPremiumDialog({
                       onTap: () {
                         context.pop();
                       },
+                      fontSize: 15,
                       title: "Cancel",
                       buttonColor: AppColors.secondary,
                     ),

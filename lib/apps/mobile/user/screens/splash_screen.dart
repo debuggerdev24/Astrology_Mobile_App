@@ -18,7 +18,6 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   String userToken = LocaleStoaregService.userToken;
-  bool isProfileCreated = LocaleStoaregService.profileCreated;
 
   @override
   void initState() {
@@ -33,7 +32,9 @@ class _SplashScreenState extends State<SplashScreen> {
         //userToken.isNotEmpty
         Logger.printInfo("API Calling Started");
         final result = await BaseApiHelper.instance.checkTokenExpired();
+
         result.fold((l) {}, (r) async {
+          Logger.printInfo("token output $r");
           if (r) {
             final res = await BaseApiHelper.instance.refreshAuthToken();
             res.fold(
@@ -48,9 +49,11 @@ class _SplashScreenState extends State<SplashScreen> {
               },
             );
             return;
+          } else {
+            context.read<UserAuthProvider>().decideFirstScreen(context);
+
+            return;
           }
-          context.pushNamed(MobileAppRoutes.userDashBoardScreen.name);
-          return;
         });
         return;
       }

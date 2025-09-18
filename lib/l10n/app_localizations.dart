@@ -948,6 +948,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Spirituality'**
   String get spirituality;
+
+  /// No description provided for @mountOfSaturn.
+  ///
+  /// In en, this message translates to:
+  /// **'Mount Of Saturn'**
+  String get mountOfSaturn;
+
+  /// No description provided for @mountOfSun.
+  ///
+  /// In en, this message translates to:
+  /// **'Mount Of Sun'**
+  String get mountOfSun;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

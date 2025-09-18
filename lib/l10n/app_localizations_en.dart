@@ -433,4 +433,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get spirituality => 'Spirituality';
+
+  @override
+  String get mountOfSaturn => 'Mount Of Saturn';
+
+  @override
+  String get mountOfSun => 'Mount Of Sun';
 }

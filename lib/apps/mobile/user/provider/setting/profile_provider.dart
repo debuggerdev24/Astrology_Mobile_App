@@ -185,6 +185,7 @@ class UserProfileProvider extends ChangeNotifier {
     }
     AppToast.warning(
       context: context,
+
       message: "Please check the box to agree to the terms and continue.",
     );
   }
@@ -195,6 +196,7 @@ class UserProfileProvider extends ChangeNotifier {
     birthTimeController.clear();
     birthPlaceController.clear();
     currentLocationController.clear();
+    leftHandImageFile = rightHandImageFile = null;
   }
 
   //todo ------------------- Date Picker

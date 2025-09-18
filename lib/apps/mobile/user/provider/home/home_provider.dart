@@ -11,7 +11,8 @@ class HomeProvider extends ChangeNotifier {
   MantraModel? todayMantra;
 
   Future<void> initHomeScreen() async {
-    await Future.wait([getMoonDasha(), getDailyHoroScope(), getTodayMantra()]);
+    await getMoonDasha();
+    await Future.wait([getDailyHoroScope(), getTodayMantra()]);
   }
 
   bool isMoonDashaLoading = true;

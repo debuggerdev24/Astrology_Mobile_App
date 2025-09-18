@@ -433,4 +433,10 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get spirituality => 'ஆன்மீகம்';
+
+  @override
+  String get mountOfSaturn => 'சனி கிரகத்தின் மலை';
+
+  @override
+  String get mountOfSun => 'சூரிய மலை';
 }

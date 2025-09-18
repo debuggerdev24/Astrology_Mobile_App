@@ -109,7 +109,7 @@ Widget premiumPlanBox({
             ),
             if (plan.plan != "Free")
               AppText(
-                text: "\$${plan.price.toString()}",
+                text: "\$${int.parse(plan.price).toDouble().toString()}",
                 style: bold(fontSize: 20, color: AppColors.primary),
               ),
           ],
@@ -129,7 +129,7 @@ Widget premiumPlanBox({
             ),
           ],
         ),
-        if (!(isFromDetailsScreen ?? false)) ...[
+        if (!(isFromDetailsScreen ?? false) && plan.plan != "Free") ...[
           10.h.verticalSpace,
           Row(
             children: [

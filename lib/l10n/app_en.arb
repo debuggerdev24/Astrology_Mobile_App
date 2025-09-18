@@ -140,5 +140,7 @@
   "relationships": "Relationships",
   "health": "Health",
   "finance": "Finance",
-  "spirituality": "Spirituality"
+  "spirituality": "Spirituality",
+  "mountOfSaturn": "Mount Of Saturn",
+  "mountOfSun": "Mount Of Sun"
 }

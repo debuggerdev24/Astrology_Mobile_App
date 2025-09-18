@@ -226,7 +226,7 @@ class BaseApiHelper {
         return Right(false);
       }
     } on DioException catch (e) {
-      return Right(true);
+      return Right(false);
     } catch (e) {
       Logger.printError("❌ Exception: $e");
       return Right(false);

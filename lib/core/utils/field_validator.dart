@@ -157,7 +157,7 @@ class FieldValidators {
 
   String? match(String? val, String secondValue, String errorMessage) {
     if (val == null || val.trim().isEmpty) {
-      return 'Please enter your Confirm password!';
+      return "Confirm Password is required.";
     }
 
     // final pattern = r'^\+?[1-9]\d{10,15}$';

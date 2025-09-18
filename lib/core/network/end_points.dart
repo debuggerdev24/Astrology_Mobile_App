@@ -30,4 +30,8 @@ class Endpoints {
   static String createReminder = '/horoscope/reminders/';
   static String setNotificationStatus = '/horoscope/notification-settings/';
   static String getNotification = '/horoscope/notifications/';
+  static String getPrivacyPolicy = '/horoscope/privacy-policy/';
+  static String getTermsAndCondition = '/horoscope/terms-and-conditions/';
+  static String getSpiritualDisclaimers = '/horoscope/spiritual-disclaimers/';
+  static String getFaq = '/horoscope/faq/';
 }

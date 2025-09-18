@@ -8,6 +8,7 @@ import 'package:astrology_app/core/extension/context_extension.dart';
 import 'package:astrology_app/core/utils/custom_loader.dart';
 import 'package:astrology_app/core/widgets/app_layout.dart';
 import 'package:astrology_app/core/widgets/svg_image.dart';
+import 'package:astrology_app/l10n/app_localizations.dart';
 import 'package:astrology_app/routes/mobile_routes/user_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -52,7 +53,6 @@ class HomeScreen extends StatelessWidget {
                             context: context,
                             provider: provider,
                           ),
-                          //todo -----------------------> Karma Focus
                           todayMantra(provider),
                           //todo -----------------------> Karma Focus
                           greyColoredBox(
@@ -101,113 +101,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ),
                           //todo -------------> Dasha Nakshtra
-                          greyColoredBox(
-                            margin: EdgeInsets.only(bottom: 10.h),
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 12,
-                            ),
-
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-
-                              children: [
-                                IntrinsicWidth(
-                                  child: Column(
-                                    children: [
-                                      AppText(
-                                        text:
-                                            "${translator.dasha}/${translator.nakshatra} ${!(context.isTamil) ? translator.inSights : ""} :",
-                                        style: bold(
-                                          height: 0,
-                                          fontFamily: AppFonts.secondary,
-                                          fontSize: 18,
-                                        ),
-                                      ),
-                                      Container(
-                                        height: 1.1,
-                                        color: AppColors.whiteColor,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                10.h.verticalSpace,
-                                Wrap(
-                                  crossAxisAlignment: WrapCrossAlignment.center,
-                                  // crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    AppText(
-                                      text: translator.yourRulingPlanetToday,
-                                      style: medium(fontSize: 16),
-                                    ),
-                                    AppText(text: " : "),
-                                    AppText(
-                                      text: provider
-                                          .dailyHoroScopeData!
-                                          .rulingPlanet,
-                                      style: medium(
-                                        fontSize: 18,
-                                        color: AppColors.primary,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                2.verticalSpace,
-                                Row(
-                                  spacing: 10.w,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    AppText(
-                                      text: translator.nakshatra,
-                                      style: medium(fontSize: 16),
-                                    ),
-                                    AppText(text: ":"),
-                                    Expanded(
-                                      child: AppText(
-                                        text: provider
-                                            .dailyHoroScopeData!
-                                            .nakshatra, //"Anuradha",
-                                        style: medium(
-                                          fontSize: 18,
-                                          color: AppColors.primary,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    context.pushNamed(
-                                      MobileAppRoutes
-                                          .dashaNakshatraDetailsScreen
-                                          .name,
-                                      extra: provider.dailyHoroScopeData,
-                                    );
-                                  },
-                                  child: Container(
-                                    margin: EdgeInsets.only(top: 8.h),
-                                    decoration: BoxDecoration(
-                                      color: AppColors.white,
-                                      borderRadius: BorderRadius.circular(12.r),
-                                    ),
-                                    padding: EdgeInsets.symmetric(
-                                      vertical: 12.h,
-                                      horizontal: 20.w,
-                                    ),
-                                    child: AppText(
-                                      text: context
-                                          .translator
-                                          .viewDetailedReading,
-                                      style: bold(
-                                        fontSize: 14,
-                                        color: AppColors.black,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                          dashaNakshtra(translator, context, provider),
                         ],
                       ),
                     )
@@ -222,12 +116,94 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
+  Widget dashaNakshtra(
+    AppLocalizations translator,
+    BuildContext context,
+    HomeProvider provider,
+  ) {
+    return greyColoredBox(
+      margin: EdgeInsets.only(bottom: 10.h),
+      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          IntrinsicWidth(
+            child: Column(
+              children: [
+                AppText(
+                  text:
+                      "${translator.dasha}/${translator.nakshatra} ${!(context.isTamil) ? translator.inSights : ""} :",
+                  style: bold(
+                    height: 0,
+                    fontFamily: AppFonts.secondary,
+                    fontSize: 18,
+                  ),
+                ),
+                Container(height: 1.1, color: AppColors.whiteColor),
+              ],
+            ),
+          ),
+          10.h.verticalSpace,
+          Wrap(
+            crossAxisAlignment: WrapCrossAlignment.center,
+            // crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AppText(
+                text: translator.yourRulingPlanetToday,
+                style: medium(fontSize: 16),
+              ),
+              AppText(text: " : "),
+              AppText(
+                text: provider.dailyHoroScopeData!.rulingPlanet,
+                style: medium(fontSize: 18, color: AppColors.primary),
+              ),
+            ],
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              AppText(text: translator.nakshatra, style: medium(fontSize: 16)),
+              AppText(text: " : "),
+              Expanded(
+                child: AppText(
+                  text: provider.dailyHoroScopeData!.nakshatra, //"Anuradha",
+                  style: medium(fontSize: 18, color: AppColors.primary),
+                ),
+              ),
+            ],
+          ),
+          GestureDetector(
+            onTap: () {
+              context.pushNamed(
+                MobileAppRoutes.dashaNakshatraDetailsScreen.name,
+                extra: provider.dailyHoroScopeData,
+              );
+            },
+            child: Container(
+              margin: EdgeInsets.only(top: 11.h),
+              decoration: BoxDecoration(
+                color: AppColors.white,
+                borderRadius: BorderRadius.circular(12.r),
+              ),
+              padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 20.w),
+              child: AppText(
+                text: context.translator.viewDetailedReading,
+                style: bold(fontSize: 14, color: AppColors.black),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget todayMantra(HomeProvider provider) {
     return Consumer<SubscriptionProvider>(
       builder: (context, subscriptionProvider, _) {
         final isTier1Subscribed = subscriptionProvider.isTier1Subscribed;
         if (!isTier1Subscribed) {
-          return 30.h.verticalSpace;
+          return 20.h.verticalSpace;
         }
         if (provider.todayMantra != null) {
           return mantraPlayer(context: context, mantra: provider.todayMantra!);
@@ -318,7 +294,7 @@ class HomeScreen extends StatelessWidget {
     required MantraModel mantra,
   }) {
     return Container(
-      margin: EdgeInsets.only(top: 18.h, bottom: 20.h),
+      margin: EdgeInsets.symmetric(vertical: 18.h),
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(8.r),
@@ -332,7 +308,7 @@ class HomeScreen extends StatelessWidget {
       child: Stack(
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
+            padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -345,7 +321,7 @@ class HomeScreen extends StatelessWidget {
                     fontFamily: AppFonts.secondary,
                   ),
                 ),
-                12.h.verticalSpace,
+                6.h.verticalSpace,
                 Row(
                   children: [
                     SVGImage(path: AppAssets.omIcon, height: 24),
@@ -450,10 +426,10 @@ class HomeScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: AppColors.white,
-                  // image: DecorationImage(
-                  //     image:
-                  // AssetImage()
-                  // ),
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: AssetImage(AppAssets.userImage),
+                  ),
                 ),
               ),
             ),

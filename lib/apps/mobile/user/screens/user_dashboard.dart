@@ -8,7 +8,7 @@ import 'package:astrology_app/apps/mobile/user/provider/setting/profile_provider
 import 'package:astrology_app/apps/mobile/user/provider/setting/subscription_provider.dart';
 import 'package:astrology_app/apps/mobile/user/screens/home/home_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/mantras/daily_mantra_screen.dart';
-import 'package:astrology_app/apps/mobile/user/screens/remedies/palm_upload_screen.dart';
+import 'package:astrology_app/apps/mobile/user/screens/remedies/set_reminder_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/settings/settings_screen.dart';
 import 'package:astrology_app/core/constants/text_style.dart';
 import 'package:astrology_app/core/extension/context_extension.dart';
@@ -28,8 +28,8 @@ final ValueNotifier<int> indexTabUser = ValueNotifier<int>(0);
 List<Widget> _pages = [
   HomeScreen(),
   DailyMantraScreen(),
-  PalmUploadScreen(),
-  // SetReminderScreen(),
+  // PalmUploadScreen(),
+  SetReminderScreen(),
   // ConsultScreen(),
   SettingScreen(),
 ];

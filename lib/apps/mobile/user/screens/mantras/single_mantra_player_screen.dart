@@ -10,6 +10,7 @@ import 'package:astrology_app/core/widgets/global_methods.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -45,138 +46,165 @@ class _TodayMantraPlayScreenState extends State<TodayMantraPlayScreen> {
     bool isFromDetailScreen = widget.data["isFromDetailScreen"] ?? false;
     String mantraName = widget.data["mantraName"];
     String meaning = widget.data["meaning"];
-
     String textContent = widget.data["textContent"];
     String title = widget.data["title"] ?? "Mantra";
     String url = widget.data["audioFile"] ?? "";
-    return AppLayout(
-      body: SingleChildScrollView(
-        child: Consumer<MantraProvider>(
-          builder: (context, playMantraProvider, child) => Stack(
-            children: [
-              Column(
-                children: [
-                  40.h.verticalSpace,
-                  topBar(context: context, title: title),
-                  60.h.verticalSpace,
-
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) async {
+        if (!didPop) {
+          await context.read<MantraProvider>().resetAudioPlayer();
+          context.pop();
+        }
+      },
+      child: AppLayout(
+        horizontalPadding: 0,
+        body: SingleChildScrollView(
+          child: Consumer<MantraProvider>(
+            builder: (context, playMantraProvider, child) => Stack(
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 12.w),
+                  child: Column(
                     children: [
-                      Image.asset(AppAssets.omImage),
+                      40.h.verticalSpace,
+
+                      topBar(
+                        context: context,
+                        title: title,
+                        onLeadingTap: () async {
+                          await context
+                              .read<MantraProvider>()
+                              .resetAudioPlayer();
+                          context.pop();
+                        },
+                      ),
                       60.h.verticalSpace,
-                      //todo --------------------> song details
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          Column(
+                          Image.asset(AppAssets.omImage),
+                          60.h.verticalSpace,
+                          //todo --------------------> song details
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              AppText(
-                                text: mantraName,
-                                style: medium(fontSize: 22),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  AppText(
+                                    text: mantraName,
+                                    style: medium(fontSize: 22),
+                                  ),
+                                  AppText(
+                                    text: meaning ?? "Meaning",
+                                    style: regular(
+                                      fontSize: 18,
+                                      height: 1.2,
+                                      color: AppColors.greyColor,
+                                    ),
+                                  ),
+                                ],
                               ),
-                              AppText(
-                                text: meaning ?? "Meaning",
-                                style: regular(
-                                  fontSize: 18,
-                                  height: 1.2,
-                                  color: AppColors.greyColor,
+                              Padding(
+                                padding: EdgeInsets.only(top: 8.0),
+                                child: Icon(
+                                  CupertinoIcons.music_note_2,
+                                  color: AppColors.white,
+                                  size: 24.sp,
                                 ),
                               ),
                             ],
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(top: 8.0),
-                            child: Icon(
-                              CupertinoIcons.music_note_2,
-                              color: AppColors.white,
-                              size: 24.sp,
-                            ),
-                          ),
+                          28.h.verticalSpace,
+                          if (isText)
+                            greyColoredBox(
+                              width: double.infinity,
+                              padding: EdgeInsets.symmetric(
+                                vertical: 20.h,
+                                horizontal: 18,
+                              ),
+                              child: Expanded(
+                                child: AppText(
+                                  text: textContent,
+                                  style: medium(fontSize: 19),
+                                ),
+                              ),
+                            )
+                          //todo --------------------> slider
+                          else ...[
+                            mantraSlider(playMantraProvider),
+                            //todo -------------------> Seek numbers
+                            seekNumbers(playMantraProvider),
+                            30.h.verticalSpace,
+                            //todo --------------------> control
+                            controlButtons(playMantraProvider),
+                          ],
                         ],
                       ),
-                      28.h.verticalSpace,
-                      if (isText)
-                        greyColoredBox(
-                          width: double.infinity,
-                          padding: EdgeInsets.symmetric(
-                            vertical: 20.h,
-                            horizontal: 18,
-                          ),
-                          child: Expanded(
-                            child: AppText(
-                              text: textContent,
-                              style: medium(fontSize: 19),
+                      if (isFromDetailScreen) ...[
+                        35.h.verticalSpace,
+                        Row(
+                          spacing: 10.w,
+                          children: [
+                            Expanded(
+                              child: AppButton(
+                                title: context.translator.download,
+                                onTap: () async {
+                                  playMantraProvider.download(
+                                    url: url,
+                                    title: title,
+                                    onProgress: (progress) {
+                                      Logger.printInfo(
+                                        'Downloading... ${progress * 100}%',
+                                      );
+                                    },
+                                    onSuccess: (filePath) {
+                                      AppToast.success(
+                                        context: context,
+                                        message: "Downloaded Successfully.",
+                                      );
+                                      Logger.printInfo(
+                                        'Downloaded to: $filePath',
+                                      );
+                                    },
+                                    onError: (errorMessage) {
+                                      AppToast.error(
+                                        context: context,
+                                        message:
+                                            'Download failed: $errorMessage',
+                                      );
+                                    },
+                                  );
+                                },
+                              ),
                             ),
-                          ),
-                        )
-                      //todo --------------------> slider
-                      else ...[
-                        mantraSlider(playMantraProvider),
-                        //todo -------------------> Seek numbers
-                        seekNumbers(playMantraProvider),
-                        30.h.verticalSpace,
-                        //todo --------------------> control
-                        controlButtons(playMantraProvider),
+
+                            Expanded(
+                              child: AppButton(
+                                onTap: () {
+                                  SharePlus.instance.share(
+                                    ShareParams(
+                                      text: "http://138.197.92.15$url",
+                                    ),
+                                  );
+                                },
+                                title: context.translator.share,
+                                buttonColor: AppColors.secondary,
+                              ),
+                            ),
+                          ],
+                        ),
                       ],
+                      20.h.verticalSpace,
                     ],
                   ),
-                  if (isFromDetailScreen) ...[
-                    35.h.verticalSpace,
-                    Row(
-                      spacing: 10.w,
-                      children: [
-                        Expanded(
-                          child: AppButton(
-                            title: context.translator.download,
-                            onTap: () async {
-                              playMantraProvider.download(
-                                url: url,
-                                title: title,
-                                onProgress: (progress) {
-                                  Logger.printInfo(
-                                    'Downloading... ${progress * 100}%',
-                                  );
-                                },
-                                onSuccess: (filePath) {
-                                  AppToast.success(
-                                    context: context,
-                                    message: "Downloaded Successfully.",
-                                  );
-                                  Logger.printInfo('Downloaded to: $filePath');
-                                },
-                                onError: (errorMessage) {
-                                  AppToast.error(
-                                    context: context,
-                                    message: 'Download failed: $errorMessage',
-                                  );
-                                },
-                              );
-                            },
-                          ),
-                        ),
-
-                        Expanded(
-                          child: AppButton(
-                            onTap: () {
-                              SharePlus.instance.share(
-                                ShareParams(text: "http://138.197.92.15$url"),
-                              );
-                            },
-                            title: context.translator.share,
-                            buttonColor: AppColors.secondary,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                  20.h.verticalSpace,
-                ],
-              ),
-              if (playMantraProvider.isDownloadLoading) FullPageIndicator(),
-            ],
+                ),
+                if (playMantraProvider.isDownloadLoading) FullPageIndicator(),
+              ],
+            ),
           ),
         ),
       ),

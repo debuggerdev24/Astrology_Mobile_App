@@ -58,7 +58,7 @@ class RemedyDetailScreen extends StatelessWidget {
                     style: semiBold(fontSize: 18, color: AppColors.primary),
                   ),
 
-                  18.h.verticalSpace,
+                  10.h.verticalSpace,
                   ...List.generate(remedy.suggestedAction.length, (index) {
                     final action = remedy.suggestedAction[index];
                     return Padding(
@@ -69,13 +69,13 @@ class RemedyDetailScreen extends StatelessWidget {
                       ),
                     );
                   }),
-                  25.h.verticalSpace,
+                  20.h.verticalSpace,
                   AppText(
                     text: translator.textInstruction,
                     style: semiBold(fontSize: 18, color: AppColors.primary),
                   ),
 
-                  18.h.verticalSpace,
+                  10.h.verticalSpace,
                   ...List.generate(remedy.textInstructions.length, (index) {
                     final instruction = remedy.textInstructions[index];
                     return Padding(
@@ -87,13 +87,13 @@ class RemedyDetailScreen extends StatelessWidget {
                     );
                   }),
 
-                  25.h.verticalSpace,
+                  20.h.verticalSpace,
                   AppText(
                     text: translator.spiritualMeaning,
                     style: semiBold(fontSize: 18, color: AppColors.primary),
                   ),
 
-                  18.h.verticalSpace,
+                  10.h.verticalSpace,
                   AppText(
                     text: remedy.spiritualMeaning,
                     //"This ritual aligns your energy with the solar frequency.",

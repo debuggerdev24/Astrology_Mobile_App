@@ -140,5 +140,7 @@
   "relationships": "உறவுகள்",
   "health": "சுகாதாரம்",
   "finance": "நிதி",
-  "spirituality": "ஆன்மீகம்"
+  "spirituality": "ஆன்மீகம்",
+  "mountOfSaturn": "சனி கிரகத்தின் மலை",
+  "mountOfSun": "சூரிய மலை"
 }

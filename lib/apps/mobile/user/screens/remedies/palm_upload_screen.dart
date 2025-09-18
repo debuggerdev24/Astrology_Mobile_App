@@ -131,6 +131,7 @@ class PalmUploadScreen extends StatelessWidget {
                                     MobileAppRoutes.palmReadingScreen.name,
                                   );
                                 },
+                                context: context,
                               );
                             });
                           },

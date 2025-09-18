@@ -62,7 +62,6 @@ class UserAuthProvider extends ChangeNotifier {
       },
       (data) async {
         AppToast.success(context: context, message: 'Registered Successfully');
-
         await LocaleStoaregService.setLoggedInCustomerEmail(
           _registerEmailCtr.text.trim(),
         );
@@ -124,17 +123,25 @@ class UserAuthProvider extends ChangeNotifier {
   }
 
   Future<void> decideFirstScreen(BuildContext context) async {
+    Logger.printInfo("Deciding first screen");
     final result = await UserProfileService.instance.getProfile();
-    result.fold((l) {}, (r) {
-      final data = r["data"]["palm_image_left"];
-
-      if (data == null) {
-        Logger.printInfo("Going to the profile screen by using your new logic");
-        context.goNamed(MobileAppRoutes.createProfileScreen.name);
-        return;
-      }
-      context.goNamed(MobileAppRoutes.userDashBoardScreen.name);
-    });
+    result.fold(
+      (l) {
+        // context.goNamed(MobileAppRoutes.userDashBoardScreen.name);
+      },
+      (r) {
+        final data = r["data"]["palm_image_left"];
+        Logger.printInfo("---------------> ${data.toString()}");
+        if (data == null) {
+          Logger.printInfo(
+            "Going to the profile screen by using your new logic",
+          );
+          context.goNamed(MobileAppRoutes.createProfileScreen.name);
+          return;
+        }
+        context.goNamed(MobileAppRoutes.userDashBoardScreen.name);
+      },
+    );
   }
 
   //todo ---------------> log out
@@ -335,13 +342,15 @@ class UserAuthProvider extends ChangeNotifier {
     );
 
     // validate confirm password
+
     registerConfirmPassWordErr =
         FieldValidators().match(
           _registerConfirmPassCtr.text.trim(),
           _registerPasswordCtr.text.trim(),
-          "Password not matched!",
+          "Confirm Password should match with Password!",
         ) ??
         "";
+
     // if (FieldValidators().match(
     //       _registerConfirmPassCtr.text.trim(),
     //       _registerPasswordCtr.text.trim(),

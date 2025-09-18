@@ -39,66 +39,58 @@ class BirthChartScreen extends StatelessWidget {
                     ),
                   ),
                   32.h.verticalSpace,
+
+                  //todo ----------> Birth Chart Summary
                   AppText(
                     text: translator.birthChartSummary,
                     style: semiBold(fontSize: 18, color: AppColors.primary),
                   ),
-                  14.h.verticalSpace,
+                  8.h.verticalSpace,
                   topicWithDetails(
                     topic: translator.moonInPisces,
                     details: birthChart!.birthChartSummary.moonSign,
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 12.h),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      spacing: 8.w,
-                      children: [
-                        AppText(
-                          text: translator.dasha,
-                          style: medium(
-                            fontSize: 16,
-                            color: AppColors.secondary,
-                          ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    spacing: 8.w,
+                    children: [
+                      AppText(
+                        text: translator.dasha,
+                        style: medium(fontSize: 16, color: AppColors.tealColor),
+                      ),
+                      AppText(text: ":", style: medium(fontSize: 16)),
+                      Expanded(
+                        child: Row(
+                          children: [
+                            AppText(
+                              text: "${birthChart.birthChartSummary.dasha} ",
+                              style: medium(fontSize: 16),
+                            ),
+                          ],
                         ),
-                        AppText(text: ":", style: medium(fontSize: 16)),
-                        Expanded(
-                          child: Row(
-                            children: [
-                              AppText(
-                                text: "${birthChart.birthChartSummary.dasha} ",
-                                style: medium(fontSize: 16),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                  32.h.verticalSpace,
+                  //todo ----------> Palm Summary
+                  20.h.verticalSpace,
                   AppText(
                     text: translator.palmReadingSummary,
                     style: semiBold(fontSize: 18, color: AppColors.primary),
                   ),
-                  14.h.verticalSpace,
+                  8.h.verticalSpace,
                   AppText(
                     text: birthChart.palmSummary.toString(),
                     style: medium(fontSize: 16),
                   ),
-                  12.h.verticalSpace,
-                  AppText(
-                    text: "Jupiter mount dominant",
-                    style: medium(fontSize: 16),
-                  ),
-                  32.h.verticalSpace,
+                  //todo ----------> Interpretation Summary
+                  20.h.verticalSpace,
                   AppText(
                     text: translator.interpretation,
                     style: semiBold(fontSize: 18, color: AppColors.primary),
                   ),
-                  14.h.verticalSpace,
+                  6.h.verticalSpace,
                   AppText(
                     text: birthChart.interpretation,
-                    //"Your astrological and palm reading both indicate a favourable period for learning and spiritual growth.",
                     style: medium(fontSize: 16),
                   ),
                   12.h.verticalSpace,
@@ -129,14 +121,14 @@ class BirthChartScreen extends StatelessWidget {
 
   Widget topicWithDetails({required String topic, required String details}) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 12.h),
+      padding: EdgeInsets.only(bottom: 6.h),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         spacing: 8.w,
         children: [
           AppText(
             text: topic,
-            style: medium(fontSize: 16, color: AppColors.secondary),
+            style: medium(fontSize: 16, color: AppColors.tealColor),
           ),
           AppText(text: ":", style: medium(fontSize: 16)),
           Expanded(

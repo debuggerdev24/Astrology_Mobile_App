@@ -3,6 +3,7 @@ import 'package:astrology_app/apps/mobile/user/provider/home/home_provider.dart'
 import 'package:astrology_app/apps/mobile/user/provider/mantra/mantra_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/remedies/palm_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/remedies/set_reminder_provider.dart';
+import 'package:astrology_app/apps/mobile/user/provider/setting/app_info_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/setting/locale_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/setting/notification_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/setting/profile_provider.dart';
@@ -50,6 +51,7 @@ class AstrologyMobileApp extends StatelessWidget {
               ChangeNotifierProvider(create: (context) => HomeProvider()),
               ChangeNotifierProvider(create: (context) => MantraProvider()),
               ChangeNotifierProvider(create: (_) => SubscriptionProvider()),
+              ChangeNotifierProvider(create: (_) => AppInfoProvider()),
             ],
             child: MaterialApp.router(
               theme: AppTheme.appThemeData,

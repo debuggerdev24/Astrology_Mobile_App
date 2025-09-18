@@ -56,7 +56,7 @@ class SetReminderProvider extends ChangeNotifier {
       barrierColor: AppColors.black.withValues(alpha: 0.5),
       context: context,
       initialDate: _selectedDate ?? DateTime.now(),
-      firstDate: DateTime(2000),
+      firstDate: DateTime.now(),
       lastDate: DateTime(2100),
       builder: (context, child) {
         return Theme(
