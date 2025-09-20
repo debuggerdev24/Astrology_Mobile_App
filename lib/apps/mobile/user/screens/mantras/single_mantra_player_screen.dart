@@ -123,14 +123,12 @@ class _TodayMantraPlayScreenState extends State<TodayMantraPlayScreen> {
                             greyColoredBox(
                               width: double.infinity,
                               padding: EdgeInsets.symmetric(
-                                vertical: 20.h,
-                                horizontal: 18,
+                                vertical: 12,
+                                horizontal: 12,
                               ),
-                              child: Expanded(
-                                child: AppText(
-                                  text: textContent,
-                                  style: medium(fontSize: 19),
-                                ),
+                              child: AppText(
+                                text: textContent,
+                                style: medium(fontSize: 19),
                               ),
                             )
                           //todo --------------------> slider
@@ -155,7 +153,7 @@ class _TodayMantraPlayScreenState extends State<TodayMantraPlayScreen> {
                                 onTap: () async {
                                   playMantraProvider.download(
                                     url: url,
-                                    title: title,
+                                    title: mantraName,
                                     onProgress: (progress) {
                                       Logger.printInfo(
                                         'Downloading... ${progress * 100}%',

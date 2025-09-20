@@ -48,7 +48,12 @@ class PalmProvider extends ChangeNotifier {
     result.fold(
       (l) {
         Logger.printError("--------------> ${l.errorMessage}");
-        AppToast.error(context: context, message: l.errorMessage);
+        if (l.errorMessage.contains("Please upload a clear palm photo.")) {
+          AppToast.error(
+            context: context,
+            message: "Only palm images are allowed.",
+          );
+        }
       },
       (r) {
         palmReading = PalmReadingModel.fromJson(r["data"]);

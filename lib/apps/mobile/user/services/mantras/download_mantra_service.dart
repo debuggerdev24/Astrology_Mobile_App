@@ -38,10 +38,11 @@ class DownloadManager {
         onError('Unable to access download directory');
         return null;
       }
+
       // Create filename with proper extension
       final fileName = '${title.replaceAll(RegExp(r'[^\w\s-]'), '')}.mp3';
-      final filePath = '${directory.path}/$fileName';
-      Logger.printInfo(directory.path);
+      final filePath = '/storage/emulated/0/Download/$fileName';
+      Logger.printInfo(directory.path + fileName);
 
       // Start download
       await _dio.download(
@@ -78,7 +79,8 @@ class DownloadManager {
           onError('Network error: ${e.message}');
         }
       } else {
-        onError('Download failed: ${e.toString()}');
+        Logger.printError('Download failed: ${e.toString()}');
+        onError('Download failed');
       }
       return null;
     }

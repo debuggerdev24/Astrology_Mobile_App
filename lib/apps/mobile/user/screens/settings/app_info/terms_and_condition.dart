@@ -9,19 +9,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class TermsAndCondition extends StatefulWidget {
+class TermsAndCondition extends StatelessWidget {
   const TermsAndCondition({super.key});
-
-  @override
-  State<TermsAndCondition> createState() => _TermsAndConditionState();
-}
-
-class _TermsAndConditionState extends State<TermsAndCondition> {
-  @override
-  void initState() {
-    context.read<AppInfoProvider>().getTermsAndCondition();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

@@ -9,8 +9,19 @@ import '../../../../../../core/constants/text_style.dart';
 import '../../../../../../core/widgets/app_text.dart';
 import '../../../../../../core/widgets/global_methods.dart';
 
-class PrivacyPolicyScreen extends StatelessWidget {
+class PrivacyPolicyScreen extends StatefulWidget {
   const PrivacyPolicyScreen({super.key});
+
+  @override
+  State<PrivacyPolicyScreen> createState() => _PrivacyPolicyScreenState();
+}
+
+class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
+  @override
+  void initState() {
+    // context.read<AppInfoProvider>().getPrivacyPolicy(context: context);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +32,87 @@ class PrivacyPolicyScreen extends StatelessWidget {
           children: [
             40.h.verticalSpace,
             topBar(context: context, title: context.translator.privacyPolicy),
-            32.h.verticalSpace,
+            20.h.verticalSpace,
+
+            // Consumer<AppInfoProvider>(
+            //   builder: (context, provider, child) {
+            //     final policy = provider.privacyPolicy;
+            //     if (policy == null) {
+            //       return const Center(child: CircularProgressIndicator());
+            //     }
+            //
+            //     return ListView.builder(
+            //       padding: const EdgeInsets.all(16),
+            //       itemCount: policy.sections.length,
+            //       itemBuilder: (context, index) {
+            //         final section = policy.sections[index];
+            //
+            //         return Column(
+            //           crossAxisAlignment: CrossAxisAlignment.start,
+            //           children: [
+            //             Text(
+            //               section.heading,
+            //               style: const TextStyle(
+            //                 fontWeight: FontWeight.bold,
+            //                 fontSize: 16,
+            //               ),
+            //             ),
+            //             const SizedBox(height: 8),
+            //
+            //             if (section.content is String)
+            //               Text(section.content as String)
+            //             else if (section.content is List<String>)
+            //               Column(
+            //                 crossAxisAlignment: CrossAxisAlignment.start,
+            //                 children: (section.content as List<String>)
+            //                     .map(
+            //                       (e) => Padding(
+            //                         padding: const EdgeInsets.symmetric(
+            //                           vertical: 2,
+            //                         ),
+            //                         child: Text("• $e"),
+            //                       ),
+            //                     )
+            //                     .toList(),
+            //               )
+            //             else if (section.content is List<PrivacySectionContent>)
+            //               Column(
+            //                 crossAxisAlignment: CrossAxisAlignment.start,
+            //                 children:
+            //                     (section.content as List<PrivacySectionContent>)
+            //                         .map(
+            //                           (e) => Padding(
+            //                             padding: const EdgeInsets.symmetric(
+            //                               vertical: 6,
+            //                             ),
+            //                             child: Column(
+            //                               crossAxisAlignment:
+            //                                   CrossAxisAlignment.start,
+            //                               children: [
+            //                                 Text(
+            //                                   e.type,
+            //                                   style: const TextStyle(
+            //                                     fontWeight: FontWeight.w600,
+            //                                   ),
+            //                                 ),
+            //                                 const SizedBox(height: 4),
+            //                                 Text(e.details),
+            //                               ],
+            //                             ),
+            //                           ),
+            //                         )
+            //                         .toList(),
+            //               )
+            //             else
+            //               const Text("Unsupported content format"),
+            //
+            //             const SizedBox(height: 24),
+            //           ],
+            //         );
+            //       },
+            //     );
+            //   },
+            // ),
             _section(
               topic: "1. Introduction",
               details:

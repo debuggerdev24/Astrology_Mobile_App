@@ -29,7 +29,6 @@ class _FAQCardState extends State<FAQCard> with SingleTickerProviderStateMixin {
       children: [
         GestureDetector(
           onTap: _toggleExpansion,
-          behavior: HitTestBehavior.opaque,
           child: Row(
             children: [
               Expanded(
