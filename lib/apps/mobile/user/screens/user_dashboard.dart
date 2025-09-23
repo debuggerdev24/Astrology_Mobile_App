@@ -31,6 +31,7 @@ List<Widget> _pages = [
   DailyMantraScreen(),
   PalmUploadScreen(),
   // SetReminderScreen(),
+
   // ConsultScreen(),
   SettingScreen(),
 ];

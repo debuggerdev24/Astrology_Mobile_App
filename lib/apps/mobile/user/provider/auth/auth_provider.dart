@@ -70,6 +70,9 @@ class UserAuthProvider extends ChangeNotifier {
         );
 
         context.pushNamed(MobileAppRoutes.signInScreen.name);
+        await LocaleStoaregService.setLoggedInUserName(
+          _registerNameCtr.text.trim(),
+        );
         _registerNameCtr.clear();
         _registerEmailCtr.clear();
         _registerPasswordCtr.clear();
@@ -127,6 +130,8 @@ class UserAuthProvider extends ChangeNotifier {
     final result = await UserProfileService.instance.getProfile();
     result.fold(
       (l) {
+        context.goNamed(MobileAppRoutes.signUpScreen.name);
+
         // context.goNamed(MobileAppRoutes.userDashBoardScreen.name);
       },
       (r) {
@@ -378,11 +383,13 @@ class UserAuthProvider extends ChangeNotifier {
   bool _validateResetPasswordData() {
     resetNewPassErr =
         FieldValidators().password(_resetNewPassCtr.text.trim()) ?? "";
-    resetConfirmPassErr = (_resetConfirmPassCtr.text.isNotEmpty)
-        ? (_resetNewPassCtr.text.trim() == _resetConfirmPassCtr.text.trim())
-              ? ""
-              : "Password not matched"
-        : "Confirm Password is required";
+    resetConfirmPassErr =
+        FieldValidators().match(
+          _resetConfirmPassCtr.text.trim(),
+          _resetNewPassCtr.text.trim(),
+          "Confirm Password should match with Password!",
+        ) ??
+        "";
 
     notifyListeners();
 

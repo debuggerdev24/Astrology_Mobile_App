@@ -1,3 +1,1 @@
-enum FrequencyEnum { daily, weekly, monthly, custom }
-
-enum SubscriptionTier { tier1, tier2, tier3 }
+enum AppEnum { daily, weekly, monthly, custom, tier1, tier2, tier3, free }

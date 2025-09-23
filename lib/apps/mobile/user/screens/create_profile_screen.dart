@@ -4,6 +4,7 @@ import 'package:astrology_app/core/constants/app_assets.dart';
 import 'package:astrology_app/core/constants/text_style.dart';
 import 'package:astrology_app/core/extension/context_extension.dart';
 import 'package:astrology_app/core/utils/custom_loader.dart';
+import 'package:astrology_app/core/utils/logger.dart';
 import 'package:astrology_app/core/widgets/app_button.dart';
 import 'package:astrology_app/core/widgets/app_layout.dart';
 import 'package:astrology_app/core/widgets/app_text.dart';
@@ -17,6 +18,7 @@ import '../../../../../../core/constants/app_colors.dart';
 import '../../../../../../core/widgets/global_methods.dart';
 import '../../../../core/utils/de_bouncing.dart';
 import '../provider/setting/profile_provider.dart';
+import '../services/settings/locale_storage_service.dart';
 
 class CreateProfileScreen extends StatefulWidget {
   const CreateProfileScreen({super.key});
@@ -26,15 +28,14 @@ class CreateProfileScreen extends StatefulWidget {
 }
 
 class _CreateProfileScreenState extends State<CreateProfileScreen> {
-  @override
-  void initState() {
-    context.read<UserProfileProvider>().clearControllers();
-
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
+    Logger.printInfo(LocaleStoaregService.loggedInUserName);
     return AppLayout(
       horizontalPadding: 0,
       body: Consumer<UserProfileProvider>(

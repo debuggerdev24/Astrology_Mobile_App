@@ -2,6 +2,7 @@ import 'package:astrology_app/apps/mobile/user/model/settings/subscription_plan_
 import 'package:astrology_app/apps/mobile/user/provider/setting/subscription_provider.dart';
 import 'package:astrology_app/core/constants/app_colors.dart';
 import 'package:astrology_app/core/constants/text_style.dart';
+import 'package:astrology_app/core/enum/app_enums.dart';
 import 'package:astrology_app/core/extension/context_extension.dart';
 import 'package:astrology_app/core/widgets/app_button.dart';
 import 'package:astrology_app/core/widgets/app_layout.dart';
@@ -107,9 +108,9 @@ Widget premiumPlanBox({
                 decorationColor: AppColors.secondary,
               ),
             ),
-            if (plan.plan != "Free")
+            if (plan.plan.toLowerCase() != AppEnum.free.name)
               AppText(
-                text: "\$${int.parse(plan.price).toDouble().toString()}",
+                text: "\$${double.parse(plan.price).toStringAsFixed(2)}",
                 style: bold(fontSize: 20, color: AppColors.primary),
               ),
           ],
@@ -120,15 +121,15 @@ Widget premiumPlanBox({
             children: [AppText(text: "• $f", style: regular(fontSize: 18))],
           );
         }),
-
-        Row(
-          children: [
-            AppText(
-              text: "• ${plan.durationLabel}",
-              style: regular(fontSize: 18),
-            ),
-          ],
-        ),
+        if (plan.plan.toLowerCase() != AppEnum.free.name)
+          Row(
+            children: [
+              AppText(
+                text: "• ${plan.durationLabel}",
+                style: regular(fontSize: 18),
+              ),
+            ],
+          ),
         if (!(isFromDetailsScreen ?? false) && plan.plan != "Free") ...[
           10.h.verticalSpace,
           Row(

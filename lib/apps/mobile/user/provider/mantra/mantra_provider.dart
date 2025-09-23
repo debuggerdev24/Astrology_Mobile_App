@@ -18,7 +18,7 @@ class MantraProvider extends ChangeNotifier {
   final AudioPlayer _audioPlayer = AudioPlayer();
 
   bool isDownloadLoading = false;
-  Future<void> download({
+  Future<void> downloadAudio({
     required String url,
     required String title,
     required Function(double) onProgress,
@@ -36,6 +36,25 @@ class MantraProvider extends ChangeNotifier {
       onError: onError,
     );
 
+    isDownloadLoading = false;
+    notifyListeners();
+  }
+
+  Future<void> downloadMantraText({
+    required String fileName,
+    required String content,
+    required Function(String) onSuccess,
+    required Function(String) onError,
+  }) async {
+    isDownloadLoading = true;
+    notifyListeners();
+
+    await DownloadManager().downloadTextFile(
+      fileName: fileName,
+      content: content,
+      onSuccess: onSuccess,
+      onError: onError,
+    );
     isDownloadLoading = false;
     notifyListeners();
   }
@@ -62,6 +81,7 @@ class MantraProvider extends ChangeNotifier {
     });
   }
 
+  //
   Future<void> loadAndPlayMusic(String url) async {
     isPlaying = true;
     notifyListeners();

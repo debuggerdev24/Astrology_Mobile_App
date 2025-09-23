@@ -47,13 +47,13 @@ class SubscriptionProvider extends ChangeNotifier {
   }
 
   //todo -----------------> Subscription account service
-  final Set<SubscriptionTier> _activeSubscriptions = {
-    // SubscriptionTier.tier1,
-    // SubscriptionTier.tier2,
-    // SubscriptionTier.tier3,
+  final Set<AppEnum> _activeSubscriptions = {
+    // AppEnum.tier1,
+    // AppEnum.tier2,
+    // AppEnum.tier3,
   };
 
-  Set<SubscriptionTier> get activeSubscriptions => _activeSubscriptions;
+  Set<AppEnum> get activeSubscriptions => _activeSubscriptions;
 
   // New state variables for quick access
   bool isTier1Subscribed = true,
@@ -61,14 +61,14 @@ class SubscriptionProvider extends ChangeNotifier {
       isTier3Subscribed = true;
 
   // Add a subscription and update flags
-  void addSubscription(SubscriptionTier tier) {
+  void addSubscription(AppEnum tier) {
     _activeSubscriptions.add(tier);
     _updateTierFlags();
     notifyListeners();
   }
 
   // Remove a subscription and update flags
-  void removeSubscription(SubscriptionTier tier) {
+  void removeSubscription(AppEnum tier) {
     _activeSubscriptions.remove(tier);
     _updateTierFlags();
     notifyListeners();
@@ -76,9 +76,9 @@ class SubscriptionProvider extends ChangeNotifier {
 
   // Internal: Update boolean flags
   void _updateTierFlags() {
-    isTier1Subscribed = _activeSubscriptions.contains(SubscriptionTier.tier1);
-    isTier2Subscribed = _activeSubscriptions.contains(SubscriptionTier.tier2);
-    isTier3Subscribed = _activeSubscriptions.contains(SubscriptionTier.tier3);
+    isTier1Subscribed = _activeSubscriptions.contains(AppEnum.tier1);
+    isTier2Subscribed = _activeSubscriptions.contains(AppEnum.tier2);
+    isTier3Subscribed = _activeSubscriptions.contains(AppEnum.tier3);
   }
 
   // Optional: fine-grained feature-level access
@@ -94,14 +94,14 @@ class SubscriptionProvider extends ChangeNotifier {
         return isTier2Subscribed;
       case 'consult':
       case 'all_features':
-        return _activeSubscriptions.contains(SubscriptionTier.tier3);
+        return _activeSubscriptions.contains(AppEnum.tier3);
       default:
         return false;
     }
   }
 
   // Optional: direct tier check
-  bool hasSubscription(SubscriptionTier tier) {
+  bool hasSubscription(AppEnum tier) {
     return _activeSubscriptions.contains(tier);
   }
 }

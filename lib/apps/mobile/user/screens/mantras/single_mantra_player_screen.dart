@@ -151,31 +151,51 @@ class _TodayMantraPlayScreenState extends State<TodayMantraPlayScreen> {
                               child: AppButton(
                                 title: context.translator.download,
                                 onTap: () async {
-                                  playMantraProvider.download(
-                                    url: url,
-                                    title: mantraName,
-                                    onProgress: (progress) {
-                                      Logger.printInfo(
-                                        'Downloading... ${progress * 100}%',
-                                      );
-                                    },
-                                    onSuccess: (filePath) {
-                                      AppToast.success(
-                                        context: context,
-                                        message: "Downloaded Successfully.",
-                                      );
-                                      Logger.printInfo(
-                                        'Downloaded to: $filePath',
-                                      );
-                                    },
-                                    onError: (errorMessage) {
-                                      AppToast.error(
-                                        context: context,
-                                        message:
-                                            'Download failed: $errorMessage',
-                                      );
-                                    },
-                                  );
+                                  if (isText) {
+                                    playMantraProvider.downloadMantraText(
+                                      fileName: mantraName,
+                                      content:
+                                          "adjshbfgjhsdfhgdvhsgfvdhsfgvdgsfhgdshfgdsfjh\njhghjdsfgjdhsfgdsgfdgsfgh",
+                                      onSuccess: (p0) {
+                                        AppToast.success(
+                                          context: context,
+                                          message: "Downloaded Successfully.",
+                                        );
+                                      },
+                                      onError: (p0) {
+                                        AppToast.error(
+                                          context: context,
+                                          message: "Download Failes.",
+                                        );
+                                      },
+                                    );
+                                  } else {
+                                    playMantraProvider.downloadAudio(
+                                      url: url,
+                                      title: mantraName,
+                                      onProgress: (progress) {
+                                        Logger.printInfo(
+                                          'Downloading... ${progress * 100}%',
+                                        );
+                                      },
+                                      onSuccess: (filePath) {
+                                        AppToast.success(
+                                          context: context,
+                                          message: "Downloaded Successfully.",
+                                        );
+                                        Logger.printInfo(
+                                          'Downloaded to: $filePath',
+                                        );
+                                      },
+                                      onError: (errorMessage) {
+                                        AppToast.error(
+                                          context: context,
+                                          message:
+                                              'Download failed: $errorMessage',
+                                        );
+                                      },
+                                    );
+                                  }
                                 },
                               ),
                             ),

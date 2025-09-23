@@ -20,7 +20,9 @@ import '../../services/settings/locale_storage_service.dart';
 
 class UserProfileProvider extends ChangeNotifier {
   // Text controllers
-  TextEditingController nameController = TextEditingController();
+  TextEditingController nameController = TextEditingController(
+    text: LocaleStoaregService.loggedInUserName,
+  );
   TextEditingController currentLocationController = TextEditingController();
   TextEditingController birthPlaceController = TextEditingController();
   TextEditingController birthTimeController = TextEditingController();

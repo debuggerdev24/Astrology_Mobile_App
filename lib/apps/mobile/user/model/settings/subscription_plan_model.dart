@@ -44,6 +44,6 @@ class ActiveSubscriptionPlanModel {
         features: List<String>.from(json["features"].map((x) => x)),
         durationMonths: json["duration_months"]?.toDouble(),
         startDate: json["start_date"],
-        endDate: json["end_date"],
+        endDate: json["end_date"] ?? "null",
       );
 }

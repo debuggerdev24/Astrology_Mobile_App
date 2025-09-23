@@ -12,6 +12,7 @@ class LocaleStoaregService {
   static const String _userRefreshTokenKey = "user_refresh_token";
   static const String _isUserLoggedInKey = "is_user_logged_in";
   static const String _loggedInUserEmailKey = "logged_in_user_email";
+  static const String _loggedInUserNameKey = "logged_in_user_name";
   static const String _loggedInUserPasswordKey = "logged_in_user_password";
   static const String _loggedInCustomerEmailKey = "logged_in_user_email";
   static const String _loggedInCustomerpasswrodKey = "logged_in_user_password";
@@ -33,6 +34,12 @@ class LocaleStoaregService {
       _pref.getString(_loggedInUserEmailKey) ?? '';
   static Future<void> setLoggedInUserEmail(String value) async =>
       await _pref.setString(_loggedInUserEmailKey, value);
+
+  // get logged in user name
+  static String get loggedInUserName =>
+      _pref.getString(_loggedInUserNameKey) ?? '';
+  static Future<void> setLoggedInUserName(String value) async =>
+      await _pref.setString(_loggedInUserNameKey, value);
 
   static String get loggedInUserPassword =>
       _pref.getString(_loggedInUserPasswordKey) ?? '';

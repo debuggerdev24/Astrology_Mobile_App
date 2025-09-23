@@ -54,12 +54,14 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
                   alignment: Alignment.center,
                   child: Container(
                     margin: EdgeInsets.only(top: 30.h, bottom: 24.h),
+                    width: 285.w,
+                    height: 200.h,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12.r),
                       border: Border.all(color: AppColors.whiteColor, width: 2),
                     ),
                     padding: EdgeInsets.symmetric(
-                      horizontal: 82.w,
+                      horizontal: 50.w,
                       vertical: 18.h,
                     ),
                     child: CachedNetworkImage(
@@ -105,17 +107,72 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
                   },
                 ),
 
-                // AppButton(
-                //   onTap: () {
-                //     context.pushNamed(MobileAppRoutes.remediesListScreen.name);
-                //     provider.getRemedies();
-                //   },
-                //   title: translator.viewRemedies,
-                //   buttonColor: AppColors.secondary,
-                //   margin: EdgeInsets.only(top: 48.h, bottom: 14.h),
-                // ),
                 AppButton(
-                  margin: EdgeInsets.only(top: 48.h, bottom: 18.h),
+                  onTap: () {
+                    if (context
+                        .read<SubscriptionProvider>()
+                        .isTier2Subscribed) {
+                      context.pushNamed(
+                        MobileAppRoutes.remediesListScreen.name,
+                      );
+                      provider.getRemedies();
+                    } else {
+                      showPremiumDialog(
+                        context: context,
+                        title: "Premium Access",
+                        contentBody: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            18.h.verticalSpace,
+                            AppText(
+                              textAlign: TextAlign.center,
+                              text:
+                                  'The "Remedies" feature is available exclusively for Premium Plan (Tier 2) users.',
+                              style: medium(
+                                fontSize: 16,
+                                color: AppColors.black.withValues(alpha: 0.8),
+                              ),
+                            ),
+                            8.h.verticalSpace,
+                            AppText(
+                              textAlign: TextAlign.center,
+                              text:
+                                  "Unlock advanced insights by aligning your palm reading with your birth chart for a more accurate spiritual analysis.",
+                              style: medium(
+                                fontSize: 16,
+                                color: AppColors.greyColor,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+                  },
+                  buttonColor: AppColors.secondary,
+                  margin: EdgeInsets.only(top: 48.h, bottom: 14.h),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    spacing: 10.w,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      AppText(
+                        textAlign: TextAlign.center,
+                        text: translator.viewRemedies,
+                        style: bold(fontSize: 16, color: AppColors.black),
+                      ),
+                      if (!context
+                          .read<SubscriptionProvider>()
+                          .isTier2Subscribed)
+                        SVGImage(
+                          path: AppAssets.lockIcon,
+                          color: AppColors.darkBlue,
+                        ),
+                    ],
+                  ),
+                ),
+                AppButton(
+                  margin: EdgeInsets.only(bottom: 18.h),
                   onTap: () {
                     if (context
                         .read<SubscriptionProvider>()
@@ -136,7 +193,7 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
                             AppText(
                               textAlign: TextAlign.center,
                               text:
-                                  "The Match with Birth Chart feature is available exclusively for Premium Plan (Tier 2) users.",
+                                  'The "Match with Birth Chart" feature is available exclusively for Premium Plan (Tier 2) users.',
                               style: medium(
                                 fontSize: 16,
                                 color: AppColors.black.withValues(alpha: 0.8),
@@ -416,7 +473,9 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
             text: ":",
             style: medium(
               fontSize: 16,
-              color: Color(0xff4EF4E4).withValues(alpha: (isLocked) ? 0.2 : 1),
+              color: AppColors.whiteColor.withValues(
+                alpha: (isLocked) ? 0.2 : 1,
+              ),
             ),
           ),
           Expanded(

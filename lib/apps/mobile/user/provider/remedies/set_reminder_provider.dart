@@ -319,6 +319,14 @@ class SetReminderProvider extends ChangeNotifier {
         ) ??
         "";
 
+    int len = textReminderTitle.text.trim().length;
+    if (titleError.isNotEmpty) {
+      Logger.printInfo("I am here $len");
+      titleError = (len < 13 || len > 100)
+          ? "Set Reminder length limit (13–100 characters)."
+          : "";
+    }
+
     if (checkDate) {
       dateError =
           FieldValidators().required(context, textDate.text.trim(), "Date") ??

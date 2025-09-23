@@ -12,13 +12,13 @@ import 'package:astrology_app/core/widgets/app_layout.dart';
 import 'package:astrology_app/core/widgets/app_text.dart';
 import 'package:astrology_app/core/widgets/global_methods.dart';
 import 'package:astrology_app/core/widgets/svg_image.dart';
-import 'package:astrology_app/routes/mobile_routes/user_routes.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../../routes/mobile_routes/user_routes.dart';
 import '../../provider/remedies/palm_provider.dart';
 import '../user_dashboard.dart';
 
@@ -125,6 +125,24 @@ class PalmUploadScreen extends StatelessWidget {
                                 );
                                 return;
                               }
+
+                              // context.read<MantraProvider>().downloadMantraText(
+                              //   fileName: "test",
+                              //   content:
+                              //       "klzjcjkhvkjhcvcxvhxcvkjhvxjhvxckhcxkhvhjhj",
+                              //   onSuccess: (p0) {
+                              //     AppToast.success(
+                              //       context: context,
+                              //       message: "Downloaded Successfully.",
+                              //     );
+                              //   },
+                              //   onError: (p0) {
+                              //     AppToast.error(
+                              //       context: context,
+                              //       message: "Download Failes.",
+                              //     );
+                              //   },
+                              // );
                               provider.uploadForReading(
                                 onSuccess: () {
                                   context.pushNamed(

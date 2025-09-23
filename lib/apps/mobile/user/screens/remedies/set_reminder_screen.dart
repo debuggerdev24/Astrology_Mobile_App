@@ -14,7 +14,6 @@ import '../../../../../core/widgets/app_layout.dart';
 import '../../../../../core/widgets/app_text.dart';
 import '../../../../../core/widgets/app_text_field.dart';
 import '../../../../../core/widgets/global_methods.dart';
-import '../../provider/remedies/palm_provider.dart';
 import '../../provider/remedies/set_reminder_provider.dart';
 import '../../services/settings/notification_service.dart';
 
@@ -138,11 +137,12 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
                       AppButton(
                         onTap: () {
                           provider.createReminder(
-                            remedyId: context
-                                .read<PalmProvider>()
-                                .remedies!
-                                .remedyId
-                                .toString(),
+                            remedyId: "38",
+                            // context
+                            //     .read<PalmProvider>()
+                            //     .remedies!
+                            //     .remedyId
+                            //     .toString(),
                             context: context,
                             checkDate: provider.selectedFrequency == 3,
                           );
@@ -151,16 +151,16 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
                         margin: EdgeInsets.only(top: 50.h, bottom: 20.h),
                       ),
                       20.h.verticalSpace,
-                      OutlinedButton.icon(
-                        onPressed: _checkPendingNotifications,
-                        icon: const Icon(Icons.list),
-                        label: const Text("Check Pending"),
-                      ),
-                      OutlinedButton.icon(
-                        onPressed: _cancelAllNotification,
-                        icon: const Icon(Icons.list),
-                        label: const Text("Cancel All"),
-                      ),
+                      // OutlinedButton.icon(
+                      //   onPressed: _checkPendingNotifications,
+                      //   icon: const Icon(Icons.list),
+                      //   label: const Text("Check Pending"),
+                      // ),
+                      // OutlinedButton.icon(
+                      //   onPressed: _cancelAllNotification,
+                      //   icon: const Icon(Icons.list),
+                      //   label: const Text("Cancel All"),
+                      // ),
                     ],
                   ),
                 ),

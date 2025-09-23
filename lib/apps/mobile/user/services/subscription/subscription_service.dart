@@ -23,9 +23,9 @@ class SubscriptionService {
   late StreamSubscription<List<PurchaseDetails>> _subscription;
 
   /// Only Tier 1 & Tier 2
-  static const Map<SubscriptionTier, String> productIds = {
-    SubscriptionTier.tier1: 'mock_tier1_id',
-    SubscriptionTier.tier2: 'mock_tier2_id',
+  static const Map<AppEnum, String> productIds = {
+    AppEnum.tier1: 'mock_tier1_id',
+    AppEnum.tier2: 'mock_tier2_id',
   };
 
   List<ProductDetails> availableProducts = [];
@@ -59,7 +59,7 @@ class SubscriptionService {
   }
 
   /// Call this when user taps “Choose Plan”
-  Future<void> buySubscription(SubscriptionTier tier) async {
+  Future<void> buySubscription(AppEnum tier) async {
     final productId = productIds[tier];
     final product = availableProducts.firstWhere(
       (p) => p.id == productId,
@@ -89,7 +89,7 @@ class SubscriptionService {
     }
   }
 
-  SubscriptionTier? _getTierFromProductId(String productId) {
+  AppEnum? _getTierFromProductId(String productId) {
     try {
       return productIds.entries
           .firstWhere((entry) => entry.value == productId)
@@ -137,14 +137,14 @@ class SubscriptionService {
     };
   }
 
-  SubscriptionTier? _parseTier(String tierStr) {
+  AppEnum? _parseTier(String tierStr) {
     switch (tierStr.toLowerCase()) {
       case 'tier1':
-        return SubscriptionTier.tier1;
+        return AppEnum.tier1;
       case 'tier2':
-        return SubscriptionTier.tier2;
+        return AppEnum.tier2;
       case 'tier3':
-        return SubscriptionTier.tier3;
+        return AppEnum.tier3;
       default:
         return null;
     }
