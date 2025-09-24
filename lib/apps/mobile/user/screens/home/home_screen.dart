@@ -20,6 +20,7 @@ import '../../../../../core/widgets/app_text.dart';
 import '../../../../../core/widgets/global_methods.dart';
 import '../../model/home/mantra_model.dart';
 import '../../provider/setting/subscription_provider.dart';
+import '../../services/subscription/subscription_service.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -53,7 +54,12 @@ class HomeScreen extends StatelessWidget {
                             context: context,
                             provider: provider,
                           ),
-                          todayMantra(provider),
+                          GestureDetector(
+                            onTap: () {
+                              SubscriptionService().initialize(context);
+                            },
+                            child: todayMantra(provider),
+                          ),
                           //todo -----------------------> Karma Focus
                           greyColoredBox(
                             margin: EdgeInsets.only(bottom: 20.h),

@@ -28,7 +28,7 @@ class _MantraPlayScreenState extends State<MantraPlayScreen> {
 
   @override
   void dispose() {
-    context.read<MantraProvider>().disposeAudio();
+    // context.read<MantraProvider>().disposeAudio();
     super.dispose();
   }
 
@@ -115,11 +115,9 @@ class _MantraPlayScreenState extends State<MantraPlayScreen> {
                               vertical: 20.h,
                               horizontal: 18,
                             ),
-                            child: Expanded(
-                              child: AppText(
-                                text: mantra.textContent,
-                                style: medium(fontSize: 19),
-                              ),
+                            child: AppText(
+                              text: mantra.textContent,
+                              style: medium(fontSize: 19),
                             ),
                           )
                         //todo --------------------> slider

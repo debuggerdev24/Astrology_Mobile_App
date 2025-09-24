@@ -1,14 +1,17 @@
 import 'package:astrology_app/apps/mobile/user/model/settings/subscription_plan_model.dart';
 import 'package:astrology_app/apps/mobile/user/screens/subscription/choose_plan_screen.dart';
 import 'package:astrology_app/core/constants/app_colors.dart';
+import 'package:astrology_app/core/enum/app_enums.dart';
 import 'package:astrology_app/core/extension/context_extension.dart';
+import 'package:astrology_app/core/utils/logger.dart';
 import 'package:astrology_app/core/widgets/app_button.dart';
 import 'package:astrology_app/core/widgets/app_layout.dart';
 import 'package:astrology_app/core/widgets/global_methods.dart';
-import 'package:astrology_app/routes/mobile_routes/user_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+
+import '../../services/subscription/subscription_service.dart';
 
 class SelectedPlanScreen extends StatelessWidget {
   final SubscriptionPlanModel plan;
@@ -41,8 +44,16 @@ class SelectedPlanScreen extends StatelessWidget {
           AppButton(
             margin: EdgeInsets.only(bottom: 30.h),
             title: translator.payAndSubscribe,
-            onTap: () {
-              context.pushNamed(MobileAppRoutes.paymentDetailScreen.name);
+            onTap: () async {
+              var selectedPlan = AppEnum.tier1;
+              if (plan.id == 3) {
+                selectedPlan = AppEnum.tier2;
+              } else if (plan.id == 4) {
+                selectedPlan = AppEnum.tier3;
+              }
+              Logger.printInfo(selectedPlan.name);
+              await SubscriptionService().buySubscription(tier: selectedPlan);
+              // context.pushNamed(MobileAppRoutes.paymentDetailScreen.name);
             },
           ),
         ],

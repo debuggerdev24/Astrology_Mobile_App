@@ -12,6 +12,7 @@ import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../core/enum/app_enums.dart';
+import '../../../../../core/utils/logger.dart';
 import '../../provider/setting/subscription_provider.dart';
 
 class SubscriptionService {
@@ -24,49 +25,76 @@ class SubscriptionService {
 
   /// Only Tier 1 & Tier 2
   static const Map<AppEnum, String> productIds = {
-    AppEnum.tier1: 'mock_tier1_id',
-    AppEnum.tier2: 'mock_tier2_id',
+    AppEnum.tier1: "com.innerpeacepath.tier1_monthly",
+    // AppEnum.tier2: 'mock_tier2_id',
   };
 
   List<ProductDetails> availableProducts = [];
 
   Future<void> initialize(BuildContext context) async {
-    final bool available = await _iap.isAvailable();
-    if (!available) {
-      debugPrint("Store not available");
-      return;
+    try {
+      Logger.printInfo("I am Here");
+
+      final bool available = await _iap.isAvailable();
+      Logger.printInfo("I am Here $available");
+
+      if (!available) {
+        Logger.printInfo("products are not available");
+        return;
+      }
+
+      await _loadProducts();
+
+      _subscription = _iap.purchaseStream.listen(
+        (purchases) => _handlePurchaseUpdates(purchases, context),
+        onDone: () => _subscription.cancel(),
+        onError: (error) {
+          Logger.printError("Purchase error: $error");
+        },
+      );
+    } catch (e) {
+      Logger.printError("Error inside the initialize function");
     }
-
-    await _loadProducts();
-
-    _subscription = _iap.purchaseStream.listen(
-      (purchases) => _handlePurchaseUpdates(purchases, context),
-      onDone: () => _subscription.cancel(),
-      onError: (error) {
-        debugPrint("Purchase error: $error");
-      },
-    );
   }
 
   Future<void> _loadProducts() async {
-    final response = await _iap.queryProductDetails(productIds.values.toSet());
+    try {
+      final response = await _iap.queryProductDetails(
+        productIds.values.toSet(),
+      );
 
-    if (response.notFoundIDs.isNotEmpty) {
-      debugPrint("Not found IDs: ${response.notFoundIDs}");
+      Logger.printInfo("inside the load products");
+
+      if (response.notFoundIDs.isNotEmpty) {
+        Logger.printError("Not found IDs: ${response.notFoundIDs}");
+      }
+      //Google
+      availableProducts = response.productDetails;
+      for (var e in availableProducts) {
+        Logger.printInfo(
+          "Product Details are below : \n${e.title}\n${e.price}\n${e.id}\n${e.description}",
+        );
+      }
+    } catch (e) {
+      Logger.printError("Error inside the _loadProducts function");
     }
-
-    availableProducts = response.productDetails;
   }
 
   /// Call this when user taps “Choose Plan”
-  Future<void> buySubscription(AppEnum tier) async {
-    final productId = productIds[tier];
-    final product = availableProducts.firstWhere(
-      (p) => p.id == productId,
-      orElse: () => throw Exception('Product not found'),
-    );
-    final param = PurchaseParam(productDetails: product);
-    await _iap.buyNonConsumable(purchaseParam: param);
+  Future<void> buySubscription({required AppEnum tier}) async {
+    try {
+      final productId = productIds[tier];
+      final product = availableProducts.firstWhere((p) {
+        Logger.printInfo(p.id.toString() + productId.toString());
+        return p.id == productId;
+      }, orElse: () => throw Exception('Product not found'));
+      final param = PurchaseParam(productDetails: product);
+      await _iap.buyNonConsumable(purchaseParam: param);
+    } catch (e, stack) {
+      Logger.printError(
+        "Error inside the buySubscription function : $e\n$stack",
+      );
+    }
   }
 
   void _handlePurchaseUpdates(
@@ -95,6 +123,7 @@ class SubscriptionService {
           .firstWhere((entry) => entry.value == productId)
           .key;
     } catch (_) {
+      Logger.printError("Error inside the _getTierFromProductId function");
       return null;
     }
   }
@@ -131,7 +160,7 @@ class SubscriptionService {
     await Future.delayed(Duration(seconds: 1)); // Simulate network
     return {
       "subscriptions": [
-        {"tier": "tier1", "isActive": true},
+        {"tier": "tier1", "isActive": false},
         {"tier": "tier2", "isActive": false},
       ],
     };
