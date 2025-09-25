@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'main.dart';
 import 'mobile_app.dart';
 
-Future<void> checkConnectivity() async {
+Future<void> checkConnectivity({required BuildContext context}) async {
   Connectivity().onConnectivityChanged.listen((
     List<ConnectivityResult> results,
   ) {
@@ -21,13 +21,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    checkConnectivity();
-    return ValueListenableBuilder(
-      valueListenable: isNetworkConnected,
-
-      builder: (context, value, child) {
-        return AstrologyMobileApp();
-      },
-    );
+    checkConnectivity(context: context);
+    return AstrologyMobileApp();
   }
 }

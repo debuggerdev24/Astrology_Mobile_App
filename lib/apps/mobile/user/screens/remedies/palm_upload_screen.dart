@@ -48,9 +48,8 @@ class PalmUploadScreen extends StatelessWidget {
                         topBar(
                           showBackButton: false,
                           context: context,
-                          title: context
-                              .translator
-                              .pleaseUploadYourPalmImageFirst, //"Please upload your palm image first.",
+                          title:
+                              context.translator.pleaseUploadYourPalmImageFirst,
                         ),
                         42.h.verticalSpace,
                         Row(
@@ -182,6 +181,7 @@ class PalmUploadScreen extends StatelessWidget {
           strokeWidth: 1.5,
         ),
         child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
           onTap: onTap,
           child: Container(
             height: 158.h,

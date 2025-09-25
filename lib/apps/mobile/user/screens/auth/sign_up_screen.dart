@@ -70,7 +70,7 @@ class SignUpScreen extends StatelessWidget {
                           AppTextField(
                             controller: provider.registerConfirmPassCtr,
                             title: "Confirm Password",
-                            hintText: "Enter your Confirm Password",
+                            hintText: "Enter Your Confirm Password",
                             errorMessage: provider.registerConfirmPassWordErr,
                           ),
                         ],
@@ -87,6 +87,7 @@ class SignUpScreen extends StatelessWidget {
                       GestureDetector(
                         onTap: () async {
                           FocusScope.of(context).unfocus();
+                          provider.clearRegisterField();
                           context.pushNamed(MobileAppRoutes.signInScreen.name);
                         },
                         child: RichText(

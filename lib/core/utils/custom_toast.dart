@@ -14,7 +14,7 @@ class AppToast {
     Color? textColor,
     Icon? icon,
     ToastificationType type = ToastificationType.info,
-    Duration duration = const Duration(seconds: 2),
+    Duration? duration = const Duration(seconds: 2),
   }) {
     toastification.show(
       primaryColor: AppColors.whiteColor,
@@ -67,12 +67,19 @@ class AppToast {
     );
   }
 
-  static void info({required BuildContext context, required String message}) {
+  static void info({
+    required BuildContext context,
+    required String message,
+    int? durationSecond,
+  }) {
     show(
       context: context,
       message: message,
       type: ToastificationType.info,
       backgroundColor: Colors.blue,
+      duration: (durationSecond == null)
+          ? null
+          : Duration(seconds: durationSecond),
     );
   }
 }

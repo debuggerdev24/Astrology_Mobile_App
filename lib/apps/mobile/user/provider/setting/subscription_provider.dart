@@ -26,12 +26,15 @@ class SubscriptionProvider extends ChangeNotifier {
   }
 
   bool isActivePlanLoading = true;
-  Future<void> getActiveSubscriptionPlan() async {
+  Future<void> getActiveSubscriptionPlan({
+    required BuildContext context,
+  }) async {
     activeSubscriptionPlan = null;
     isActivePlanLoading = true;
     notifyListeners();
     final result = await SubscriptionApiService.instance
         .getCurrentActivePlans();
+
     result.fold(
       (l) {
         Logger.printError(l.errorMessage);
@@ -40,6 +43,13 @@ class SubscriptionProvider extends ChangeNotifier {
         activeSubscriptionPlan = ActiveSubscriptionPlanModel.fromJson(
           r["data"],
         );
+        if (r["data"]["price"] == "20") {
+          addSubscription(AppEnum.tier1);
+          addSubscription(AppEnum.tier2);
+        }
+        if (r["data"]["price"] == "10") {
+          addSubscription(AppEnum.tier1);
+        }
         isActivePlanLoading = false;
         notifyListeners();
       },
@@ -56,9 +66,9 @@ class SubscriptionProvider extends ChangeNotifier {
   Set<AppEnum> get activeSubscriptions => _activeSubscriptions;
 
   // New state variables for quick access
-  bool isTier1Subscribed = true,
-      isTier2Subscribed = true,
-      isTier3Subscribed = true;
+  bool isTier1Subscribed = false,
+      isTier2Subscribed = false,
+      isTier3Subscribed = false;
 
   // Add a subscription and update flags
   void addSubscription(AppEnum tier) {
@@ -79,6 +89,7 @@ class SubscriptionProvider extends ChangeNotifier {
     isTier1Subscribed = _activeSubscriptions.contains(AppEnum.tier1);
     isTier2Subscribed = _activeSubscriptions.contains(AppEnum.tier2);
     isTier3Subscribed = _activeSubscriptions.contains(AppEnum.tier3);
+    notifyListeners();
   }
 
   // Optional: fine-grained feature-level access

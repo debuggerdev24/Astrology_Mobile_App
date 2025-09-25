@@ -122,8 +122,8 @@ class SubscriptionService {
       return productIds.entries
           .firstWhere((entry) => entry.value == productId)
           .key;
-    } catch (_) {
-      Logger.printError("Error inside the _getTierFromProductId function");
+    } catch (e) {
+      Logger.printError("Error inside the _getTierFromProductId function : $e");
       return null;
     }
   }

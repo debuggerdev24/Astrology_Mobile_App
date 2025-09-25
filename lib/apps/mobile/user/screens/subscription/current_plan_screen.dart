@@ -1,4 +1,5 @@
 import 'package:astrology_app/apps/mobile/user/provider/setting/subscription_provider.dart';
+import 'package:astrology_app/core/enum/app_enums.dart';
 import 'package:astrology_app/core/extension/context_extension.dart';
 import 'package:astrology_app/core/utils/custom_loader.dart';
 import 'package:astrology_app/core/widgets/app_layout.dart';
@@ -9,8 +10,11 @@ import 'package:provider/provider.dart';
 
 import '../../../../../core/constants/app_colors.dart';
 import '../../../../../core/constants/text_style.dart';
+import '../../../../../core/utils/logger.dart';
 import '../../../../../core/widgets/app_button.dart';
 import '../../../../../core/widgets/app_text.dart';
+import '../../../../../l10n/app_localizations.dart';
+import '../../model/settings/subscription_plan_model.dart';
 
 class CurrentPlanScreen extends StatelessWidget {
   const CurrentPlanScreen({super.key});
@@ -29,13 +33,16 @@ class CurrentPlanScreen extends StatelessWidget {
               if (!provider.isActivePlanLoading &&
                   provider.activeSubscriptionPlan != null) {
                 final activePlan = provider.activeSubscriptionPlan;
+                Logger.printInfo(activePlan!.startDate);
+
                 return greyColoredBox(
+                  width: double.infinity,
                   padding: EdgeInsets.all(14.r),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       AppText(
-                        text: activePlan!.plan,
+                        text: activePlan.plan,
                         style: bold(
                           fontSize: 20,
                           fontFamily: AppFonts.secondary,
@@ -52,42 +59,43 @@ class CurrentPlanScreen extends StatelessWidget {
                         );
                       }),
 
-                      20.h.verticalSpace,
-                      titleWithDetails(
-                        title: "Price",
-                        details: "\$${activePlan.price}",
-                      ),
-                      titleWithDetails(
-                        title: "Subscription date",
-                        details: formatDate(
-                          DateTime.parse(activePlan.startDate),
-                        ), //"August 13, 2024",
-                      ),
-                      titleWithDetails(
-                        title: "Subscription Validity",
-                        details: "September 30,2024",
-                      ),
-                      20.h.verticalSpace,
-                      Row(
-                        spacing: 10.w,
-                        children: [
-                          Expanded(
-                            child: AppButton(
-                              title: context.translator.upgradePlan,
-                              verticalPadding: 11.h,
-                              onTap: () {},
+                      if (activePlan.plan.toLowerCase() !=
+                          AppEnum.free.name) ...[
+                        10.verticalSpace,
+                        titleWithDetails(
+                          title: "Price",
+                          details: "\$${activePlan.price}",
+                        ),
+                        titleWithDetails(
+                          title: "Subscription date",
+                          details: activePlan.startDate,
+                        ),
+                        titleWithDetails(
+                          title: "Subscription Validity",
+                          details: "September 30,2025",
+                        ),
+                        20.h.verticalSpace,
+                        Row(
+                          spacing: 10.w,
+                          children: [
+                            Expanded(
+                              child: AppButton(
+                                title: context.translator.upgradePlan,
+                                verticalPadding: 11.h,
+                                onTap: () {},
+                              ),
                             ),
-                          ),
-                          Expanded(
-                            child: AppButton(
-                              buttonColor: AppColors.secondary,
-                              title: context.translator.cancel,
-                              verticalPadding: 11.h,
-                              onTap: () {},
+                            Expanded(
+                              child: AppButton(
+                                buttonColor: AppColors.secondary,
+                                title: context.translator.cancel,
+                                verticalPadding: 11.h,
+                                onTap: () {},
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
+                          ],
+                        ),
+                      ],
                     ],
                   ),
                 );
@@ -121,6 +129,75 @@ class CurrentPlanScreen extends StatelessWidget {
           child: AppText(text: details, style: regular(fontSize: 18)),
         ),
       ],
+    );
+  }
+
+  Future<Widget> premiumPlanBox({
+    required SubscriptionPlanModel plan,
+    required AppLocalizations translator,
+    VoidCallback? onTap,
+    bool? isFromDetailsScreen,
+  }) async {
+    return greyColoredBox(
+      borderColor: AppColors.primary,
+      margin: EdgeInsets.only(bottom: 16.h),
+      padding: EdgeInsets.all(14.r),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              AppText(
+                text: "${plan.plan} :",
+                style: bold(
+                  fontSize: 20,
+                  fontFamily: AppFonts.secondary,
+                  color: AppColors.secondary,
+                  decoration: TextDecoration.underline,
+                  decorationColor: AppColors.secondary,
+                ),
+              ),
+              if (plan.plan.toLowerCase() != AppEnum.free.name)
+                AppText(
+                  text: "\$${double.parse(plan.price).toStringAsFixed(2)}",
+                  style: bold(fontSize: 20, color: AppColors.primary),
+                ),
+            ],
+          ),
+          12.h.verticalSpace,
+          ...(plan.features as List).map((f) {
+            return Row(
+              children: [AppText(text: "• $f", style: regular(fontSize: 18))],
+            );
+          }),
+          if (plan.plan.toLowerCase() != AppEnum.free.name)
+            Row(
+              children: [
+                AppText(
+                  text: "• ${plan.durationLabel}",
+                  style: regular(fontSize: 18),
+                ),
+              ],
+            ),
+          if (plan.plan != "Free") ...[
+            10.h.verticalSpace,
+            Row(
+              children: [
+                Expanded(
+                  child: AppButton(
+                    horizontalPadding: 10.w,
+                    title: translator.choosePlan,
+                    verticalPadding: 11.h,
+                    onTap: onTap,
+                  ),
+                ),
+                Expanded(child: SizedBox()),
+              ],
+            ),
+          ],
+        ],
+      ),
     );
   }
 }

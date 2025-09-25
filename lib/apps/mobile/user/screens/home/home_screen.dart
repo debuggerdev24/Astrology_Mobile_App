@@ -9,6 +9,7 @@ import 'package:astrology_app/core/utils/custom_loader.dart';
 import 'package:astrology_app/core/widgets/app_layout.dart';
 import 'package:astrology_app/core/widgets/svg_image.dart';
 import 'package:astrology_app/l10n/app_localizations.dart';
+import 'package:astrology_app/main.dart';
 import 'package:astrology_app/routes/mobile_routes/user_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,6 +17,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../core/constants/app_colors.dart';
+import '../../../../../core/utils/logger.dart';
 import '../../../../../core/widgets/app_text.dart';
 import '../../../../../core/widgets/global_methods.dart';
 import '../../model/home/mantra_model.dart';
@@ -28,6 +30,9 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final translator = context.translator;
+    Logger.printInfo(
+      "Network Connection" + isNetworkConnected.value.toString(),
+    );
     return AppLayout(
       horizontalPadding: 0,
       body: SingleChildScrollView(

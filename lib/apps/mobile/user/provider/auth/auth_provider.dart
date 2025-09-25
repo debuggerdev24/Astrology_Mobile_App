@@ -73,14 +73,18 @@ class UserAuthProvider extends ChangeNotifier {
         await LocaleStoaregService.setLoggedInUserName(
           _registerNameCtr.text.trim(),
         );
-        _registerNameCtr.clear();
-        _registerEmailCtr.clear();
-        _registerPasswordCtr.clear();
-        _registerConfirmPassCtr.clear();
+        clearRegisterField();
       },
     );
     isRegisterLoading = false;
     notifyListeners();
+  }
+
+  clearRegisterField() {
+    _registerNameCtr.clear();
+    _registerEmailCtr.clear();
+    _registerPasswordCtr.clear();
+    _registerConfirmPassCtr.clear();
   }
 
   //todo ---------------> login user

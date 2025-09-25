@@ -1,4 +1,5 @@
 import 'package:astrology_app/core/widgets/app_layout.dart';
+import 'package:astrology_app/main.dart';
 import 'package:astrology_app/routes/mobile_routes/user_routes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
@@ -28,6 +29,10 @@ class _SplashScreenState extends State<SplashScreen> {
   void init() {
     Future.delayed(Duration(seconds: 2)).then((value) async {
       // context.pushNamed(MobileAppRoutes.signUpScreen.name);
+      if (!isNetworkConnected.value) {
+        context.pushNamed(MobileAppRoutes.userDashBoardScreen.name);
+        return;
+      }
       if (userToken.isNotEmpty) {
         //userToken.isNotEmpty
         Logger.printInfo("API Calling Started");

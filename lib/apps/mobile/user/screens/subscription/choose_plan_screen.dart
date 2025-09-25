@@ -26,7 +26,6 @@ class SubscriptionPlansScreen extends StatefulWidget {
 class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen> {
   @override
   void initState() {
-    context.read<SubscriptionProvider>().getActiveSubscriptionPlan();
     super.initState();
   }
 

@@ -81,7 +81,7 @@ class UserProfileProvider extends ChangeNotifier {
 
     result.fold(
       (failure) {
-        AppToast.error(context: context, message: failure.errorMessage);
+        Logger.printInfo(failure.errorMessage);
       },
       (data) async {
         final profile = UserProfileModel.fromJson(data["data"]);
@@ -178,6 +178,8 @@ class UserProfileProvider extends ChangeNotifier {
             context: context,
             message: context.translator.profileUpdatedSuccessfully,
           );
+          // clearControllers();
+
           await context.pushNamed(MobileAppRoutes.userDashBoardScreen.name);
         },
       );
@@ -187,13 +189,12 @@ class UserProfileProvider extends ChangeNotifier {
     }
     AppToast.warning(
       context: context,
-
       message: "Please check the box to agree to the terms and continue.",
     );
   }
 
   clearControllers() {
-    nameController.clear();
+    // nameController.clear();
     birthDateController.clear();
     birthTimeController.clear();
     birthPlaceController.clear();

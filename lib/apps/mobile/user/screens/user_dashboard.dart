@@ -13,6 +13,9 @@ import 'package:astrology_app/apps/mobile/user/screens/remedies/palm_upload_scre
 import 'package:astrology_app/apps/mobile/user/screens/settings/settings_screen.dart';
 import 'package:astrology_app/core/constants/text_style.dart';
 import 'package:astrology_app/core/extension/context_extension.dart';
+import 'package:astrology_app/core/widgets/app_layout.dart';
+import 'package:astrology_app/main.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -47,6 +50,9 @@ class _UserDashboardState extends State<UserDashboard> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       await Future.wait([
+        context.read<SubscriptionProvider>().getActiveSubscriptionPlan(
+          context: context,
+        ),
         context.read<HomeProvider>().initHomeScreen(),
         context.read<UserProfileProvider>().getProfile(context),
         context.read<SubscriptionProvider>().getSubscriptionPlans(),
@@ -70,10 +76,49 @@ class _UserDashboardState extends State<UserDashboard> {
       valueListenable: indexTabUser,
       builder: (BuildContext context, int index, Widget? child) {
         return Scaffold(
-          body: FadeInUp(
-            from: 0,
-            key: ValueKey(indexTabUser.value),
-            child: _pages[index],
+          backgroundColor: AppColors.bgColor,
+          body: ValueListenableBuilder<bool>(
+            valueListenable: isNetworkConnected,
+            builder: (context, connection, child) {
+              if (connection) {
+                return FadeInUp(
+                  from: 0,
+                  key: ValueKey(indexTabUser.value),
+                  child: _pages[index],
+                );
+              }
+
+              return AppLayout(
+                body: Center(
+                  child: Column(
+                    spacing: 10,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        CupertinoIcons.wifi_slash,
+                        color: AppColors.whiteColor,
+                        size: 30,
+                      ),
+                      AppText(
+                        text: "No Internet Connection!",
+                        style: regular(fontSize: 20),
+                      ),
+                      // Container(
+                      //   decoration: BoxDecoration(
+                      //     color: AppColors.whiteColor,
+                      //     borderRadius: BorderRadius.circular(5).r,
+                      //   ),
+                      //   padding: EdgeInsets.all(12).r,
+                      //   child: CupertinoActivityIndicator(
+                      //     radius: 18.h,
+                      //     color: AppColors.bgColor,
+                      //   ),
+                      // ),
+                    ],
+                  ),
+                ),
+              );
+            },
           ),
           bottomNavigationBar: SafeArea(
             child: Container(

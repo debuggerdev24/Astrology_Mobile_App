@@ -88,8 +88,9 @@ Widget buildPageTitle({required String title, required BuildContext context}) {
 
 Widget greyColoredBox({
   EdgeInsets? margin,
-  required EdgeInsets padding,
   double? height,
+  Color? borderColor,
+  required EdgeInsets padding,
   width,
   required Widget child,
 }) {
@@ -99,7 +100,7 @@ Widget greyColoredBox({
     margin: margin,
     padding: padding,
     decoration: BoxDecoration(
-      border: Border.all(color: AppColors.whiteColor),
+      border: Border.all(color: borderColor ?? AppColors.whiteColor),
       borderRadius: BorderRadius.circular(8.r),
       color: AppColors.greyColor,
     ),

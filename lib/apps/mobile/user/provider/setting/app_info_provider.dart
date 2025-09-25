@@ -1,6 +1,7 @@
 import 'dart:core';
 
 import 'package:astrology_app/core/utils/custom_toast.dart';
+import 'package:astrology_app/core/utils/logger.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../services/settings/app_info_service.dart';
@@ -26,7 +27,7 @@ class AppInfoProvider extends ChangeNotifier {
     final result = await AppInfoService.instance.getTermsAndCondition();
     result.fold(
       (l) {
-        AppToast.error(context: context, message: l.errorMessage);
+        Logger.printInfo(l.errorMessage);
       },
       (r) {
         termsAndCondition = r["data"]["sections"];
@@ -46,7 +47,7 @@ class AppInfoProvider extends ChangeNotifier {
     final result = await AppInfoService.instance.getFaqs();
     result.fold(
       (l) {
-        AppToast.error(context: context, message: l.errorMessage);
+        Logger.printInfo(l.errorMessage);
       },
       (r) {
         faqs = (r["data"]["faqs"] as List)
@@ -66,7 +67,7 @@ class AppInfoProvider extends ChangeNotifier {
     final result = await AppInfoService.instance.getSpiritualDisclaimers();
     result.fold(
       (l) {
-        AppToast.error(context: context, message: l.errorMessage);
+        Logger.printInfo(l.errorMessage);
       },
       (r) {
         spiritualDisclaimers = (r["data"]["sections"] as List)

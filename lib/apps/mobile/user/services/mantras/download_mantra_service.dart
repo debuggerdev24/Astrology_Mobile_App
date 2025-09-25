@@ -41,8 +41,8 @@ class DownloadManager {
 
       // Create filename with proper extension
       final fileName = '${title.replaceAll(RegExp(r'[^\w\s-]'), '')}.mp3';
-      final filePath = '/storage/emulated/0/Download/$fileName';
-      Logger.printInfo(directory.path + fileName);
+      final filePath = '/storage/emulated/0/Download/Mantra/$fileName';
+      // Logger.printInfo(directory.path + fileName);
 
       // Start download
       await _dio.download(

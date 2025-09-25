@@ -28,14 +28,19 @@ class CreateProfileScreen extends StatefulWidget {
 }
 
 class _CreateProfileScreenState extends State<CreateProfileScreen> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  // }
+  @override
+  void initState() {
+    context.read<UserProfileProvider>().nameController.text =
+        LocaleStoaregService.loggedInUserName;
+    context.read<UserProfileProvider>().clearControllers();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    Logger.printInfo(LocaleStoaregService.loggedInUserName);
+    Logger.printInfo(
+      "Logged User Name : ${LocaleStoaregService.loggedInUserName}",
+    );
     return AppLayout(
       horizontalPadding: 0,
       body: Consumer<UserProfileProvider>(
