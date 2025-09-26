@@ -18,6 +18,7 @@ class MantraProvider extends ChangeNotifier {
   final AudioPlayer _audioPlayer = AudioPlayer();
 
   bool isDownloadLoading = false;
+  double downloadProgress = 0.0;
   Future<void> downloadAudio({
     required String url,
     required String title,
@@ -31,9 +32,23 @@ class MantraProvider extends ChangeNotifier {
       url: "http://138.197.92.15$url",
       bhajanId: title,
       title: title,
-      onProgress: onProgress,
-      onSuccess: onSuccess,
-      onError: onError,
+      onProgress: (progress) {
+        downloadProgress = progress; // Update progress
+        notifyListeners(); // Notify UI
+        onProgress(progress);
+      },
+      onSuccess: (filePath) {
+        downloadProgress = 1.0;
+        isDownloadLoading = false;
+        notifyListeners();
+        onSuccess(filePath);
+      },
+      onError: (errorMessage) {
+        isDownloadLoading = false;
+        downloadProgress = 0.0;
+        notifyListeners();
+        onError(errorMessage);
+      },
     );
 
     isDownloadLoading = false;

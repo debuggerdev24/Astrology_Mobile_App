@@ -138,6 +138,7 @@ class UserProfileProvider extends ChangeNotifier {
         AppToast.info(
           context: context,
           message: "No updates found. Please make changes before saving.",
+          durationSecond: 2,
         );
         return;
       }

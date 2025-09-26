@@ -3,7 +3,6 @@ import 'package:astrology_app/core/constants/app_assets.dart';
 import 'package:astrology_app/core/constants/app_colors.dart';
 import 'package:astrology_app/core/constants/text_style.dart';
 import 'package:astrology_app/core/extension/context_extension.dart';
-import 'package:astrology_app/core/utils/custom_loader.dart';
 import 'package:astrology_app/core/utils/de_bouncing.dart';
 import 'package:astrology_app/core/widgets/app_layout.dart';
 import 'package:astrology_app/core/widgets/app_text.dart';
@@ -28,17 +27,30 @@ class TodayMantraPlayScreen extends StatefulWidget {
   State<TodayMantraPlayScreen> createState() => _TodayMantraPlayScreenState();
 }
 
-class _TodayMantraPlayScreenState extends State<TodayMantraPlayScreen> {
+class _TodayMantraPlayScreenState extends State<TodayMantraPlayScreen>
+    with WidgetsBindingObserver {
   @override
   void initState() {
+    WidgetsBinding.instance.addObserver(this);
+
     context.read<MantraProvider>().setAudioSetting();
     super.initState();
   }
 
   @override
-  void dispose() {
-    context.read<MantraProvider>().disposeAudio();
-    super.dispose();
+  Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
+    if (state == AppLifecycleState.paused ||
+        state == AppLifecycleState.inactive ||
+        state == AppLifecycleState.hidden) {
+      Logger.printInfo("----------------- Paused App -------------------");
+
+      await context.read<MantraProvider>().resetAudioPlayer();
+
+      context.read<MantraProvider>().disposeAudio();
+    } else if (state == AppLifecycleState.resumed) {
+      Logger.printInfo("----------------- Resume App -------------------");
+    }
+    super.didChangeAppLifecycleState(state);
   }
 
   @override
@@ -166,7 +178,7 @@ class _TodayMantraPlayScreenState extends State<TodayMantraPlayScreen> {
                                         onError: (p0) {
                                           AppToast.error(
                                             context: context,
-                                            message: "Download Failes.",
+                                            message: "Download Failed.",
                                           );
                                         },
                                       );
@@ -205,11 +217,13 @@ class _TodayMantraPlayScreenState extends State<TodayMantraPlayScreen> {
                             Expanded(
                               child: AppButton(
                                 onTap: () {
-                                  SharePlus.instance.share(
-                                    ShareParams(
-                                      text: "http://138.197.92.15$url",
-                                    ),
-                                  );
+                                  deBouncer.run(() {
+                                    SharePlus.instance.share(
+                                      ShareParams(
+                                        text: "http://138.197.92.15$url",
+                                      ),
+                                    );
+                                  });
                                 },
                                 title: context.translator.share,
                                 buttonColor: AppColors.secondary,
@@ -222,7 +236,27 @@ class _TodayMantraPlayScreenState extends State<TodayMantraPlayScreen> {
                     ],
                   ),
                 ),
-                if (playMantraProvider.isDownloadLoading) FullPageIndicator(),
+                if (playMantraProvider.isDownloadLoading)
+                  Container(
+                    margin: EdgeInsets.only(bottom: 10),
+                    child: Column(
+                      children: [
+                        LinearProgressIndicator(
+                          value: playMantraProvider.downloadProgress,
+                          backgroundColor: AppColors.greyColor.withOpacity(0.3),
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            AppColors.primary,
+                          ),
+                        ),
+                        5.h.verticalSpace,
+                        AppText(
+                          text:
+                              "Downloading... ${(playMantraProvider.downloadProgress * 100).toInt()}%",
+                          style: regular(fontSize: 12),
+                        ),
+                      ],
+                    ),
+                  ),
               ],
             ),
           ),

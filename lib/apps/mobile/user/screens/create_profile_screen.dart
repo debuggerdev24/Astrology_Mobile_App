@@ -11,6 +11,7 @@ import 'package:astrology_app/core/widgets/app_text.dart';
 import 'package:astrology_app/core/widgets/app_text_field.dart';
 import 'package:astrology_app/core/widgets/svg_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
@@ -68,6 +69,9 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                             title: "Full Name",
                             controller: provider.nameController,
                             errorMessage: provider.errorNameStr,
+                            inputFormatters: [
+                              LengthLimitingTextInputFormatter(50),
+                            ],
                           ),
                           22.h.verticalSpace,
                           // Date and Time Row

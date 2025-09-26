@@ -1,8 +1,13 @@
+import 'dart:async';
+
+import 'package:astrology_app/apps/mobile/user/provider/setting/subscription_provider.dart';
 import 'package:astrology_app/apps/mobile/user/screens/user_dashboard.dart';
 import 'package:astrology_app/apps/mobile/user/services/auth/auth_api_service.dart';
+import 'package:astrology_app/core/enum/app_enums.dart';
 import 'package:astrology_app/core/utils/logger.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../core/utils/custom_toast.dart';
 import '../../../../../core/utils/field_validator.dart';
@@ -42,6 +47,13 @@ class UserAuthProvider extends ChangeNotifier {
 
   String loginEmailErr = '';
   String loginPassErr = '';
+  String _currentEmail = '';
+  Timer? _resendTimer;
+  int _resendSeconds = 0;
+  bool get canResendOtp => _resendSeconds == 0;
+
+  // Add getter for remaining time
+  int get resendSeconds => _resendSeconds;
 
   //todo ---------------> register user
   bool isRegisterLoading = false;
@@ -199,9 +211,14 @@ class UserAuthProvider extends ChangeNotifier {
             context: context,
             message: 'Logged out successfully.',
           );
+          context.read<SubscriptionProvider>().removeSubscription(
+            AppEnum.tier1,
+          );
+          context.read<SubscriptionProvider>().removeSubscription(
+            AppEnum.tier2,
+          );
         }
 
-        // Clear local storage first
         await LocaleStoaregService.saveUserToken("");
         await LocaleStoaregService.saveUserRefreshToken("");
         await LocaleStoaregService.setIsUserLoggedIn(value: false);
@@ -220,6 +237,21 @@ class UserAuthProvider extends ChangeNotifier {
   }
 
   //todo ---------------> forgot password
+  void _startResendTimer() {
+    _resendSeconds = 60; // 1 minute
+    notifyListeners();
+
+    _resendTimer?.cancel();
+    _resendTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_resendSeconds > 0) {
+        _resendSeconds--;
+        notifyListeners();
+      } else {
+        _resendTimer?.cancel();
+      }
+    });
+  }
+
   bool isSendOtpLoading = false;
   Future<void> sendOtp({
     required BuildContext context,
@@ -242,6 +274,12 @@ class UserAuthProvider extends ChangeNotifier {
       (data) async {
         AppToast.success(context: context, message: data['message']);
 
+        // Store email for resend functionality
+        _currentEmail = email;
+
+        // Start the timer
+        _startResendTimer();
+
         context.pushNamed(
           MobileAppRoutes.verifyOtpScreen.name,
           extra: (data["data"]["user_id"] as int).toString(),
@@ -250,6 +288,45 @@ class UserAuthProvider extends ChangeNotifier {
       },
     );
     isSendOtpLoading = false;
+    notifyListeners();
+  }
+
+  bool isResendOtpLoading = false;
+  Future<void> resendOtp({required BuildContext context}) async {
+    if (!canResendOtp) {
+      AppToast.error(
+        context: context,
+        message: "Please wait $_resendSeconds seconds before resending",
+      );
+      return;
+    }
+
+    if (_currentEmail.isEmpty) {
+      AppToast.error(
+        context: context,
+        message: "Email not found. Please try again.",
+      );
+      return;
+    }
+
+    isResendOtpLoading = true;
+    notifyListeners();
+
+    final result = await UserAuthService.instance.sendOtp(email: _currentEmail);
+
+    result.fold(
+      (failure) {
+        AppToast.error(context: context, message: failure.errorMessage);
+      },
+      (data) async {
+        AppToast.success(context: context, message: "OTP resent successfully");
+        _otpController.clear();
+        // Restart the timer after successful resend
+        _startResendTimer();
+      },
+    );
+
+    isResendOtpLoading = false;
     notifyListeners();
   }
 
@@ -295,7 +372,6 @@ class UserAuthProvider extends ChangeNotifier {
     required String userId,
   }) async {
     if (_validateResetPasswordData()) return;
-
     isResetPasswordLoading = true;
     notifyListeners();
     final result = await UserAuthService.instance.resetPassword(

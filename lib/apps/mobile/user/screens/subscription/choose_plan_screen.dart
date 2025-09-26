@@ -33,10 +33,14 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen> {
   Widget build(BuildContext context) {
     final translator = context.translator;
     return AppLayout(
+      horizontalPadding: 0,
       body: Column(
         children: [
           40.h.verticalSpace,
-          topBar(context: context, title: translator.chooseYourPlan),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12.w),
+            child: topBar(context: context, title: translator.chooseYourPlan),
+          ),
           6.h.verticalSpace,
           Expanded(
             child: SingleChildScrollView(
@@ -89,7 +93,9 @@ Widget premiumPlanBox({
   bool? isFromDetailsScreen,
 }) {
   return greyColoredBox(
-    margin: EdgeInsets.only(bottom: 16.h),
+    showShadow: true,
+    borderColor: isFromDetailsScreen ?? false ? AppColors.primary : null,
+    margin: EdgeInsets.only(bottom: 16.h, left: 12.w, right: 12.w),
     padding: EdgeInsets.all(14.r),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,

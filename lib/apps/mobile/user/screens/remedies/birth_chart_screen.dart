@@ -104,7 +104,6 @@ class BirthChartScreen extends StatelessWidget {
                       context.pushNamed(
                         MobileAppRoutes.remediesListScreen.name,
                       );
-                      provider.getRemedies();
                     },
                     margin: EdgeInsets.only(top: 50.h, bottom: 30.h),
                     title: translator.viewRemedies,

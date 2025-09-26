@@ -93,7 +93,27 @@ class OtpVerificationScreen extends StatelessWidget {
                       },
                     ),
                     8.h.verticalSpace,
-                    AppText(text: "Resend OTP", style: regular(fontSize: 15)),
+                    GestureDetector(
+                      onTap:
+                          (provider.canResendOtp &&
+                              !provider.isResendOtpLoading)
+                          ? () {
+                              provider.resendOtp(context: context);
+                            }
+                          : null,
+                      child: AppText(
+                        text: provider.isResendOtpLoading
+                            ? "Resending..."
+                            : provider.canResendOtp
+                            ? "Resend OTP"
+                            : "Resend OTP in ${provider.resendSeconds}s",
+                        style: regular(
+                          fontSize: 15,
+                          color: AppColors.whiteColor,
+                        ),
+                      ),
+                    ),
+                    // AppText(text: "Resend OTP", style: regular(fontSize: 15)),
                   ],
                 ),
               ),

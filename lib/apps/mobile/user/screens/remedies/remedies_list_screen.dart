@@ -14,8 +14,19 @@ import 'package:provider/provider.dart';
 
 import '../../../../../routes/mobile_routes/user_routes.dart';
 
-class RemediesScreen extends StatelessWidget {
+class RemediesScreen extends StatefulWidget {
   const RemediesScreen({super.key});
+
+  @override
+  State<RemediesScreen> createState() => _RemediesScreenState();
+}
+
+class _RemediesScreenState extends State<RemediesScreen> {
+  @override
+  void initState() {
+    context.read<PalmProvider>().getRemedies();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

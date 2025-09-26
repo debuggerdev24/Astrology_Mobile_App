@@ -21,12 +21,15 @@ class SelectedPlanScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final translator = context.translator;
     return AppLayout(
+      horizontalPadding: 0,
       body: Column(
         children: [
           40.h.verticalSpace,
-          topBar(context: context, title: plan.plan),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12.w),
+            child: topBar(context: context, title: plan.plan),
+          ),
           24.h.verticalSpace,
-
           premiumPlanBox(
             plan: plan,
             isFromDetailsScreen: true,

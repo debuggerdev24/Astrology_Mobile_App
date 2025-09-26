@@ -115,7 +115,6 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
                       context.pushNamed(
                         MobileAppRoutes.remediesListScreen.name,
                       );
-                      provider.getRemedies();
                     } else {
                       showPremiumDialog(
                         context: context,

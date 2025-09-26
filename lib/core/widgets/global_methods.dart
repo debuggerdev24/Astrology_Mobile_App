@@ -90,6 +90,7 @@ Widget greyColoredBox({
   EdgeInsets? margin,
   double? height,
   Color? borderColor,
+  bool? showShadow,
   required EdgeInsets padding,
   width,
   required Widget child,
@@ -102,6 +103,16 @@ Widget greyColoredBox({
     decoration: BoxDecoration(
       border: Border.all(color: borderColor ?? AppColors.whiteColor),
       borderRadius: BorderRadius.circular(8.r),
+      boxShadow: showShadow ?? false
+          ? [
+              BoxShadow(
+                offset: Offset(0, 0),
+                color: AppColors.whiteColor.withValues(alpha: 0.6),
+                blurRadius: 8,
+                spreadRadius: 0,
+              ),
+            ]
+          : [],
       color: AppColors.greyColor,
     ),
     child: child,

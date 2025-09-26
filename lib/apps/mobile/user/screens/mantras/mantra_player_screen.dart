@@ -11,6 +11,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../../core/utils/logger.dart';
+
 class MantraPlayScreen extends StatefulWidget {
   final Map data;
   const MantraPlayScreen({super.key, required this.data});
@@ -19,11 +21,29 @@ class MantraPlayScreen extends StatefulWidget {
   State<MantraPlayScreen> createState() => _MantraPlayScreenState();
 }
 
-class _MantraPlayScreenState extends State<MantraPlayScreen> {
+class _MantraPlayScreenState extends State<MantraPlayScreen>
+    with WidgetsBindingObserver {
   @override
   void initState() {
+    WidgetsBinding.instance.addObserver(this);
     context.read<MantraProvider>().setAudioSetting();
     super.initState();
+  }
+
+  @override
+  Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
+    if (state == AppLifecycleState.paused ||
+        state == AppLifecycleState.inactive ||
+        state == AppLifecycleState.hidden) {
+      Logger.printInfo("----------------- Paused App -------------------");
+
+      await context.read<MantraProvider>().resetAudioPlayer();
+
+      context.read<MantraProvider>().disposeAudio();
+    } else if (state == AppLifecycleState.resumed) {
+      Logger.printInfo("----------------- Resume App -------------------");
+    }
+    super.didChangeAppLifecycleState(state);
   }
 
   @override

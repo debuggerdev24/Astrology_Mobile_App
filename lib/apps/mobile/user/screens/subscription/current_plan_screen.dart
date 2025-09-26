@@ -23,10 +23,17 @@ class CurrentPlanScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final translator = context.translator;
     return AppLayout(
+      horizontalPadding: 0,
       body: Column(
         children: [
           40.h.verticalSpace,
-          topBar(context: context, title: translator.currentSubscription),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12.w),
+            child: topBar(
+              context: context,
+              title: translator.currentSubscription,
+            ),
+          ),
           28.h.verticalSpace,
           Consumer<SubscriptionProvider>(
             builder: (context, provider, child) {
@@ -36,8 +43,10 @@ class CurrentPlanScreen extends StatelessWidget {
                 Logger.printInfo(activePlan!.startDate);
 
                 return greyColoredBox(
+                  showShadow: true,
                   width: double.infinity,
                   padding: EdgeInsets.all(14.r),
+                  margin: EdgeInsets.symmetric(horizontal: 12.w),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

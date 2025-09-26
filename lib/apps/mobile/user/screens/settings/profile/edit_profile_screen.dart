@@ -8,6 +8,7 @@ import 'package:astrology_app/core/widgets/app_text.dart';
 import 'package:astrology_app/core/widgets/app_text_field.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
@@ -56,6 +57,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           title: translator.fullName,
                           controller: provider.editNameController,
                           errorMessage: provider.errorNameStr,
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(50),
+                          ],
                         ),
                         // Date and Time Row
                         Row(

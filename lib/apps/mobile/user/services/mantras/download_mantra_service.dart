@@ -32,13 +32,6 @@ class DownloadManager {
         return null;
       }
 
-      // Get download directory
-      final directory = await _getDownloadDirectory();
-      if (directory == null) {
-        onError('Unable to access download directory');
-        return null;
-      }
-
       // Create filename with proper extension
       final fileName = '${title.replaceAll(RegExp(r'[^\w\s-]'), '')}.mp3';
       final filePath = '/storage/emulated/0/Download/Mantra/$fileName';
@@ -51,10 +44,11 @@ class DownloadManager {
         onReceiveProgress: (received, total) {
           if (total != -1) {
             final progress = received / total;
-            _downloadProgress["temp"] = progress;
-            // onProgress(progress);
+            _downloadProgress["temp"] = progress; // Change "temp" to bhajanId
+            onProgress(progress); // Make sure this is called
           }
         },
+
         options: Options(
           receiveTimeout: const Duration(minutes: 10),
           sendTimeout: const Duration(minutes: 5),
@@ -100,22 +94,16 @@ class DownloadManager {
         return;
       }
 
-      // Get download directory
-      final directory = await _getDownloadDirectory();
-      if (directory == null) {
-        onError("Unable to access download directory");
-        return;
-      }
-
       // Create full file path with .txt extension
       final safeFileName = fileName.replaceAll(RegExp(r'[^\w\s-]'), '');
-      final filePath = '${directory.path}/$safeFileName.txt';
+      final filePath = '/storage/emulated/0/Download/$safeFileName.txt';
 
       final file = File(filePath);
       await file.writeAsString(content);
 
       onSuccess(filePath);
     } catch (e) {
+      Logger.printInfo("Error saving text file: $e");
       onError("Error saving text file: $e");
     }
   }
