@@ -1,6 +1,5 @@
 import 'package:astrology_app/core/extension/context_extension.dart';
 import 'package:astrology_app/core/utils/custom_loader.dart';
-import 'package:astrology_app/core/utils/custom_toast.dart';
 import 'package:astrology_app/core/widgets/app_button.dart';
 import 'package:astrology_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -9,13 +8,11 @@ import 'package:provider/provider.dart';
 
 import '../../../../../core/constants/app_colors.dart';
 import '../../../../../core/constants/text_style.dart';
-import '../../../../../core/utils/logger.dart';
 import '../../../../../core/widgets/app_layout.dart';
 import '../../../../../core/widgets/app_text.dart';
 import '../../../../../core/widgets/app_text_field.dart';
 import '../../../../../core/widgets/global_methods.dart';
 import '../../provider/remedies/set_reminder_provider.dart';
-import '../../services/settings/notification_service.dart';
 
 class SetReminderScreen extends StatefulWidget {
   const SetReminderScreen({super.key});
@@ -28,12 +25,6 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
   @override
   Widget build(BuildContext context) {
     final translator = context.translator;
-    List freqList = [
-      translator.daily,
-      translator.weekly,
-      translator.monthly,
-      translator.custom,
-    ];
     return AppLayout(
       horizontalPadding: 0,
       body: Consumer<SetReminderProvider>(
@@ -173,41 +164,39 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
     );
   }
 
-  Future<void> _checkPendingNotifications() async {
-    // if (!_isInitialized) {
-    //   _showMessage('Notifications not initialized yet');
-    //   return;
-    // }
+  //todo check pending notification
+  // Future<void> _checkPendingNotifications() async {
+  //
+  //   try {
+  //     final pending = await NotificationService.instance
+  //         .getPendingNotifications();
+  //     AppToast.info(
+  //       context: context,
+  //       message: 'Pending notifications: ${pending.toString()}',
+  //     );
+  //
+  //     // Print details to console
+  //     for (var notification in pending) {
+  //       Logger.printInfo('Pending: ${notification.id} - ${notification.title}');
+  //     }
+  //   } catch (e) {
+  //     AppToast.error(
+  //       context: context,
+  //       message: 'Error checking notifications: $e',
+  //     );
+  //   }
+  // }
 
-    try {
-      final pending = await NotificationService.instance
-          .getPendingNotifications();
-      AppToast.info(
-        context: context,
-        message: 'Pending notifications: ${pending.toString()}',
-      );
-
-      // Print details to console
-      for (var notification in pending) {
-        Logger.printInfo('Pending: ${notification.id} - ${notification.title}');
-      }
-    } catch (e) {
-      AppToast.error(
-        context: context,
-        message: 'Error checking notifications: $e',
-      );
-    }
-  }
-
-  Future<void> _cancelAllNotification() async {
-    try {
-      final pending = await NotificationService.instance
-          .cancelAllNotifications();
-      AppToast.info(context: context, message: 'Cancelled');
-    } catch (e) {
-      AppToast.error(context: context, message: 'Failed to cancel');
-    }
-  }
+  //todo cancel All notification
+  // Future<void> _cancelAllNotification() async {
+  //   try {
+  //     final pending = await NotificationService.instance
+  //         .cancelAllNotifications();
+  //     AppToast.info(context: context, message: 'Cancelled');
+  //   } catch (e) {
+  //     AppToast.error(context: context, message: 'Failed to cancel');
+  //   }
+  // }
 
   Widget _buildWeekDaysSection({
     required SetReminderProvider provider,

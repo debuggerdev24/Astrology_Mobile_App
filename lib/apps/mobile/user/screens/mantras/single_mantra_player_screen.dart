@@ -112,7 +112,7 @@ class _TodayMantraPlayScreenState extends State<TodayMantraPlayScreen>
                                     style: medium(fontSize: 22),
                                   ),
                                   AppText(
-                                    text: meaning ?? "Meaning",
+                                    text: meaning,
                                     style: regular(
                                       fontSize: 18,
                                       height: 1.2,
@@ -243,7 +243,9 @@ class _TodayMantraPlayScreenState extends State<TodayMantraPlayScreen>
                       children: [
                         LinearProgressIndicator(
                           value: playMantraProvider.downloadProgress,
-                          backgroundColor: AppColors.greyColor.withOpacity(0.3),
+                          backgroundColor: AppColors.greyColor.withValues(
+                            alpha: 0.3,
+                          ),
                           valueColor: AlwaysStoppedAnimation<Color>(
                             AppColors.primary,
                           ),

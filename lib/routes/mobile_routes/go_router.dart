@@ -12,7 +12,6 @@ import 'package:astrology_app/apps/mobile/user/screens/remedies/palm_reading_scr
 import 'package:astrology_app/apps/mobile/user/screens/remedies/palm_upload_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/remedies/remedies_list_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/remedies/remedy_detail_screen.dart';
-import 'package:astrology_app/apps/mobile/user/screens/remedies/remedy_player_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/remedies/set_reminder_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/settings/app_info/app_info.dart';
 import 'package:astrology_app/apps/mobile/user/screens/settings/app_info/faq_screen.dart';
@@ -170,14 +169,7 @@ class MobileAppRouter {
         return SetReminderScreen();
       },
     ),
-    GoRoute(
-      path: MobileAppRoutes.remedyPlayerScreen.path,
-      name: MobileAppRoutes.remedyPlayerScreen.name,
-      builder: (context, state) {
-        final bool isText = state.extra as bool;
-        return RemedyPlayerScreen(isText: isText);
-      },
-    ),
+
     GoRoute(
       path: MobileAppRoutes.premiumPlanScreen.path,
       name: MobileAppRoutes.premiumPlanScreen.name,

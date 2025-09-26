@@ -399,7 +399,7 @@ class UserAuthProvider extends ChangeNotifier {
 
   //todo --------> validation functions for all fields are below
   bool _validateLoginData() {
-    loginEmailErr = FieldValidators().email(_loginEmailCtr.text.trim()) ?? "";
+    loginEmailErr = FieldValidators().email(_loginEmailCtr.text.trim());
     loginPassErr = _loginPassCtr.text.trim().isEmpty
         ? "Password is Required"
         : "";
@@ -461,8 +461,7 @@ class UserAuthProvider extends ChangeNotifier {
   }
 
   bool _validateResetPasswordData() {
-    resetNewPassErr =
-        FieldValidators().password(_resetNewPassCtr.text.trim()) ?? "";
+    resetNewPassErr = FieldValidators().password(_resetNewPassCtr.text.trim());
     resetConfirmPassErr =
         FieldValidators().match(
           _resetConfirmPassCtr.text.trim(),

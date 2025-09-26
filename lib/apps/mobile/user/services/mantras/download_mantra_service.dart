@@ -32,10 +32,14 @@ class DownloadManager {
         return null;
       }
 
+      String fileName = "", filePath = "";
+      if (Platform.isAndroid) {
+        fileName = '${title.replaceAll(RegExp(r'[^\w\s-]'), '')}.mp3';
+        filePath = '/storage/emulated/0/Download/Mantra/$fileName';
+      } else if (Platform.isIOS) {
+        final directory = await getApplicationDocumentsDirectory();
+      }
       // Create filename with proper extension
-      final fileName = '${title.replaceAll(RegExp(r'[^\w\s-]'), '')}.mp3';
-      final filePath = '/storage/emulated/0/Download/Mantra/$fileName';
-      // Logger.printInfo(directory.path + fileName);
 
       // Start download
       await _dio.download(
@@ -94,9 +98,14 @@ class DownloadManager {
         return;
       }
 
+      String safeFileName = fileName.replaceAll(RegExp(r'[^\w\s-]'), ''),
+      filePath = "";
       // Create full file path with .txt extension
-      final safeFileName = fileName.replaceAll(RegExp(r'[^\w\s-]'), '');
-      final filePath = '/storage/emulated/0/Download/$safeFileName.txt';
+      if(Platform.isAndroid){
+        filePath = '/storage/emulated/0/Download/$safeFileName.txt';
+      }else if (Platform.isIOS){
+        final ;
+      }
 
       final file = File(filePath);
       await file.writeAsString(content);

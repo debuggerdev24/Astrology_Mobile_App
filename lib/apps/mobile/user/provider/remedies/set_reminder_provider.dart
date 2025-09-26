@@ -370,10 +370,10 @@ class SetReminderProvider extends ChangeNotifier {
       // );
     } catch (e) {
       Logger.printError("Awesome Notification initialization error: $e");
-      AppToast.error(
-        context: context,
-        message: "Failed to initialize notifications: $e",
-      );
+      // AppToast.error(
+      //   context: context,
+      //   message: "Failed to initialize notifications: $e",
+      // );
     }
   }
 

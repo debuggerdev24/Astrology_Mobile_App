@@ -108,7 +108,7 @@ class _MantraPlayScreenState extends State<MantraPlayScreen>
                                   style: medium(fontSize: 22),
                                 ),
                                 AppText(
-                                  text: mantra.meaning ?? "Meaning",
+                                  text: mantra.meaning,
                                   style: regular(
                                     fontSize: 18,
                                     height: 1.2,

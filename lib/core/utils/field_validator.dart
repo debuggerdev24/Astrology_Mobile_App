@@ -38,7 +38,7 @@ class FieldValidators {
       r'^[a-z0-9!@#$%^&*_(),.?":{}|<>]+@(gmail\.com|mailinator\.com)$',
     );
 
-    if (!emailPattern.hasMatch(val ?? "")) {
+    if (!emailPattern.hasMatch(val)) {
       return "Enter valid Email!";
     }
     return "";

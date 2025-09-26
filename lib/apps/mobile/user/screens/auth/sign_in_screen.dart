@@ -14,9 +14,6 @@ import '../../../../../core/utils/de_bouncing.dart';
 import '../../../../../core/widgets/app_text.dart';
 import '../../../../../core/widgets/app_text_field.dart';
 
-TextEditingController _txtEmail = TextEditingController();
-TextEditingController _txtPassword = TextEditingController();
-
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
 
