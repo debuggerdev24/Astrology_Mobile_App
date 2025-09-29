@@ -88,15 +88,15 @@ class SettingScreen extends StatelessWidget {
                         },
                       ),
                     ),
-                    buildDivider(),
-                    _section(
-                      title: context.translator.subscription,
-                      onTap: () {
-                        context.pushNamed(
-                          MobileAppRoutes.premiumPlanScreen.name,
-                        );
-                      },
-                    ),
+                    // buildDivider(),
+                    // _section(
+                    //   title: context.translator.subscription,
+                    //   onTap: () {
+                    //     context.pushNamed(
+                    //       MobileAppRoutes.premiumPlanScreen.name,
+                    //     );
+                    //   },
+                    // ),
                     buildDivider(),
                     _section(
                       title: translator.logOut,

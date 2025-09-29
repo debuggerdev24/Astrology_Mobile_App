@@ -439,4 +439,34 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get mountOfSun => 'சூரிய மலை';
+
+  @override
+  String get upgradeNow => 'அபி அபகிரட்';
+
+  @override
+  String get premiumAccess => 'பிரீமியம் அணுகல்';
+
+  @override
+  String get premiumMessageMountAnalysis => 'விரிவான மவுண்ட் பகுப்பாய்வைப் பார்க்க, தயவுசெய்து பிரீமியம் திட்டத்திற்கு (நிலை 2) மேம்படுத்தவும்.';
+
+  @override
+  String get premiumMessageMatchWithBirthChart => '\"பிறப்பு விளக்கப்படத்துடன் பொருத்து\" அம்சம் பிரீமியம் திட்டம் (நிலை 2) பயனர்களுக்கு மட்டுமே கிடைக்கிறது.';
+
+  @override
+  String get premiumMessageMatchWithRemedies => '\"வைத்தியம்\" அம்சம் பிரீமியம் திட்டம் (நிலை 2) பயனர்களுக்கு மட்டுமே கிடைக்கிறது.';
+
+  @override
+  String get premiumSloganMessageMountAnalysis => 'உங்கள் உள்ளங்கையின் உயரங்கள் மற்றும் உங்கள் வாழ்க்கைப் பாதையில் அவற்றின் செல்வாக்கு பற்றிய தனிப்பயனாக்கப்பட்ட நுண்ணறிவுகளைத் திறக்கவும்.';
+
+  @override
+  String get premiumSloganMessageMatchWithBirthChart => '\"பிறப்பு விளக்கப்படத்துடன் பொருத்து\" அம்சம் பிரீமியம் திட்டம் (நிலை 2) பயனர்களுக்கு மட்டுமே கிடைக்கிறது.';
+
+  @override
+  String get premiumSloganMessageRemedies => '\"வைத்தியம்\" அம்சம் பிரீமியம் திட்டம் (நிலை 2) பயனர்களுக்கு மட்டுமே கிடைக்கிறது.';
+
+  @override
+  String get premiumMantraHistory => 'மந்திர வரலாற்றைத் திறந்து உங்கள் ஆன்மீக பயணத்தைக் கண்காணிக்கவும்';
+
+  @override
+  String get upgradeToTier1 => 'நிலை 1 க்கு மேம்படுத்தவும்';
 }

@@ -439,4 +439,34 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get mountOfSun => 'Mount Of Sun';
+
+  @override
+  String get upgradeNow => 'Upgrade Now';
+
+  @override
+  String get premiumAccess => 'Premium Access';
+
+  @override
+  String get premiumMessageMountAnalysis => 'To view detailed Mount Analysis, please upgrade to a Premium Plan (Tier 2).';
+
+  @override
+  String get premiumMessageMatchWithBirthChart => 'The \"Match with Birth Chart\" feature is available exclusively for Premium Plan (Tier 2) users.';
+
+  @override
+  String get premiumMessageMatchWithRemedies => 'The \"Remedies\" feature is available exclusively for Premium Plan (Tier 2) users.';
+
+  @override
+  String get premiumSloganMessageMountAnalysis => 'Unlock personalized insights into your palm’s mounts and their influence on your life path.';
+
+  @override
+  String get premiumSloganMessageMatchWithBirthChart => 'The \"Match with Birth Chart\" feature is available exclusively for Premium Plan (Tier 2) users.';
+
+  @override
+  String get premiumSloganMessageRemedies => 'The \"Remedies\" feature is available exclusively for Premium Plan (Tier 2) users.';
+
+  @override
+  String get premiumMantraHistory => 'Unlock mantra history and track your spiritual journey';
+
+  @override
+  String get upgradeToTier1 => 'Upgrade to Tier 1';
 }

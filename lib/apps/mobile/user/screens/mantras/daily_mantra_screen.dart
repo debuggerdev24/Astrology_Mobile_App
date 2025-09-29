@@ -22,6 +22,7 @@ class DailyMantraScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final translator = context.translator;
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, result) {
@@ -34,7 +35,7 @@ class DailyMantraScreen extends StatelessWidget {
           children: [
             20.h.verticalSpace,
             AppText(
-              text: context.translator.dailyMantraLog,
+              text: translator.dailyMantraLog,
               textAlign: TextAlign.center,
               style: bold(
                 fontFamily: AppFonts.secondary,
@@ -50,8 +51,78 @@ class DailyMantraScreen extends StatelessWidget {
                     builder: (context, mantraProvider, _) {
                       if (!subscriptionProvider.isTier1Subscribed) {
                         return Center(
-                          child: AppText(
-                            text: "Locked: Tier 1 subscription required.",
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                padding: EdgeInsets.all(24),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: AppColors.secondary.withValues(
+                                    alpha: 0.1,
+                                  ),
+                                ),
+                                child: Icon(
+                                  Icons.lock_outline,
+                                  size: 64,
+                                  color: AppColors.secondary,
+                                ),
+                              ),
+                              24.verticalSpace,
+                              AppText(
+                                text: translator.premiumAccess,
+                                style: semiBold(fontSize: 24),
+                              ),
+                              12.verticalSpace,
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 40),
+                                child: AppText(
+                                  text: translator.premiumMantraHistory,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.grey[600],
+                                  ),
+                                ),
+                              ),
+                              32.verticalSpace,
+                              ElevatedButton(
+                                onPressed: () {
+                                  context.pushNamed(
+                                    MobileAppRoutes.premiumPlanScreen.name,
+                                  );
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: AppColors.primary,
+                                  foregroundColor: Colors.white,
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 30.w,
+                                    vertical: 16,
+                                  ),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
+                                ),
+                                child: Row(
+                                  spacing: 8,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Icon(
+                                      Icons.star,
+                                      size: 20,
+                                      color: AppColors.black,
+                                    ),
+                                    AppText(
+                                      text: translator.upgradeToTier1,
+                                      style: bold(
+                                        fontSize: 16,
+                                        color: AppColors.black,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
                         );
                       }

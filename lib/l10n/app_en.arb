@@ -142,5 +142,15 @@
   "finance": "Finance",
   "spirituality": "Spirituality",
   "mountOfSaturn": "Mount Of Saturn",
-  "mountOfSun": "Mount Of Sun"
+  "mountOfSun": "Mount Of Sun",
+  "upgradeNow": "Upgrade Now",
+  "premiumAccess": "Premium Access",
+  "premiumMessageMountAnalysis": "To view detailed Mount Analysis, please upgrade to a Premium Plan (Tier 2).",
+  "premiumMessageMatchWithBirthChart": "The \"Match with Birth Chart\" feature is available exclusively for Premium Plan (Tier 2) users.",
+  "premiumMessageMatchWithRemedies": "The \"Remedies\" feature is available exclusively for Premium Plan (Tier 2) users.",
+  "premiumSloganMessageMountAnalysis": "Unlock personalized insights into your palm’s mounts and their influence on your life path.",
+  "premiumSloganMessageMatchWithBirthChart": "The \"Match with Birth Chart\" feature is available exclusively for Premium Plan (Tier 2) users.",
+  "premiumSloganMessageRemedies": "The \"Remedies\" feature is available exclusively for Premium Plan (Tier 2) users.",
+  "premiumMantraHistory": "Unlock mantra history and track your spiritual journey",
+  "upgradeToTier1": "Upgrade to Tier 1"
 }

@@ -960,6 +960,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Mount Of Sun'**
   String get mountOfSun;
+
+  /// No description provided for @upgradeNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Upgrade Now'**
+  String get upgradeNow;
+
+  /// No description provided for @premiumAccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Premium Access'**
+  String get premiumAccess;
+
+  /// No description provided for @premiumMessageMountAnalysis.
+  ///
+  /// In en, this message translates to:
+  /// **'To view detailed Mount Analysis, please upgrade to a Premium Plan (Tier 2).'**
+  String get premiumMessageMountAnalysis;
+
+  /// No description provided for @premiumMessageMatchWithBirthChart.
+  ///
+  /// In en, this message translates to:
+  /// **'The \"Match with Birth Chart\" feature is available exclusively for Premium Plan (Tier 2) users.'**
+  String get premiumMessageMatchWithBirthChart;
+
+  /// No description provided for @premiumMessageMatchWithRemedies.
+  ///
+  /// In en, this message translates to:
+  /// **'The \"Remedies\" feature is available exclusively for Premium Plan (Tier 2) users.'**
+  String get premiumMessageMatchWithRemedies;
+
+  /// No description provided for @premiumSloganMessageMountAnalysis.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock personalized insights into your palm’s mounts and their influence on your life path.'**
+  String get premiumSloganMessageMountAnalysis;
+
+  /// No description provided for @premiumSloganMessageMatchWithBirthChart.
+  ///
+  /// In en, this message translates to:
+  /// **'The \"Match with Birth Chart\" feature is available exclusively for Premium Plan (Tier 2) users.'**
+  String get premiumSloganMessageMatchWithBirthChart;
+
+  /// No description provided for @premiumSloganMessageRemedies.
+  ///
+  /// In en, this message translates to:
+  /// **'The \"Remedies\" feature is available exclusively for Premium Plan (Tier 2) users.'**
+  String get premiumSloganMessageRemedies;
+
+  /// No description provided for @premiumMantraHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock mantra history and track your spiritual journey'**
+  String get premiumMantraHistory;
+
+  /// No description provided for @upgradeToTier1.
+  ///
+  /// In en, this message translates to:
+  /// **'Upgrade to Tier 1'**
+  String get upgradeToTier1;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -1,15 +1,12 @@
-import 'dart:io';
-
 import 'package:animate_do/animate_do.dart';
 import 'package:astrology_app/core/constants/text_style.dart';
+import 'package:astrology_app/core/extension/context_extension.dart';
 import 'package:astrology_app/core/widgets/app_text.dart';
-import 'package:astrology_app/routes/mobile_routes/user_routes.dart';
+import 'package:astrology_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 
-import '../../apps/mobile/user/provider/setting/locale_provider.dart';
 import '../constants/app_colors.dart';
 import 'app_button.dart';
 
@@ -76,11 +73,8 @@ Widget buildPageTitle({required String title, required BuildContext context}) {
     text: title,
     textAlign: TextAlign.center,
     style: bold(
-      fontSize: (context.watch<LocaleProvider>().localeCode == "ta")
-          ? 22
-          : (Platform.isAndroid)
-          ? 28
-          : 26,
+      height: 1.2,
+      fontSize: (context.isTamil) ? 20 : 26,
       fontFamily: AppFonts.secondary,
     ),
   );
@@ -136,6 +130,7 @@ Future<dynamic> showPremiumDialog({
           contentPadding: EdgeInsets.symmetric(horizontal: 14.w),
           title: Center(
             child: AppText(
+              textAlign: TextAlign.center,
               text: title, //"Premium Access"
               style: bold(
                 fontSize: 28,
@@ -155,12 +150,12 @@ Future<dynamic> showPremiumDialog({
                   Expanded(
                     child: AppButton(
                       fontSize: 15,
-                      title: "Upgrade Now",
+                      title: AppLocalizations.of(context)!.upgradeNow,
                       onTap: () {
                         context.pop();
-                        context.pushNamed(
-                          MobileAppRoutes.premiumPlanScreen.name,
-                        );
+                        // context.pushNamed(
+                        //   MobileAppRoutes.premiumPlanScreen.name,
+                        // );
                       },
                     ),
                   ),
@@ -170,7 +165,7 @@ Future<dynamic> showPremiumDialog({
                         context.pop();
                       },
                       fontSize: 15,
-                      title: "Cancel",
+                      title: AppLocalizations.of(context)!.cancel,
                       buttonColor: AppColors.secondary,
                     ),
                   ),

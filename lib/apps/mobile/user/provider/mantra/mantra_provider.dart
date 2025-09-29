@@ -65,7 +65,7 @@ class MantraProvider extends ChangeNotifier {
     notifyListeners();
 
     await DownloadManager().downloadTextFile(
-      fileName: fileName,
+      title: fileName,
       content: content,
       onSuccess: onSuccess,
       onError: onError,

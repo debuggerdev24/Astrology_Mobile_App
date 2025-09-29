@@ -59,8 +59,8 @@ class AwNotificationService {
       schedule: NotificationCalendar(
         hour: time.hour,
         minute: time.minute,
-        second: 0,
-        millisecond: 0,
+        second: 1,
+        millisecond: 1,
         repeats: true,
       ),
     );
@@ -86,8 +86,8 @@ class AwNotificationService {
         weekday: weekday,
         hour: dateTime.hour,
         minute: dateTime.minute,
-        second: 0,
-        millisecond: 0,
+        second: 1,
+        millisecond: 1,
         repeats: true,
       ),
     );
@@ -113,8 +113,8 @@ class AwNotificationService {
         day: day,
         hour: dateTime.hour,
         minute: dateTime.minute,
-        second: 0,
-        millisecond: 0,
+        second: 1,
+        millisecond: 1,
         repeats: true,
       ),
     );
@@ -142,8 +142,8 @@ class AwNotificationService {
         day: dateTime.day,
         hour: dateTime.hour,
         minute: dateTime.minute,
-        second: 0,
-        millisecond: 0,
+        second: 1,
+        millisecond: 1,
         repeats: repeats,
       ),
     );

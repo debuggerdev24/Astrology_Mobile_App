@@ -14,6 +14,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
+import 'apps/mobile/user/services/settings/locale_storage_service.dart';
 import 'core/constants/app_theme.dart';
 import 'l10n/app_localizations.dart';
 
@@ -55,7 +56,9 @@ class AstrologyMobileApp extends StatelessWidget {
             ],
             child: MaterialApp.router(
               theme: AppTheme.appThemeData,
-              locale: Locale(provider.localeCode),
+              locale: Locale(
+                LocaleStoaregService.localeCode,
+              ), //provider.localeCode
               supportedLocales: const [
                 Locale("en"),
                 Locale("hi"),

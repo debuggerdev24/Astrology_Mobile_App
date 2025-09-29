@@ -439,4 +439,34 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get mountOfSun => 'सूर्य पर्वत';
+
+  @override
+  String get upgradeNow => 'अभी अपग्रेड करें';
+
+  @override
+  String get premiumAccess => 'प्रीमियम एक्सेस';
+
+  @override
+  String get premiumMessageMountAnalysis => 'विस्तृत माउंट विश्लेषण देखने के लिए कृपया प्रीमियम प्लान (टियर 2) में अपग्रेड करें।';
+
+  @override
+  String get premiumMessageMatchWithBirthChart => '\"जन्म कुंडली से मिलान\" सुविधा विशेष रूप से प्रीमियम प्लान (टियर 2) उपयोगकर्ताओं के लिए उपलब्ध है।';
+
+  @override
+  String get premiumMessageMatchWithRemedies => '\"उपचार\" सुविधा विशेष रूप से प्रीमियम प्लान (टियर 2) उपयोगकर्ताओं के लिए उपलब्ध है।';
+
+  @override
+  String get premiumSloganMessageMountAnalysis => 'अपनी हथेली के पर्वतों और अपने जीवन पथ पर उनके प्रभाव के बारे में व्यक्तिगत जानकारी प्राप्त करें।';
+
+  @override
+  String get premiumSloganMessageMatchWithBirthChart => '\"जन्म कुंडली से मिलान\" सुविधा केवल प्रीमियम प्लान (टियर 2) उपयोगकर्ताओं के लिए उपलब्ध है।';
+
+  @override
+  String get premiumSloganMessageRemedies => '\"रिमेडिज\" सुविधा केवल प्रीमियम प्लान (टियर 2) उपयोगकर्ताओं के लिए उपलब्ध है।';
+
+  @override
+  String get premiumMantraHistory => 'मंत्रों का इतिहास जानें और अपनी आध्यात्मिक यात्रा को ट्रैक करें';
+
+  @override
+  String get upgradeToTier1 => 'टियर 1 में अपग्रेड करें';
 }

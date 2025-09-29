@@ -232,7 +232,7 @@ class _UserDashboardState extends State<UserDashboard> {
                                 color: isCurrent
                                     ? Colors.white
                                     : AppColors.darkBlue,
-                                fontSize: isTamil ? 10 : 14,
+                                fontSize: isTamil ? 10 : 12,
                               ),
                       ),
                     ),

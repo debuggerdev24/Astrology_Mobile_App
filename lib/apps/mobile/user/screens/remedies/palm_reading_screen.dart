@@ -118,7 +118,7 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
                     } else {
                       showPremiumDialog(
                         context: context,
-                        title: "Premium Access",
+                        title: translator.premiumAccess,
                         contentBody: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisSize: MainAxisSize.min,
@@ -126,8 +126,7 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
                             18.h.verticalSpace,
                             AppText(
                               textAlign: TextAlign.center,
-                              text:
-                                  'The "Remedies" feature is available exclusively for Premium Plan (Tier 2) users.',
+                              text: translator.premiumMessageMatchWithRemedies,
                               style: medium(
                                 fontSize: 16,
                                 color: AppColors.black.withValues(alpha: 0.8),
@@ -136,8 +135,7 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
                             8.h.verticalSpace,
                             AppText(
                               textAlign: TextAlign.center,
-                              text:
-                                  "Unlock advanced insights by aligning your palm reading with your birth chart for a more accurate spiritual analysis.",
+                              text: translator.premiumSloganMessageRemedies,
                               style: medium(
                                 fontSize: 16,
                                 color: AppColors.greyColor,
@@ -183,7 +181,7 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
                     } else {
                       showPremiumDialog(
                         context: context,
-                        title: "Premium Access",
+                        title: translator.premiumAccess,
                         contentBody: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisSize: MainAxisSize.min,
@@ -192,7 +190,8 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
                             AppText(
                               textAlign: TextAlign.center,
                               text:
-                                  'The "Match with Birth Chart" feature is available exclusively for Premium Plan (Tier 2) users.',
+                                  translator.premiumMessageMatchWithBirthChart,
+                              //'The "Match with Birth Chart" feature is available exclusively for Premium Plan (Tier 2) users.',
                               style: medium(
                                 fontSize: 16,
                                 color: AppColors.black.withValues(alpha: 0.8),
@@ -201,8 +200,9 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
                             8.h.verticalSpace,
                             AppText(
                               textAlign: TextAlign.center,
-                              text:
-                                  "Unlock advanced insights by aligning your palm reading with your birth chart for a more accurate spiritual analysis.",
+                              text: translator
+                                  .premiumSloganMessageMatchWithBirthChart,
+                              // "Unlock advanced insights by aligning your palm reading with your birth chart for a more accurate spiritual analysis.",
                               style: medium(
                                 fontSize: 16,
                                 color: AppColors.greyColor,
@@ -354,7 +354,7 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
       onTap: () {
         showPremiumDialog(
           context: context,
-          title: "Premium Access",
+          title: translator.premiumAccess,
           contentBody: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
@@ -362,8 +362,8 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
               18.h.verticalSpace,
               AppText(
                 textAlign: TextAlign.center,
-                text:
-                    "To view detailed Mount Analysis, please upgrade to a Premium Plan (Tier 2).",
+                text: translator.premiumMessageMountAnalysis,
+                //"To view detailed Mount Analysis, please upgrade to a Premium Plan (Tier 2).",
                 style: medium(
                   fontSize: 16,
                   color: AppColors.black.withValues(alpha: 0.8),
@@ -372,8 +372,8 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
               8.h.verticalSpace,
               AppText(
                 textAlign: TextAlign.center,
-                text:
-                    "Unlock personalized insights into your palm’s mounts and their influence on your life path.",
+                text: translator
+                    .premiumSloganMessageMountAnalysis, //"Unlock personalized insights into your palm’s mounts and their influence on your life path.",
                 style: medium(fontSize: 16, color: AppColors.greyColor),
               ),
             ],

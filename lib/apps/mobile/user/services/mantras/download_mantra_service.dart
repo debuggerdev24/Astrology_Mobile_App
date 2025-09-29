@@ -32,14 +32,16 @@ class DownloadManager {
         return null;
       }
 
-      String fileName = "", filePath = "";
+      String fileName = '${title.replaceAll(RegExp(r'[^\w\s-]'), '')}.mp3',
+          filePath = "";
+
       if (Platform.isAndroid) {
-        fileName = '${title.replaceAll(RegExp(r'[^\w\s-]'), '')}.mp3';
         filePath = '/storage/emulated/0/Download/Mantra/$fileName';
       } else if (Platform.isIOS) {
-        final directory = await getApplicationDocumentsDirectory();
+        final directory = await getDownloadsDirectory();
+        filePath = "${directory!.path}/$fileName.txt";
       }
-      // Create filename with proper extension
+      Logger.printInfo(filePath);
 
       // Start download
       await _dio.download(
@@ -48,11 +50,10 @@ class DownloadManager {
         onReceiveProgress: (received, total) {
           if (total != -1) {
             final progress = received / total;
-            _downloadProgress["temp"] = progress; // Change "temp" to bhajanId
+            _downloadProgress["temp"] = progress;
             onProgress(progress); // Make sure this is called
           }
         },
-
         options: Options(
           receiveTimeout: const Duration(minutes: 10),
           sendTimeout: const Duration(minutes: 5),
@@ -86,7 +87,7 @@ class DownloadManager {
 
   // Download and save plain text content as a .txt file
   Future<void> downloadTextFile({
-    required String fileName,
+    required String title,
     required String content,
     required Function(String path) onSuccess,
     required Function(String error) onError,
@@ -98,14 +99,16 @@ class DownloadManager {
         return;
       }
 
-      String safeFileName = fileName.replaceAll(RegExp(r'[^\w\s-]'), ''),
-      filePath = "";
+      String safeFileName = title.replaceAll(RegExp(r'[^\w\s-]'), ''),
+          filePath = "";
       // Create full file path with .txt extension
-      if(Platform.isAndroid){
+      if (Platform.isAndroid) {
         filePath = '/storage/emulated/0/Download/$safeFileName.txt';
-      }else if (Platform.isIOS){
-        final ;
+      } else if (Platform.isIOS) {
+        final directory = await getApplicationDocumentsDirectory();
+        filePath = "${directory.path}/$safeFileName.txt";
       }
+      Logger.printInfo(filePath);
 
       final file = File(filePath);
       await file.writeAsString(content);

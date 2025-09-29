@@ -49,6 +49,7 @@ class _TodayMantraPlayScreenState extends State<TodayMantraPlayScreen>
       context.read<MantraProvider>().disposeAudio();
     } else if (state == AppLifecycleState.resumed) {
       Logger.printInfo("----------------- Resume App -------------------");
+      context.read<MantraProvider>().setAudioSetting();
     }
     super.didChangeAppLifecycleState(state);
   }

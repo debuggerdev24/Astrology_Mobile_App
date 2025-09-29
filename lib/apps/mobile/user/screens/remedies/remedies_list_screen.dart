@@ -24,7 +24,9 @@ class RemediesScreen extends StatefulWidget {
 class _RemediesScreenState extends State<RemediesScreen> {
   @override
   void initState() {
-    context.read<PalmProvider>().getRemedies();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<PalmProvider>().getRemedies();
+    });
     super.initState();
   }
 
