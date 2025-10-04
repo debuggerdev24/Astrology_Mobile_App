@@ -48,7 +48,7 @@ class AppLocalizationsTa extends AppLocalizations {
   String get dasha => 'தாஷா';
 
   @override
-  String get moonSign => 'சந்திரன் \nஅடையாளம்';
+  String get moonSign => 'சந்திரன் அடையாளம்';
 
   @override
   String get dailyMantra => 'தினசரி மந்திரம்';
@@ -469,4 +469,100 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get upgradeToTier1 => 'நிலை 1 க்கு மேம்படுத்தவும்';
+
+  @override
+  String get signUp => 'பதிவு செய்';
+
+  @override
+  String get signUpSlogan => 'உங்களுக்காகவே தனிப்பயனாக்கப்பட்ட ஜோதிட நுண்ணறிவுகளைத் திறக்கவும்.';
+
+  @override
+  String get name => 'பெயர்';
+
+  @override
+  String get email => 'மின்னஞ்சல்';
+
+  @override
+  String get password => 'கடவுச்சொல்';
+
+  @override
+  String get confirmPassword => 'கடவுச்சொல்லை உறுதிப்படுத்தவும்';
+
+  @override
+  String get alreadyHaveAcc => 'ஏற்கனவே ஒரு கணக்கு உள்ளதா?';
+
+  @override
+  String get signIn => 'உள்நுழை';
+
+  @override
+  String get signInSlogan => 'உங்கள் பிரபஞ்சப் பயணத்துடன் மீண்டும் இணையுங்கள்.';
+
+  @override
+  String get forgotPass => 'கடவுச்சொல் மறந்துவிட்டது';
+
+  @override
+  String get dontHaveAcc => 'கணக்கு இல்லையா?';
+
+  @override
+  String get forgotPassSlogan => 'நட்சத்திரங்கள் கூட வழி தவறுகின்றன - உங்களுடையதை மீட்டமைக்க உதவுவோம்.';
+
+  @override
+  String get sendMail => 'அஞ்சல் அனுப்பு';
+
+  @override
+  String get enterCode => '4-இலக்க குறியீட்டை உள்ளிடவும்';
+
+  @override
+  String get otpVerifySlogan => 'நட்சத்திரங்களுடன் உங்கள் ஆற்றலைச் சரிபார்க்கவும் - குறியீட்டை உள்ளிடவும்.';
+
+  @override
+  String get verify => 'சரிபார்க்கவும்';
+
+  @override
+  String get resendOtp => 'OTP-ஐ மீண்டும் அனுப்பு';
+
+  @override
+  String get resendOtpIn => 'மீண்டும் அனுப்பு';
+
+  @override
+  String get resetPassword => 'கடவுச்சொல்லை மீட்டமைக்க';
+
+  @override
+  String get newPassword => 'புதிய கடவுச்சொல்';
+
+  @override
+  String get enterYourName => 'உங்கள் பெயரை உள்ளிடவும்';
+
+  @override
+  String get enterYourEmail => 'உங்கள் மின்னஞ்சலை உள்ளிடவும்';
+
+  @override
+  String get enterYourPassword => 'உங்கள் கடவுச்சொல்லை உள்ளிடவும்';
+
+  @override
+  String get enterYourConfirmPassword => 'உங்கள் உறுதிப்படுத்தல் கடவுச்சொல்லை உள்ளிடவும்.';
+
+  @override
+  String get enterYourNewPass => 'உங்கள் புதிய கடவுச்சொல்லை உள்ளிடவும்';
+
+  @override
+  String get enterYourResetPass => 'உங்கள் மீட்டமைப்பு கடவுச்சொல்லை உள்ளிடவும்';
+
+  @override
+  String get addNewPalm => 'புதிய பனையைச் சேர்க்கவும்';
+
+  @override
+  String get add => 'சேர்';
+
+  @override
+  String get warning => 'எச்சரிக்கை';
+
+  @override
+  String get warnMessage => 'நீங்கள் ஒரு புதிய உள்ளங்கையைச் சேர்த்தால், ஏற்கனவே உள்ள தரவு இழக்கப்படும்.';
+
+  @override
+  String get goodAfternoon => 'மதிய வணக்கம்';
+
+  @override
+  String get goodEvening => 'மாலை வணக்கம்';
 }

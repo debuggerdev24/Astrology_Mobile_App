@@ -1,14 +1,18 @@
+import 'package:animate_do/animate_do.dart';
+import 'package:astrology_app/core/constants/text_style.dart';
 import 'package:astrology_app/core/widgets/app_layout.dart';
+import 'package:astrology_app/core/widgets/app_text.dart';
 import 'package:astrology_app/main.dart';
 import 'package:astrology_app/routes/mobile_routes/user_routes.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../core/network/base_api_helper.dart';
-import '../../../../core/utils/logger.dart';
-import '../provider/auth/auth_provider.dart';
-import '../services/settings/locale_storage_service.dart';
+import '../../../../../core/constants/app_assets.dart';
+import '../../../../../core/network/base_api_helper.dart';
+import '../../../../../core/utils/logger.dart';
+import '../../provider/auth/auth_provider.dart';
+import '../../services/settings/locale_storage_service.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -34,7 +38,6 @@ class _SplashScreenState extends State<SplashScreen> {
         return;
       }
       if (userToken.isNotEmpty) {
-        //userToken.isNotEmpty
         Logger.printInfo("API Calling Started");
         final result = await BaseApiHelper.instance.checkTokenExpired();
 
@@ -62,12 +65,39 @@ class _SplashScreenState extends State<SplashScreen> {
         });
         return;
       }
+      if (!LocaleStoaregService.isLanguageSelected) {
+        context.goNamed(MobileAppRoutes.selectLanguageScreen.name);
+        return;
+      }
       context.goNamed(MobileAppRoutes.signUpScreen.name);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return AppLayout(body: Column());
+    return AppLayout(
+      body: Center(
+        child: FadeIn(
+          child: Column(
+            spacing: 15,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                height: 95,
+                width: 95,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  image: DecorationImage(
+                    image: AssetImage(AppAssets.appLogo),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              AppText(text: "Inner Peace Path", style: regular(fontSize: 22)),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

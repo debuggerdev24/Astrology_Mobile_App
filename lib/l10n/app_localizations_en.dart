@@ -469,4 +469,100 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get upgradeToTier1 => 'Upgrade to Tier 1';
+
+  @override
+  String get signUp => 'Sign Up';
+
+  @override
+  String get signUpSlogan => 'Unlock personalized astrological insights just for you.';
+
+  @override
+  String get name => 'Name';
+
+  @override
+  String get email => 'Email';
+
+  @override
+  String get password => 'Password';
+
+  @override
+  String get confirmPassword => 'Confirm Password';
+
+  @override
+  String get alreadyHaveAcc => 'Already have an account?';
+
+  @override
+  String get signIn => 'Sign In';
+
+  @override
+  String get signInSlogan => 'Reconnect with your cosmic journey.';
+
+  @override
+  String get forgotPass => 'Forgot Password';
+
+  @override
+  String get dontHaveAcc => 'Don\"t have an account?';
+
+  @override
+  String get forgotPassSlogan => 'Even stars lose their way — let\'s help you reset yours.';
+
+  @override
+  String get sendMail => 'Send Mail';
+
+  @override
+  String get enterCode => 'Enter 4-Digit Code';
+
+  @override
+  String get otpVerifySlogan => 'Verify your energy with the stars — enter the code.';
+
+  @override
+  String get verify => 'Verify';
+
+  @override
+  String get resendOtp => 'Resend OTP';
+
+  @override
+  String get resendOtpIn => 'Resend OTP in';
+
+  @override
+  String get resetPassword => 'Reset Password';
+
+  @override
+  String get newPassword => 'New Password';
+
+  @override
+  String get enterYourName => 'Enter Your Name';
+
+  @override
+  String get enterYourEmail => 'Enter Your Email';
+
+  @override
+  String get enterYourPassword => 'Enter Your Password';
+
+  @override
+  String get enterYourConfirmPassword => 'Enter Your Confirm Password';
+
+  @override
+  String get enterYourNewPass => 'Enter Your New Password';
+
+  @override
+  String get enterYourResetPass => 'Enter Your Reset Password';
+
+  @override
+  String get addNewPalm => 'Add New Palm';
+
+  @override
+  String get add => 'Add';
+
+  @override
+  String get warning => 'Warning';
+
+  @override
+  String get warnMessage => 'If you add a new palm, the existing data will be lost.';
+
+  @override
+  String get goodAfternoon => 'Good Afternoon';
+
+  @override
+  String get goodEvening => 'Good Evening';
 }

@@ -57,9 +57,13 @@ class BaseApiHelper {
     T Function(dynamic)? parser,
   }) async {
     try {
+      final mergedQueryParams = {
+        "lang": LocaleStoaregService.localeCode,
+        ...?queryParameters, // spread only if not null
+      };
       final response = await _dio.get(
         path,
-        queryParameters: queryParameters,
+        queryParameters: mergedQueryParams,
         options: options,
       );
       // final result = _handleResponse(response);
@@ -96,10 +100,14 @@ class BaseApiHelper {
     T Function(dynamic)? parser,
   }) async {
     try {
+      final mergedQueryParams = {
+        "lang": LocaleStoaregService.localeCode,
+        ...?queryParameters, // spread only if not null
+      };
       final response = await _dio.post(
         path,
         data: data,
-        queryParameters: queryParameters,
+        queryParameters: mergedQueryParams,
         options: options,
       );
 
@@ -138,10 +146,14 @@ class BaseApiHelper {
     T Function(dynamic)? parser,
   }) async {
     try {
+      final mergedQueryParams = {
+        "lang": LocaleStoaregService.localeCode,
+        ...?queryParameters, // spread only if not null
+      };
       final response = await _dio.delete(
         path,
         data: data,
-        queryParameters: queryParameters,
+        queryParameters: mergedQueryParams,
         options: options,
       );
       final result = response.data;
@@ -178,10 +190,15 @@ class BaseApiHelper {
     T Function(dynamic)? parser,
   }) async {
     try {
+      final mergedQueryParams = {
+        "lang": LocaleStoaregService.localeCode,
+        ...?queryParameters, // spread only if not null
+      };
+
       final response = await _dio.patch(
         path,
         data: data,
-        queryParameters: queryParameters,
+        queryParameters: mergedQueryParams,
         options: options,
       );
 

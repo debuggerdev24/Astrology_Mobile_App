@@ -18,8 +18,14 @@ class LocaleStoaregService {
   static const String _loggedInCustomerpasswrodKey = "logged_in_user_password";
   static const String _isProfileCreated = "is_profile_created";
   static const String _localeCode = "locale_code";
+  static const String _isLanguageSelected = "is_language_selected";
 
   // save and get the value of is user logged in
+  static bool get isLanguageSelected =>
+      _pref.getBool(_isLanguageSelected) ?? false;
+  static Future<void> setIsLanguageSelected({bool value = true}) async =>
+      await _pref.setBool(_isLanguageSelected, value);
+
   static bool get isUserLoggedIn => _pref.getBool(_isUserLoggedInKey) ?? false;
   static Future<void> setIsUserLoggedIn({bool value = true}) async =>
       await _pref.setBool(_isUserLoggedInKey, value);

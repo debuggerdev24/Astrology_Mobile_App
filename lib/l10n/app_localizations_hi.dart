@@ -469,4 +469,100 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get upgradeToTier1 => 'टियर 1 में अपग्रेड करें';
+
+  @override
+  String get signUp => 'साइन अप करें';
+
+  @override
+  String get signUpSlogan => 'केवल आपके लिए व्यक्तिगत ज्योतिषीय अंतर्दृष्टि अनलॉक करें।';
+
+  @override
+  String get name => 'नाम';
+
+  @override
+  String get email => 'ईमेल';
+
+  @override
+  String get password => 'पासवर्ड';
+
+  @override
+  String get confirmPassword => 'पासवर्ड की पुष्टि कीजिये';
+
+  @override
+  String get alreadyHaveAcc => 'क्या आपके पास पहले से एक खाता मौजूद है?';
+
+  @override
+  String get signIn => 'साइन इन करें';
+
+  @override
+  String get signInSlogan => 'अपनी ब्रह्मांडीय यात्रा से पुनः जुड़ें।';
+
+  @override
+  String get forgotPass => 'पासवर्ड भूल गए';
+
+  @override
+  String get dontHaveAcc => 'क्या आपके पास खाता नहीं है?';
+
+  @override
+  String get forgotPassSlogan => 'तारे भी अपना रास्ता खो देते हैं - आइये हम आपको अपना रास्ता पुनः खोजने में मदद करें।';
+
+  @override
+  String get sendMail => 'मेल भेजने';
+
+  @override
+  String get enterCode => '4-अंकीय कोड दर्ज करें';
+
+  @override
+  String get otpVerifySlogan => 'सितारों के साथ अपनी ऊर्जा सत्यापित करें - कोड दर्ज करें।';
+
+  @override
+  String get verify => 'सत्यापित करें';
+
+  @override
+  String get resendOtp => 'OTP पुनः भेजें';
+
+  @override
+  String get resendOtpIn => 'ओटीपी फिर से भेजेंं';
+
+  @override
+  String get resetPassword => 'पासवर्ड रीसेट';
+
+  @override
+  String get newPassword => 'नया पासवर्ड';
+
+  @override
+  String get enterYourName => 'अपना नाम दर्ज करें';
+
+  @override
+  String get enterYourEmail => 'अपना ईमेल दर्ज करें';
+
+  @override
+  String get enterYourPassword => 'अपना पासवर्ड दर्ज करे ';
+
+  @override
+  String get enterYourConfirmPassword => 'अपना पुष्टिकरण पासवर्ड दर्ज करें';
+
+  @override
+  String get enterYourNewPass => 'अपना नया पासवर्ड दर्ज करें';
+
+  @override
+  String get enterYourResetPass => 'अपना रीसेट पासवर्ड दर्ज करें';
+
+  @override
+  String get addNewPalm => 'नया पाम जोड़ें';
+
+  @override
+  String get add => 'जोडे';
+
+  @override
+  String get warning => 'चेतावनी';
+
+  @override
+  String get warnMessage => 'यदि आप नया पाम जोड़ते हैं, तो मौजूदा डेटा नष्ट हो जाएगा।';
+
+  @override
+  String get goodAfternoon => 'शुभ दोपहर';
+
+  @override
+  String get goodEvening => 'शुभ संध्या';
 }

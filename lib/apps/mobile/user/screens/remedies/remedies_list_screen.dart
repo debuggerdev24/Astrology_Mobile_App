@@ -121,9 +121,14 @@ class _RemediesScreenState extends State<RemediesScreen> {
       padding: EdgeInsets.only(bottom: 5.h),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
+
         spacing: 4,
         children: [
-          AppText(text: topic, style: regular(fontSize: 16)),
+          Padding(
+            padding: EdgeInsets.only(top: 2.5),
+
+            child: AppText(text: topic, style: regular(fontSize: 16)),
+          ),
           AppText(text: ":", style: regular(fontSize: 16)),
           Expanded(
             flex: 3,

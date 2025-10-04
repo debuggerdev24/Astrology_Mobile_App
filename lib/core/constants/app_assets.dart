@@ -18,6 +18,7 @@ class AppAssets {
   static const lockIcon = "$_iconPath/lockIcon.svg";
   static const sunIcon = "$_iconPath/sunIcon.svg";
   static const errorIcon = "$_iconPath/errorIcon.svg";
+  static const appLogo = "$_iconPath/icon.png";
 
   // images
   static const _imagePath = "assets/images";

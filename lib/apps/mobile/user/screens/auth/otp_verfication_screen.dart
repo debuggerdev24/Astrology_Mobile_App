@@ -1,3 +1,4 @@
+import 'package:astrology_app/core/extension/context_extension.dart';
 import 'package:astrology_app/core/utils/custom_loader.dart';
 import 'package:astrology_app/core/widgets/app_button.dart';
 import 'package:astrology_app/core/widgets/app_layout.dart';
@@ -17,6 +18,8 @@ class OtpVerificationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final translator = context.translator;
+
     return AppLayout(
       horizontalPadding: 0,
       body: Consumer<UserAuthProvider>(
@@ -25,96 +28,97 @@ class OtpVerificationScreen extends StatelessWidget {
             children: [
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
-                child: Column(
-                  children: [
-                    40.h.verticalSpace,
-                    AppText(
-                      text: "Enter 4-Digit Code",
-                      textAlign: TextAlign.center,
-                      style: bold(
-                        height: 1.1,
-                        fontFamily: AppFonts.secondary,
-                        fontSize: 42,
-                      ),
-                    ),
-                    12.h.verticalSpace,
-                    AppText(
-                      textAlign: TextAlign.center,
-                      text:
-                          "Verify your energy with the stars — enter the code.",
-                      style: regular(),
-                    ),
-                    42.h.verticalSpace,
-                    Pinput(
-                      controller: provider.otpController,
-                      length: 4,
-                      separatorBuilder: (index) => 14.w.horizontalSpace,
-                      defaultPinTheme: PinTheme(
-                        height: 55.h,
-                        width: 55.w,
-                        textStyle: medium(fontSize: 20),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(05.r),
-                          border: Border.all(color: Colors.grey.shade400),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      40.h.verticalSpace,
+                      AppText(
+                        text: translator.enterCode,
+                        textAlign: TextAlign.center,
+                        style: bold(
+                          height: 1.1,
+                          fontFamily: AppFonts.secondary,
+                          fontSize: 42,
                         ),
                       ),
-                      focusedPinTheme: PinTheme(
-                        height: 55.h,
-                        width: 55.w,
-                        textStyle: medium(fontSize: 20),
-                        decoration: BoxDecoration(
-                          // color: Colors.white,
-                          borderRadius: BorderRadius.circular(
-                            8.r,
-                          ), // Less Radius
-                          border: Border.all(
+                      12.h.verticalSpace,
+                      AppText(
+                        textAlign: TextAlign.center,
+                        text: translator.otpVerifySlogan,
+                        style: regular(),
+                      ),
+                      42.h.verticalSpace,
+                      Pinput(
+                        controller: provider.otpController,
+                        length: 4,
+                        separatorBuilder: (index) => 14.w.horizontalSpace,
+                        defaultPinTheme: PinTheme(
+                          height: 55.h,
+                          width: 55.w,
+                          textStyle: medium(fontSize: 20),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(05.r),
+                            border: Border.all(color: Colors.grey.shade400),
+                          ),
+                        ),
+                        focusedPinTheme: PinTheme(
+                          height: 55.h,
+                          width: 55.w,
+                          textStyle: medium(fontSize: 20),
+                          decoration: BoxDecoration(
+                            // color: Colors.white,
+                            borderRadius: BorderRadius.circular(
+                              8.r,
+                            ), // Less Radius
+                            border: Border.all(
+                              color: AppColors.whiteColor,
+                              width: 2,
+                            ),
+                          ),
+                        ),
+                        submittedPinTheme: PinTheme(
+                          height: 55.h,
+                          width: 55.w,
+                          textStyle: regular(fontSize: 20),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8.r),
+                            border: Border.all(color: Colors.grey.shade400),
+                          ),
+                        ),
+                        keyboardType: TextInputType.number,
+                        onCompleted: (code) {},
+                      ),
+                      52.h.verticalSpace,
+                      AppButton(
+                        title: translator.verify,
+                        onTap: () {
+                          provider.verifyOtp(context: context, userId: userId);
+                        },
+                      ),
+                      8.h.verticalSpace,
+                      GestureDetector(
+                        onTap:
+                            (provider.canResendOtp &&
+                                !provider.isResendOtpLoading)
+                            ? () {
+                                provider.resendOtp(context: context);
+                              }
+                            : null,
+                        child: AppText(
+                          text: provider.isResendOtpLoading
+                              ? "Resending..."
+                              : provider.canResendOtp
+                              ? translator.resendOtp
+                              : "${translator.resendOtpIn} ${provider.resendSeconds}s",
+                          style: regular(
+                            fontSize: 15,
                             color: AppColors.whiteColor,
-                            width: 2,
                           ),
                         ),
                       ),
-                      submittedPinTheme: PinTheme(
-                        height: 55.h,
-                        width: 55.w,
-                        textStyle: regular(fontSize: 20),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8.r),
-                          border: Border.all(color: Colors.grey.shade400),
-                        ),
-                      ),
-                      keyboardType: TextInputType.number,
-                      onCompleted: (code) {},
-                    ),
-                    52.h.verticalSpace,
-                    AppButton(
-                      title: "Verify",
-                      onTap: () {
-                        provider.verifyOtp(context: context, userId: userId);
-                      },
-                    ),
-                    8.h.verticalSpace,
-                    GestureDetector(
-                      onTap:
-                          (provider.canResendOtp &&
-                              !provider.isResendOtpLoading)
-                          ? () {
-                              provider.resendOtp(context: context);
-                            }
-                          : null,
-                      child: AppText(
-                        text: provider.isResendOtpLoading
-                            ? "Resending..."
-                            : provider.canResendOtp
-                            ? "Resend OTP"
-                            : "Resend OTP in ${provider.resendSeconds}s",
-                        style: regular(
-                          fontSize: 15,
-                          color: AppColors.whiteColor,
-                        ),
-                      ),
-                    ),
-                    // AppText(text: "Resend OTP", style: regular(fontSize: 15)),
-                  ],
+                      // AppText(text: "Resend OTP", style: regular(fontSize: 15)),
+                    ],
+                  ),
                 ),
               ),
               if (provider.isOtpVerificationLoading) FullPageIndicator(),

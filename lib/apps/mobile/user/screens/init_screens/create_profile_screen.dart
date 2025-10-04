@@ -15,11 +15,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../../core/constants/app_colors.dart';
-import '../../../../../../core/widgets/global_methods.dart';
-import '../../../../core/utils/de_bouncing.dart';
-import '../provider/setting/profile_provider.dart';
-import '../services/settings/locale_storage_service.dart';
+import '../../../../../../../core/constants/app_colors.dart';
+import '../../../../../../../core/widgets/global_methods.dart';
+import '../../../../../core/utils/de_bouncing.dart';
+import '../../provider/setting/profile_provider.dart';
+import '../../services/settings/locale_storage_service.dart';
 
 class CreateProfileScreen extends StatefulWidget {
   const CreateProfileScreen({super.key});

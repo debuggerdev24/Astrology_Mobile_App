@@ -146,13 +146,19 @@ class UserAuthProvider extends ChangeNotifier {
     final result = await UserProfileService.instance.getProfile();
     result.fold(
       (l) {
+        if (!LocaleStoaregService.isLanguageSelected) {
+          context.goNamed(MobileAppRoutes.selectLanguageScreen.name);
+          return;
+        }
         context.goNamed(MobileAppRoutes.signUpScreen.name);
-
-        // context.goNamed(MobileAppRoutes.userDashBoardScreen.name);
       },
       (r) {
         final data = r["data"]["palm_image_left"];
         Logger.printInfo("---------------> ${data.toString()}");
+        if (!LocaleStoaregService.isLanguageSelected) {
+          context.goNamed(MobileAppRoutes.selectLanguageScreen.name);
+          return;
+        }
         if (data == null) {
           Logger.printInfo(
             "Going to the profile screen by using your new logic",

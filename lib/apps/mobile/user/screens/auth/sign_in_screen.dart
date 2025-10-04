@@ -1,4 +1,5 @@
 import 'package:astrology_app/apps/mobile/user/provider/auth/auth_provider.dart';
+import 'package:astrology_app/core/extension/context_extension.dart';
 import 'package:astrology_app/core/utils/custom_loader.dart';
 import 'package:astrology_app/core/widgets/app_button.dart';
 import 'package:astrology_app/core/widgets/app_layout.dart';
@@ -19,6 +20,7 @@ class SignInScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final translator = context.translator;
     return AppLayout(
       horizontalPadding: 0,
       body: SingleChildScrollView(
@@ -31,13 +33,13 @@ class SignInScreen extends StatelessWidget {
                   children: [
                     40.h.verticalSpace,
                     AppText(
-                      text: "Sign In",
+                      text: translator.signIn,
                       style: bold(fontFamily: AppFonts.secondary, fontSize: 46),
                     ),
                     12.h.verticalSpace,
                     AppText(
                       textAlign: TextAlign.center,
-                      text: "Reconnect with your cosmic journey.",
+                      text: translator.signInSlogan,
                       style: regular(),
                     ),
                     32.h.verticalSpace,
@@ -46,14 +48,14 @@ class SignInScreen extends StatelessWidget {
                       children: [
                         AppTextField(
                           controller: provider.loginEmailCtr,
-                          title: "Email",
-                          hintText: "Enter Your Email",
+                          title: translator.email,
+                          hintText: translator.enterYourEmail,
                           errorMessage: provider.loginEmailErr,
                         ),
                         AppTextField(
                           controller: provider.loginPassCtr,
-                          title: "Password",
-                          hintText: "Enter Your Password",
+                          title: translator.password,
+                          hintText: translator.enterYourPassword,
                           errorMessage: provider.loginPassErr,
                         ),
                       ],
@@ -68,14 +70,14 @@ class SignInScreen extends StatelessWidget {
                           );
                         },
                         child: AppText(
-                          text: "Forgot Password?",
+                          text: "${translator.forgotPass} ?",
                           style: regular(fontSize: 13.5),
                         ),
                       ),
                     ),
                     52.h.verticalSpace,
                     AppButton(
-                      title: "Sign In",
+                      title: translator.signIn,
                       onTap: () {
                         deBouncer.run(() {
                           provider.loginUser(context);
@@ -94,14 +96,14 @@ class SignInScreen extends StatelessWidget {
                           //Login with email, when email is found in system
                           children: [
                             TextSpan(
-                              text: "Don't have an account? ",
+                              text: "${translator.dontHaveAcc} ",
                               style: regular(
                                 fontSize: 15.sp,
                                 fontFamily: "Primary",
                               ),
                             ),
                             TextSpan(
-                              text: "Sign Up",
+                              text: "${translator.signUp}",
                               style: semiBold(
                                 fontSize: 15.sp,
                                 color: AppColors.primary,

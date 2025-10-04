@@ -34,4 +34,5 @@ enum MobileAppRoutes {
   resetPasswordScreen,
   dashaNakshatraDetailsScreen,
   singleMantraPlayerScreen,
+  selectLanguageScreen,
 }

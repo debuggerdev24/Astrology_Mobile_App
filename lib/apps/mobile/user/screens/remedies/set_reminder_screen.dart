@@ -12,6 +12,7 @@ import '../../../../../core/widgets/app_layout.dart';
 import '../../../../../core/widgets/app_text.dart';
 import '../../../../../core/widgets/app_text_field.dart';
 import '../../../../../core/widgets/global_methods.dart';
+import '../../provider/remedies/palm_provider.dart';
 import '../../provider/remedies/set_reminder_provider.dart';
 
 class SetReminderScreen extends StatefulWidget {
@@ -72,7 +73,6 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
                         translator: translator,
                       ),
                       12.h.verticalSpace,
-
                       _buildCustomRadioOption(
                         context: context,
                         value: 3,
@@ -128,12 +128,11 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
                       AppButton(
                         onTap: () {
                           provider.createReminder(
-                            remedyId: "38",
-                            // context
-                            //     .read<PalmProvider>()
-                            //     .remedies!
-                            //     .remedyId
-                            //     .toString(),
+                            remedyId: context
+                                .read<PalmProvider>()
+                                .remedies!
+                                .remedyId
+                                .toString(),
                             context: context,
                             checkDate: provider.selectedFrequency == 3,
                           );
@@ -305,6 +304,7 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
             }
           },
           activeColor: const Color(0xFFFFD700),
+
           fillColor: WidgetStateProperty.resolveWith<Color>((states) {
             if (states.contains(WidgetState.selected)) {
               return const Color(0xFFFFD700);

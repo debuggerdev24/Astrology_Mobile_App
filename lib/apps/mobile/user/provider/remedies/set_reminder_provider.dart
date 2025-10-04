@@ -10,6 +10,7 @@ import 'package:intl/intl.dart';
 import '../../../../../core/constants/app_colors.dart';
 import '../../../../../core/utils/custom_toast.dart';
 import '../../services/settings/aw_notification_service.dart';
+import '../../services/settings/notification_service.dart';
 
 class SetReminderProvider extends ChangeNotifier {
   int _selectedFrequency = 0;
@@ -212,11 +213,13 @@ class SetReminderProvider extends ChangeNotifier {
     try {
       // ✅ Daily Notification
       if (_selectedFrequency == 1) {
-        await AwNotificationService.scheduleDailyNotification(
+        await NotificationService.instance.scheduleDailyNotification(
           id: notificationId,
           title: "Reminder",
           body: "${textReminderTitle.text.trim()} (Daily)",
-          time: _selectedTime!,
+          hour: _selectedTime!.hour,
+          minute: _selectedTime!.minute,
+          payload: 'daily_reminder_data',
         );
         AppToast.success(context: context, message: "Daily Reminder Created");
       }
@@ -225,13 +228,13 @@ class SetReminderProvider extends ChangeNotifier {
         final selectedDay = _selectedWeekDays;
         if (selectedDay.isNotEmpty) {
           final weekdays = {
-            'Monday': 1,
-            'Tuesday': 2,
-            'Wednesday': 3,
-            'Thursday': 4,
-            'Friday': 5,
-            'Saturday': 6,
-            'Sunday': 7,
+            'Monday': DateTime.monday,
+            'Tuesday': DateTime.tuesday,
+            'Wednesday': DateTime.wednesday,
+            'Thursday': DateTime.thursday,
+            'Friday': DateTime.friday,
+            'Saturday': DateTime.saturday,
+            'Sunday': DateTime.sunday,
           };
           final targetWeekday = weekdays[selectedDay]!;
 
@@ -250,12 +253,14 @@ class SetReminderProvider extends ChangeNotifier {
             targetDate = targetDate.add(const Duration(days: 1));
           }
 
-          await AwNotificationService.scheduleWeeklyNotification(
+          await NotificationService.instance.scheduleWeeklyNotification(
             id: notificationId,
             title: "Reminder",
             body: "${textReminderTitle.text.trim()} (Weekly - $selectedDay)",
-            dateTime: targetDate,
             weekday: targetWeekday,
+            hour: _selectedTime!.hour,
+            minute: _selectedTime!.minute,
+            payload: 'weekly_reminder_data',
           );
           AppToast.success(
             context: context,
@@ -265,20 +270,14 @@ class SetReminderProvider extends ChangeNotifier {
       }
       // ✅ Monthly Notification
       else if (_selectedFrequency == 3 && _selectedDate != null) {
-        DateTime targetDate = DateTime(
-          _selectedDate!.year,
-          _selectedDate!.month,
-          _selectedDate!.day,
-          _selectedTime!.hour,
-          _selectedTime!.minute,
-        );
-
-        await AwNotificationService.scheduleMonthlyNotification(
+        await NotificationService.instance.scheduleMonthlyNotification(
           id: notificationId,
           title: "Reminder",
           body: "${textReminderTitle.text.trim()} (Monthly)",
-          dateTime: targetDate,
           day: _selectedDate!.day,
+          hour: _selectedTime!.hour,
+          minute: _selectedTime!.minute,
+          payload: 'monthly_reminder_data',
         );
         AppToast.success(context: context, message: "Monthly Reminder Created");
       }
@@ -292,17 +291,17 @@ class SetReminderProvider extends ChangeNotifier {
           _selectedTime!.minute,
         );
 
-        await AwNotificationService.scheduleCustomNotification(
+        await NotificationService.instance.scheduleCustomNotification(
           id: notificationId,
           title: "Reminder",
           body: "${textReminderTitle.text.trim()} (Custom)",
-          dateTime: customDateTime,
-          repeats: false, // One-time notification
+          delay: customDateTime.difference(now),
+          payload: 'custom_reminder_data',
         );
         AppToast.success(context: context, message: "Custom Reminder Created");
       }
     } catch (e) {
-      Logger.printError("Awesome Notification scheduling error: $e");
+      Logger.printError("Notification scheduling error: $e");
       AppToast.error(
         context: context,
         message: "Failed to schedule notification: $e",
@@ -438,6 +437,118 @@ class SetReminderProvider extends ChangeNotifier {
   }
 }
 
+//todo notification service using awesome notification package
+
+// Future<void> scheduleReminderNotification({
+//   required BuildContext context,
+// }) async {
+//   if (!_isInitialized || _selectedTime == null) return;
+//
+//   final now = DateTime.now();
+//   final notificationId = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+//
+//   try {
+//     // ✅ Daily Notification
+//     if (_selectedFrequency == 1) {
+//       await AwNotificationService.scheduleDailyNotification(
+//         id: notificationId,
+//         title: "Reminder",
+//         body: "${textReminderTitle.text.trim()} (Daily)",
+//         time: _selectedTime!,
+//       );
+//       AppToast.success(context: context, message: "Daily Reminder Created");
+//     }
+//     // ✅ Weekly Notification
+//     else if (_selectedFrequency == 2) {
+//       final selectedDay = _selectedWeekDays;
+//       if (selectedDay.isNotEmpty) {
+//         final weekdays = {
+//           'Monday': 1,
+//           'Tuesday': 2,
+//           'Wednesday': 3,
+//           'Thursday': 4,
+//           'Friday': 5,
+//           'Saturday': 6,
+//           'Sunday': 7,
+//         };
+//         final targetWeekday = weekdays[selectedDay]!;
+//
+//         // Create a DateTime for the notification
+//         DateTime targetDate = DateTime(
+//           now.year,
+//           now.month,
+//           now.day,
+//           _selectedTime!.hour,
+//           _selectedTime!.minute,
+//         );
+//
+//         // Find next occurrence of the target weekday
+//         while (targetDate.weekday != targetWeekday ||
+//             targetDate.isBefore(now)) {
+//           targetDate = targetDate.add(const Duration(days: 1));
+//         }
+//
+//         await AwNotificationService.scheduleWeeklyNotification(
+//           id: notificationId,
+//           title: "Reminder",
+//           body: "${textReminderTitle.text.trim()} (Weekly - $selectedDay)",
+//           dateTime: targetDate,
+//           weekday: targetWeekday,
+//         );
+//         AppToast.success(
+//           context: context,
+//           message: "Weekly Reminder Created for $selectedDay",
+//         );
+//       }
+//     }
+//     // ✅ Monthly Notification
+//     else if (_selectedFrequency == 3 && _selectedDate != null) {
+//       DateTime targetDate = DateTime(
+//         _selectedDate!.year,
+//         _selectedDate!.month,
+//         _selectedDate!.day,
+//         _selectedTime!.hour,
+//         _selectedTime!.minute,
+//       );
+//
+//       await AwNotificationService.scheduleMonthlyNotification(
+//         id: notificationId,
+//         title: "Reminder",
+//         body: "${textReminderTitle.text.trim()} (Monthly)",
+//         dateTime: targetDate,
+//         day: _selectedDate!.day,
+//       );
+//       AppToast.success(context: context, message: "Monthly Reminder Created");
+//     }
+//     // ✅ Custom (One-time) Notification
+//     else if (_selectedFrequency == 4 && _selectedDate != null) {
+//       final customDateTime = DateTime(
+//         _selectedDate!.year,
+//         _selectedDate!.month,
+//         _selectedDate!.day,
+//         _selectedTime!.hour,
+//         _selectedTime!.minute,
+//       );
+//
+//       await AwNotificationService.scheduleCustomNotification(
+//         id: notificationId,
+//         title: "Reminder",
+//         body: "${textReminderTitle.text.trim()} (Custom)",
+//         dateTime: customDateTime,
+//         repeats: false, // One-time notification
+//       );
+//       AppToast.success(context: context, message: "Custom Reminder Created");
+//     }
+//   } catch (e) {
+//     Logger.printError("Awesome Notification scheduling error: $e");
+//     AppToast.error(
+//       context: context,
+//       message: "Failed to schedule notification: $e",
+//     );
+//   }
+// }
+
+//todo notification service using flutter locale notification package
 // import 'package:astrology_app/apps/mobile/user/services/Remedies/remedy_api_service.dart';
 // import 'package:astrology_app/core/utils/field_validator.dart';
 // import 'package:astrology_app/core/utils/logger.dart';
@@ -642,106 +753,6 @@ class SetReminderProvider extends ChangeNotifier {
 //     notifyListeners();
 //   }
 //
-//   Future<void> scheduleReminderNotification({
-//     required BuildContext context,
-//   }) async {
-//     if (!_isInitialized || _selectedTime == null) return;
-//
-//     final hour = _selectedTime!.hour;
-//     final minute = _selectedTime!.minute;
-//     final now = DateTime.now();
-//
-//     try {
-//       if (_selectedFrequency == 1) {
-//         await NotificationService.instance.scheduleDailyNotification(
-//           id: DateTime.now().millisecondsSinceEpoch ~/ 1000,
-//           title: "Reminder",
-//           body: "${textReminderTitle.text.trim()} (Daily)",
-//           hour: hour,
-//           minute: minute,
-//           payload: 'daily_reminder_data',
-//         );
-//         AppToast.success(context: context, message: "Daily Reminder Created");
-//       }
-//       // ✅ Weekly
-//       else if (_selectedFrequency == 2) {
-//         final selectedDay = _selectedWeekDays;
-//         if (selectedDay.isNotEmpty) {
-//           final weekdays = {
-//             'Mon': DateTime.monday,
-//             'Tue': DateTime.tuesday,
-//             'Wed': DateTime.wednesday,
-//             'Thu': DateTime.thursday,
-//             'Fri': DateTime.friday,
-//             'Sat': DateTime.saturday,
-//             'Sun': DateTime.sunday,
-//           };
-//           final targetWeekday = weekdays[selectedDay]!;
-//
-//           DateTime targetDate = DateTime(
-//             now.year,
-//             now.month,
-//             now.day,
-//             hour,
-//             minute,
-//           );
-//
-//           while (targetDate.weekday != targetWeekday ||
-//               targetDate.isBefore(now)) {
-//             targetDate = targetDate.add(const Duration(days: 1));
-//           }
-//
-//           await NotificationService.instance.scheduleWeeklyNotification(
-//             id: DateTime.now().millisecondsSinceEpoch ~/ 1000,
-//             title: "Reminder",
-//             body: "${textReminderTitle.text.trim()} (Weekly)",
-//             weekday: targetWeekday,
-//             hour: hour,
-//             minute: minute,
-//             payload: 'weekly_reminder_data',
-//           );
-//           AppToast.success(
-//             context: context,
-//             message: "Weekly Reminder Created",
-//           );
-//         }
-//       }
-//       // ✅ Monthly (repeat every month on same date)
-//       else if (_selectedFrequency == 3 && _selectedDate != null) {
-//         await NotificationService.instance.scheduleMonthlyNotification(
-//           id: DateTime.now().millisecondsSinceEpoch ~/ 1000,
-//           title: "Reminder",
-//           body: "${textReminderTitle.text.trim()} (Monthly)",
-//           day: _selectedDate!.day,
-//           hour: hour,
-//           minute: minute,
-//           payload: 'monthly_reminder_data',
-//         );
-//         AppToast.success(context: context, message: "Monthly Reminder Created");
-//       }
-//       // ✅ Custom (one-time only)
-//       else if (_selectedFrequency == 4 && _selectedDate != null) {
-//         final customDateTime = DateTime(
-//           _selectedDate!.year,
-//           _selectedDate!.month,
-//           _selectedDate!.day,
-//           hour,
-//           minute,
-//         );
-//
-//         await NotificationService.instance.scheduleCustomNotification(
-//           id: DateTime.now().millisecondsSinceEpoch ~/ 1000,
-//           title: "Reminder",
-//           body: "${textReminderTitle.text.trim()} (Custom)",
-//           delay: customDateTime.difference(now),
-//           payload: 'custom_reminder_data',
-//         );
-//         AppToast.success(context: context, message: "Custom Reminder Created");
-//       }
-//     } catch (e) {
-//       Logger.printError("Notification scheduling error: $e");
-//     }
-//   }
 //
 //   bool validate({required BuildContext context, required bool checkDate}) {
 //     titleError =

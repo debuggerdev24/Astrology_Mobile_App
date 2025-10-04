@@ -12,15 +12,49 @@ import 'package:astrology_app/core/widgets/app_text.dart';
 import 'package:astrology_app/core/widgets/global_methods.dart';
 import 'package:astrology_app/core/widgets/svg_image.dart';
 import 'package:astrology_app/routes/mobile_routes/user_routes.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../../core/utils/logger.dart';
 import '../../../../../core/widgets/app_layout.dart';
 
-class SettingScreen extends StatelessWidget {
+class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});
+
+  @override
+  State<SettingScreen> createState() => _SettingScreenState();
+}
+
+class _SettingScreenState extends State<SettingScreen>
+    with WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    // optional: check once at launch
+    Future.microtask(
+      () => context
+          .read<NotificationProvider>()
+          .checkSystemNotificationPermission(),
+    );
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // Detect app resume
+    if (state == AppLifecycleState.resumed) {
+      Logger.printInfo("App is resumed");
+
+      if (mounted) {
+        context
+            .read<NotificationProvider>()
+            .checkSystemNotificationPermission();
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,12 +77,10 @@ class SettingScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     40.h.verticalSpace,
-
                     topBar(
                       showBackButton: false,
                       context: context,
                       title: context.translator.settings,
-
                       actionIcon: languages(localeProvider),
                     ),
                     32.h.verticalSpace,
@@ -69,20 +101,20 @@ class SettingScreen extends StatelessWidget {
                     Consumer<NotificationProvider>(
                       builder: (context, provider, child) => _section(
                         title: context.translator.notification,
-                        // trailing: Transform.scale(
-                        //   scale: 0.8,
-                        //   child: CupertinoSwitch(
-                        //     inactiveTrackColor: AppColors.greyColor,
-                        //     value: provider.isNotificationOn,
-                        //     onChanged: (value) {
-                        //       provider.isNotificationOn = value;
-                        //     },
-                        //   ),
-                        // ),
-                        onTap: () {
-                          provider.isNotificationOn =
-                              !provider.isNotificationOn;
-                          AppSettings.openAppSettings(
+                        trailing: Transform.scale(
+                          scale: 0.8,
+                          child: CupertinoSwitch(
+                            inactiveTrackColor: AppColors.greyColor,
+                            value: provider.isNotificationOn,
+                            onChanged: (value) async {
+                              await AppSettings.openAppSettings(
+                                type: AppSettingsType.notification,
+                              );
+                            },
+                          ),
+                        ),
+                        onTap: () async {
+                          await AppSettings.openAppSettings(
                             type: AppSettingsType.notification,
                           );
                         },
@@ -160,7 +192,7 @@ class SettingScreen extends StatelessWidget {
 
   PopupMenuButton<String> languages(LocaleProvider localeProvider) {
     return PopupMenuButton<String>(
-      padding: EdgeInsetsGeometry.zero,
+      padding: EdgeInsets.zero,
       onSelected: (lang) {
         if (lang == "English") {
           localeProvider.setLocale("en");
@@ -169,6 +201,7 @@ class SettingScreen extends StatelessWidget {
         } else if (lang == "Tamil") {
           localeProvider.setLocale("ta");
         }
+        callInitAPIs(context: context);
       },
       itemBuilder: (ctx) => [
         popupMenuItem(

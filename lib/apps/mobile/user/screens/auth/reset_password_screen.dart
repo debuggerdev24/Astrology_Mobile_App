@@ -1,4 +1,5 @@
 import 'package:astrology_app/apps/mobile/user/provider/auth/auth_provider.dart';
+import 'package:astrology_app/core/extension/context_extension.dart';
 import 'package:astrology_app/core/utils/custom_loader.dart';
 import 'package:astrology_app/core/utils/de_bouncing.dart';
 import 'package:astrology_app/core/widgets/app_button.dart';
@@ -15,6 +16,7 @@ class ResetPasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final translator = context.translator;
     return AppLayout(
       horizontalPadding: 0,
       body: Consumer<UserAuthProvider>(
@@ -27,20 +29,20 @@ class ResetPasswordScreen extends StatelessWidget {
                   // padding: EdgeInsets.zero,
                   children: [
                     40.h.verticalSpace,
-                    topBar(context: context, title: "Reset Password"),
+                    topBar(context: context, title: translator.resetPassword),
                     35.h.verticalSpace,
                     AppTextField(
                       controller: provider.resetNewPassCtr,
-                      title: "New Password",
-                      hintText: "Enter your New Password",
+                      title: translator.newPassword,
+                      hintText: translator.enterYourNewPass,
                       errorMessage: provider.resetNewPassErr,
                     ),
                     22.h.verticalSpace,
 
                     AppTextField(
                       controller: provider.resetConfirmPassCtr,
-                      title: "Confirm Password",
-                      hintText: "Enter Confirm Password",
+                      title: translator.confirmPassword,
+                      hintText: translator.enterYourConfirmPassword,
                       errorMessage: provider.resetConfirmPassErr,
                     ),
                     AppButton(
@@ -52,7 +54,7 @@ class ResetPasswordScreen extends StatelessWidget {
                           );
                         });
                       },
-                      title: "Reset Password",
+                      title: translator.resetPassword,
                       margin: EdgeInsets.only(top: 50.h),
                     ),
                   ],

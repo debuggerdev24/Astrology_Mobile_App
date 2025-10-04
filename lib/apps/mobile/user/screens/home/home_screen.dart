@@ -220,7 +220,7 @@ class HomeScreen extends StatelessWidget {
           return mantraPlayer(context: context, mantra: provider.todayMantra!);
         } else {
           return Padding(
-            padding: EdgeInsets.symmetric(vertical: 24.h),
+            padding: EdgeInsets.symmetric(vertical: 20.h),
             child: AppText(
               textAlign: TextAlign.center,
               text: context.translator.noMantraToday,
@@ -262,37 +262,36 @@ class HomeScreen extends StatelessWidget {
     required BuildContext context,
     required HomeProvider provider,
   }) {
-    return Row(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
-
           children: [
             AppText(
               text: context.translator.dasha,
-              style: medium(fontSize: 14),
+              style: medium(fontSize: 16),
             ),
-            AppText(text: " : ${provider.dasha} ", style: medium(fontSize: 14)),
+            AppText(text: " : ${provider.dasha} ", style: medium(fontSize: 16)),
           ],
         ),
-
-        SizedBox(
-          height: 20,
-          child: VerticalDivider(color: AppColors.whiteColor, thickness: 1),
-        ),
+        10.verticalSpace,
+        // SizedBox(
+        //   height: 20,
+        //   child: VerticalDivider(color: AppColors.whiteColor, thickness: 1),
+        // ),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             AppText(
               text: context.translator.moonSign,
               overflow: TextOverflow.ellipsis,
-              style: medium(fontSize: 14),
+              style: medium(fontSize: 16),
             ),
             AppText(
               text: " : ${provider.moonSign}",
-              style: medium(fontSize: 14),
+              style: medium(fontSize: 16),
             ),
           ],
         ),
@@ -414,7 +413,8 @@ class HomeScreen extends StatelessWidget {
       children: [
         Expanded(
           child: AppText(
-            text: "${context.translator.goodMorning},\n$userName",
+            text:
+                "${decideGreetingByTime(translator: context.translator)},\n$userName",
             style: bold(
               fontFamily: AppFonts.secondary,
               height: 1.1,
@@ -422,31 +422,43 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
         ),
-        Row(
-          spacing: 12.w,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SVGImage(path: AppAssets.paymentIcon),
-            GestureDetector(
-              onTap: () {
-                context.pushNamed(MobileAppRoutes.profileScreen.name);
-              },
-              child: Container(
-                height: 40.h,
-                width: 40.w,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppColors.white,
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage(AppAssets.userImage),
-                  ),
-                ),
+        GestureDetector(
+          onTap: () {
+            context.pushNamed(MobileAppRoutes.profileScreen.name);
+          },
+          child: Container(
+            height: 40.h,
+            width: 40.w,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: AppColors.white,
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: AssetImage(AppAssets.userImage),
               ),
             ),
-          ],
+          ),
         ),
+        // Row(
+        //   spacing: 12.w,
+        //   mainAxisSize: MainAxisSize.min,
+        //   children: [
+        //     SVGImage(path: AppAssets.paymentIcon),
+        //   ],
+        // ),
       ],
     );
+  }
+
+  String decideGreetingByTime({required AppLocalizations translator}) {
+    Logger.printInfo(DateTime.now().hour.toString());
+    final currentHour = DateTime.now().hour;
+    if (currentHour < 11) {
+      return "${translator.goodMorning}";
+    } else if (currentHour < 17) {
+      return "${translator.goodAfternoon}";
+    } else {
+      return "${translator.goodEvening}";
+    }
   }
 }

@@ -1,6 +1,7 @@
 import 'package:astrology_app/apps/mobile/user/provider/mantra/mantra_provider.dart';
 import 'package:astrology_app/apps/mobile/user/screens/subscription/current_plan_screen.dart';
 import 'package:astrology_app/core/extension/context_extension.dart';
+import 'package:astrology_app/core/utils/custom_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -50,82 +51,85 @@ class DailyMantraScreen extends StatelessWidget {
                   return Consumer<MantraProvider>(
                     builder: (context, mantraProvider, _) {
                       if (!subscriptionProvider.isTier1Subscribed) {
-                        return Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                padding: EdgeInsets.all(24),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: AppColors.secondary.withValues(
-                                    alpha: 0.1,
-                                  ),
-                                ),
-                                child: Icon(
-                                  Icons.lock_outline,
-                                  size: 64,
-                                  color: AppColors.secondary,
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(24),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: AppColors.secondary.withValues(
+                                  alpha: 0.1,
                                 ),
                               ),
-                              24.verticalSpace,
-                              AppText(
-                                text: translator.premiumAccess,
-                                style: semiBold(fontSize: 24),
+                              child: Icon(
+                                Icons.lock_outline,
+                                size: 64,
+                                color: AppColors.secondary,
                               ),
-                              12.verticalSpace,
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 40),
-                                child: AppText(
-                                  text: translator.premiumMantraHistory,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.grey[600],
-                                  ),
+                            ),
+                            24.verticalSpace,
+                            AppText(
+                              text: translator.premiumAccess,
+                              style: semiBold(fontSize: 24),
+                            ),
+                            12.verticalSpace,
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 40),
+                              child: AppText(
+                                text: translator.premiumMantraHistory,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.grey[600],
                                 ),
                               ),
-                              32.verticalSpace,
-                              ElevatedButton(
-                                onPressed: () {
-                                  context.pushNamed(
-                                    MobileAppRoutes.premiumPlanScreen.name,
-                                  );
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: AppColors.primary,
-                                  foregroundColor: Colors.white,
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 30.w,
-                                    vertical: 16,
-                                  ),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30),
-                                  ),
+                            ),
+                            32.verticalSpace,
+                            ElevatedButton(
+                              onPressed: () {
+                                context.pushNamed(
+                                  MobileAppRoutes.premiumPlanScreen.name,
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: AppColors.primary,
+                                foregroundColor: Colors.white,
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 30.w,
+                                  vertical: 16,
                                 ),
-                                child: Row(
-                                  spacing: 8,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Icon(
-                                      Icons.star,
-                                      size: 20,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                              ),
+                              child: Row(
+                                spacing: 8,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(
+                                    Icons.star,
+                                    size: 20,
+                                    color: AppColors.black,
+                                  ),
+                                  AppText(
+                                    text: translator.upgradeToTier1,
+                                    style: bold(
+                                      fontSize: 16,
                                       color: AppColors.black,
                                     ),
-                                    AppText(
-                                      text: translator.upgradeToTier1,
-                                      style: bold(
-                                        fontSize: 16,
-                                        color: AppColors.black,
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         );
                       }
+
+                      if (mantraProvider.isGetMantraHistoryLoading) {
+                        return ApiLoadingIndicator();
+                      }
+
                       final mantraList = mantraProvider.mantraHistoryList;
                       if (mantraList == null || mantraList.isEmpty) {
                         return Center(
@@ -162,9 +166,10 @@ class DailyMantraScreen extends StatelessWidget {
     required MantraProvider provider,
     required int index,
   }) {
+    //
     return Container(
       margin: EdgeInsets.only(bottom: 16.h),
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
+      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(8.r),
@@ -182,8 +187,12 @@ class DailyMantraScreen extends StatelessWidget {
         spacing: 6.h,
         children: [
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SVGImage(path: AppAssets.omIcon, height: 20.5.w),
+              Padding(
+                padding: EdgeInsets.only(top: 4),
+                child: SVGImage(path: AppAssets.omIcon, height: 20.5.w),
+              ),
               12.w.horizontalSpace,
               Expanded(
                 child: AppText(

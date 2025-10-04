@@ -1,6 +1,7 @@
 import 'package:astrology_app/apps/mobile/user/provider/auth/auth_provider.dart';
 import 'package:astrology_app/core/constants/app_colors.dart';
 import 'package:astrology_app/core/constants/text_style.dart';
+import 'package:astrology_app/core/extension/context_extension.dart';
 import 'package:astrology_app/core/utils/custom_loader.dart';
 import 'package:astrology_app/core/utils/de_bouncing.dart';
 import 'package:astrology_app/core/widgets/app_button.dart';
@@ -13,6 +14,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../../core/utils/logger.dart';
 import '../../../../../core/widgets/app_layout.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -20,6 +22,8 @@ class SignUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final translator = context.translator;
+    Logger.printInfo(context.isHindi.toString());
     return AppLayout(
       horizontalPadding: 0,
       body: SingleChildScrollView(
@@ -33,17 +37,16 @@ class SignUpScreen extends StatelessWidget {
                     children: [
                       40.h.verticalSpace,
                       AppText(
-                        text: "Sign Up",
+                        text: translator.signUp,
                         style: bold(
                           fontFamily: AppFonts.secondary,
-                          fontSize: 46,
+                          fontSize: context.isTamil ? 40 : 44,
                         ),
                       ),
                       12.h.verticalSpace,
                       AppText(
                         textAlign: TextAlign.center,
-                        text:
-                            "Unlock personalized astrological insights just for you.",
+                        text: translator.signUpSlogan,
                         style: regular(),
                       ),
                       32.h.verticalSpace,
@@ -52,8 +55,8 @@ class SignUpScreen extends StatelessWidget {
                         children: [
                           AppTextField(
                             controller: provider.registerNameCtr,
-                            title: "Name",
-                            hintText: "Enter Your Name",
+                            title: translator.name,
+                            hintText: translator.enterYourName,
                             errorMessage: provider.registerNameErr,
                             inputFormatters: [
                               LengthLimitingTextInputFormatter(50),
@@ -61,20 +64,20 @@ class SignUpScreen extends StatelessWidget {
                           ),
                           AppTextField(
                             controller: provider.registerEmailCtr,
-                            title: "Email",
-                            hintText: "Enter Your Email",
+                            title: translator.email,
+                            hintText: translator.enterYourEmail,
                             errorMessage: provider.registerEmailErr,
                           ),
                           AppTextField(
                             controller: provider.registerPasswordCtr,
-                            title: "Password",
-                            hintText: "Enter Your Password",
+                            title: translator.password,
+                            hintText: translator.enterYourPassword,
                             errorMessage: provider.registerPasswordErr,
                           ),
                           AppTextField(
                             controller: provider.registerConfirmPassCtr,
-                            title: "Confirm Password",
-                            hintText: "Enter Your Confirm Password",
+                            title: translator.confirmPassword,
+                            hintText: translator.enterYourConfirmPassword,
                             errorMessage: provider.registerConfirmPassWordErr,
                           ),
                         ],
@@ -85,7 +88,7 @@ class SignUpScreen extends StatelessWidget {
                             provider.registerUser(context);
                           });
                         },
-                        title: "Sign Up",
+                        title: translator.signUp,
                         margin: EdgeInsets.only(top: 52.h, bottom: 8.h),
                       ),
                       GestureDetector(
@@ -98,14 +101,14 @@ class SignUpScreen extends StatelessWidget {
                           text: TextSpan(
                             children: [
                               TextSpan(
-                                text: "Already have an account? ",
+                                text: translator.alreadyHaveAcc,
                                 style: regular(
                                   fontSize: 15,
                                   fontFamily: "Primary",
                                 ),
                               ),
                               TextSpan(
-                                text: "Sign In",
+                                text: " ${translator.signIn}",
                                 style: semiBold(
                                   fontSize: 15,
                                   color: AppColors.primary,

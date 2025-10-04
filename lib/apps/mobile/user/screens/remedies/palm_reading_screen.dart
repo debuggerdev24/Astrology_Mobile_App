@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:astrology_app/apps/mobile/user/model/remedies/palm_reading_model.dart';
 import 'package:astrology_app/apps/mobile/user/provider/remedies/palm_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/setting/subscription_provider.dart';
@@ -14,6 +15,7 @@ import 'package:astrology_app/core/widgets/svg_image.dart';
 import 'package:astrology_app/routes/mobile_routes/user_routes.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -236,13 +238,79 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
                     ),
                   ),
                 ),
-
+                AppButton(
+                  margin: EdgeInsets.only(bottom: 18.h),
+                  onTap: () {
+                    warningDialog(context, translator);
+                  },
+                  child: AppText(
+                    textAlign: TextAlign.center,
+                    text: translator.addNewPalm,
+                    style: bold(fontSize: 16, color: AppColors.black),
+                  ),
+                ),
                 30.h.verticalSpace,
               ],
             );
           },
         ),
       ),
+    );
+  }
+
+  Future<dynamic> warningDialog(
+    BuildContext context,
+    AppLocalizations translator,
+  ) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return ZoomIn(
+          child: AlertDialog(
+            title: AppText(
+              textAlign: TextAlign.center,
+              text: "${translator.warning} !",
+              style: semiBold(color: AppColors.black),
+            ),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                AppText(
+                  textAlign: TextAlign.center,
+                  text: translator.warnMessage,
+                  style: regular(color: AppColors.black, height: 1.1),
+                ),
+                30.verticalSpace,
+                Row(
+                  spacing: 12.w,
+                  children: [
+                    Expanded(
+                      child: AppButton(
+                        fontSize: 15,
+                        title: translator.add,
+                        onTap: () {
+                          context.pop();
+                          context.pop();
+                        },
+                      ),
+                    ),
+                    Expanded(
+                      child: AppButton(
+                        onTap: () {
+                          context.pop();
+                        },
+                        fontSize: 15,
+                        title: AppLocalizations.of(context)!.cancel,
+                        buttonColor: AppColors.secondary,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 
@@ -430,20 +498,12 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         spacing: 8.w,
         children: [
-          Expanded(
-            child: AppText(
-              text: topic,
-              style: medium(fontSize: 16, color: Color(0xff4EF4E4)),
-            ),
+          AppText(
+            text: topic,
+            style: medium(fontSize: 16, color: Color(0xff4EF4E4)),
           ),
           AppText(text: ":", style: medium(fontSize: 16)),
-          Expanded(
-            flex: 3.5.toInt(),
-            child: AppText(
-              text: details,
-              style: medium(fontSize: 16, height: 1.3),
-            ),
-          ),
+          AppText(text: details, style: medium(fontSize: 16, height: 1.3)),
         ],
       ),
     );

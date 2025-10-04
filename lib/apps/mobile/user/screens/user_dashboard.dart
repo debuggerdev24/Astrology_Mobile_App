@@ -48,23 +48,7 @@ class UserDashboard extends StatefulWidget {
 class _UserDashboardState extends State<UserDashboard> {
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      await Future.wait([
-        context.read<SubscriptionProvider>().getActiveSubscriptionPlan(
-          context: context,
-        ),
-        context.read<HomeProvider>().initHomeScreen(),
-        context.read<UserProfileProvider>().getProfile(context),
-        context.read<SubscriptionProvider>().getSubscriptionPlans(),
-        context.read<MantraProvider>().getMantraHistory(),
-        context.read<SetReminderProvider>().initializeNotifications(
-          context: context,
-        ),
-        context.read<AppInfoProvider>().init(context: context),
-        SubscriptionService().initialize(context),
-        NotificationService.instance.init(),
-      ]);
-    });
+    callInitAPIs(context: context);
     super.initState();
   }
 
@@ -87,7 +71,6 @@ class _UserDashboardState extends State<UserDashboard> {
                   child: _pages[index],
                 );
               }
-
               return AppLayout(
                 body: Center(
                   child: Column(
@@ -226,13 +209,11 @@ class _UserDashboardState extends State<UserDashboard> {
                                 fontSize: 12,
                               )
                             : regular(
-                                fontWeight: Platform.isIOS
-                                    ? FontWeight.w500
-                                    : FontWeight.w400,
+                                fontWeight: FontWeight.w500,
                                 color: isCurrent
                                     ? Colors.white
                                     : AppColors.darkBlue,
-                                fontSize: isTamil ? 10 : 12,
+                                fontSize: isTamil ? 10 : 14,
                               ),
                       ),
                     ),
@@ -244,4 +225,25 @@ class _UserDashboardState extends State<UserDashboard> {
       ),
     );
   }
+}
+
+void callInitAPIs({required BuildContext context}) {
+  return WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+    await Future.wait([
+      context.read<HomeProvider>().initHomeScreen(),
+      context.read<MantraProvider>().getMantraHistory(),
+      context.read<SubscriptionProvider>().getActiveSubscriptionPlan(
+        context: context,
+      ),
+
+      context.read<UserProfileProvider>().getProfile(context),
+      context.read<SubscriptionProvider>().getSubscriptionPlans(),
+      context.read<SetReminderProvider>().initializeNotifications(
+        context: context,
+      ),
+      context.read<AppInfoProvider>().init(context: context),
+      SubscriptionService().initialize(context),
+      NotificationService.instance.init(),
+    ]);
+  });
 }

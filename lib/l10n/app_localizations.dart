@@ -1020,6 +1020,198 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Upgrade to Tier 1'**
   String get upgradeToTier1;
+
+  /// No description provided for @signUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign Up'**
+  String get signUp;
+
+  /// No description provided for @signUpSlogan.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock personalized astrological insights just for you.'**
+  String get signUpSlogan;
+
+  /// No description provided for @name.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get name;
+
+  /// No description provided for @email.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get email;
+
+  /// No description provided for @password.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get password;
+
+  /// No description provided for @confirmPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Password'**
+  String get confirmPassword;
+
+  /// No description provided for @alreadyHaveAcc.
+  ///
+  /// In en, this message translates to:
+  /// **'Already have an account?'**
+  String get alreadyHaveAcc;
+
+  /// No description provided for @signIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign In'**
+  String get signIn;
+
+  /// No description provided for @signInSlogan.
+  ///
+  /// In en, this message translates to:
+  /// **'Reconnect with your cosmic journey.'**
+  String get signInSlogan;
+
+  /// No description provided for @forgotPass.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot Password'**
+  String get forgotPass;
+
+  /// No description provided for @dontHaveAcc.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\"t have an account?'**
+  String get dontHaveAcc;
+
+  /// No description provided for @forgotPassSlogan.
+  ///
+  /// In en, this message translates to:
+  /// **'Even stars lose their way — let\'s help you reset yours.'**
+  String get forgotPassSlogan;
+
+  /// No description provided for @sendMail.
+  ///
+  /// In en, this message translates to:
+  /// **'Send Mail'**
+  String get sendMail;
+
+  /// No description provided for @enterCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter 4-Digit Code'**
+  String get enterCode;
+
+  /// No description provided for @otpVerifySlogan.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify your energy with the stars — enter the code.'**
+  String get otpVerifySlogan;
+
+  /// No description provided for @verify.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify'**
+  String get verify;
+
+  /// No description provided for @resendOtp.
+  ///
+  /// In en, this message translates to:
+  /// **'Resend OTP'**
+  String get resendOtp;
+
+  /// No description provided for @resendOtpIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Resend OTP in'**
+  String get resendOtpIn;
+
+  /// No description provided for @resetPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Password'**
+  String get resetPassword;
+
+  /// No description provided for @newPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'New Password'**
+  String get newPassword;
+
+  /// No description provided for @enterYourName.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Your Name'**
+  String get enterYourName;
+
+  /// No description provided for @enterYourEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Your Email'**
+  String get enterYourEmail;
+
+  /// No description provided for @enterYourPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Your Password'**
+  String get enterYourPassword;
+
+  /// No description provided for @enterYourConfirmPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Your Confirm Password'**
+  String get enterYourConfirmPassword;
+
+  /// No description provided for @enterYourNewPass.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Your New Password'**
+  String get enterYourNewPass;
+
+  /// No description provided for @enterYourResetPass.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Your Reset Password'**
+  String get enterYourResetPass;
+
+  /// No description provided for @addNewPalm.
+  ///
+  /// In en, this message translates to:
+  /// **'Add New Palm'**
+  String get addNewPalm;
+
+  /// No description provided for @add.
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get add;
+
+  /// No description provided for @warning.
+  ///
+  /// In en, this message translates to:
+  /// **'Warning'**
+  String get warning;
+
+  /// No description provided for @warnMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'If you add a new palm, the existing data will be lost.'**
+  String get warnMessage;
+
+  /// No description provided for @goodAfternoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Good Afternoon'**
+  String get goodAfternoon;
+
+  /// No description provided for @goodEvening.
+  ///
+  /// In en, this message translates to:
+  /// **'Good Evening'**
+  String get goodEvening;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

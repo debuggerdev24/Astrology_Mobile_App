@@ -1,4 +1,5 @@
 import 'package:astrology_app/apps/mobile/user/provider/auth/auth_provider.dart';
+import 'package:astrology_app/core/extension/context_extension.dart';
 import 'package:astrology_app/core/utils/custom_loader.dart';
 import 'package:astrology_app/core/utils/de_bouncing.dart';
 import 'package:astrology_app/core/widgets/app_button.dart';
@@ -29,6 +30,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final translator = context.translator;
     return AppLayout(
       horizontalPadding: 0,
       body: Consumer<UserAuthProvider>(
@@ -42,7 +44,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   40.h.verticalSpace,
                   AppText(
                     textAlign: TextAlign.center,
-                    text: "Forgot Password",
+                    text: translator.forgotPass,
                     style: bold(
                       fontFamily: AppFonts.secondary,
                       fontSize: 46,
@@ -52,20 +54,19 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   14.h.verticalSpace,
                   AppText(
                     textAlign: TextAlign.center,
-                    text:
-                        "Even stars lose their way — let's help you reset yours.",
+                    text: translator.forgotPassSlogan,
                     style: regular(),
                   ),
                   32.h.verticalSpace,
                   AppTextField(
                     controller: _sendOTPEmail,
-                    title: "Email",
-                    hintText: "Enter Your Email",
+                    title: translator.email,
+                    hintText: translator.enterYourEmail,
                     errorMessage: provider.forgotEmailErr,
                   ),
                   52.h.verticalSpace,
                   AppButton(
-                    title: "Send Mail",
+                    title: translator.sendMail,
                     onTap: () {
                       deBouncer.run(
                         () => provider.sendOtp(

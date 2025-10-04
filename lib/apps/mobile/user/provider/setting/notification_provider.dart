@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../../../../../core/utils/logger.dart';
 import '../../services/settings/profile_api_service.dart';
@@ -7,6 +8,12 @@ class NotificationProvider extends ChangeNotifier {
   bool _isNotificationOn = true;
 
   bool get isNotificationOn => _isNotificationOn;
+
+  Future<void> checkSystemNotificationPermission() async {
+    final status = await Permission.notification.status;
+    _isNotificationOn = status.isGranted;
+    notifyListeners();
+  }
 
   set isNotificationOn(bool value) {
     _isNotificationOn = value;

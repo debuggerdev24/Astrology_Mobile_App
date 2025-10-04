@@ -18,3 +18,8 @@ Future<void> main() async {
   await Future.wait([LocaleStoaregService.init()]);
   runApp(ToastificationWrapper(child: const MyApp()));
 }
+
+//todo app changes :
+/*
+
+*/

@@ -41,6 +41,7 @@ class PalmProvider extends ChangeNotifier {
     FormData data = FormData.fromMap({
       "left_palm": await MultipartFile.fromFile(leftHandImageFile!.path),
       "right_palm": await MultipartFile.fromFile(rightHandImageFile!.path),
+      "lang": "hi",
     });
     final result = await RemedyApiService.instance.uploadPalmFroReading(
       data: data,

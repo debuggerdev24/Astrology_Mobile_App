@@ -30,7 +30,7 @@ class AstrologyMobileApp extends StatelessWidget {
         splitScreenMode: true,
         designSize: const Size(375, 812),
         builder: (context, child) {
-          final provider = context.watch<LocaleProvider>();
+          // final provider = context.watch<LocaleProvider>();
           return MultiProvider(
             providers: [
               ChangeNotifierProvider(
@@ -39,21 +39,19 @@ class AstrologyMobileApp extends StatelessWidget {
               ChangeNotifierProvider(
                 create: (context) => UserProfileProvider(),
               ),
-
               ChangeNotifierProvider(
                 create: (context) => SubscriptionProvider(),
               ),
               ChangeNotifierProvider(
                 create: (context) => NotificationProvider(),
               ),
-
               ChangeNotifierProvider(create: (context) => UserAuthProvider()),
               ChangeNotifierProvider(create: (context) => PalmProvider()),
               ChangeNotifierProvider(create: (context) => HomeProvider()),
               ChangeNotifierProvider(create: (context) => MantraProvider()),
               ChangeNotifierProvider(create: (_) => SubscriptionProvider()),
               ChangeNotifierProvider(create: (_) => AppInfoProvider()),
-            ],
+            ], //
             child: MaterialApp.router(
               theme: AppTheme.appThemeData,
               locale: Locale(
