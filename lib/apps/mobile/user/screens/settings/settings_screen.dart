@@ -48,11 +48,11 @@ class _SettingScreenState extends State<SettingScreen>
     if (state == AppLifecycleState.resumed) {
       Logger.printInfo("App is resumed");
 
-      if (mounted) {
-        context
-            .read<NotificationProvider>()
-            .checkSystemNotificationPermission();
-      }
+      // if (mounted) {
+      //   context
+      //       .read<NotificationProvider>()
+      //       .checkSystemNotificationPermission();
+      // }
     }
   }
 
@@ -275,7 +275,7 @@ class _SettingScreenState extends State<SettingScreen>
       contentPadding: EdgeInsets.zero,
       title: AppText(
         text: title,
-        style: medium(fontSize: 18, color: titleColor),
+        style: medium(fontSize: 16, color: titleColor),
       ),
       trailing:
           trailing ??

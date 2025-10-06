@@ -54,5 +54,7 @@
     <true/>
     <key>LSSupportsOpeningDocumentsInPlace</key>
     <true/>
+    <key>NSUserNotificationUsageDescription</key>
+    <string>We need notification permission to send you updates</string>
 </dict>
 </plist>

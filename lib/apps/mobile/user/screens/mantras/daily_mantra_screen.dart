@@ -1,11 +1,11 @@
 import 'package:astrology_app/apps/mobile/user/provider/mantra/mantra_provider.dart';
 import 'package:astrology_app/apps/mobile/user/screens/subscription/current_plan_screen.dart';
 import 'package:astrology_app/core/extension/context_extension.dart';
-import 'package:astrology_app/core/utils/custom_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../../../core/constants/app_assets.dart';
 import '../../../../../core/constants/app_colors.dart';
@@ -127,7 +127,7 @@ class DailyMantraScreen extends StatelessWidget {
                       }
 
                       if (mantraProvider.isGetMantraHistoryLoading) {
-                        return ApiLoadingIndicator();
+                        return shimmer();
                       }
 
                       final mantraList = mantraProvider.mantraHistoryList;
@@ -154,6 +154,45 @@ class DailyMantraScreen extends StatelessWidget {
                 },
               ),
             ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget shimmer() {
+    return Shimmer.fromColors(
+      baseColor: AppColors.greyColor,
+      highlightColor: Colors.grey[400]!,
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            14.verticalSpace,
+            ...List.generate(5, (index) {
+              return Container(
+                width: double.infinity,
+                margin: EdgeInsets.symmetric(vertical: 8),
+                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                decoration: BoxDecoration(
+                  color: AppColors.greyColor.withValues(alpha: 0.6),
+                  borderRadius: BorderRadius.circular(8.r),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: List.generate(
+                    2,
+                    (_) => Padding(
+                      padding: EdgeInsets.symmetric(vertical: 11.h),
+                      child: Container(
+                        width: double.infinity,
+                        height: 20.h,
+                        color: AppColors.greyColor,
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            }),
           ],
         ),
       ),
@@ -197,7 +236,10 @@ class DailyMantraScreen extends StatelessWidget {
               Expanded(
                 child: AppText(
                   text: mantra.name,
-                  style: regular(fontSize: 18, color: AppColors.black),
+                  style: regular(
+                    fontSize: context.isTamil ? 15.5 : 18,
+                    color: AppColors.black,
+                  ),
                 ),
               ),
               AppText(
@@ -211,7 +253,10 @@ class DailyMantraScreen extends StatelessWidget {
               Expanded(
                 child: AppText(
                   text: "${context.translator.meaning} : ${mantra.meaning}",
-                  style: regular(fontSize: 18, color: Colors.grey),
+                  style: regular(
+                    fontSize: context.isTamil ? 15 : 18,
+                    color: Colors.grey,
+                  ),
                 ),
               ),
               //todo --------------------> text Content
