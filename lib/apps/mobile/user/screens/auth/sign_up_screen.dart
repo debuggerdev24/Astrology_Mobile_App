@@ -23,7 +23,7 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final translator = context.translator;
-    Logger.printInfo(context.isHindi.toString());
+    Logger.printInfo(context.isTamil.toString());
     return AppLayout(
       horizontalPadding: 0,
       body: SingleChildScrollView(
@@ -98,6 +98,7 @@ class SignUpScreen extends StatelessWidget {
                           context.pushNamed(MobileAppRoutes.signInScreen.name);
                         },
                         child: RichText(
+                          textAlign: TextAlign.center,
                           text: TextSpan(
                             children: [
                               TextSpan(

@@ -184,5 +184,8 @@
   "warning": "Warning",
   "warnMessage": "If you add a new palm, the existing data will be lost.",
   "goodAfternoon": "Good Afternoon",
-  "goodEvening": "Good Evening"
+  "goodEvening": "Good Evening",
+  "choosePrefLang": "Choose your preferred language",
+  "confirm": "Confirm",
+  "selectLang": "Select Language"
 }

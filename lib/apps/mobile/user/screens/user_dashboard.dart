@@ -22,6 +22,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../core/constants/app_assets.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/utils/logger.dart';
 import '../../../../core/widgets/app_text.dart';
 import '../../../../core/widgets/svg_image.dart';
 import '../services/settings/notification_service.dart';
@@ -56,6 +57,8 @@ class _UserDashboardState extends State<UserDashboard> {
   Widget build(BuildContext context) {
     final translator = context.translator;
     final isTamil = context.isTamil;
+
+    Logger.printInfo(context.isTamil.toString());
     return ValueListenableBuilder<int>(
       valueListenable: indexTabUser,
       builder: (BuildContext context, int index, Widget? child) {
@@ -201,7 +204,7 @@ class _UserDashboardState extends State<UserDashboard> {
                       child: AppText(
                         text: title,
                         textAlign: TextAlign.center,
-                        style: !context.isEng && Platform.isIOS
+                        style: (!context.isEng) && Platform.isIOS
                             ? bold(
                                 color: isCurrent
                                     ? Colors.white
@@ -209,11 +212,10 @@ class _UserDashboardState extends State<UserDashboard> {
                                 fontSize: 12,
                               )
                             : regular(
-                                fontWeight: FontWeight.w500,
                                 color: isCurrent
                                     ? Colors.white
                                     : AppColors.darkBlue,
-                                fontSize: isTamil ? 10 : 14,
+                                fontSize: isTamil ? 11 : 13,
                               ),
                       ),
                     ),

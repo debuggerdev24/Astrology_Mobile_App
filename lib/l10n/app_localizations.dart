@@ -1212,6 +1212,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Good Evening'**
   String get goodEvening;
+
+  /// No description provided for @choosePrefLang.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose your preferred language'**
+  String get choosePrefLang;
+
+  /// No description provided for @confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get confirm;
+
+  /// No description provided for @selectLang.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Language'**
+  String get selectLang;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

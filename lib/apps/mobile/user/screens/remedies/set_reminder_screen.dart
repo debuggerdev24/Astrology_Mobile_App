@@ -52,7 +52,10 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
                       ),
 
                       24.h.verticalSpace,
-                      primaryColorText(text: translator.repeatFrequency),
+                      primaryColorText(
+                        text: translator.repeatFrequency,
+                        isTamil: context.isTamil,
+                      ),
                       16.h.verticalSpace,
 
                       /// Radio options
@@ -86,7 +89,10 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
                       ),
 
                       24.h.verticalSpace,
-                      primaryColorText(text: translator.selectDateAndTime),
+                      primaryColorText(
+                        text: translator.selectDateAndTime,
+                        isTamil: context.isTamil,
+                      ),
                       16.h.verticalSpace,
                       //todo ------------->  Date & Time input
                       if (provider.selectedFrequency == 3 ||
@@ -137,6 +143,7 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
                             checkDate: provider.selectedFrequency == 3,
                           );
                         },
+                        fontSize: context.isTamil ? 14 : 16,
                         title: translator.saveReminder,
                         margin: EdgeInsets.only(top: 50.h, bottom: 20.h),
                       ),
@@ -277,10 +284,10 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
     );
   }
 
-  Widget primaryColorText({required String text}) {
+  Widget primaryColorText({required String text, required bool isTamil}) {
     return AppText(
       text: text,
-      style: semiBold(fontSize: 16, color: AppColors.primary),
+      style: semiBold(fontSize: isTamil ? 14 : 16, color: AppColors.primary),
     );
   }
 
@@ -322,10 +329,9 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
             children: [
               Text(
                 displayText,
-                style: const TextStyle(
+                style: regular(
                   color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
+                  fontSize: context.isTamil ? 14 : 16,
                 ),
               ),
               10.w.horizontalSpace,

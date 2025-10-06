@@ -35,188 +35,136 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
   @override
   Widget build(BuildContext context) {
     final translator = context.translator;
-    return AppLayout(
-      body: SingleChildScrollView(
-        child: Consumer<PalmProvider>(
-          builder: (context, provider, child) {
-            if (provider.palmReading == null) {
-              return ApiLoadingIndicator();
-            }
-            final palm = (provider.selectedIndex == 0)
-                ? provider.palmReading!.leftPalm
-                : provider.palmReading!.rightPalm;
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                40.h.verticalSpace,
-                topBar(context: context, title: translator.palmReading),
-                15.h.verticalSpace,
-                toggleLeftRight(translator: translator, provider: provider),
-                Align(
-                  alignment: Alignment.center,
-                  child: Container(
-                    margin: EdgeInsets.only(top: 30.h, bottom: 24.h),
-                    width: 285.w,
-                    height: 200.h,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.r),
-                      border: Border.all(color: AppColors.whiteColor, width: 2),
-                    ),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 50.w,
-                      vertical: 18.h,
-                    ),
-                    child: CachedNetworkImage(
-                      imageUrl: palm.image,
-                      placeholder: (context, url) => Container(
-                        decoration: BoxDecoration(
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        warningDialog(context, translator);
+      },
+      child: AppLayout(
+        body: SingleChildScrollView(
+          child: Consumer<PalmProvider>(
+            builder: (context, provider, child) {
+              if (provider.palmReading == null) {
+                return ApiLoadingIndicator();
+              }
+              final palm = (provider.selectedIndex == 0)
+                  ? provider.palmReading!.leftPalm
+                  : provider.palmReading!.rightPalm;
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  40.h.verticalSpace,
+                  topBar(
+                    context: context,
+                    title: translator.palmReading,
+                    onLeadingTap: () {
+                      warningDialog(context, translator);
+                    },
+                  ),
+                  15.h.verticalSpace,
+                  toggleLeftRight(translator: translator, provider: provider),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                      margin: EdgeInsets.only(top: 30.h, bottom: 24.h),
+                      width: 285.w,
+                      height: 200.h,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12.r),
+                        border: Border.all(
                           color: AppColors.whiteColor,
-                          borderRadius: BorderRadius.circular(5).r,
+                          width: 2,
                         ),
-                        padding: EdgeInsets.all(12).r,
-                        child: CupertinoActivityIndicator(
-                          radius: 18.h,
-                          color: AppColors.bgColor,
+                      ),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 50.w,
+                        vertical: 18.h,
+                      ),
+                      child: CachedNetworkImage(
+                        imageUrl: palm.image,
+                        placeholder: (context, url) => Container(
+                          decoration: BoxDecoration(
+                            color: AppColors.whiteColor,
+                            borderRadius: BorderRadius.circular(5).r,
+                          ),
+                          padding: EdgeInsets.all(12).r,
+                          child: CupertinoActivityIndicator(
+                            radius: 18.h,
+                            color: AppColors.bgColor,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                AppText(
-                  text: translator.summary,
-                  style: semiBold(fontSize: 18, color: AppColors.primary),
-                ),
-                14.h.verticalSpace,
-                topicWithDetails(
-                  topic: translator.lifeLine,
-                  details: palm.summary.lifeline,
-                ),
-                topicWithDetails(
-                  topic: translator.headLine,
-                  details: palm.summary.headline,
-                ),
-                topicWithDetails(
-                  topic: translator.heartLine,
-                  details: palm.summary.heartline,
-                ),
-                // 12.h.verticalSpace,
-                Consumer<SubscriptionProvider>(
-                  builder: (context, subscriptionProvider, child) {
-                    if (!subscriptionProvider.isTier2Subscribed) {
-                      return mountAnalysisLocked(translator: translator);
-                    }
-                    return mountAnalysis(translator: translator, palm: palm);
-                  },
-                ),
-
-                AppButton(
-                  onTap: () {
-                    if (context
-                        .read<SubscriptionProvider>()
-                        .isTier2Subscribed) {
-                      context.pushNamed(
-                        MobileAppRoutes.remediesListScreen.name,
-                      );
-                    } else {
-                      showPremiumDialog(
-                        context: context,
-                        title: translator.premiumAccess,
-                        contentBody: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            18.h.verticalSpace,
-                            AppText(
-                              textAlign: TextAlign.center,
-                              text: translator.premiumMessageMatchWithRemedies,
-                              style: medium(
-                                fontSize: 16,
-                                color: AppColors.black.withValues(alpha: 0.8),
-                              ),
-                            ),
-                            8.h.verticalSpace,
-                            AppText(
-                              textAlign: TextAlign.center,
-                              text: translator.premiumSloganMessageRemedies,
-                              style: medium(
-                                fontSize: 16,
-                                color: AppColors.greyColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    }
-                  },
-                  buttonColor: AppColors.secondary,
-                  margin: EdgeInsets.only(top: 48.h, bottom: 14.h),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    spacing: 10.w,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      AppText(
-                        textAlign: TextAlign.center,
-                        text: translator.viewRemedies,
-                        style: bold(fontSize: 16, color: AppColors.black),
-                      ),
-                      if (!context
-                          .read<SubscriptionProvider>()
-                          .isTier2Subscribed)
-                        SVGImage(
-                          path: AppAssets.lockIcon,
-                          color: AppColors.darkBlue,
-                        ),
-                    ],
+                  AppText(
+                    text: translator.summary,
+                    style: semiBold(fontSize: 18, color: AppColors.primary),
                   ),
-                ),
-                AppButton(
-                  margin: EdgeInsets.only(bottom: 18.h),
-                  onTap: () {
-                    if (context
-                        .read<SubscriptionProvider>()
-                        .isTier2Subscribed) {
-                      context.pushNamed(MobileAppRoutes.birthChartScreen.name);
-                      if (provider.birthChartDetails == null) {
-                        provider.getBirthChartDetails();
+                  14.h.verticalSpace,
+                  topicWithDetails(
+                    topic: translator.lifeLine,
+                    details: palm.summary.lifeline,
+                  ),
+                  topicWithDetails(
+                    topic: translator.headLine,
+                    details: palm.summary.headline,
+                  ),
+                  topicWithDetails(
+                    topic: translator.heartLine,
+                    details: palm.summary.heartline,
+                  ),
+                  // 12.h.verticalSpace,
+                  Consumer<SubscriptionProvider>(
+                    builder: (context, subscriptionProvider, child) {
+                      if (!subscriptionProvider.isTier2Subscribed) {
+                        return mountAnalysisLocked(translator: translator);
                       }
-                    } else {
-                      showPremiumDialog(
-                        context: context,
-                        title: translator.premiumAccess,
-                        contentBody: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            18.h.verticalSpace,
-                            AppText(
-                              textAlign: TextAlign.center,
-                              text:
-                                  translator.premiumMessageMatchWithBirthChart,
-                              //'The "Match with Birth Chart" feature is available exclusively for Premium Plan (Tier 2) users.',
-                              style: medium(
-                                fontSize: 16,
-                                color: AppColors.black.withValues(alpha: 0.8),
+                      return mountAnalysis(translator: translator, palm: palm);
+                    },
+                  ),
+
+                  AppButton(
+                    onTap: () {
+                      if (context
+                          .read<SubscriptionProvider>()
+                          .isTier2Subscribed) {
+                        context.pushNamed(
+                          MobileAppRoutes.remediesListScreen.name,
+                        );
+                      } else {
+                        showPremiumDialog(
+                          context: context,
+                          title: translator.premiumAccess,
+                          contentBody: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              18.h.verticalSpace,
+                              AppText(
+                                textAlign: TextAlign.center,
+                                text:
+                                    translator.premiumMessageMatchWithRemedies,
+                                style: medium(
+                                  fontSize: 16,
+                                  color: AppColors.black.withValues(alpha: 0.8),
+                                ),
                               ),
-                            ),
-                            8.h.verticalSpace,
-                            AppText(
-                              textAlign: TextAlign.center,
-                              text: translator
-                                  .premiumSloganMessageMatchWithBirthChart,
-                              // "Unlock advanced insights by aligning your palm reading with your birth chart for a more accurate spiritual analysis.",
-                              style: medium(
-                                fontSize: 16,
-                                color: AppColors.greyColor,
+                              8.h.verticalSpace,
+                              AppText(
+                                textAlign: TextAlign.center,
+                                text: translator.premiumSloganMessageRemedies,
+                                style: medium(
+                                  fontSize: 16,
+                                  color: AppColors.greyColor,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                      );
-                    }
-                  },
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 18.w),
+                            ],
+                          ),
+                        );
+                      }
+                    },
+                    buttonColor: AppColors.secondary,
+                    margin: EdgeInsets.only(top: 48.h, bottom: 14.h),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       spacing: 10.w,
@@ -224,8 +172,11 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
                       children: [
                         AppText(
                           textAlign: TextAlign.center,
-                          text: translator.matchWithBirthCart,
-                          style: bold(fontSize: 16, color: AppColors.black),
+                          text: translator.viewRemedies,
+                          style: bold(
+                            fontSize: context.isTamil ? 14 : 16,
+                            color: AppColors.black,
+                          ),
                         ),
                         if (!context
                             .read<SubscriptionProvider>()
@@ -237,22 +188,98 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
                       ],
                     ),
                   ),
-                ),
-                AppButton(
-                  margin: EdgeInsets.only(bottom: 18.h),
-                  onTap: () {
-                    warningDialog(context, translator);
-                  },
-                  child: AppText(
-                    textAlign: TextAlign.center,
-                    text: translator.addNewPalm,
-                    style: bold(fontSize: 16, color: AppColors.black),
+                  AppButton(
+                    margin: EdgeInsets.only(bottom: 18.h),
+                    onTap: () {
+                      if (context
+                          .read<SubscriptionProvider>()
+                          .isTier2Subscribed) {
+                        context.pushNamed(
+                          MobileAppRoutes.birthChartScreen.name,
+                        );
+                        if (provider.birthChartDetails == null) {
+                          provider.getBirthChartDetails();
+                        }
+                      } else {
+                        showPremiumDialog(
+                          context: context,
+                          title: translator.premiumAccess,
+                          contentBody: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              18.h.verticalSpace,
+                              AppText(
+                                textAlign: TextAlign.center,
+                                text: translator
+                                    .premiumMessageMatchWithBirthChart,
+                                //'The "Match with Birth Chart" feature is available exclusively for Premium Plan (Tier 2) users.',
+                                style: medium(
+                                  fontSize: 16,
+                                  color: AppColors.black.withValues(alpha: 0.8),
+                                ),
+                              ),
+                              8.h.verticalSpace,
+                              AppText(
+                                textAlign: TextAlign.center,
+                                text: translator
+                                    .premiumSloganMessageMatchWithBirthChart,
+                                // "Unlock advanced insights by aligning your palm reading with your birth chart for a more accurate spiritual analysis.",
+                                style: medium(
+                                  fontSize: 16,
+                                  color: AppColors.greyColor,
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      }
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 18.w),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        spacing: 10.w,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          AppText(
+                            textAlign: TextAlign.center,
+                            text: translator.matchWithBirthCart,
+                            style: bold(
+                              fontSize: context.isTamil ? 14 : 16,
+                              color: AppColors.black,
+                            ),
+                          ),
+                          if (!context
+                              .read<SubscriptionProvider>()
+                              .isTier2Subscribed)
+                            SVGImage(
+                              path: AppAssets.lockIcon,
+                              color: AppColors.darkBlue,
+                            ),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
-                30.h.verticalSpace,
-              ],
-            );
-          },
+                  AppButton(
+                    margin: EdgeInsets.only(bottom: 18.h),
+                    onTap: () {
+                      warningDialog(context, translator);
+                    },
+                    child: AppText(
+                      textAlign: TextAlign.center,
+                      text: translator.addNewPalm,
+                      style: bold(
+                        fontSize: context.isTamil ? 14 : 16,
+                        color: AppColors.black,
+                      ),
+                    ),
+                  ),
+                  30.h.verticalSpace,
+                ],
+              );
+            },
+          ),
         ),
       ),
     );
@@ -493,17 +520,22 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
     int,
   }) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 12.h),
+      padding: EdgeInsets.only(bottom: 8.h),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         spacing: 8.w,
         children: [
           AppText(
             text: topic,
-            style: medium(fontSize: 16, color: Color(0xff4EF4E4)),
+            style: medium(fontSize: 14, color: Color(0xff4EF4E4)),
           ),
           AppText(text: ":", style: medium(fontSize: 16)),
-          AppText(text: details, style: medium(fontSize: 16, height: 1.3)),
+          Expanded(
+            child: AppText(
+              text: details,
+              style: medium(fontSize: 14, height: 1.3),
+            ),
+          ),
         ],
       ),
     );
@@ -516,7 +548,7 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
   }) {
     isLocked = isLocked ?? false;
     return Padding(
-      padding: EdgeInsets.only(bottom: 12.h),
+      padding: EdgeInsets.only(bottom: 8.h),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         spacing: 8.w,
@@ -524,7 +556,7 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
           AppText(
             text: topic,
             style: medium(
-              fontSize: 16,
+              fontSize: 14,
               color: Color(0xff4EF4E4).withValues(alpha: (isLocked) ? 0.2 : 1),
             ),
           ),
@@ -543,7 +575,7 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
               text: details,
               style: medium(
                 height: 1.3,
-                fontSize: 16,
+                fontSize: 14,
                 color: AppColors.whiteColor.withValues(
                   alpha: (isLocked) ? 0.2 : 1,
                 ),

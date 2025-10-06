@@ -23,36 +23,27 @@ class AstrologyMobileApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => LocaleProvider(),
-      child: ScreenUtilInit(
-        minTextAdapt: true,
-        splitScreenMode: true,
-        designSize: const Size(375, 812),
-        builder: (context, child) {
-          // final provider = context.watch<LocaleProvider>();
-          return MultiProvider(
-            providers: [
-              ChangeNotifierProvider(
-                create: (context) => SetReminderProvider(),
-              ),
-              ChangeNotifierProvider(
-                create: (context) => UserProfileProvider(),
-              ),
-              ChangeNotifierProvider(
-                create: (context) => SubscriptionProvider(),
-              ),
-              ChangeNotifierProvider(
-                create: (context) => NotificationProvider(),
-              ),
-              ChangeNotifierProvider(create: (context) => UserAuthProvider()),
-              ChangeNotifierProvider(create: (context) => PalmProvider()),
-              ChangeNotifierProvider(create: (context) => HomeProvider()),
-              ChangeNotifierProvider(create: (context) => MantraProvider()),
-              ChangeNotifierProvider(create: (_) => SubscriptionProvider()),
-              ChangeNotifierProvider(create: (_) => AppInfoProvider()),
-            ], //
-            child: MaterialApp.router(
+    return ScreenUtilInit(
+      minTextAdapt: true,
+      splitScreenMode: true,
+      designSize: const Size(375, 812),
+      builder: (context, child) {
+        return MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (context) => SetReminderProvider()),
+            ChangeNotifierProvider(create: (context) => UserProfileProvider()),
+            ChangeNotifierProvider(create: (context) => SubscriptionProvider()),
+            ChangeNotifierProvider(create: (context) => NotificationProvider()),
+            ChangeNotifierProvider(create: (context) => UserAuthProvider()),
+            ChangeNotifierProvider(create: (context) => PalmProvider()),
+            ChangeNotifierProvider(create: (context) => HomeProvider()),
+            ChangeNotifierProvider(create: (context) => MantraProvider()),
+            ChangeNotifierProvider(create: (_) => SubscriptionProvider()),
+            ChangeNotifierProvider(create: (_) => AppInfoProvider()),
+            ChangeNotifierProvider(create: (_) => LocaleProvider()),
+          ], //
+          child: Consumer<LocaleProvider>(
+            builder: (context, value, child) => MaterialApp.router(
               theme: AppTheme.appThemeData,
               locale: Locale(
                 LocaleStoaregService.localeCode,
@@ -71,9 +62,9 @@ class AstrologyMobileApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               routerConfig: MobileAppRouter.goRouter,
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

@@ -52,8 +52,8 @@ class _RemediesScreenState extends State<RemediesScreen> {
                           return greyColoredBox(
                             margin: EdgeInsets.only(bottom: 12.h),
                             padding: EdgeInsets.symmetric(
-                              horizontal: 10.w,
-                              vertical: 12.h,
+                              horizontal: 7,
+                              vertical: 10,
                             ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,7 +73,7 @@ class _RemediesScreenState extends State<RemediesScreen> {
                                 AppText(
                                   text: remedies!
                                       .remedyName, //"SUN REMEDY – Leadership & Confidence",
-                                  style: medium(fontSize: 18),
+                                  style: medium(fontSize: 16),
                                 ),
                                 10.h.verticalSpace,
                                 topicWithDetails(
@@ -132,7 +132,7 @@ class _RemediesScreenState extends State<RemediesScreen> {
           AppText(text: ":", style: regular(fontSize: 16)),
           Expanded(
             flex: 3,
-            child: AppText(text: details, style: regular(fontSize: 18)),
+            child: AppText(text: details, style: regular(fontSize: 16)),
           ),
         ],
       ),

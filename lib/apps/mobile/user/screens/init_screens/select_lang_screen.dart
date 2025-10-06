@@ -1,6 +1,7 @@
 import 'package:astrology_app/apps/mobile/user/services/settings/locale_storage_service.dart';
 import 'package:astrology_app/core/constants/app_colors.dart';
 import 'package:astrology_app/core/constants/text_style.dart';
+import 'package:astrology_app/core/extension/context_extension.dart';
 import 'package:astrology_app/core/widgets/app_layout.dart';
 import 'package:astrology_app/core/widgets/app_text.dart';
 import 'package:astrology_app/core/widgets/global_methods.dart';
@@ -19,14 +20,19 @@ class LanguageSelectionScreen extends StatelessWidget {
     return AppLayout(
       body: Consumer<LocaleProvider>(
         builder: (context, localeProvider, child) {
+          final translator = context.translator;
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               30.h.verticalSpace,
-              topBar(context: context, title: "Select Language"),
+              topBar(
+                context: context,
+                title: translator.selectLang,
+                showBackButton: false,
+              ),
               40.verticalSpace,
               AppText(
-                text: 'Choose your preferred language',
+                text: translator.choosePrefLang,
                 style: semiBold(fontSize: 18),
               ),
               30.verticalSpace,
@@ -55,7 +61,7 @@ class LanguageSelectionScreen extends StatelessWidget {
                 title: 'தமிழ் (Tamil)',
                 languageCode: 'ta',
                 currentLocale: localeProvider.localeCode,
-                onTap: () => localeProvider.setLocale('ta'),
+                onTap: () => localeProvider.setLocale("ta"),
               ),
 
               const Spacer(),
@@ -67,7 +73,6 @@ class LanguageSelectionScreen extends StatelessWidget {
                   onPressed: () async {
                     Future.wait([
                       LocaleStoaregService.setIsLanguageSelected(value: true),
-
                       context.read<UserAuthProvider>().decideFirstScreen(
                         context,
                       ),
@@ -78,8 +83,11 @@ class LanguageSelectionScreen extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 16),
                   ),
                   child: AppText(
-                    text: "Confirm",
-                    style: semiBold(color: AppColors.black),
+                    text: translator.confirm,
+                    style: semiBold(
+                      color: AppColors.black,
+                      fontSize: context.isTamil ? 14 : 20,
+                    ),
                   ),
                 ),
               ),

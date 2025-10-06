@@ -92,6 +92,7 @@ class SignInScreen extends StatelessWidget {
                         context.pop();
                       },
                       child: RichText(
+                        textAlign: TextAlign.center,
                         text: TextSpan(
                           //Login with email, when email is found in system
                           children: [

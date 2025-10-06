@@ -184,6 +184,8 @@
   "warning": "चेतावनी",
   "warnMessage": "यदि आप नया पाम जोड़ते हैं, तो मौजूदा डेटा नष्ट हो जाएगा।",
   "goodAfternoon": "शुभ दोपहर",
-  "goodEvening": "शुभ संध्या"
-
+  "goodEvening": "शुभ संध्या",
+  "choosePrefLang": "अपनी पसंदीदा भाषा चुनें",
+  "confirm": "पुष्टि करे",
+  "selectLang": "भाषा चुने"
 }

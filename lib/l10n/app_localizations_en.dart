@@ -565,4 +565,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get goodEvening => 'Good Evening';
+
+  @override
+  String get choosePrefLang => 'Choose your preferred language';
+
+  @override
+  String get confirm => 'Confirm';
+
+  @override
+  String get selectLang => 'Select Language';
 }

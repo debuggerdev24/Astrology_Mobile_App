@@ -565,4 +565,13 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get goodEvening => 'शुभ संध्या';
+
+  @override
+  String get choosePrefLang => 'अपनी पसंदीदा भाषा चुनें';
+
+  @override
+  String get confirm => 'पुष्टि करे';
+
+  @override
+  String get selectLang => 'भाषा चुने';
 }

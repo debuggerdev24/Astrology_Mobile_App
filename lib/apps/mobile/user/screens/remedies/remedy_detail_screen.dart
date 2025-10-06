@@ -39,10 +39,10 @@ class RemedyDetailScreen extends StatelessWidget {
                     context: context,
                     title: remedy!.remedyName.split("-").first,
                   ),
-                  12.h.verticalSpace,
+                  21.h.verticalSpace,
                   AppText(
                     textAlign: TextAlign.center,
-                    style: bold(fontSize: 18, fontFamily: AppFonts.secondary),
+                    style: regular(fontSize: 15, fontWeight: FontWeight.w500),
                     text: remedy.remedyGain,
                     //"This remedy enhances confidence, boosts focus, and reduces ego imbalance.",
                   ),
@@ -55,7 +55,7 @@ class RemedyDetailScreen extends StatelessWidget {
                   22.h.verticalSpace,
                   AppText(
                     text: translator.suggestedAction,
-                    style: semiBold(fontSize: 18, color: AppColors.primary),
+                    style: semiBold(fontSize: 16, color: AppColors.primary),
                   ),
 
                   10.h.verticalSpace,
@@ -65,14 +65,14 @@ class RemedyDetailScreen extends StatelessWidget {
                       padding: EdgeInsets.only(bottom: 7.h),
                       child: AppText(
                         text: "${index + 1}. $action",
-                        style: medium(fontSize: 16),
+                        style: medium(fontSize: 14),
                       ),
                     );
                   }),
                   20.h.verticalSpace,
                   AppText(
                     text: translator.textInstruction,
-                    style: semiBold(fontSize: 18, color: AppColors.primary),
+                    style: semiBold(fontSize: 16, color: AppColors.primary),
                   ),
 
                   10.h.verticalSpace,
@@ -82,7 +82,7 @@ class RemedyDetailScreen extends StatelessWidget {
                       padding: EdgeInsets.only(bottom: 7.h),
                       child: AppText(
                         text: instruction,
-                        style: medium(fontSize: 16),
+                        style: medium(fontSize: 14),
                       ),
                     );
                   }),
@@ -90,19 +90,21 @@ class RemedyDetailScreen extends StatelessWidget {
                   20.h.verticalSpace,
                   AppText(
                     text: translator.spiritualMeaning,
-                    style: semiBold(fontSize: 18, color: AppColors.primary),
+                    style: semiBold(fontSize: 16, color: AppColors.primary),
                   ),
 
                   10.h.verticalSpace,
                   AppText(
                     text: remedy.spiritualMeaning,
                     //"This ritual aligns your energy with the solar frequency.",
-                    style: medium(fontSize: 16),
+                    style: medium(fontSize: 14),
                   ),
                   AppButton(
                     onTap: () {
                       context.pushNamed(MobileAppRoutes.setReminderScreen.name);
                     },
+                    fontSize: context.isTamil ? 14 : 16,
+
                     title: translator.setReminder,
                     margin: EdgeInsets.only(top: 52.h, bottom: 20.h),
                   ),

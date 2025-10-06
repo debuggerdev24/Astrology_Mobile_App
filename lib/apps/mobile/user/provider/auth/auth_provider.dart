@@ -150,7 +150,7 @@ class UserAuthProvider extends ChangeNotifier {
           context.goNamed(MobileAppRoutes.selectLanguageScreen.name);
           return;
         }
-        context.goNamed(MobileAppRoutes.signUpScreen.name);
+        context.pushNamed(MobileAppRoutes.signUpScreen.name);
       },
       (r) {
         final data = r["data"]["palm_image_left"];

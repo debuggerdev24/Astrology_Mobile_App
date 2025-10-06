@@ -565,4 +565,13 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get goodEvening => 'மாலை வணக்கம்';
+
+  @override
+  String get choosePrefLang => 'உங்களுக்கு விருப்பமான மொழியைத் தேர்வுசெய்யவும்';
+
+  @override
+  String get confirm => 'உறுதிப்படுத்தவும்';
+
+  @override
+  String get selectLang => 'மொழியைத் தேர்ந்தெடுங்கள்';
 }

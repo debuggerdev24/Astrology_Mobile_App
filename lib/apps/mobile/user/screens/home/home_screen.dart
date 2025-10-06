@@ -276,7 +276,7 @@ class HomeScreen extends StatelessWidget {
             AppText(text: " : ${provider.dasha} ", style: medium(fontSize: 16)),
           ],
         ),
-        10.verticalSpace,
+        5.verticalSpace,
         // SizedBox(
         //   height: 20,
         //   child: VerticalDivider(color: AppColors.whiteColor, thickness: 1),
@@ -304,7 +304,7 @@ class HomeScreen extends StatelessWidget {
     required MantraModel mantra,
   }) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 18.h),
+      margin: EdgeInsets.only(top: 14.h, bottom: 18.h),
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(8.r),
