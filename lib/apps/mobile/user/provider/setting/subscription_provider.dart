@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:astrology_app/apps/mobile/user/model/settings/subscription_plan_model.dart';
 import 'package:astrology_app/apps/mobile/user/services/settings/subscription_api_service.dart';
 import 'package:flutter/cupertino.dart';
@@ -71,9 +73,23 @@ class SubscriptionProvider extends ChangeNotifier {
       isTier3Subscribed = false;
 
   // Add a subscription and update flags
+
   void addSubscription(AppEnum tier) {
     _activeSubscriptions.add(tier);
     _updateTierFlags();
+    notifyListeners();
+  }
+
+  void addSubscriptionToDatabase(AppEnum tier) {
+    // addSubscription(tier);
+    final data = {
+      "platform": (Platform.isAndroid)
+          ? AppEnum.android.name
+          : AppEnum.ios.name,
+      (Platform.isAndroid) ? "purchase_token" : "receipt_data":
+          (Platform.isAndroid) ? " " : "",
+    };
+    SubscriptionApiService.instance.validateSubscription(data: data);
     notifyListeners();
   }
 

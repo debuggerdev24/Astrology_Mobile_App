@@ -34,4 +34,7 @@ class Endpoints {
   static String getTermsAndCondition = '/horoscope/terms-and-conditions/';
   static String getSpiritualDisclaimers = '/horoscope/spiritual-disclaimers/';
   static String getFaq = '/horoscope/faq/';
+  static String validateSubscription = '/horoscope/validate-subscription/';
+  static String checkSubscriptionStatus =
+      '/horoscope/check-subscription-status/';
 }

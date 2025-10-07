@@ -1,1 +1,12 @@
-enum AppEnum { daily, weekly, monthly, custom, tier1, tier2, tier3, free }
+enum AppEnum {
+  daily,
+  weekly,
+  monthly,
+  custom,
+  tier1,
+  tier2,
+  tier3,
+  free,
+  android,
+  ios,
+}

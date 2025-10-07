@@ -101,7 +101,7 @@ class PalmUploadScreen extends StatelessWidget {
                         AppButton(
                           margin: EdgeInsets.only(bottom: 25.h, top: 50.h),
                           onTap: () {
-                            deBouncer.run(() {
+                            deBouncer.run(() async {
                               if (provider.leftHandImageFile == null &&
                                   provider.rightHandImageFile == null) {
                                 AppToast.error(
@@ -142,12 +142,11 @@ class PalmUploadScreen extends StatelessWidget {
                               //     );
                               //   },
                               // );
-                              provider.uploadForReading(
-                                onSuccess: () {
-                                  context.pushNamed(
-                                    MobileAppRoutes.palmReadingScreen.name,
-                                  );
-                                },
+                              context.pushNamed(
+                                MobileAppRoutes.palmReadingScreen.name,
+                              );
+                              await provider.uploadForReading(
+                                onSuccess: () {},
                                 context: context,
                               );
                             });

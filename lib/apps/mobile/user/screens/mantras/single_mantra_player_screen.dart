@@ -102,26 +102,15 @@ class _TodayMantraPlayScreenState extends State<TodayMantraPlayScreen>
                           60.h.verticalSpace,
                           //todo --------------------> song details
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  AppText(
-                                    text: mantraName,
-                                    style: medium(fontSize: 22),
-                                  ),
-                                  AppText(
-                                    text: meaning,
-                                    style: regular(
-                                      fontSize: 18,
-                                      height: 1.2,
-                                      color: AppColors.greyColor,
-                                    ),
-                                  ),
-                                ],
+                              Expanded(
+                                child: AppText(
+                                  text: mantraName,
+                                  style: medium(fontSize: 22),
+                                ),
                               ),
+
                               Padding(
                                 padding: EdgeInsets.only(top: 8.0),
                                 child: Icon(
@@ -131,6 +120,14 @@ class _TodayMantraPlayScreenState extends State<TodayMantraPlayScreen>
                                 ),
                               ),
                             ],
+                          ),
+                          AppText(
+                            text: meaning,
+                            style: regular(
+                              fontSize: 18,
+                              height: 1.2,
+                              color: AppColors.greyColor,
+                            ),
                           ),
                           28.h.verticalSpace,
                           if (isText)

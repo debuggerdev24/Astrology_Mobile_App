@@ -3,7 +3,6 @@ import 'package:astrology_app/core/constants/app_assets.dart';
 import 'package:astrology_app/core/constants/app_colors.dart';
 import 'package:astrology_app/core/constants/text_style.dart';
 import 'package:astrology_app/core/extension/context_extension.dart';
-import 'package:astrology_app/core/utils/custom_loader.dart';
 import 'package:astrology_app/core/widgets/app_button.dart';
 import 'package:astrology_app/core/widgets/app_layout.dart';
 import 'package:astrology_app/core/widgets/app_text.dart';
@@ -14,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../../../routes/mobile_routes/user_routes.dart';
 import '../../model/remedies/remedy_model.dart';
@@ -112,8 +112,160 @@ class RemedyDetailScreen extends StatelessWidget {
               ),
             );
           }
-          return ApiLoadingIndicator();
+          return remedyDetailsShimmer();
         },
+      ),
+    );
+  }
+
+  Widget remedyDetailsShimmer() {
+    return Shimmer.fromColors(
+      baseColor: AppColors.greyColor,
+      highlightColor: Colors.grey[400]!,
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            40.h.verticalSpace,
+            //todo Remedy title
+            Container(
+              width: 200.w,
+              height: 24.h,
+              decoration: BoxDecoration(
+                color: AppColors.greyColor,
+                borderRadius: BorderRadius.circular(4),
+              ),
+            ),
+
+            16.h.verticalSpace,
+
+            //todo Description lines (3 lines)
+            ...List.generate(
+              3,
+              (_) => Padding(
+                padding: EdgeInsets.only(bottom: 6.h),
+                child: Container(
+                  width: double.infinity,
+                  height: 16.h,
+                  decoration: BoxDecoration(
+                    color: AppColors.greyColor,
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                ),
+              ),
+            ),
+
+            20.h.verticalSpace,
+
+            //todo Section 1: Recommended Actions
+            Container(
+              width: 220.w,
+              height: 20.h,
+              decoration: BoxDecoration(
+                color: AppColors.greyColor,
+                borderRadius: BorderRadius.circular(4),
+              ),
+            ),
+            12.h.verticalSpace,
+            //todo List items
+            ...List.generate(
+              2,
+              (_) => Padding(
+                padding: EdgeInsets.only(bottom: 8.h),
+                child: Container(
+                  width: double.infinity,
+                  height: 18.h,
+                  decoration: BoxDecoration(
+                    color: AppColors.greyColor,
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                ),
+              ),
+            ),
+
+            20.h.verticalSpace,
+
+            //todo Section 2: How to Apply
+            Container(
+              width: 180.w,
+              height: 20.h,
+              decoration: BoxDecoration(
+                color: AppColors.greyColor,
+                borderRadius: BorderRadius.circular(4),
+              ),
+            ),
+            12.h.verticalSpace,
+            ...List.generate(
+              3,
+              (_) => Padding(
+                padding: EdgeInsets.only(bottom: 6.h),
+                child: Container(
+                  width: double.infinity,
+                  height: 16.h,
+                  decoration: BoxDecoration(
+                    color: AppColors.greyColor,
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              width: 250.w,
+              height: 16.h,
+              decoration: BoxDecoration(
+                color: AppColors.greyColor,
+                borderRadius: BorderRadius.circular(4),
+              ),
+            ),
+
+            20.h.verticalSpace,
+
+            //todo Section 3: Scientific Aspect
+            Container(
+              width: 160.w,
+              height: 20.h,
+              decoration: BoxDecoration(
+                color: AppColors.greyColor,
+                borderRadius: BorderRadius.circular(4),
+              ),
+            ),
+            12.h.verticalSpace,
+            ...List.generate(
+              4,
+              (_) => Padding(
+                padding: EdgeInsets.only(bottom: 6.h),
+                child: Container(
+                  width: double.infinity,
+                  height: 16.h,
+                  decoration: BoxDecoration(
+                    color: AppColors.greyColor,
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              width: 200.w,
+              height: 16.h,
+              decoration: BoxDecoration(
+                color: AppColors.greyColor,
+                borderRadius: BorderRadius.circular(4),
+              ),
+            ),
+
+            // Button shimmer
+            Container(
+              width: double.infinity,
+              margin: EdgeInsets.only(top: 60.h),
+              height: 50.h,
+              decoration: BoxDecoration(
+                color: AppColors.greyColor,
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+            30.h.verticalSpace,
+          ],
+        ),
       ),
     );
   }

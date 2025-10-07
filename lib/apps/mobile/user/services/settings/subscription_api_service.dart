@@ -16,4 +16,13 @@ class SubscriptionApiService {
   Future<Either<ApiException, dynamic>> getCurrentActivePlans() async {
     return await BaseApiHelper.instance.get(Endpoints.getCurrentPlan);
   }
+
+  Future<Either<ApiException, dynamic>> validateSubscription({
+    required Map data,
+  }) async {
+    return await BaseApiHelper.instance.get(
+      Endpoints.getCurrentPlan,
+      data: data,
+    );
+  }
 }

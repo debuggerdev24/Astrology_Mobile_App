@@ -35,11 +35,11 @@ class _SettingScreenState extends State<SettingScreen>
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     // optional: check once at launch
-    Future.microtask(
-      () => context
-          .read<NotificationProvider>()
-          .checkSystemNotificationPermission(),
-    );
+    // Future.microtask(
+    //   () => context
+    //       .read<NotificationProvider>()
+    //       .checkSystemNotificationPermission(),
+    // );
   }
 
   @override
@@ -120,15 +120,15 @@ class _SettingScreenState extends State<SettingScreen>
                         },
                       ),
                     ),
-                    // buildDivider(),
-                    // _section(
-                    //   title: context.translator.subscription,
-                    //   onTap: () {
-                    //     context.pushNamed(
-                    //       MobileAppRoutes.premiumPlanScreen.name,
-                    //     );
-                    //   },
-                    // ),
+                    buildDivider(),
+                    _section(
+                      title: context.translator.subscription,
+                      onTap: () {
+                        context.pushNamed(
+                          MobileAppRoutes.premiumPlanScreen.name,
+                        );
+                      },
+                    ),
                     buildDivider(),
                     _section(
                       title: translator.logOut,

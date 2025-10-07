@@ -18,7 +18,6 @@ class NotificationProvider extends ChangeNotifier {
   set isNotificationOn(bool value) {
     _isNotificationOn = value;
     setNotificationStatus();
-
     notifyListeners();
   }
 

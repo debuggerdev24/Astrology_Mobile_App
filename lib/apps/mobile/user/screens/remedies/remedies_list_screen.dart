@@ -2,7 +2,6 @@ import 'package:astrology_app/apps/mobile/user/provider/remedies/palm_provider.d
 import 'package:astrology_app/core/constants/app_colors.dart';
 import 'package:astrology_app/core/constants/text_style.dart';
 import 'package:astrology_app/core/extension/context_extension.dart';
-import 'package:astrology_app/core/utils/custom_loader.dart';
 import 'package:astrology_app/core/widgets/app_button.dart';
 import 'package:astrology_app/core/widgets/app_layout.dart';
 import 'package:astrology_app/core/widgets/app_text.dart';
@@ -11,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../../../routes/mobile_routes/user_routes.dart';
 
@@ -107,11 +107,109 @@ class _RemediesScreenState extends State<RemediesScreen> {
                     ),
                   );
                 }
-                return ApiLoadingIndicator();
+                return remedyShimmer();
               },
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget remedyShimmer() {
+    return Shimmer.fromColors(
+      baseColor: AppColors.greyColor,
+      highlightColor: Colors.grey[400]!,
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            12.h.verticalSpace,
+            ...List.generate(
+              2,
+              (_) => Container(
+                width: double.infinity,
+                margin: EdgeInsets.only(bottom: 16),
+                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+                decoration: BoxDecoration(
+                  color: AppColors.greyColor.withValues(alpha: 0.4),
+                  borderRadius: BorderRadius.circular(8.r),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Planet label shimmer
+                    Container(
+                      width: 95.w,
+                      height: 20.h,
+                      decoration: BoxDecoration(
+                        color: AppColors.greyColor,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                    ),
+                    12.h.verticalSpace,
+                    // Remedy name shimmer
+                    Container(
+                      width: double.infinity,
+                      height: 18.h,
+                      decoration: BoxDecoration(
+                        color: AppColors.greyColor,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                    ),
+                    10.h.verticalSpace,
+                    // Type row shimmer
+                    Container(
+                      width: 180.w,
+                      height: 16.h,
+                      decoration: BoxDecoration(
+                        color: AppColors.greyColor,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                    ),
+                    8.h.verticalSpace,
+                    // Description shimmer (multiple lines)
+                    Container(
+                      width: double.infinity,
+                      height: 16.h,
+                      decoration: BoxDecoration(
+                        color: AppColors.greyColor,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                    ),
+                    6.h.verticalSpace,
+                    Container(
+                      width: double.infinity,
+                      height: 16.h,
+                      decoration: BoxDecoration(
+                        color: AppColors.greyColor,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                    ),
+                    6.h.verticalSpace,
+                    Container(
+                      width: 220.w,
+                      height: 16.h,
+                      decoration: BoxDecoration(
+                        color: AppColors.greyColor,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                    ),
+                    16.h.verticalSpace,
+                    // Button shimmer
+                    Container(
+                      width: double.infinity,
+                      height: 45.h,
+                      decoration: BoxDecoration(
+                        color: AppColors.greyColor,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

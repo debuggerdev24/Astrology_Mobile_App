@@ -7,6 +7,7 @@
 */
 import 'dart:async';
 
+import 'package:astrology_app/apps/mobile/user/screens/user_dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:provider/provider.dart';
@@ -26,7 +27,7 @@ class SubscriptionService {
   /// Only Tier 1 & Tier 2
   static const Map<AppEnum, String> productIds = {
     AppEnum.tier1: "com.innerpeacepath.tier1_monthly",
-    // AppEnum.tier2: 'mock_tier2_id',
+    AppEnum.tier2: "com.innerpeacepath.tier2",
   };
 
   List<ProductDetails> availableProducts = [];
@@ -102,15 +103,19 @@ class SubscriptionService {
     BuildContext context,
   ) {
     final provider = Provider.of<SubscriptionProvider>(context, listen: false);
-
     for (final purchase in purchases) {
-      if (purchase.status == PurchaseStatus.purchased ||
-          purchase.status == PurchaseStatus.restored) {
+      Logger.printInfo("-----------------> ${purchase.status}");
+      if (purchase.status == PurchaseStatus.purchased) {
+        Logger.printInfo(
+          "id : ${purchase.verificationData.serverVerificationData!}",
+        );
         final tier = _getTierFromProductId(purchase.productID);
         if (tier != null) {
-          provider.addSubscription(tier);
+          provider.addSubscriptionToDatabase(tier);
+          callInitAPIs(context: context);
         }
         _iap.completePurchase(purchase);
+      } else if (purchase.status == PurchaseStatus.restored) {
       } else if (purchase.status == PurchaseStatus.error) {
         debugPrint("Purchase error: ${purchase.error}");
       }

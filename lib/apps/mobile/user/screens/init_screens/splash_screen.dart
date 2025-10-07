@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void init() {
-    Future.delayed(Duration(seconds: 2)).then((value) async {
+    Future.delayed(Duration(seconds: 3)).then((value) async {
       // context.pushNamed(MobileAppRoutes.signUpScreen.name);
       if (!isNetworkConnected.value) {
         context.pushNamed(MobileAppRoutes.userDashBoardScreen.name);
@@ -77,7 +77,9 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return AppLayout(
       body: Center(
-        child: FadeIn(
+        child: ZoomIn(
+          from: 1,
+          duration: Duration(seconds: 2),
           child: Column(
             spacing: 15,
             mainAxisAlignment: MainAxisAlignment.center,

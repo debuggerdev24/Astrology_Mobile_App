@@ -22,7 +22,6 @@ import '../../../../../core/widgets/app_text.dart';
 import '../../../../../core/widgets/global_methods.dart';
 import '../../model/home/mantra_model.dart';
 import '../../provider/setting/subscription_provider.dart';
-import '../../services/subscription/subscription_service.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -54,23 +53,18 @@ class HomeScreen extends StatelessWidget {
                             context: context,
                             userName: profileProvider.nameController.text,
                           ),
-                          16.h.verticalSpace,
+                          12.h.verticalSpace,
                           dashaAndMoonSection(
                             context: context,
                             provider: provider,
                           ),
-                          GestureDetector(
-                            onTap: () {
-                              SubscriptionService().initialize(context);
-                            },
-                            child: todayMantra(provider),
-                          ),
+                          todayMantra(provider),
                           //todo -----------------------> Karma Focus
                           greyColoredBox(
                             margin: EdgeInsets.only(bottom: 20.h),
                             padding: EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 12,
+                              horizontal: 10,
+                              vertical: 10, //
                             ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -105,7 +99,6 @@ class HomeScreen extends StatelessWidget {
                                 ),
                                 actionCaution(
                                   context: context,
-
                                   title: translator.caution,
                                   detail:
                                       provider.dailyHoroScopeData!.karmaCaution,
@@ -138,7 +131,7 @@ class HomeScreen extends StatelessWidget {
   ) {
     return greyColoredBox(
       margin: EdgeInsets.only(bottom: 10.h),
-      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
 
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -148,7 +141,7 @@ class HomeScreen extends StatelessWidget {
               children: [
                 AppText(
                   text:
-                      "${translator.dasha}/${translator.nakshatra} ${!(context.isTamil) ? translator.inSights : ""} :",
+                      "${translator.dasha}/${translator.nakshatra} ${!(context.isTamil) ? translator.inSights : ""}:",
                   style: bold(
                     height: 0,
                     fontFamily: AppFonts.secondary,
@@ -159,21 +152,29 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
           ),
-          10.h.verticalSpace,
+          5.h.verticalSpace,
           Wrap(
             crossAxisAlignment: WrapCrossAlignment.center,
             // crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              AppText(
-                text: translator.yourRulingPlanetToday,
-                style: medium(fontSize: 16),
+              Padding(
+                padding: EdgeInsets.only(top: 5),
+                child: AppText(
+                  text: translator.yourRulingPlanetToday,
+
+                  style: medium(fontSize: context.isTamil ? 16 : 18),
+                ),
               ),
+
               AppText(text: " : "),
-              AppText(
-                text: provider.dailyHoroScopeData!.rulingPlanet,
-                style: medium(
-                  fontSize: context.isTamil ? 16 : 18,
-                  color: AppColors.primary,
+              Padding(
+                padding: EdgeInsets.only(top: 5),
+                child: AppText(
+                  text: provider.dailyHoroScopeData!.rulingPlanet,
+                  style: medium(
+                    fontSize: context.isTamil ? 16 : 18,
+                    color: AppColors.primary,
+                  ),
                 ),
               ),
             ],
@@ -181,14 +182,23 @@ class HomeScreen extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              AppText(text: translator.nakshatra, style: medium(fontSize: 16)),
+              Padding(
+                padding: EdgeInsets.only(top: 5),
+                child: AppText(
+                  text: translator.nakshatra,
+                  style: medium(fontSize: context.isTamil ? 16 : 18),
+                ),
+              ),
               AppText(text: " : "),
               Expanded(
-                child: AppText(
-                  text: provider.dailyHoroScopeData!.nakshatra, //"Anuradha",
-                  style: medium(
-                    fontSize: context.isTamil ? 16 : 18,
-                    color: AppColors.primary,
+                child: Padding(
+                  padding: EdgeInsets.only(top: 5),
+                  child: AppText(
+                    text: provider.dailyHoroScopeData!.nakshatra, //"Anuradha",
+                    style: medium(
+                      fontSize: context.isTamil ? 16 : 18,
+                      color: AppColors.primary,
+                    ),
                   ),
                 ),
               ),
@@ -254,18 +264,24 @@ class HomeScreen extends StatelessWidget {
       spacing: 8.w,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        AppText(
-          text: title,
-          style: medium(
-            fontSize: context.isTamil ? 16 : 18,
-            color: titleColor ?? AppColors.greenColor,
+        Padding(
+          padding: EdgeInsets.only(top: 5),
+          child: AppText(
+            text: title,
+            style: medium(
+              fontSize: context.isTamil ? 16 : 18,
+              color: titleColor ?? AppColors.greenColor,
+            ),
           ),
         ),
         AppText(text: ":"),
         Expanded(
-          child: AppText(
-            text: detail,
-            style: regular(height: 1.2, fontSize: context.isTamil ? 16 : 18),
+          child: Padding(
+            padding: EdgeInsets.only(top: 5),
+            child: AppText(
+              text: detail,
+              style: regular(height: 1.2, fontSize: context.isTamil ? 16 : 18),
+            ),
           ),
         ),
       ],
@@ -290,7 +306,7 @@ class HomeScreen extends StatelessWidget {
             AppText(text: " : ${provider.dasha} ", style: medium(fontSize: 16)),
           ],
         ),
-        5.verticalSpace,
+        4.verticalSpace,
         // SizedBox(
         //   height: 20,
         //   child: VerticalDivider(color: AppColors.whiteColor, thickness: 1),
@@ -341,22 +357,30 @@ class HomeScreen extends StatelessWidget {
                   text: context.translator.dailyMantra,
                   style: bold(
                     color: AppColors.greyColor,
-                    fontSize: 20,
+                    fontSize: context.isTamil ? 18 : 20,
                     fontFamily: AppFonts.secondary,
                   ),
                 ),
                 6.h.verticalSpace,
                 Row(
+                  // crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SVGImage(path: AppAssets.omIcon, height: 24),
-                    12.w.horizontalSpace,
-
-                    AppText(
-                      text: mantra.name,
-
-                      style: regular(fontSize: 17, color: AppColors.black),
+                    Padding(
+                      padding: EdgeInsets.only(top: 0),
+                      child: SVGImage(path: AppAssets.omIcon, height: 24),
                     ),
-                    Spacer(),
+                    8.w.horizontalSpace,
+
+                    Expanded(
+                      child: AppText(
+                        text: mantra.name,
+                        overflow: TextOverflow.ellipsis,
+                        style: regular(
+                          fontSize: context.isTamil ? 16 : 18,
+                          color: AppColors.black,
+                        ),
+                      ),
+                    ),
                     //todo ---------------------------------------> text Content
                     GestureDetector(
                       onTap: () {
@@ -432,10 +456,11 @@ class HomeScreen extends StatelessWidget {
             style: bold(
               fontFamily: AppFonts.secondary,
               height: 1.1,
-              fontSize: 28,
+              fontSize: context.isTamil ? 25 : 28,
             ),
           ),
         ),
+        2.w.horizontalSpace,
         GestureDetector(
           onTap: () {
             context.pushNamed(MobileAppRoutes.profileScreen.name);
@@ -487,7 +512,6 @@ class HomeScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               16.h.verticalSpace,
-
               // ---------------- Top Bar Placeholder ----------------
               Row(
                 children: [
@@ -519,7 +543,7 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   Container(
                     width: 150.w,
-                    height: 16.h,
+                    height: 18.h,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(4),
                       color: AppColors.greyColor,
@@ -528,7 +552,7 @@ class HomeScreen extends StatelessWidget {
                   6.h.verticalSpace,
                   Container(
                     width: 100.w,
-                    height: 16.h,
+                    height: 18.h,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(4),
                       color: AppColors.greyColor,
@@ -546,7 +570,6 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
               16.h.verticalSpace,
-
               // ---------------- Today Mantra Card ----------------
               Container(
                 width: double.infinity,
@@ -571,10 +594,10 @@ class HomeScreen extends StatelessWidget {
                   children: List.generate(
                     3,
                     (_) => Padding(
-                      padding: EdgeInsets.symmetric(vertical: 8.h),
+                      padding: EdgeInsets.symmetric(vertical: 7.h),
                       child: Container(
                         width: double.infinity,
-                        height: 18.h,
+                        height: 20.h,
                         color: AppColors.greyColor,
                       ),
                     ),
@@ -596,10 +619,10 @@ class HomeScreen extends StatelessWidget {
                   children: List.generate(
                     4,
                     (_) => Padding(
-                      padding: EdgeInsets.symmetric(vertical: 8.h),
+                      padding: EdgeInsets.symmetric(vertical: 7.h),
                       child: Container(
                         width: double.infinity,
-                        height: 18.h,
+                        height: 20.h,
                         color: AppColors.greyColor,
                       ),
                     ),

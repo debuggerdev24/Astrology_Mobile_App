@@ -127,7 +127,7 @@ class DailyMantraScreen extends StatelessWidget {
                       }
 
                       if (mantraProvider.isGetMantraHistoryLoading) {
-                        return shimmer();
+                        return dailyMantraShimmer();
                       }
 
                       final mantraList = mantraProvider.mantraHistoryList;
@@ -160,7 +160,7 @@ class DailyMantraScreen extends StatelessWidget {
     );
   }
 
-  Widget shimmer() {
+  Widget dailyMantraShimmer() {
     return Shimmer.fromColors(
       baseColor: AppColors.greyColor,
       highlightColor: Colors.grey[400]!,
@@ -182,7 +182,7 @@ class DailyMantraScreen extends StatelessWidget {
                   children: List.generate(
                     2,
                     (_) => Padding(
-                      padding: EdgeInsets.symmetric(vertical: 11.h),
+                      padding: EdgeInsets.symmetric(vertical: 8.h),
                       child: Container(
                         width: double.infinity,
                         height: 20.h,
