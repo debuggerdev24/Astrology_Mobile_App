@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:animate_do/animate_do.dart';
 import 'package:astrology_app/apps/mobile/user/provider/home/home_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/mantra/mantra_provider.dart';
-import 'package:astrology_app/apps/mobile/user/provider/remedies/set_reminder_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/setting/app_info_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/setting/profile_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/setting/subscription_provider.dart';
@@ -240,9 +239,9 @@ void callInitAPIs({required BuildContext context}) {
 
       context.read<UserProfileProvider>().getProfile(context),
       context.read<SubscriptionProvider>().getSubscriptionPlans(),
-      context.read<SetReminderProvider>().initializeNotifications(
-        context: context,
-      ),
+      // context.read<SetReminderProvider>().initializeNotifications(
+      //   context: context,
+      // ),
       context.read<AppInfoProvider>().init(context: context),
       SubscriptionService().initialize(context),
       NotificationService.instance.init(),

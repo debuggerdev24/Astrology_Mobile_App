@@ -35,11 +35,11 @@ class _SettingScreenState extends State<SettingScreen>
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     // optional: check once at launch
-    // Future.microtask(
-    //   () => context
-    //       .read<NotificationProvider>()
-    //       .checkSystemNotificationPermission(),
-    // );
+    Future.microtask(
+      () => context
+          .read<NotificationProvider>()
+          .checkSystemNotificationPermission(),
+    );
   }
 
   @override
@@ -48,11 +48,11 @@ class _SettingScreenState extends State<SettingScreen>
     if (state == AppLifecycleState.resumed) {
       Logger.printInfo("App is resumed");
 
-      // if (mounted) {
-      //   context
-      //       .read<NotificationProvider>()
-      //       .checkSystemNotificationPermission();
-      // }
+      if (mounted) {
+        context
+            .read<NotificationProvider>()
+            .checkSystemNotificationPermission();
+      }
     }
   }
 

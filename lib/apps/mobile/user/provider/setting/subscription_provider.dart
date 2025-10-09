@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../../../core/enum/app_enums.dart';
 import '../../../../../core/utils/logger.dart';
+import '../../services/subscription/subscription_service.dart';
 
 class SubscriptionProvider extends ChangeNotifier {
   //todo ----------------> Subscription API service
@@ -73,14 +74,13 @@ class SubscriptionProvider extends ChangeNotifier {
       isTier3Subscribed = false;
 
   // Add a subscription and update flags
-
   void addSubscription(AppEnum tier) {
     _activeSubscriptions.add(tier);
     _updateTierFlags();
     notifyListeners();
   }
 
-  void addSubscriptionToDatabase(AppEnum tier) {
+  Future<void> addSubscriptionToDatabase(AppEnum tier) async {
     // addSubscription(tier);
     final data = {
       "platform": (Platform.isAndroid)
@@ -89,7 +89,7 @@ class SubscriptionProvider extends ChangeNotifier {
       (Platform.isAndroid) ? "purchase_token" : "receipt_data":
           (Platform.isAndroid) ? " " : "",
     };
-    SubscriptionApiService.instance.validateSubscription(data: data);
+    await SubscriptionApiService.instance.validateSubscription(data: data);
     notifyListeners();
   }
 
@@ -127,7 +127,16 @@ class SubscriptionProvider extends ChangeNotifier {
     }
   }
 
-  // Optional: direct tier check
+  Future<void> cancelAutoRenewing({
+    required BuildContext context,
+    required AppEnum tier,
+  }) async {
+    await SubscriptionService().cancelAutoRenewing(
+      context: context,
+      tier: tier,
+    );
+  }
+
   bool hasSubscription(AppEnum tier) {
     return _activeSubscriptions.contains(tier);
   }

@@ -12,6 +12,7 @@ Future<void> main() async {
 
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
+
     DeviceOrientation.portraitDown,
   ]);
 
@@ -20,5 +21,7 @@ Future<void> main() async {
 }
 
 //todo app changes :
-/*.
+/*
+/todo manuels
+
 */

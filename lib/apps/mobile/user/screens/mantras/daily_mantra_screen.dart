@@ -249,6 +249,7 @@ class DailyMantraScreen extends StatelessWidget {
             ],
           ),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Expanded(
                 child: AppText(

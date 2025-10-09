@@ -113,7 +113,7 @@ Widget premiumPlanBox({
                 decorationColor: AppColors.secondary,
               ),
             ),
-            if (plan.plan.toLowerCase() != AppEnum.free.name)
+            if (plan.price != "0")
               AppText(
                 text: "\$${double.parse(plan.price).toStringAsFixed(2)}",
                 style: bold(fontSize: 20, color: AppColors.primary),
@@ -135,7 +135,7 @@ Widget premiumPlanBox({
               ),
             ],
           ),
-        if (!(isFromDetailsScreen ?? false) && plan.plan != "Free") ...[
+        if (!(isFromDetailsScreen ?? false) && plan.price != "0") ...[
           10.h.verticalSpace,
           Row(
             children: [

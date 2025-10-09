@@ -166,6 +166,7 @@ class UserAuthProvider extends ChangeNotifier {
           context.goNamed(MobileAppRoutes.createProfileScreen.name);
           return;
         }
+        LocaleStoaregService.setProfileCreated(true);
         context.goNamed(MobileAppRoutes.userDashBoardScreen.name);
       },
     );

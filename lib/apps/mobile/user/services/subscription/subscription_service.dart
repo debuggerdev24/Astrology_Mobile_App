@@ -6,6 +6,7 @@
  keep in mind that user able to purchase multiple subscription at same time
 */
 import 'dart:async';
+import 'dart:io';
 
 import 'package:astrology_app/apps/mobile/user/screens/user_dashboard.dart';
 import 'package:flutter/material.dart';
@@ -81,7 +82,7 @@ class SubscriptionService {
     }
   }
 
-  /// Call this when user taps “Choose Plan”
+  // Call this when user taps “Choose Plan”
   Future<void> buySubscription({required AppEnum tier}) async {
     try {
       final productId = productIds[tier];
@@ -98,24 +99,24 @@ class SubscriptionService {
     }
   }
 
-  void _handlePurchaseUpdates(
+  Future<void> _handlePurchaseUpdates(
     List<PurchaseDetails> purchases,
     BuildContext context,
-  ) {
+  ) async {
     final provider = Provider.of<SubscriptionProvider>(context, listen: false);
     for (final purchase in purchases) {
       Logger.printInfo("-----------------> ${purchase.status}");
-      if (purchase.status == PurchaseStatus.purchased) {
+      if (purchase.status == PurchaseStatus.purchased ||
+          purchase.status == PurchaseStatus.restored) {
         Logger.printInfo(
-          "id : ${purchase.verificationData.serverVerificationData!}",
+          "id : ${purchase.verificationData.serverVerificationData}",
         );
         final tier = _getTierFromProductId(purchase.productID);
         if (tier != null) {
-          provider.addSubscriptionToDatabase(tier);
+          await provider.addSubscriptionToDatabase(tier);
           callInitAPIs(context: context);
         }
         _iap.completePurchase(purchase);
-      } else if (purchase.status == PurchaseStatus.restored) {
       } else if (purchase.status == PurchaseStatus.error) {
         debugPrint("Purchase error: ${purchase.error}");
       }
@@ -183,6 +184,92 @@ class SubscriptionService {
         return null;
     }
   }
+
+  Future<bool> cancelAutoRenewing({
+    required BuildContext context,
+    required AppEnum tier,
+  }) async {
+    try {
+      final productId = productIds[tier];
+      if (productId == null) {
+        Logger.printError("Product ID not found for tier: $tier");
+        return false;
+      }
+      if (Platform.isAndroid) {
+        // Open Google Play subscription management
+        final url =
+            'https://play.google.com/store/account/subscriptions?sku=$productId&package=${await _getPackageName()}';
+        Logger.printInfo("Opening Android subscription management: $url");
+        // You'll need url_launcher package: await launchUrl(Uri.parse(url));
+        return true;
+      } else if (Platform.isIOS) {
+        // Open iOS subscription management
+        const url = 'https://apps.apple.com/account/subscriptions';
+        Logger.printInfo("Opening iOS subscription management");
+        // You'll need url_launcher package: await launchUrl(Uri.parse(url));
+        return true;
+      }
+
+      return false;
+    } catch (e, stack) {
+      Logger.printError("Error in cancelAutoRenewing: $e\n$stack");
+      return false;
+    }
+  }
+
+  /// Get package name for Android
+  Future<String> _getPackageName() async {
+    return "com.inner_peace_path.app";
+  }
+
+  ///todo Mark subscription as cancelled in backend
+  // Future<bool> markSubscriptionCancelled({
+  //   required AppEnum tier,
+  //   required BuildContext context,
+  // }) async {
+  //   try {
+  //     // Call your backend API to mark subscription as cancelled
+  //     final provider = Provider.of<SubscriptionProvider>(
+  //       context,
+  //       listen: false,
+  //     );
+  //
+  //     // Update backend
+  //     final result = await SubscriptionApiService.instance.cancelSubscription(
+  //       tier: tier,
+  //     );
+  //
+  //     return result.fold(
+  //       (error) {
+  //         Logger.printError(
+  //           "Backend cancellation failed: ${error.errorMessage}",
+  //         );
+  //         return false;
+  //       },
+  //       (success) {
+  //         // Remove from local state
+  //         provider.removeSubscription(tier);
+  //         Logger.printInfo("Subscription cancelled successfully for: $tier");
+  //         return true;
+  //       },
+  //     );
+  //   } catch (e, stack) {
+  //     Logger.printError("Error marking subscription cancelled: $e\n$stack");
+  //     return false;
+  //   }
+  // }
+
+  //todo Future<void> cancelAutoRenewing() async {
+  //   final Uri url = Platform.isAndroid
+  //       ? Uri.parse('https://play.google.com/store/account/subscriptions')
+  //       : Uri.parse('https://apps.apple.com/account/subscriptions');
+  //
+  //   if (await canLaunchUrl(url)) {
+  //     await launchUrl(url, mode: LaunchMode.externalApplication);
+  //   } else {
+  //     Logger.printError('Could not launch subscription management URL');
+  //   }
+  // }
 
   void dispose() {
     _subscription.cancel();

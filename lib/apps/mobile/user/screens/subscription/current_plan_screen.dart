@@ -99,7 +99,19 @@ class CurrentPlanScreen extends StatelessWidget {
                                 buttonColor: AppColors.secondary,
                                 title: context.translator.cancel,
                                 verticalPadding: 11.h,
-                                onTap: () {},
+                                onTap: () {
+                                  final tier =
+                                      {
+                                        "10": AppEnum.tier1,
+                                        "20": AppEnum.tier2,
+                                      }[activePlan.price] ??
+                                      AppEnum.tier3;
+                                  Logger.printInfo(tier.name);
+                                  provider.cancelAutoRenewing(
+                                    context: context,
+                                    tier: tier,
+                                  );
+                                },
                               ),
                             ),
                           ],
