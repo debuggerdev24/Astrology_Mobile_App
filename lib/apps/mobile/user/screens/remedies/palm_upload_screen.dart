@@ -4,7 +4,6 @@ import 'package:astrology_app/core/constants/app_assets.dart';
 import 'package:astrology_app/core/constants/app_colors.dart';
 import 'package:astrology_app/core/constants/text_style.dart';
 import 'package:astrology_app/core/extension/context_extension.dart';
-import 'package:astrology_app/core/utils/custom_loader.dart';
 import 'package:astrology_app/core/utils/custom_toast.dart';
 import 'package:astrology_app/core/utils/de_bouncing.dart';
 import 'package:astrology_app/core/widgets/app_button.dart';
@@ -124,7 +123,6 @@ class PalmUploadScreen extends StatelessWidget {
                                 );
                                 return;
                               }
-
                               // context.read<MantraProvider>().downloadMantraText(
                               //   fileName: "test",
                               //   content:
@@ -157,7 +155,7 @@ class PalmUploadScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                if (provider.isUploading) FullPageIndicator(),
+                // if (provider.isUploading) FullPageIndicator(),
               ],
             );
           },

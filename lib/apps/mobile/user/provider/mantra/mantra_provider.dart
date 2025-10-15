@@ -91,7 +91,7 @@ class MantraProvider extends ChangeNotifier {
       if (playerState.processingState == ProcessingState.completed) {
         // todo isComplete = true;
         setSongIndex(currentMantraIndex + 1);
-        loadAndPlayMusic(mantraHistoryList![currentMantraIndex].audioFile);
+        loadAndPlayMusic(mantraHistoryList![currentMantraIndex].audioFile!);
       }
     });
   }

@@ -46,9 +46,10 @@ class _SplashScreenState extends State<SplashScreen> {
           if (r) {
             final res = await BaseApiHelper.instance.refreshAuthToken();
             res.fold(
-              (err) {
+              (err) async {
                 if (err.code == "token_not_valid") {
-                  LocaleStoaregService.clearUserTokens();
+                  await LocaleStoaregService.saveUserToken("");
+                  await LocaleStoaregService.saveUserRefreshToken("");
                   context.goNamed(MobileAppRoutes.signUpScreen.name);
                 }
               },
@@ -59,7 +60,6 @@ class _SplashScreenState extends State<SplashScreen> {
             return;
           } else {
             context.read<UserAuthProvider>().decideFirstScreen(context);
-
             return;
           }
         });

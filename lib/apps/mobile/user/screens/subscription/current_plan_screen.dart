@@ -1,12 +1,17 @@
+import 'dart:io';
+
 import 'package:astrology_app/apps/mobile/user/provider/setting/subscription_provider.dart';
 import 'package:astrology_app/core/enum/app_enums.dart';
 import 'package:astrology_app/core/extension/context_extension.dart';
 import 'package:astrology_app/core/utils/custom_loader.dart';
 import 'package:astrology_app/core/widgets/app_layout.dart';
 import 'package:astrology_app/core/widgets/global_methods.dart';
+import 'package:astrology_app/routes/mobile_routes/user_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../core/constants/app_colors.dart';
 import '../../../../../core/constants/text_style.dart';
@@ -87,13 +92,28 @@ class CurrentPlanScreen extends StatelessWidget {
                         Row(
                           spacing: 10.w,
                           children: [
-                            Expanded(
-                              child: AppButton(
-                                title: context.translator.upgradePlan,
-                                verticalPadding: 11.h,
-                                onTap: () {},
+                            if (activePlan.price != "20")
+                              Expanded(
+                                child: AppButton(
+                                  title: context.translator.upgradePlan,
+                                  verticalPadding: 11.h,
+                                  onTap: () {
+                                    final provider =
+                                        Provider.of<SubscriptionProvider>(
+                                          context,
+                                          listen: false,
+                                        );
+                                    late SubscriptionPlanModel plan;
+                                    if (activePlan.price == "10") {
+                                      plan = provider.subscriptionPlans![2];
+                                      context.pushNamed(
+                                        MobileAppRoutes.selectedPlanScreen.name,
+                                        extra: plan,
+                                      );
+                                    }
+                                  },
+                                ),
                               ),
-                            ),
                             Expanded(
                               child: AppButton(
                                 buttonColor: AppColors.secondary,
@@ -107,10 +127,11 @@ class CurrentPlanScreen extends StatelessWidget {
                                       }[activePlan.price] ??
                                       AppEnum.tier3;
                                   Logger.printInfo(tier.name);
-                                  provider.cancelAutoRenewing(
-                                    context: context,
-                                    tier: tier,
-                                  );
+                                  // provider.cancelAutoRenewing(
+                                  //   context: context,
+                                  //   tier: tier,
+                                  // );
+                                  openManageSubscription();
                                 },
                               ),
                             ),
@@ -134,6 +155,20 @@ class CurrentPlanScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future<void> openManageSubscription() async {
+    final Uri url = Uri.parse(
+      Platform.isAndroid
+          ? 'https://play.google.com/store/account/subscriptions'
+          : 'https://apps.apple.com/account/subscriptions',
+    );
+
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url, mode: LaunchMode.externalApplication);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   Widget titleWithDetails({required String title, required String details}) {

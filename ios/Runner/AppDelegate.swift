@@ -1,5 +1,6 @@
 import Flutter
 import UIKit
+import flutter_local_notifications
 
 @main
 @objc class AppDelegate: FlutterAppDelegate {
@@ -9,9 +10,9 @@ import UIKit
   ) -> Bool {
 
 //  1. add in this for notification
-//     FlutterLocalNotificationsPlugin.setPluginRegistrantCallback { registry in
-//       GeneratedPluginRegistrant.register(with: registry)
-//     }
+    FlutterLocalNotificationsPlugin.setPluginRegistrantCallback { registry in
+      GeneratedPluginRegistrant.register(with: registry)
+    }
 
     GeneratedPluginRegistrant.register(with: self)
 

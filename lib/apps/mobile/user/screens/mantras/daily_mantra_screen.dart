@@ -124,8 +124,7 @@ class DailyMantraScreen extends StatelessWidget {
                             ),
                           ],
                         );
-                      }
-
+                      } //
                       if (mantraProvider.isGetMantraHistoryLoading) {
                         return dailyMantraShimmer();
                       }
@@ -260,38 +259,40 @@ class DailyMantraScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              //todo --------------------> text Content
-              GestureDetector(
-                onTap: () {
-                  provider.resetAudioPlayer();
-                  provider.setSongIndex(index);
-                  context.pushNamed(
-                    MobileAppRoutes.playMantraScreen.name,
-                    extra: {
-                      "isText": true,
-                      "mantraList": provider.mantraHistoryList,
-                    },
-                  );
-                },
-                child: SVGImage(path: AppAssets.tIcon, height: 34.w),
-              ),
-              //todo --------------------> audio Content
-              GestureDetector(
-                onTap: () {
-                  provider.setSongIndex(index);
-                  Future.wait([
-                    provider.loadAndPlayMusic(mantra.audioFile),
+              if (mantra.textContent != null)
+                //todo --------------------> text Content
+                GestureDetector(
+                  onTap: () {
+                    provider.resetAudioPlayer();
+                    provider.setSongIndex(index);
                     context.pushNamed(
                       MobileAppRoutes.playMantraScreen.name,
                       extra: {
-                        "isText": false,
+                        "isText": true,
                         "mantraList": provider.mantraHistoryList,
                       },
-                    ),
-                  ]);
-                },
-                child: SVGImage(path: AppAssets.playIcon, height: 34.w),
-              ),
+                    );
+                  },
+                  child: SVGImage(path: AppAssets.tIcon, height: 34.w),
+                ),
+              if (mantra.audioFile != null)
+                //todo --------------------> audio Content
+                GestureDetector(
+                  onTap: () {
+                    provider.setSongIndex(index);
+                    Future.wait([
+                      provider.loadAndPlayMusic(mantra.audioFile!),
+                      context.pushNamed(
+                        MobileAppRoutes.playMantraScreen.name,
+                        extra: {
+                          "isText": false,
+                          "mantraList": provider.mantraHistoryList,
+                        },
+                      ),
+                    ]);
+                  },
+                  child: SVGImage(path: AppAssets.playIcon, height: 34.w),
+                ),
             ],
           ),
         ],

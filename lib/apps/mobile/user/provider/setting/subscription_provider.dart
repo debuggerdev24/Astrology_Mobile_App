@@ -46,6 +46,7 @@ class SubscriptionProvider extends ChangeNotifier {
         activeSubscriptionPlan = ActiveSubscriptionPlanModel.fromJson(
           r["data"],
         );
+        _activeSubscriptions.clear();
         if (r["data"]["price"] == "20") {
           addSubscription(AppEnum.tier1);
           addSubscription(AppEnum.tier2);
@@ -60,11 +61,7 @@ class SubscriptionProvider extends ChangeNotifier {
   }
 
   //todo -----------------> Subscription account service
-  final Set<AppEnum> _activeSubscriptions = {
-    // AppEnum.tier1,
-    // AppEnum.tier2,
-    // AppEnum.tier3,
-  };
+  final Set<AppEnum> _activeSubscriptions = {};
 
   Set<AppEnum> get activeSubscriptions => _activeSubscriptions;
 
@@ -80,17 +77,57 @@ class SubscriptionProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> addSubscriptionToDatabase(AppEnum tier) async {
-    // addSubscription(tier);
-    final data = {
+  bool isSubscriptionLoading = false;
+  Future<void> manageSubscriptionToDB({
+    required AppEnum tier,
+    required int planId,
+    required String serverVerificationToken,
+  }) async {
+    final initApiData = {
+      "plan_id": planId,
+      "platform": Platform.isAndroid ? AppEnum.android.name : AppEnum.ios.name,
+    };
+
+    final validateApiData = {
       "platform": (Platform.isAndroid)
           ? AppEnum.android.name
           : AppEnum.ios.name,
       (Platform.isAndroid) ? "purchase_token" : "receipt_data":
-          (Platform.isAndroid) ? " " : "",
+          (Platform.isAndroid) ? serverVerificationToken : AppEnum.ios.name,
     };
-    await SubscriptionApiService.instance.validateSubscription(data: data);
+
+    await SubscriptionApiService.instance.initiateSubscription(
+      data: initApiData,
+    );
+    final result = await SubscriptionApiService.instance.validateSubscription(
+      data: validateApiData,
+    );
+    result.fold(
+      (l) {
+        Logger.printError(l.errorMessage.toString());
+      },
+      (r) {
+        setSubscriptionProcessStatus(status: false);
+      },
+    );
+  }
+
+  void setSubscriptionProcessStatus({required bool status}) {
+    isSubscriptionLoading = status;
     notifyListeners();
+  }
+
+  Future<void> buySubscription({
+    required AppEnum tier,
+    required int planId,
+    required String planName,
+  }) async {
+    setSubscriptionProcessStatus(status: true);
+    final res = await SubscriptionService().buySubscription(
+      tier: tier,
+      planId: planId,
+      planName: planName,
+    );
   }
 
   // Remove a subscription and update flags

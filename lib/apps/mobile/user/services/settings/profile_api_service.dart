@@ -19,6 +19,7 @@ class UserProfileService {
     required String currentLocation,
     required String? leftPalmImage,
     required String? rightPalmImage,
+    required String? activePalm,
   }) async {
     return await BaseApiHelper.instance.patch(
       Endpoints.editProfile,
@@ -28,6 +29,7 @@ class UserProfileService {
         "birth_time": birthTime,
         "birth_place": birthPlace,
         "current_location": currentLocation,
+        "active_palm": activePalm,
         if (leftPalmImage != null)
           "palm_image_left": await MultipartFile.fromFile(leftPalmImage),
         if (rightPalmImage != null)

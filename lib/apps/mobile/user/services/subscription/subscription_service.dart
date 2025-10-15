@@ -6,10 +6,14 @@
  keep in mind that user able to purchase multiple subscription at same time
 */
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:astrology_app/apps/mobile/user/screens/user_dashboard.dart';
+import 'package:astrology_app/core/utils/custom_toast.dart';
+import 'package:astrology_app/routes/mobile_routes/user_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:provider/provider.dart';
 
@@ -27,8 +31,9 @@ class SubscriptionService {
 
   /// Only Tier 1 & Tier 2
   static const Map<AppEnum, String> productIds = {
-    AppEnum.tier1: "com.innerpeacepath.tier1_monthly",
-    AppEnum.tier2: "com.innerpeacepath.tier2",
+    AppEnum.tier1:
+        "com.innerpeacepath.tier1_monthly", //com.innerpeacepath.tier1_monthly
+    AppEnum.tier2: "com.innerpeacepath.tier2", //com.innerpeacepath.tier2
   };
 
   List<ProductDetails> availableProducts = [];
@@ -63,39 +68,47 @@ class SubscriptionService {
     try {
       final response = await _iap.queryProductDetails(
         productIds.values.toSet(),
-      );
+      ); //
 
       Logger.printInfo("inside the load products");
 
       if (response.notFoundIDs.isNotEmpty) {
         Logger.printError("Not found IDs: ${response.notFoundIDs}");
       }
-      //Google
+
       availableProducts = response.productDetails;
       for (var e in availableProducts) {
         Logger.printInfo(
           "Product Details are below : \n${e.title}\n${e.price}\n${e.id}\n${e.description}",
         );
-      }
+      } //Happy Diwali, Team! Wishing you joy, success, and bright ideas that shine as brilliantly as our apps!
     } catch (e) {
       Logger.printError("Error inside the _loadProducts function");
     }
   }
 
-  // Call this when user taps “Choose Plan”
-  Future<void> buySubscription({required AppEnum tier}) async {
+  late int _planID;
+  late String _planName;
+  Future<bool> buySubscription({
+    required AppEnum tier,
+    required int planId,
+    required String planName,
+  }) async {
     try {
+      _planID = planId;
+      _planName = planName;
       final productId = productIds[tier];
       final product = availableProducts.firstWhere((p) {
         Logger.printInfo(p.id.toString() + productId.toString());
         return p.id == productId;
       }, orElse: () => throw Exception('Product not found'));
       final param = PurchaseParam(productDetails: product);
-      await _iap.buyNonConsumable(purchaseParam: param);
+      return await _iap.buyNonConsumable(purchaseParam: param);
     } catch (e, stack) {
       Logger.printError(
         "Error inside the buySubscription function : $e\n$stack",
       );
+      return false;
     }
   }
 
@@ -106,19 +119,47 @@ class SubscriptionService {
     final provider = Provider.of<SubscriptionProvider>(context, listen: false);
     for (final purchase in purchases) {
       Logger.printInfo("-----------------> ${purchase.status}");
-      if (purchase.status == PurchaseStatus.purchased ||
-          purchase.status == PurchaseStatus.restored) {
+      if (purchase.status == PurchaseStatus.purchased) {
+        final localData = purchase.verificationData.localVerificationData;
+        final decoded = jsonDecode(localData);
+        final purchaseToken = decoded["purchaseToken"];
+
+        Logger.printInfo('Purchase Token: $purchaseToken');
+        Logger.printInfo("purchaseID : ${purchase.purchaseID}");
         Logger.printInfo(
-          "id : ${purchase.verificationData.serverVerificationData}",
+          "localVerificationData : ${purchase.verificationData.localVerificationData.toString()}",
         );
+        Logger.printInfo(
+          "serverVerificationData : ${purchase.verificationData.serverVerificationData}",
+        );
+        Logger.printInfo("source : ${purchase.verificationData.source}");
+        Logger.printInfo("id : ${purchase.purchaseID}");
+
         final tier = _getTierFromProductId(purchase.productID);
         if (tier != null) {
-          await provider.addSubscriptionToDatabase(tier);
-          callInitAPIs(context: context);
+          await provider.manageSubscriptionToDB(
+            tier: tier,
+            planId: _planID,
+            serverVerificationToken: purchaseToken,
+          );
+
+          indexTabUser.value = 0;
+          context.pushNamed(MobileAppRoutes.userDashBoardScreen.name);
+          // AppToast.success(
+          //   context: context,
+          //   message: "${_planName} purchased successfully!",
+          // );
+          // callInitAPIs(context: context);
         }
         _iap.completePurchase(purchase);
       } else if (purchase.status == PurchaseStatus.error) {
         debugPrint("Purchase error: ${purchase.error}");
+      } else if (purchase.status == PurchaseStatus.canceled) {
+        AppToast.info(
+          context: context,
+          message: "You have cancelled subscription process",
+        );
+        provider.setSubscriptionProcessStatus(status: false);
       }
     }
   }

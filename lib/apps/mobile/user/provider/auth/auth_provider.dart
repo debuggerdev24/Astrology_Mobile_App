@@ -145,11 +145,13 @@ class UserAuthProvider extends ChangeNotifier {
     Logger.printInfo("Deciding first screen");
     final result = await UserProfileService.instance.getProfile();
     result.fold(
-      (l) {
+      (l) async {
         if (!LocaleStoaregService.isLanguageSelected) {
           context.goNamed(MobileAppRoutes.selectLanguageScreen.name);
           return;
         }
+        await LocaleStoaregService.saveUserToken("");
+        await LocaleStoaregService.saveUserRefreshToken("");
         context.pushNamed(MobileAppRoutes.signUpScreen.name);
       },
       (r) {

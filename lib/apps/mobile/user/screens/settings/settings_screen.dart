@@ -250,6 +250,7 @@ class _SettingScreenState extends State<SettingScreen>
               Navigator.pop(ctx);
 
               localeProvider.setLocale(value!);
+              callInitAPIs(context: context);
             },
           ),
           AppText(

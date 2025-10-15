@@ -100,22 +100,9 @@ class _MantraPlayScreenState extends State<MantraPlayScreen>
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                AppText(
-                                  text: mantra.name,
-                                  style: medium(fontSize: 22),
-                                ),
-                                AppText(
-                                  text: mantra.meaning,
-                                  style: regular(
-                                    fontSize: 18,
-                                    height: 1.2,
-                                    color: AppColors.greyColor,
-                                  ),
-                                ),
-                              ],
+                            AppText(
+                              text: mantra.name,
+                              style: medium(fontSize: 22),
                             ),
                             Padding(
                               padding: EdgeInsets.only(top: 8.0),
@@ -127,6 +114,14 @@ class _MantraPlayScreenState extends State<MantraPlayScreen>
                             ),
                           ],
                         ),
+                        AppText(
+                          text: mantra.meaning,
+                          style: regular(
+                            fontSize: 18,
+                            height: 1.2,
+                            color: AppColors.greyColor,
+                          ),
+                        ),
                         28.h.verticalSpace,
                         if (isText)
                           greyColoredBox(
@@ -136,7 +131,7 @@ class _MantraPlayScreenState extends State<MantraPlayScreen>
                               horizontal: 18,
                             ),
                             child: AppText(
-                              text: mantra.textContent,
+                              text: mantra.textContent!,
                               style: medium(fontSize: 19),
                             ),
                           )
@@ -201,7 +196,7 @@ class _MantraPlayScreenState extends State<MantraPlayScreen>
                                     if (currentMantraIndex > 0) {
                                       provider
                                         ..setSongIndex(currentMantraIndex - 1)
-                                        ..loadAndPlayMusic(mantra.audioFile);
+                                        ..loadAndPlayMusic(mantra.audioFile!);
                                     }
                                   },
                                 ),
@@ -233,7 +228,7 @@ class _MantraPlayScreenState extends State<MantraPlayScreen>
                                         ..loadAndPlayMusic(
                                           mantraList[provider
                                                   .currentMantraIndex]
-                                              .audioFile,
+                                              .audioFile!,
                                         );
                                     }
                                   },

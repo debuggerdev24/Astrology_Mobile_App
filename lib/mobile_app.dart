@@ -38,9 +38,9 @@ class AstrologyMobileApp extends StatelessWidget {
             ChangeNotifierProvider(create: (context) => PalmProvider()),
             ChangeNotifierProvider(create: (context) => HomeProvider()),
             ChangeNotifierProvider(create: (context) => MantraProvider()),
-            ChangeNotifierProvider(create: (_) => SubscriptionProvider()),
-            ChangeNotifierProvider(create: (_) => AppInfoProvider()),
-            ChangeNotifierProvider(create: (_) => LocaleProvider()),
+            ChangeNotifierProvider(create: (context) => SubscriptionProvider()),
+            ChangeNotifierProvider(create: (context) => AppInfoProvider()),
+            ChangeNotifierProvider(create: (context) => LocaleProvider()),
           ], //
           child: Consumer<LocaleProvider>(
             builder: (context, value, child) => MaterialApp.router(

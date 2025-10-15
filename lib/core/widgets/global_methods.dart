@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../routes/mobile_routes/user_routes.dart';
 import '../constants/app_colors.dart';
 import 'app_button.dart';
 
@@ -74,7 +75,7 @@ Widget buildPageTitle({required String title, required BuildContext context}) {
     textAlign: TextAlign.center,
     style: bold(
       height: 1.2,
-      fontSize: (context.isTamil) ? 22 : 26,
+      fontSize: (context.isTamil) ? 23 : 26,
       fontFamily: AppFonts.secondary,
     ),
   );
@@ -152,10 +153,10 @@ Future<dynamic> showPremiumDialog({
                       fontSize: 15,
                       title: AppLocalizations.of(context)!.upgradeNow,
                       onTap: () {
-                        context.pop();
-                        // context.pushNamed(
-                        //   MobileAppRoutes.premiumPlanScreen.name,
-                        // );
+                        // context.pop();
+                        context.pushNamed(
+                          MobileAppRoutes.premiumPlanScreen.name,
+                        );
                       },
                     ),
                   ),

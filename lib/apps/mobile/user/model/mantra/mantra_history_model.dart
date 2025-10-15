@@ -1,9 +1,8 @@
 class MantraHistoryModel {
   int id;
+  String? audioFile, textContent;
   String name,
       meaning,
-      audioFile,
-      textContent,
       availability,
       updatedAt,
       status,
@@ -33,7 +32,9 @@ class MantraHistoryModel {
         name: json["name"],
         meaning: json["meaning"] ?? "Meaning",
         audioFile: json["audio_file"],
-        textContent: json["text_content"],
+        textContent: (json["text_content"] as String).isEmpty
+            ? null
+            : json["text_content"],
         availability: json["availability"],
         updatedAt: json["updated_at"],
         status: json["status"],

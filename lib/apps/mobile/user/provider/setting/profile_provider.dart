@@ -40,6 +40,7 @@ class UserProfileProvider extends ChangeNotifier {
 
   DateTime get birthDate => _birthDate!;
   TimeOfDay get birthTime => _birthTime!;
+  String? _originalActivePalm;
 
   File? leftHandImageFile, rightHandImageFile;
   final ImagePicker _picker = ImagePicker();
@@ -52,6 +53,15 @@ class UserProfileProvider extends ChangeNotifier {
       errorCurrentLocationStr = "",
       errorDOBStr = "",
       errorTOBStr = "";
+
+  String _activePalm = 'right';
+
+  String get activePalm => _activePalm;
+
+  void setActivePalm(String palm) {
+    _activePalm = palm;
+    notifyListeners();
+  }
 
   void toggleAgreement() {
     _isAgreementChecked = !_isAgreementChecked;
@@ -94,6 +104,8 @@ class UserProfileProvider extends ChangeNotifier {
         leftHandImageUrl = profile.palmImageLeft;
         rightHandImageUrl = profile.palmImageRight;
         isGetProfileLoading = false;
+        _activePalm = profile.activePalm ?? 'left';
+        _originalActivePalm = profile.activePalm ?? 'left';
         notifyListeners();
       },
     );
@@ -151,6 +163,7 @@ class UserProfileProvider extends ChangeNotifier {
               birthTime: editBirthTimeController.text.trim(),
               birthPlace: editBirthPlaceController.text.trim(),
               currentLocation: editCurrentLocationController.text.trim(),
+              activePalm: activePalm,
               leftPalmImage: (leftHandImageFile == null)
                   ? null
                   : leftHandImageFile!.path,
@@ -166,6 +179,7 @@ class UserProfileProvider extends ChangeNotifier {
               currentLocation: currentLocationController.text.trim(),
               leftPalmImage: leftHandImageFile!.path,
               rightPalmImage: rightHandImageFile!.path,
+              activePalm: "left",
             );
 
       result.fold(
@@ -335,8 +349,9 @@ class UserProfileProvider extends ChangeNotifier {
 
     final isImageChanged =
         leftHandImageFile != null || rightHandImageFile != null;
+    final isPalmChanged = _activePalm != _originalActivePalm;
 
-    return isTextChanged || isImageChanged;
+    return isTextChanged || isImageChanged || isPalmChanged;
   }
 
   //todo ------------> validation functions

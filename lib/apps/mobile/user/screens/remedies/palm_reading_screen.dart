@@ -119,8 +119,7 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
                         topicWithDetails(
                           topic: translator.heartLine,
                           details: palm.summary.heartline,
-                        ),
-                        // 12.h.verticalSpace,
+                        ), //
                         Consumer<SubscriptionProvider>(
                           builder: (context, subscriptionProvider, child) {
                             if (!subscriptionProvider.isTier2Subscribed) {
@@ -134,7 +133,6 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
                             );
                           },
                         ),
-
                         AppButton(
                           onTap: () {
                             if (context

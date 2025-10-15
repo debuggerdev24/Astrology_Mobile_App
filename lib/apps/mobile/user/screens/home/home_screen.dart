@@ -381,44 +381,46 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    //todo ---------------------------------------> text Content
-                    GestureDetector(
-                      onTap: () {
-                        context.read<MantraProvider>().resetAudioPlayer();
-                        Map<String, dynamic> data = {
-                          "isText": true,
-                          "mantraName": mantra.name,
-                          "meaning": mantra.meaning,
-                          "textContent": mantra.textContent,
-                        };
-                        context.pushNamed(
-                          MobileAppRoutes.singleMantraPlayerScreen.name,
-                          extra: data,
-                        );
-                      },
-                      child: SVGImage(path: AppAssets.tIcon, height: 34.w),
-                    ),
-                    //todo --------------------------------------> audio Content
-                    5.w.horizontalSpace,
-                    GestureDetector(
-                      onTap: () async {
-                        Future.wait([
-                          context.read<MantraProvider>().loadAndPlayMusic(
-                            mantra.audioFile,
-                          ),
+                    if (mantra.textContent != null)
+                      //todo ---------------------------------------> text Content
+                      GestureDetector(
+                        onTap: () {
+                          context.read<MantraProvider>().resetAudioPlayer();
+                          Map<String, dynamic> data = {
+                            "isText": true,
+                            "mantraName": mantra.name,
+                            "meaning": mantra.meaning,
+                            "textContent": mantra.textContent,
+                          };
                           context.pushNamed(
                             MobileAppRoutes.singleMantraPlayerScreen.name,
-                            extra: {
-                              "isText": false,
-                              "mantraName": mantra.name,
-                              "meaning": mantra.meaning,
-                              "textContent": mantra.textContent,
-                            },
-                          ),
-                        ]);
-                      },
-                      child: SVGImage(path: AppAssets.playIcon, height: 34.w),
-                    ),
+                            extra: data,
+                          );
+                        },
+                        child: SVGImage(path: AppAssets.tIcon, height: 34.w),
+                      ),
+                    //todo --------------------------------------> audio Content
+                    5.w.horizontalSpace,
+                    if (mantra.audioFile != null)
+                      GestureDetector(
+                        onTap: () async {
+                          Future.wait([
+                            context.read<MantraProvider>().loadAndPlayMusic(
+                              mantra.audioFile!,
+                            ),
+                            context.pushNamed(
+                              MobileAppRoutes.singleMantraPlayerScreen.name,
+                              extra: {
+                                "isText": false,
+                                "mantraName": mantra.name,
+                                "meaning": mantra.meaning,
+                                "textContent": mantra.textContent,
+                              },
+                            ),
+                          ]);
+                        },
+                        child: SVGImage(path: AppAssets.playIcon, height: 34.w),
+                      ),
                   ],
                 ),
               ],

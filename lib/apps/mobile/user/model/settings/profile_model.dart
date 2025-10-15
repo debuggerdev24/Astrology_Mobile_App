@@ -1,11 +1,12 @@
 class UserProfileModel {
-  String fullName;
-  String birthDate;
-  String birthTime;
-  String birthPlace;
-  String currentLocation;
-  String palmImageLeft;
-  String palmImageRight;
+  String fullName,
+      birthDate,
+      birthTime,
+      birthPlace,
+      currentLocation,
+      palmImageLeft,
+      palmImageRight,
+      activePalm;
 
   UserProfileModel({
     required this.fullName,
@@ -15,6 +16,7 @@ class UserProfileModel {
     required this.currentLocation,
     required this.palmImageLeft,
     required this.palmImageRight,
+    required this.activePalm,
   });
 
   factory UserProfileModel.fromJson(Map<String, dynamic> json) =>
@@ -26,6 +28,7 @@ class UserProfileModel {
         currentLocation: json["current_location"],
         palmImageLeft: json["palm_image_left"] ?? "",
         palmImageRight: json["palm_image_right"] ?? "",
+        activePalm: json["active_palm"],
       );
 
   // Map<String, dynamic> toJson() => {

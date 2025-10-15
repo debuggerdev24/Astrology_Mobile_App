@@ -274,7 +274,6 @@ class BaseApiHelper {
         final newToken = result["access"];
         await LocaleStoaregService.saveUserToken(newToken);
       }
-
       return Right(null);
     } on DioException catch (e) {
       return Left(
