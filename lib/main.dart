@@ -22,8 +22,6 @@ Future<void> main() async {
 
 //todo app changes :
 /*
--> Worked on fixing unauthorized user error on the sign in time.
--> Worked on adding condition if mantra or text_content any one not added.
--> Worked on enhance the subscription part and navigate user to dashboard after success.
--> Worked on adding conditions to check user contains subcription or not befor purchase any TIER
+ todo wonjin
+
 */

@@ -68,10 +68,8 @@ class SubscriptionService {
     try {
       final response = await _iap.queryProductDetails(
         productIds.values.toSet(),
-      ); //
-
+      );
       Logger.printInfo("inside the load products");
-
       if (response.notFoundIDs.isNotEmpty) {
         Logger.printError("Not found IDs: ${response.notFoundIDs}");
       }
