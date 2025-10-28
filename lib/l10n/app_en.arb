@@ -136,6 +136,12 @@
   "noMantraToday": "No mantra scheduled for today",
   "date": "Date",
   "selectDate": "Select Date",
+  "familyEnergy": "Family Energy",
+  "powerPeriods": "Power Periods",
+  "emotionalEnergy": "Emotional Energy",
+  "learningOutlook": "Learning Outlook",
+  "spiritualEnergy": "Spiritual Energy",
+  "planetarySnapshot": "Planetary Snapshot",
   "career": "Career",
   "relationships": "Relationships",
   "health": "Health",
@@ -187,5 +193,8 @@
   "goodEvening": "Good Evening",
   "choosePrefLang": "Choose your preferred language",
   "confirm": "Confirm",
-  "selectLang": "Select Language"
+  "selectLang": "Select Language",
+  "registeredSuccessfully": "Registered Successfully",
+  "loginSuccessfully": "Login Successfully",
+  "loggedOutSuccessfully": "Logged Out Successfully"
 }

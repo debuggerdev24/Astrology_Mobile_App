@@ -43,34 +43,40 @@ class DailyHoroScopeModel {
 }
 
 class DetailedPredictions {
-  String career;
-  String relationships;
-  String health;
-  String finance;
-  String spirituality;
+  String familyEnergy,
+      powerPeriods,
+      emotionalEnergy,
+      learningOutlook,
+      spiritualEnergy,
+      planetarySnapshot,
+      summary;
 
   DetailedPredictions({
-    required this.career,
-    required this.relationships,
-    required this.health,
-    required this.finance,
-    required this.spirituality,
+    required this.familyEnergy,
+    required this.powerPeriods,
+    required this.emotionalEnergy,
+    required this.learningOutlook,
+    required this.spiritualEnergy,
+    required this.planetarySnapshot,
+    required this.summary,
   });
 
   factory DetailedPredictions.fromJson(Map<String, dynamic> json) =>
       DetailedPredictions(
-        career: json["career"],
-        relationships: json["relationships"],
-        health: json["health"],
-        finance: json["finance"],
-        spirituality: json["spirituality"],
+        familyEnergy: json["family_energy"] ?? "",
+        powerPeriods: json["power_periods"],
+        emotionalEnergy: json["emotional_energy"],
+        learningOutlook: json["learning_outlook"],
+        spiritualEnergy: json["spiritual_energy"],
+        planetarySnapshot: json["planetary_snapshot"],
+        summary: json["summary"],
       );
 
   Map<String, dynamic> toJson() => {
-    "career": career,
-    "relationships": relationships,
-    "health": health,
-    "finance": finance,
-    "spirituality": spirituality,
+    "career": familyEnergy,
+    "relationships": powerPeriods,
+    "health": emotionalEnergy,
+    "finance": learningOutlook,
+    "spirituality": spiritualEnergy,
   };
 }

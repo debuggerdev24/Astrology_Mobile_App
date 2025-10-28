@@ -187,5 +187,14 @@
   "goodEvening": "शुभ संध्या",
   "choosePrefLang": "अपनी पसंदीदा भाषा चुनें",
   "confirm": "पुष्टि करे",
-  "selectLang": "भाषा चुने"
+  "selectLang": "भाषा चुने",
+  "registeredSuccessfully": "सफलतापूर्वक पंजीकृत",
+  "loginSuccessfully": "लॉगिन सफलतापूर्वक",
+  "loggedOutSuccessfully": "सफलतापूर्वक लॉग आउट हो गया",
+  "familyEnergy": "पारिवारिक ऊर्जा",
+  "powerPeriods": "पावर पीरियड्स",
+  "emotionalEnergy": "भावनात्मक ऊर्जा",
+  "learningOutlook": "सीखने का दृष्टिकोण",
+  "spiritualEnergy": "आध्यात्मिक ऊर्जा",
+  "planetarySnapshot": "ग्रहों का स्नैपशॉट"
 }

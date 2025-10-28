@@ -4,6 +4,7 @@ import 'package:astrology_app/apps/mobile/user/provider/setting/subscription_pro
 import 'package:astrology_app/apps/mobile/user/screens/user_dashboard.dart';
 import 'package:astrology_app/apps/mobile/user/services/auth/auth_api_service.dart';
 import 'package:astrology_app/core/enum/app_enums.dart';
+import 'package:astrology_app/core/extension/context_extension.dart';
 import 'package:astrology_app/core/utils/logger.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
@@ -73,7 +74,10 @@ class UserAuthProvider extends ChangeNotifier {
         AppToast.error(context: context, message: failure.errorMessage);
       },
       (data) async {
-        AppToast.success(context: context, message: 'Registered Successfully');
+        AppToast.success(
+          context: context,
+          message: context.translator.registeredSuccessfully,
+        );
         await LocaleStoaregService.setLoggedInCustomerEmail(
           _registerEmailCtr.text.trim(),
         );
@@ -115,7 +119,10 @@ class UserAuthProvider extends ChangeNotifier {
         AppToast.error(context: context, message: failure.errorMessage);
       },
       (data) async {
-        AppToast.success(context: context, message: 'Login Successfully');
+        AppToast.success(
+          context: context,
+          message: context.translator.loginSuccessfully,
+        );
 
         await LocaleStoaregService.saveUserToken(data['data']['access']);
 
@@ -218,7 +225,7 @@ class UserAuthProvider extends ChangeNotifier {
         if (context.mounted) {
           AppToast.success(
             context: context,
-            message: 'Logged out successfully.',
+            message: context.translator.loggedOutSuccessfully,
           );
           context.read<SubscriptionProvider>().removeSubscription(
             AppEnum.tier1,

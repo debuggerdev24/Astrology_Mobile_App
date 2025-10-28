@@ -23,8 +23,28 @@ import '../../../../../core/widgets/global_methods.dart';
 import '../../model/home/mantra_model.dart';
 import '../../provider/setting/subscription_provider.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 3, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,100 +54,120 @@ class HomeScreen extends StatelessWidget {
     );
     return AppLayout(
       horizontalPadding: 0,
-      body: SingleChildScrollView(
-        child: Consumer<UserProfileProvider>(
-          builder: (context, profileProvider, child) => Consumer<HomeProvider>(
-            builder: (context, provider, child) {
-              return Stack(
-                children: [
-                  if (!provider.isMoonDashaLoading &&
-                      !provider.isDailyHoroScopeLoading &&
-                      !profileProvider.isGetProfileLoading &&
-                      !provider.isGetTodayMantraLoading)
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 12.w),
-                      child: Column(
-                        children: [
-                          16.h.verticalSpace,
-                          userTopBar(
-                            context: context,
-                            userName: profileProvider.nameController.text,
-                          ),
-                          12.h.verticalSpace,
-                          dashaAndMoonSection(
-                            context: context,
-                            provider: provider,
-                          ),
-                          todayMantra(provider),
-                          //todo -----------------------> Karma Focus
-                          greyColoredBox(
-                            margin: EdgeInsets.only(bottom: 20.h),
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 10,
-                              vertical: 10, //
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              spacing: 10.h,
-                              children: [
-                                IntrinsicWidth(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      AppText(
-                                        text: translator.karmaFocus,
-                                        style: bold(
-                                          height: 0,
-                                          fontFamily: AppFonts.secondary,
-                                          fontSize: 18,
-                                          decorationColor: AppColors.whiteColor,
-                                        ),
-                                      ),
-                                      Container(
-                                        height: 1,
-                                        color: AppColors.whiteColor,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                actionCaution(
-                                  title: translator.action,
-                                  context: context,
-                                  detail:
-                                      provider.dailyHoroScopeData!.karmaAction,
-                                ),
-                                actionCaution(
-                                  context: context,
-                                  title: translator.caution,
-                                  detail:
-                                      provider.dailyHoroScopeData!.karmaCaution,
-                                  titleColor: AppColors.redColor,
-                                ),
-                              ],
-                            ),
-                          ),
-                          //todo -------------> Dasha Nakshtra
-                          dashaNakshtra(translator, context, provider),
-                        ],
-                      ),
-                    )
-                  else
-                    homeShimmer(),
-                  // ApiLoadingIndicator(),
-                ],
-              );
-            },
-          ),
+      body: Consumer<UserProfileProvider>(
+        builder: (context, profileProvider, child) => Consumer<HomeProvider>(
+          builder: (context, provider, child) {
+            return (!provider.isMoonDashaLoading &&
+                    !provider.isDailyHoroScopeLoading &&
+                    !profileProvider.isGetProfileLoading &&
+                    !provider.isGetTodayMantraLoading)
+                ? Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 12.w),
+                    child: ListView(
+                      padding: EdgeInsets.zero,
+                      children: [
+                        16.h.verticalSpace,
+                        userTopBar(
+                          context: context,
+                          userName: profileProvider.nameController.text,
+                        ),
+                        12.h.verticalSpace,
+                        dashaAndMoonSection(
+                          context: context,
+                          provider: provider,
+                        ),
+                        todayMantra(provider),
+                        horoscopeTabSection(provider, translator, context),
+                        //   greyColoredBox(
+                        //                             margin: EdgeInsets.only(bottom: 20.h),
+                        //                             padding: EdgeInsets.symmetric(
+                        //                               horizontal: 10,
+                        //                               vertical: 10, //
+                        //                             ),
+                        //                             child: Column(
+                        //                               crossAxisAlignment: CrossAxisAlignment.start,
+                        //                               spacing: 10.h,
+                        //                               children: [
+                        //                                 IntrinsicWidth(
+                        //                                   child: Column(
+                        //                                     crossAxisAlignment:
+                        //                                         CrossAxisAlignment.start,
+                        //                                     children: [
+                        //                                       AppText(
+                        //                                         text: translator.karmaFocus,
+                        //                                         style: bold(
+                        //                                           height: 0,
+                        //                                           fontFamily: AppFonts.secondary,
+                        //                                           fontSize: 18,
+                        //                                           decorationColor: AppColors.whiteColor,
+                        //                                         ),
+                        //                                       ),
+                        //                                       Container(
+                        //                                         height: 1,
+                        //                                         color: AppColors.whiteColor,
+                        //                                       ),
+                        //                                     ],
+                        //                                   ),
+                        //                                 ),
+                        //
+                        //                                 actionCaution(
+                        //                                   title: translator.action,
+                        //                                   context: context,
+                        //                                   detail: provider.dailyHoroScope!.karmaAction,
+                        //                                 ),
+                        //                                 actionCaution(
+                        //                                   context: context,
+                        //                                   title: translator.caution,
+                        //                                   detail: provider.dailyHoroScope!.karmaCaution,
+                        //                                   titleColor: AppColors.redColor,
+                        //                                 ),
+                        //                               ],
+                        //                             ),
+                        //                           ),
+                        //                           //todo -------------> Dasha Nakshtra
+                        //                           dashaNakshtra(
+                        //                             translator,
+                        //                             context,
+                        //                             provider.dailyHoroScope,
+                        //                           ),
+                      ],
+                    ),
+                  )
+                : _homeShimmer();
+          },
         ),
       ),
+    );
+  }
+
+  Widget todayMantra(HomeProvider provider) {
+    return Consumer<SubscriptionProvider>(
+      builder: (context, subscriptionProvider, _) {
+        final isTier1Subscribed = subscriptionProvider.isTier1Subscribed;
+        if (!isTier1Subscribed) {
+          return 20.h.verticalSpace;
+        }
+        if (provider.todayMantra != null) {
+          return mantraPlayer(context: context, mantra: provider.todayMantra!);
+        } else {
+          return Padding(
+            padding: EdgeInsets.symmetric(vertical: 20.h),
+            child: AppText(
+              textAlign: TextAlign.center,
+              style: medium(fontSize: context.isTamil ? 17.5 : 20),
+
+              text: context.translator.noMantraToday,
+            ),
+          );
+        }
+      },
     );
   }
 
   Widget dashaNakshtra(
     AppLocalizations translator,
     BuildContext context,
-    HomeProvider provider,
+    dynamic horoscopeData,
   ) {
     return greyColoredBox(
       margin: EdgeInsets.only(bottom: 10.h),
@@ -170,7 +210,7 @@ class HomeScreen extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(top: 5),
                 child: AppText(
-                  text: provider.dailyHoroScopeData!.rulingPlanet,
+                  text: horoscopeData!.rulingPlanet,
                   style: medium(
                     fontSize: context.isTamil ? 16 : 18,
                     color: AppColors.primary,
@@ -194,7 +234,7 @@ class HomeScreen extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.only(top: 5),
                   child: AppText(
-                    text: provider.dailyHoroScopeData!.nakshatra, //"Anuradha",
+                    text: horoscopeData!.nakshatra, //"Anuradha",
                     style: medium(
                       fontSize: context.isTamil ? 16 : 18,
                       color: AppColors.primary,
@@ -208,7 +248,7 @@ class HomeScreen extends StatelessWidget {
             onTap: () {
               context.pushNamed(
                 MobileAppRoutes.dashaNakshatraDetailsScreen.name,
-                extra: provider.dailyHoroScopeData,
+                extra: horoscopeData,
               );
             },
             child: Container(
@@ -229,28 +269,6 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-
-  Widget todayMantra(HomeProvider provider) {
-    return Consumer<SubscriptionProvider>(
-      builder: (context, subscriptionProvider, _) {
-        final isTier1Subscribed = subscriptionProvider.isTier1Subscribed;
-        if (!isTier1Subscribed) {
-          return 20.h.verticalSpace;
-        }
-        if (provider.todayMantra != null) {
-          return mantraPlayer(context: context, mantra: provider.todayMantra!);
-        } else {
-          return Padding(
-            padding: EdgeInsets.symmetric(vertical: 20.h),
-            child: AppText(
-              textAlign: TextAlign.center,
-              text: context.translator.noMantraToday,
-            ),
-          );
-        }
-      },
     );
   }
 
@@ -301,9 +319,12 @@ class HomeScreen extends StatelessWidget {
           children: [
             AppText(
               text: context.translator.dasha,
-              style: medium(fontSize: 16),
+              style: regular(fontSize: context.isTamil ? 15 : 17),
             ),
-            AppText(text: " : ${provider.dasha} ", style: medium(fontSize: 16)),
+            AppText(
+              text: " : ${provider.dasha} ",
+              style: regular(fontSize: context.isTamil ? 15 : 17),
+            ),
           ],
         ),
         4.verticalSpace,
@@ -317,11 +338,11 @@ class HomeScreen extends StatelessWidget {
             AppText(
               text: context.translator.moonSign,
               overflow: TextOverflow.ellipsis,
-              style: medium(fontSize: 16),
+              style: regular(fontSize: context.isTamil ? 15 : 17),
             ),
             AppText(
               text: " : ${provider.moonSign}",
-              style: medium(fontSize: 16),
+              style: regular(fontSize: context.isTamil ? 15 : 17),
             ),
           ],
         ),
@@ -503,139 +524,289 @@ class HomeScreen extends StatelessWidget {
     }
   }
 
-  Widget homeShimmer() {
-    return Shimmer.fromColors(
-      baseColor: AppColors.greyColor,
-      highlightColor: Colors.grey[400]!,
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 12.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              16.h.verticalSpace,
-              // ---------------- Top Bar Placeholder ----------------
-              Row(
-                children: [
-                  Container(
-                    width: 200.w,
-                    height: 28.h,
+  Widget horoscopeTabSection(
+    HomeProvider provider,
+    AppLocalizations translator,
+    BuildContext context,
+  ) {
+    return Container(
+      margin: EdgeInsets.only(bottom: 10),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(16.r)),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          //todo ------------->  Custom Tab Bar
+          Container(
+            margin: EdgeInsets.only(bottom: 8.w),
+            decoration: BoxDecoration(
+              color: AppColors.greyColor.withValues(alpha: 0.5),
+              borderRadius: BorderRadius.circular(12.r),
+            ),
+            child: TabBar(
+              padding: EdgeInsets.only(right: context.isTamil ? 10 : 0),
+              controller: _tabController,
+              labelPadding: EdgeInsets.zero,
+              indicator: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.r),
+              ),
+              indicatorSize: TabBarIndicatorSize.tab,
+              dividerColor: Colors.transparent,
 
-                    decoration: BoxDecoration(
-                      color: AppColors.greyColor,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                  ),
-                  Spacer(),
-                  Container(
-                    width: 40.w,
-                    height: 40.h,
-                    decoration: BoxDecoration(
-                      color: AppColors.greyColor,
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                ],
+              labelStyle: bold(
+                fontSize: context.isTamil ? 12.5 : 16,
+                color: AppColors.whiteColor,
               ),
-              16.h.verticalSpace,
+              unselectedLabelStyle: medium(
+                fontSize: context.isTamil ? 11 : 14,
 
-              // ---------------- Dasha & Moon Section ----------------
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    width: 150.w,
-                    height: 18.h,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4),
-                      color: AppColors.greyColor,
-                    ),
-                  ),
-                  6.h.verticalSpace,
-                  Container(
-                    width: 100.w,
-                    height: 18.h,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4),
-                      color: AppColors.greyColor,
-                    ),
-                  ),
-                  4.h.verticalSpace,
-                  Container(
-                    width: 120.w,
-                    height: 16.h,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4),
-                      color: AppColors.greyColor,
-                    ),
-                  ),
-                ],
+                color: AppColors.whiteColor.withValues(alpha: 0.57),
               ),
-              16.h.verticalSpace,
-              // ---------------- Today Mantra Card ----------------
-              Container(
-                width: double.infinity,
-                height: 110.h,
-                decoration: BoxDecoration(
-                  color: AppColors.greyColor,
-                  borderRadius: BorderRadius.circular(8.r),
-                ),
-              ),
-              16.h.verticalSpace,
 
-              // ---------------- Karma Focus Box ----------------
-              Container(
-                width: double.infinity,
-                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-                decoration: BoxDecoration(
-                  color: AppColors.greyColor.withValues(alpha: 0.6),
-                  borderRadius: BorderRadius.circular(8.r),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: List.generate(
-                    3,
-                    (_) => Padding(
-                      padding: EdgeInsets.symmetric(vertical: 7.h),
-                      child: Container(
-                        width: double.infinity,
-                        height: 20.h,
-                        color: AppColors.greyColor,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              16.h.verticalSpace,
-
-              // ---------------- Dasha Nakshatra Box ----------------
-              Container(
-                width: double.infinity,
-                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-                decoration: BoxDecoration(
-                  color: AppColors.greyColor.withValues(alpha: 0.6),
-                  borderRadius: BorderRadius.circular(8.r),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: List.generate(
-                    4,
-                    (_) => Padding(
-                      padding: EdgeInsets.symmetric(vertical: 7.h),
-                      child: Container(
-                        width: double.infinity,
-                        height: 20.h,
-                        color: AppColors.greyColor,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              20.h.verticalSpace,
-            ],
+              tabs: [
+                tab(title: translator.daily, icon: Icons.today),
+                tab(title: translator.weekly, icon: Icons.view_week),
+                tab(title: translator.monthly, icon: Icons.calendar_month),
+              ],
+            ),
           ),
-        ),
+
+          // Tab View Content
+          Container(
+            height: 500.h,
+            child: TabBarView(
+              controller: _tabController,
+              children: [
+                // Daily Tab
+                _buildHoroscopeContent(
+                  provider.dailyHoroScope,
+                  translator,
+                  context,
+                ),
+                // Weekly Tab
+                _buildHoroscopeContent(
+                  provider.weeklyHoroScope,
+                  translator,
+                  context,
+                ),
+                // Monthly Tab
+                _buildHoroscopeContent(
+                  provider.monthlyHoroScope,
+                  translator,
+                  context,
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
+
+  Widget tab({required String title, required var icon}) {
+    return Tab(
+      child: Row(
+        spacing: 6.w,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(icon, size: 18.sp),
+          Text(title, style: TextStyle(fontFamily: AppFonts.primary)),
+        ],
+      ),
+    );
+  }
+
+  // Add this helper method to build content for each tab:
+  Widget _buildHoroscopeContent(
+    dynamic horoscopeData,
+    AppLocalizations translator,
+    BuildContext context,
+  ) {
+    return SingleChildScrollView(
+      padding: EdgeInsets.symmetric(horizontal: 4),
+      physics: BouncingScrollPhysics(),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Karma Focus Section
+          greyColoredBox(
+            margin: EdgeInsets.only(bottom: 18.h),
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: 10.h,
+              children: [
+                IntrinsicWidth(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AppText(
+                        text: translator.karmaFocus,
+                        style: bold(
+                          height: 0,
+                          fontFamily: AppFonts.secondary,
+                          fontSize: 18,
+                          decorationColor: AppColors.whiteColor,
+                        ),
+                      ),
+                      Container(height: 1, color: AppColors.whiteColor),
+                    ],
+                  ),
+                ),
+                actionCaution(
+                  title: translator.action,
+                  context: context,
+                  detail: horoscopeData.karmaAction,
+                ),
+                actionCaution(
+                  context: context,
+                  title: translator.caution,
+                  detail: horoscopeData.karmaCaution,
+                  titleColor: AppColors.redColor,
+                ),
+              ],
+            ),
+          ),
+          // Dasha Nakshatra Section
+          dashaNakshtra(translator, context, horoscopeData),
+        ],
+      ),
+    );
+  }
+}
+
+Widget _homeShimmer() {
+  return Shimmer.fromColors(
+    baseColor: AppColors.greyColor,
+    highlightColor: Colors.grey[400]!,
+    child: SingleChildScrollView(
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 12.w),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            16.h.verticalSpace,
+            // ---------------- Top Bar Placeholder ----------------
+            Row(
+              children: [
+                Container(
+                  width: 200.w,
+                  height: 28.h,
+
+                  decoration: BoxDecoration(
+                    color: AppColors.greyColor,
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                ),
+                Spacer(),
+                Container(
+                  width: 40.w,
+                  height: 40.h,
+                  decoration: BoxDecoration(
+                    color: AppColors.greyColor,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+              ],
+            ),
+            16.h.verticalSpace,
+
+            // ---------------- Dasha & Moon Section ----------------
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: 150.w,
+                  height: 18.h,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    color: AppColors.greyColor,
+                  ),
+                ),
+                6.h.verticalSpace,
+                Container(
+                  width: 100.w,
+                  height: 18.h,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    color: AppColors.greyColor,
+                  ),
+                ),
+                4.h.verticalSpace,
+                Container(
+                  width: 120.w,
+                  height: 16.h,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    color: AppColors.greyColor,
+                  ),
+                ),
+              ],
+            ),
+            16.h.verticalSpace,
+            // ---------------- Today Mantra Card ----------------
+            Container(
+              width: double.infinity,
+              height: 110.h,
+              decoration: BoxDecoration(
+                color: AppColors.greyColor,
+                borderRadius: BorderRadius.circular(8.r),
+              ),
+            ),
+            16.h.verticalSpace,
+
+            // ---------------- Karma Focus Box ----------------
+            Container(
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+              decoration: BoxDecoration(
+                color: AppColors.greyColor.withValues(alpha: 0.6),
+                borderRadius: BorderRadius.circular(8.r),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: List.generate(
+                  3,
+                  (_) => Padding(
+                    padding: EdgeInsets.symmetric(vertical: 7.h),
+                    child: Container(
+                      width: double.infinity,
+                      height: 20.h,
+                      color: AppColors.greyColor,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            16.h.verticalSpace,
+
+            // ---------------- Dasha Nakshatra Box ----------------
+            Container(
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+              decoration: BoxDecoration(
+                color: AppColors.greyColor.withValues(alpha: 0.6),
+                borderRadius: BorderRadius.circular(8.r),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: List.generate(
+                  4,
+                  (_) => Padding(
+                    padding: EdgeInsets.symmetric(vertical: 7.h),
+                    child: Container(
+                      width: double.infinity,
+                      height: 20.h,
+                      color: AppColors.greyColor,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            20.h.verticalSpace,
+          ],
+        ),
+      ),
+    ),
+  );
 }

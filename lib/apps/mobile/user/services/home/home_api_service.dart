@@ -13,8 +13,13 @@ class HomeApiService {
     return await BaseApiHelper.instance.post(Endpoints.getMoonDasha);
   }
 
-  Future<Either<ApiException, Map<String, dynamic>>> getDailyHoroScope() async {
-    return await BaseApiHelper.instance.post(Endpoints.getDailyHoroScope);
+  Future<Either<ApiException, Map<String, dynamic>>> getDailyHoroScope({
+    required Map<String, dynamic> queryParameter,
+  }) async {
+    return await BaseApiHelper.instance.post(
+      Endpoints.getDailyHoroScope,
+      queryParameters: queryParameter,
+    );
   }
 
   Future<Either<ApiException, Map<String, dynamic>>> getTodayMantra() async {

@@ -18,32 +18,50 @@ class DashaNakshtraDetailsScreen extends StatelessWidget {
     final details = dailyHoroScope.detailedPredictions;
     final translator = context.translator;
     return AppLayout(
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            40.h.verticalSpace,
-            topBar(
-              context: context,
-              title: "${translator.dasha}/${translator.nakshatra}",
+      body: Column(
+        children: [
+          40.h.verticalSpace,
+          topBar(
+            context: context,
+            title: "${translator.dasha}/${translator.nakshatra}",
+          ),
+          28.h.verticalSpace,
+          Expanded(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                ...topicDetails(
+                  topic: translator.familyEnergy,
+                  details: details.familyEnergy,
+                ),
+                ...topicDetails(
+                  topic: translator.powerPeriods,
+                  details: details.powerPeriods,
+                ),
+                ...topicDetails(
+                  topic: translator.emotionalEnergy,
+                  details: details.emotionalEnergy,
+                ),
+                ...topicDetails(
+                  topic: translator.learningOutlook,
+                  details: details.learningOutlook,
+                ),
+                ...topicDetails(
+                  topic: translator.spiritualEnergy,
+                  details: details.spiritualEnergy,
+                ),
+                ...topicDetails(
+                  topic: translator.planetarySnapshot,
+                  details: details.planetarySnapshot,
+                ),
+                ...topicDetails(
+                  topic: translator.summary,
+                  details: details.summary,
+                ),
+              ],
             ),
-            40.h.verticalSpace,
-            ...topicDetails(topic: translator.career, details: details.career),
-            ...topicDetails(
-              topic: translator.relationships,
-              details: details.relationships,
-            ),
-            ...topicDetails(topic: translator.health, details: details.health),
-            ...topicDetails(
-              topic: translator.finance,
-              details: details.finance,
-            ),
-            ...topicDetails(
-              topic: translator.spirituality,
-              details: details.spirituality,
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -420,6 +420,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get selectDate => 'Select Date';
 
   @override
+  String get familyEnergy => 'Family Energy';
+
+  @override
+  String get powerPeriods => 'Power Periods';
+
+  @override
+  String get emotionalEnergy => 'Emotional Energy';
+
+  @override
+  String get learningOutlook => 'Learning Outlook';
+
+  @override
+  String get spiritualEnergy => 'Spiritual Energy';
+
+  @override
+  String get planetarySnapshot => 'Planetary Snapshot';
+
+  @override
   String get career => 'Career';
 
   @override
@@ -574,4 +592,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get selectLang => 'Select Language';
+
+  @override
+  String get registeredSuccessfully => 'Registered Successfully';
+
+  @override
+  String get loginSuccessfully => 'Login Successfully';
+
+  @override
+  String get loggedOutSuccessfully => 'Logged Out Successfully';
 }

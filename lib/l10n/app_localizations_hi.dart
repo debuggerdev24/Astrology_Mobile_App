@@ -420,6 +420,24 @@ class AppLocalizationsHi extends AppLocalizations {
   String get selectDate => 'तारीख़ चुनें';
 
   @override
+  String get familyEnergy => 'पारिवारिक ऊर्जा';
+
+  @override
+  String get powerPeriods => 'पावर पीरियड्स';
+
+  @override
+  String get emotionalEnergy => 'भावनात्मक ऊर्जा';
+
+  @override
+  String get learningOutlook => 'सीखने का दृष्टिकोण';
+
+  @override
+  String get spiritualEnergy => 'आध्यात्मिक ऊर्जा';
+
+  @override
+  String get planetarySnapshot => 'ग्रहों का स्नैपशॉट';
+
+  @override
   String get career => 'भविष्य ';
 
   @override
@@ -574,4 +592,13 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get selectLang => 'भाषा चुने';
+
+  @override
+  String get registeredSuccessfully => 'सफलतापूर्वक पंजीकृत';
+
+  @override
+  String get loginSuccessfully => 'लॉगिन सफलतापूर्वक';
+
+  @override
+  String get loggedOutSuccessfully => 'सफलतापूर्वक लॉग आउट हो गया';
 }

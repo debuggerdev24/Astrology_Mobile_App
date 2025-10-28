@@ -420,6 +420,24 @@ class AppLocalizationsTa extends AppLocalizations {
   String get selectDate => 'தேதியைத் தேர்ந்தெடுக்கவும்';
 
   @override
+  String get familyEnergy => 'குடும்ப சக்தி';
+
+  @override
+  String get powerPeriods => 'சக்தி காலங்கள்';
+
+  @override
+  String get emotionalEnergy => 'உணர்ச்சி ஆற்றல்';
+
+  @override
+  String get learningOutlook => 'கற்றல் அவுட்லுக்';
+
+  @override
+  String get spiritualEnergy => 'ஆன்மீக ஆற்றல்';
+
+  @override
+  String get planetarySnapshot => 'கோள்களின் புகைப்படம்';
+
+  @override
   String get career => 'தொழில்';
 
   @override
@@ -574,4 +592,13 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get selectLang => 'மொழியைத் தேர்ந்தெடுங்கள்';
+
+  @override
+  String get registeredSuccessfully => 'வெற்றிகரமாகப் பதிவுசெய்யப்பட்டது';
+
+  @override
+  String get loginSuccessfully => 'வெற்றிகரமாக உள்நுழைந்தேன்';
+
+  @override
+  String get loggedOutSuccessfully => 'வெற்றிகரமாக வெளியேறிவிட்டீர்கள்';
 }

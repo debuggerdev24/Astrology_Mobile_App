@@ -2,18 +2,24 @@ import 'package:astrology_app/apps/mobile/user/model/home/daily_horo_scope_model
 import 'package:astrology_app/apps/mobile/user/services/home/home_api_service.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../core/enum/app_enums.dart';
 import '../../../../../core/utils/logger.dart';
 import '../../model/home/mantra_model.dart';
 
 class HomeProvider extends ChangeNotifier {
   String? dasha, moonSign;
-  DailyHoroScopeModel? dailyHoroScopeData;
+  DailyHoroScopeModel? dailyHoroScope, weeklyHoroScope, monthlyHoroScope;
   MantraModel? todayMantra;
 
   Future<void> initHomeScreen() async {
     Logger.printInfo("initing home screen");
     await getMoonDasha();
-    await Future.wait([getDailyHoroScope(), getTodayMantra()]);
+    await Future.wait([
+      getDailyHoroScope(type: AppEnum.daily.name, num: 1),
+      getTodayMantra(),
+    ]);
+    await getDailyHoroScope(type: AppEnum.weekly.name, num: 2);
+    await getDailyHoroScope(type: AppEnum.monthly.name, num: 3);
   }
 
   bool isMoonDashaLoading = true;
@@ -37,16 +43,24 @@ class HomeProvider extends ChangeNotifier {
   }
 
   bool isDailyHoroScopeLoading = false;
-  Future<void> getDailyHoroScope() async {
+  Future<void> getDailyHoroScope({String? type, int? num}) async {
     isDailyHoroScopeLoading = true;
     notifyListeners();
-    final result = await HomeApiService.instance.getDailyHoroScope();
+    final result = await HomeApiService.instance.getDailyHoroScope(
+      queryParameter: {"horoscope_type": type},
+    );
     result.fold(
       (l) {
         Logger.printError(l.errorMessage);
       },
       (r) {
-        dailyHoroScopeData = DailyHoroScopeModel.fromJson(r["data"]);
+        if (num == 1) {
+          this.dailyHoroScope = DailyHoroScopeModel.fromJson(r["data"]);
+        } else if (num == 2) {
+          weeklyHoroScope = DailyHoroScopeModel.fromJson(r["data"]);
+        } else {
+          monthlyHoroScope = DailyHoroScopeModel.fromJson(r["data"]);
+        }
       },
     );
     isDailyHoroScopeLoading = false;

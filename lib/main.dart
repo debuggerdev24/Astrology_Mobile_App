@@ -22,6 +22,6 @@ Future<void> main() async {
 
 //todo app changes :
 /*
- todo wonjin
+ todo Vimaal
 
 */

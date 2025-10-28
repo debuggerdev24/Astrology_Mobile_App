@@ -919,6 +919,42 @@ abstract class AppLocalizations {
   /// **'Select Date'**
   String get selectDate;
 
+  /// No description provided for @familyEnergy.
+  ///
+  /// In en, this message translates to:
+  /// **'Family Energy'**
+  String get familyEnergy;
+
+  /// No description provided for @powerPeriods.
+  ///
+  /// In en, this message translates to:
+  /// **'Power Periods'**
+  String get powerPeriods;
+
+  /// No description provided for @emotionalEnergy.
+  ///
+  /// In en, this message translates to:
+  /// **'Emotional Energy'**
+  String get emotionalEnergy;
+
+  /// No description provided for @learningOutlook.
+  ///
+  /// In en, this message translates to:
+  /// **'Learning Outlook'**
+  String get learningOutlook;
+
+  /// No description provided for @spiritualEnergy.
+  ///
+  /// In en, this message translates to:
+  /// **'Spiritual Energy'**
+  String get spiritualEnergy;
+
+  /// No description provided for @planetarySnapshot.
+  ///
+  /// In en, this message translates to:
+  /// **'Planetary Snapshot'**
+  String get planetarySnapshot;
+
   /// No description provided for @career.
   ///
   /// In en, this message translates to:
@@ -1230,6 +1266,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Select Language'**
   String get selectLang;
+
+  /// No description provided for @registeredSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Registered Successfully'**
+  String get registeredSuccessfully;
+
+  /// No description provided for @loginSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Login Successfully'**
+  String get loginSuccessfully;
+
+  /// No description provided for @loggedOutSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Logged Out Successfully'**
+  String get loggedOutSuccessfully;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -79,7 +79,7 @@ class SubscriptionService {
         Logger.printInfo(
           "Product Details are below : \n${e.title}\n${e.price}\n${e.id}\n${e.description}",
         );
-      } //Happy Diwali, Team! Wishing you joy, success, and bright ideas that shine as brilliantly as our apps!
+      }
     } catch (e) {
       Logger.printError("Error inside the _loadProducts function");
     }

@@ -187,6 +187,14 @@
   "goodEvening": "மாலை வணக்கம்",
   "choosePrefLang": "உங்களுக்கு விருப்பமான மொழியைத் தேர்வுசெய்யவும்",
   "confirm": "உறுதிப்படுத்தவும்",
-  "selectLang": "மொழியைத் தேர்ந்தெடுங்கள்"
-
+  "selectLang": "மொழியைத் தேர்ந்தெடுங்கள்",
+  "registeredSuccessfully": "வெற்றிகரமாகப் பதிவுசெய்யப்பட்டது",
+  "loginSuccessfully": "வெற்றிகரமாக உள்நுழைந்தேன்",
+  "loggedOutSuccessfully": "வெற்றிகரமாக வெளியேறிவிட்டீர்கள்",
+  "familyEnergy": "குடும்ப சக்தி",
+  "powerPeriods": "சக்தி காலங்கள்",
+  "emotionalEnergy": "உணர்ச்சி ஆற்றல்",
+  "learningOutlook": "கற்றல் அவுட்லுக்",
+  "spiritualEnergy": "ஆன்மீக ஆற்றல்",
+  "planetarySnapshot": "கோள்களின் புகைப்படம்"
 }
