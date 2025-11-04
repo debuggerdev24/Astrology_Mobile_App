@@ -75,7 +75,7 @@ Widget buildPageTitle({required String title, required BuildContext context}) {
     textAlign: TextAlign.center,
     style: bold(
       height: 1.2,
-      fontSize: (context.isTamil) ? 23 : 26,
+      fontSize: (context.isTamil) ? 23 : 25,
       fontFamily: AppFonts.secondary,
     ),
   );

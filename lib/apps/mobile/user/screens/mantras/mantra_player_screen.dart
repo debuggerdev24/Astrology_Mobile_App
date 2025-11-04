@@ -114,12 +114,16 @@ class _MantraPlayScreenState extends State<MantraPlayScreen>
                             ),
                           ],
                         ),
-                        AppText(
-                          text: mantra.meaning,
-                          style: regular(
-                            fontSize: 18,
-                            height: 1.2,
-                            color: AppColors.greyColor,
+                        Align(
+                          alignment: AlignmentDirectional.centerStart,
+                          child: AppText(
+                            text: mantra.meaning,
+
+                            style: regular(
+                              fontSize: 18,
+                              height: 1.2,
+                              color: AppColors.greyColor,
+                            ),
                           ),
                         ),
                         28.h.verticalSpace,

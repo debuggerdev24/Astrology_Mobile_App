@@ -38,46 +38,48 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           children: [
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  40.h.verticalSpace,
-                  AppText(
-                    textAlign: TextAlign.center,
-                    text: translator.forgotPass,
-                    style: bold(
-                      fontFamily: AppFonts.secondary,
-                      fontSize: 46,
-                      height: 1.1,
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    40.h.verticalSpace,
+                    AppText(
+                      textAlign: TextAlign.center,
+                      text: translator.forgotPass,
+                      style: bold(
+                        fontFamily: AppFonts.secondary,
+                        fontSize: 42,
+                        height: 1.1,
+                      ),
                     ),
-                  ),
-                  14.h.verticalSpace,
-                  AppText(
-                    textAlign: TextAlign.center,
-                    text: translator.forgotPassSlogan,
-                    style: regular(),
-                  ),
-                  32.h.verticalSpace,
-                  AppTextField(
-                    controller: _sendOTPEmail,
-                    title: translator.email,
-                    hintText: translator.enterYourEmail,
-                    errorMessage: provider.forgotEmailErr,
-                  ),
-                  52.h.verticalSpace,
-                  AppButton(
-                    title: translator.sendMail,
-                    onTap: () {
-                      deBouncer.run(
-                        () => provider.sendOtp(
-                          context: context,
-                          email: _sendOTPEmail.text.trim(),
-                        ),
-                      );
-                      // context.pushNamed(MobileAppRoutes.verifyOtpScreen.name);
-                    },
-                  ),
-                ],
+                    14.h.verticalSpace,
+                    AppText(
+                      textAlign: TextAlign.center,
+                      text: translator.forgotPassSlogan,
+                      style: regular(),
+                    ),
+                    32.h.verticalSpace,
+                    AppTextField(
+                      controller: _sendOTPEmail,
+                      title: translator.email,
+                      hintText: translator.enterYourEmail,
+                      errorMessage: provider.forgotEmailErr,
+                    ),
+                    52.h.verticalSpace,
+                    AppButton(
+                      title: translator.sendMail,
+                      onTap: () {
+                        deBouncer.run(
+                          () => provider.sendOtp(
+                            context: context,
+                            email: _sendOTPEmail.text.trim(),
+                          ),
+                        );
+                        // context.pushNamed(MobileAppRoutes.verifyOtpScreen.name);
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
             if (provider.isSendOtpLoading) FullPageIndicator(),

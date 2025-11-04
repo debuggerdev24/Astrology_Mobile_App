@@ -601,4 +601,43 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get loggedOutSuccessfully => 'வெற்றிகரமாக வெளியேறிவிட்டீர்கள்';
+
+  @override
+  String get otpSentSuccessfully => 'OTP வெற்றிகரமாக அனுப்பப்பட்டது';
+
+  @override
+  String get otpReSentSuccessfully => 'OTP வெற்றிகரமாக அனுப்பப்பட்டது';
+
+  @override
+  String get otpVerifiedSuccessfully => 'OTP வெற்றிகரமாக சரிபார்க்கப்பட்டது';
+
+  @override
+  String get passwordResetSuccessfully => 'கடவுச்சொல் வெற்றிகரமாக மீட்டமைக்கப்பட்டது.';
+
+  @override
+  String get dailyReminderCreated => 'தினசரி நினைவூட்டல் உருவாக்கப்பட்டது.';
+
+  @override
+  String get weeklyReminderCreated => 'வாராந்திர நினைவூட்டல் உருவாக்கப்பட்டது.';
+
+  @override
+  String get monthlyReminderCreated => 'மாதாந்திர நினைவூட்டல் உருவாக்கப்பட்டது.';
+
+  @override
+  String get customReminderCreated => 'தனிப்பயன் நினைவூட்டல் உருவாக்கப்பட்டது.';
+
+  @override
+  String get downloadedSuccessfully => 'வெற்றிகரமாக பதிவிறக்கம் செய்யப்பட்டது.';
+
+  @override
+  String get confirmPassShouldMatch => 'கடவுச்சொல் கடவுச்சொல்லுடன் பொருந்த வேண்டும் என்பதை உறுதிப்படுத்தவும்!';
+
+  @override
+  String get confirmPasswordForValidation => 'கடவுச்சொல்லை உறுதிப்படுத்தவும்';
+
+  @override
+  String get passwordSyntaxError => 'கடவுச்சொல்லில் குறைந்தது 8 எழுத்துகள் இருக்க வேண்டும், அதில் ஒரு பெரிய எழுத்து, ஒரு எண் மற்றும் ஒரு சிறப்பு எழுத்து ஆகியவை அடங்கும்!';
+
+  @override
+  String get expireToken => 'டோக்கன் காலாவதியாகிவிட்டது.';
 }

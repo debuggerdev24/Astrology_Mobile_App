@@ -116,7 +116,6 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
                         ),
                         10.h.verticalSpace,
                       ],
-
                       AppTextField(
                         title: translator.time,
                         readOnly: true,
@@ -140,7 +139,9 @@ class _SetReminderScreenState extends State<SetReminderScreen> {
                                 .remedyId
                                 .toString(),
                             context: context,
-                            checkDate: provider.selectedFrequency == 3,
+                            checkDate:
+                                provider.selectedFrequency == 3 ||
+                                provider.selectedFrequency == 4,
                           );
                         },
                         fontSize: context.isTamil ? 14 : 16,

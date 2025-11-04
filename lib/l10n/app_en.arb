@@ -194,7 +194,22 @@
   "choosePrefLang": "Choose your preferred language",
   "confirm": "Confirm",
   "selectLang": "Select Language",
-  "registeredSuccessfully": "Registered Successfully",
-  "loginSuccessfully": "Login Successfully",
-  "loggedOutSuccessfully": "Logged Out Successfully"
+  "registeredSuccessfully": "Registered successfully",
+  "loginSuccessfully": "Login successfully",
+  "loggedOutSuccessfully": "Logged out successfully",
+  "otpSentSuccessfully": "OTP sent successfully",
+  "otpReSentSuccessfully": "OTP resent successfully",
+  "otpVerifiedSuccessfully": "OTP verified successfully",
+  "passwordResetSuccessfully": "Password reset successfully",
+  "dailyReminderCreated": "Daily Reminder Created",
+  "weeklyReminderCreated": "Weekly Reminder Created",
+  "monthlyReminderCreated": "Monthly Reminder Created",
+  "customReminderCreated": "Custom Reminder Created",
+  "downloadedSuccessfully": "Downloaded Successfully.",
+  "confirmPassShouldMatch": "Confirm Password should match with Password!",
+  "confirmPasswordForValidation": "Confirm Password",
+  "passwordSyntaxError": "Password must be at least 8 characters, include a capital letter, a number, and a special character!",
+  "expireToken": "Token has expired"
+
+
 }

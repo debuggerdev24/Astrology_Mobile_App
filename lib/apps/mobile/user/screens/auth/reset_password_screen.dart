@@ -26,7 +26,6 @@ class ResetPasswordScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 16.w),
               child: SingleChildScrollView(
                 child: Column(
-                  // padding: EdgeInsets.zero,
                   children: [
                     40.h.verticalSpace,
                     topBar(context: context, title: translator.resetPassword),

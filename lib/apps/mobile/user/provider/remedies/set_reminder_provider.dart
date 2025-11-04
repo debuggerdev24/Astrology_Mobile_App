@@ -1,4 +1,5 @@
 import 'package:astrology_app/apps/mobile/user/services/Remedies/remedy_api_service.dart';
+import 'package:astrology_app/core/extension/context_extension.dart';
 import 'package:astrology_app/core/utils/field_validator.dart';
 import 'package:astrology_app/core/utils/logger.dart';
 import 'package:flutter/cupertino.dart';
@@ -190,6 +191,7 @@ class SetReminderProvider extends ChangeNotifier {
         Logger.printError(l.toString());
       },
       (r) async {
+        Logger.printInfo("Creating");
         await scheduleReminderNotification(context: context);
         textTime.clear();
         textDate.clear();
@@ -205,14 +207,18 @@ class SetReminderProvider extends ChangeNotifier {
   Future<void> scheduleReminderNotification({
     required BuildContext context,
   }) async {
-    if (!_isInitialized || _selectedTime == null) return;
+    // if (!_isInitialized || _selectedTime == null) return;
+    if (_selectedTime == null) return;
 
     final now = DateTime.now();
     final notificationId = DateTime.now().millisecondsSinceEpoch ~/ 1000;
 
     try {
       // ✅ Daily Notification
+      Logger.printInfo(_selectedFrequency.toString());
+
       if (_selectedFrequency == 1) {
+        Logger.printInfo("here");
         await NotificationService.instance.scheduleDailyNotification(
           id: notificationId,
           title: "Reminder",
@@ -221,7 +227,12 @@ class SetReminderProvider extends ChangeNotifier {
           minute: _selectedTime!.minute,
           payload: 'daily_reminder_data',
         );
-        AppToast.success(context: context, message: "Daily Reminder Created");
+        Logger.printInfo("Creating");
+
+        AppToast.success(
+          context: context,
+          message: context.translator.dailyReminderCreated,
+        );
       }
       // ✅ Weekly Notification
       else if (_selectedFrequency == 2) {
@@ -264,7 +275,7 @@ class SetReminderProvider extends ChangeNotifier {
           );
           AppToast.success(
             context: context,
-            message: "Weekly Reminder Created for $selectedDay",
+            message: context.translator.weeklyReminderCreated,
           );
         }
       }
@@ -279,7 +290,10 @@ class SetReminderProvider extends ChangeNotifier {
           minute: _selectedTime!.minute,
           payload: 'monthly_reminder_data',
         );
-        AppToast.success(context: context, message: "Monthly Reminder Created");
+        AppToast.success(
+          context: context,
+          message: context.translator.monthlyReminderCreated,
+        ); //"Monthly Reminder Created"
       }
       // ✅ Custom (One-time) Notification
       else if (_selectedFrequency == 4 && _selectedDate != null) {
@@ -298,7 +312,10 @@ class SetReminderProvider extends ChangeNotifier {
           delay: customDateTime.difference(now),
           payload: 'custom_reminder_data',
         );
-        AppToast.success(context: context, message: "Custom Reminder Created");
+        AppToast.success(
+          context: context,
+          message: context.translator.customReminderCreated,
+        );
       }
     } catch (e) {
       Logger.printError("Notification scheduling error: $e");
@@ -314,26 +331,36 @@ class SetReminderProvider extends ChangeNotifier {
         FieldValidators().required(
           context,
           textReminderTitle.text.trim(),
-          "Title",
+          context.translator.reminderTitle,
         ) ??
         "";
 
-    int len = textReminderTitle.text.trim().length;
-    if (titleError.isNotEmpty) {
-      Logger.printInfo("I am here $len");
-      titleError = (len < 13 || len > 100)
-          ? "Set Reminder length limit (13–100 characters)."
-          : "";
-    }
+    //todo length validator
+    // int len = textReminderTitle.text.trim().length;
+    // if (textReminderTitle.text.trim().isNotEmpty) {
+    //   Logger.printInfo("I am here $len");
+    //   titleError = (len < 13 || len > 100)
+    //       ? "Set Reminder length limit (13–100 characters)."
+    //       : "";
+    // }
 
     if (checkDate) {
       dateError =
-          FieldValidators().required(context, textDate.text.trim(), "Date") ??
+          FieldValidators().required(
+            context,
+            textDate.text.trim(),
+            context.translator.date,
+          ) ??
           "";
     }
 
     timeError =
-        FieldValidators().required(context, textTime.text.trim(), "Time") ?? "";
+        FieldValidators().required(
+          context,
+          textTime.text.trim(),
+          context.translator.time,
+        ) ??
+        "";
 
     notifyListeners();
     if (timeError.isNotEmpty || dateError.isNotEmpty || titleError.isNotEmpty) {
@@ -343,7 +370,7 @@ class SetReminderProvider extends ChangeNotifier {
   }
 
   //todo ------------------------> Awesome Notifications initialize function
-  bool _isInitialized = false;
+  // bool _isInitialized = false;
   Future<void> initializeNotifications({required BuildContext context}) async {
     try {
       await AwNotificationService.initialize();
@@ -362,7 +389,7 @@ class SetReminderProvider extends ChangeNotifier {
         }
       }
 
-      _isInitialized = true;
+      // _isInitialized = true;
       // AppToast.success(
       //   context: context,
       //   message: "Notifications initialized successfully",

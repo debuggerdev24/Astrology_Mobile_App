@@ -42,7 +42,8 @@ class _RemediesScreenState extends State<RemediesScreen> {
           Expanded(
             child: Consumer<PalmProvider>(
               builder: (context, provider, child) {
-                if (!provider.isGetRemediesLoading) {
+                if (!provider.isGetRemediesLoading &&
+                    provider.remedies != null) {
                   final remedies = provider.remedies;
                   return SingleChildScrollView(
                     child: Column(

@@ -170,7 +170,9 @@ class _TodayMantraPlayScreenState extends State<TodayMantraPlayScreen>
                                         onSuccess: (p0) {
                                           AppToast.success(
                                             context: context,
-                                            message: "Downloaded Successfully.",
+                                            message: context
+                                                .translator
+                                                .downloadedSuccessfully,
                                           );
                                         },
                                         onError: (p0) {
@@ -192,7 +194,9 @@ class _TodayMantraPlayScreenState extends State<TodayMantraPlayScreen>
                                         onSuccess: (filePath) {
                                           AppToast.success(
                                             context: context,
-                                            message: "Downloaded Successfully.",
+                                            message: context
+                                                .translator
+                                                .downloadedSuccessfully,
                                           );
                                           Logger.printInfo(
                                             'Downloaded to: $filePath',

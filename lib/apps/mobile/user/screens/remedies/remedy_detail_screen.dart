@@ -35,10 +35,7 @@ class RemedyDetailScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   40.h.verticalSpace,
-                  topBar(
-                    context: context,
-                    title: remedy!.remedyName.split("-").first,
-                  ),
+                  topBar(context: context, title: remedy!.remedyName),
                   21.h.verticalSpace,
                   AppText(
                     textAlign: TextAlign.center,

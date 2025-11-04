@@ -1270,20 +1270,98 @@ abstract class AppLocalizations {
   /// No description provided for @registeredSuccessfully.
   ///
   /// In en, this message translates to:
-  /// **'Registered Successfully'**
+  /// **'Registered successfully'**
   String get registeredSuccessfully;
 
   /// No description provided for @loginSuccessfully.
   ///
   /// In en, this message translates to:
-  /// **'Login Successfully'**
+  /// **'Login successfully'**
   String get loginSuccessfully;
 
   /// No description provided for @loggedOutSuccessfully.
   ///
   /// In en, this message translates to:
-  /// **'Logged Out Successfully'**
+  /// **'Logged out successfully'**
   String get loggedOutSuccessfully;
+
+  /// No description provided for @otpSentSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'OTP sent successfully'**
+  String get otpSentSuccessfully;
+
+  /// No description provided for @otpReSentSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'OTP resent successfully'**
+  String get otpReSentSuccessfully;
+
+  /// No description provided for @otpVerifiedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'OTP verified successfully'**
+  String get otpVerifiedSuccessfully;
+
+  /// No description provided for @passwordResetSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Password reset successfully'**
+  String get passwordResetSuccessfully;
+
+  /// No description provided for @dailyReminderCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Reminder Created'**
+  String get dailyReminderCreated;
+
+  /// No description provided for @weeklyReminderCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Reminder Created'**
+  String get weeklyReminderCreated;
+
+  /// No description provided for @monthlyReminderCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly Reminder Created'**
+  String get monthlyReminderCreated;
+
+  /// No description provided for @customReminderCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom Reminder Created'**
+  String get customReminderCreated;
+
+  /// No description provided for @downloadedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloaded Successfully.'**
+  String get downloadedSuccessfully;
+
+  /// No description provided for @confirmPassShouldMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Password should match with Password!'**
+  String get confirmPassShouldMatch;
+
+  /// No description provided for @confirmPasswordForValidation.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Password'**
+  String get confirmPasswordForValidation;
+
+  /// No description provided for @passwordSyntaxError.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must be at least 8 characters, include a capital letter, a number, and a special character!'**
+  String get passwordSyntaxError;
+
+  /// No description provided for @expireToken.
+  ///
+  /// In en, this message translates to:
+  /// **'Token has expired'**
+  String get expireToken;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

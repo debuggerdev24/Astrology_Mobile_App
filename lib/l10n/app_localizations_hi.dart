@@ -285,7 +285,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get tryAgain => 'पुनः प्रयास करें';
 
   @override
-  String get price => 'कीमत';
+  String get price => 'किंमत';
 
   @override
   String get subscriptionDate => 'सदस्यता तारीख ';
@@ -525,7 +525,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get forgotPassSlogan => 'तारे भी अपना रास्ता खो देते हैं - आइये हम आपको अपना रास्ता पुनः खोजने में मदद करें।';
 
   @override
-  String get sendMail => 'मेल भेजने';
+  String get sendMail => 'मेल भेजे';
 
   @override
   String get enterCode => '4-अंकीय कोड दर्ज करें';
@@ -594,11 +594,50 @@ class AppLocalizationsHi extends AppLocalizations {
   String get selectLang => 'भाषा चुने';
 
   @override
-  String get registeredSuccessfully => 'सफलतापूर्वक पंजीकृत';
+  String get registeredSuccessfully => 'सफलतापूर्वक रजिस्टर हो चुका है';
 
   @override
-  String get loginSuccessfully => 'लॉगिन सफलतापूर्वक';
+  String get loginSuccessfully => 'लॉगिन सफलतापूर्वक हो चुका है';
 
   @override
   String get loggedOutSuccessfully => 'सफलतापूर्वक लॉग आउट हो गया';
+
+  @override
+  String get otpSentSuccessfully => 'OTP सफलतापूर्वक भेजा गया';
+
+  @override
+  String get otpReSentSuccessfully => 'OTP सफलतापूर्वक पुनः भेजा गया';
+
+  @override
+  String get otpVerifiedSuccessfully => 'OTP सफलतापूर्वक सत्यापित';
+
+  @override
+  String get passwordResetSuccessfully => 'पासवर्ड सफलतापूर्वक रीसेट हो गया हे';
+
+  @override
+  String get dailyReminderCreated => 'दैनिक अनुस्मारक बनाया गया है';
+
+  @override
+  String get weeklyReminderCreated => 'साप्ताहिक अनुस्मारक बन गया है';
+
+  @override
+  String get monthlyReminderCreated => 'मासिक अनुस्मारक बन गया है';
+
+  @override
+  String get customReminderCreated => 'कस्टम रिमाइंडर बन गया है';
+
+  @override
+  String get downloadedSuccessfully => 'सफलतापूर्वक डाउनलोड हो गया है';
+
+  @override
+  String get confirmPassShouldMatch => 'पासवर्ड मेच नहीं हो रहा है';
+
+  @override
+  String get confirmPasswordForValidation => 'पासवर्ड की पुष्टि';
+
+  @override
+  String get passwordSyntaxError => 'पासवर्ड कम से कम 8 अक्षरों का होना चाहिए, जिसमें एक बड़ा अक्षर, एक संख्या और एक विशेष वर्ण शामिल होना चाहिए!';
+
+  @override
+  String get expireToken => 'टोकन की समय सीमा समाप्त हो गई है';
 }

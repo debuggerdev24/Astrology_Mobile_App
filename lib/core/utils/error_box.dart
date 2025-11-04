@@ -1,6 +1,5 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:astrology_app/core/constants/text_style.dart';
-import 'package:astrology_app/core/extension/context_extension.dart';
 import 'package:astrology_app/core/widgets/svg_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -51,9 +50,10 @@ class ErrorBox extends StatelessWidget {
             Expanded(
               child: AppText(
                 text: errorMessage,
-                style: !context.isEng
-                    ? bold(color: Colors.red.shade900, fontSize: 14)
-                    : medium(color: Colors.red.shade900, fontSize: 14),
+                style: medium(color: Colors.red.shade900, fontSize: 14),
+                // !context.isEng
+                //     ? bold(color: Colors.red.shade900, fontSize: 14)
+                //     : medium(color: Colors.red.shade900, fontSize: 14),
               ),
             ),
           ],

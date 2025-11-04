@@ -628,7 +628,7 @@ class _HomeScreenState extends State<HomeScreen>
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Karma Focus Section
+          //todo Karma Focus Section
           greyColoredBox(
             margin: EdgeInsets.only(bottom: 18.h),
             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -667,7 +667,7 @@ class _HomeScreenState extends State<HomeScreen>
               ],
             ),
           ),
-          // Dasha Nakshatra Section
+          //todo Dasha Nakshatra Section
           dashaNakshtra(translator, context, horoscopeData),
         ],
       ),

@@ -103,10 +103,15 @@ class UserAuthProvider extends ChangeNotifier {
     _registerConfirmPassCtr.clear();
   }
 
+  clearRegisterErrors() {
+    registerNameErr = registerEmailErr = registerPasswordErr =
+        registerConfirmPassWordErr = "";
+  }
+
   //todo ---------------> login user
   bool isLoginLoading = false;
   Future<void> loginUser(BuildContext context) async {
-    if (_validateLoginData()) return;
+    if (_validateLoginData(context)) return;
     isLoginLoading = true;
     notifyListeners();
     final result = await UserAuthService.instance.loginWithEmailPassword(
@@ -148,8 +153,11 @@ class UserAuthProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void clearLoginError() {
+    loginEmailErr = loginPassErr = forgotEmailErr = "";
+  }
+
   Future<void> decideFirstScreen(BuildContext context) async {
-    Logger.printInfo("Deciding first screen");
     final result = await UserProfileService.instance.getProfile();
     result.fold(
       (l) async {
@@ -275,7 +283,12 @@ class UserAuthProvider extends ChangeNotifier {
   }) async {
     if (email.isEmpty) {
       forgotEmailErr =
-          FieldValidators().required(context, email, "Email") ?? "";
+          FieldValidators().required(
+            context,
+            email,
+            context.translator.email,
+          ) ??
+          "";
       notifyListeners();
       return;
     }
@@ -288,8 +301,11 @@ class UserAuthProvider extends ChangeNotifier {
         AppToast.error(context: context, message: failure.errorMessage);
       },
       (data) async {
-        AppToast.success(context: context, message: data['message']);
-
+        AppToast.success(
+          context: context,
+          message: context.translator.otpSentSuccessfully,
+        );
+        Logger.printInfo(data['message']);
         // Store email for resend functionality
         _currentEmail = email;
 
@@ -335,7 +351,10 @@ class UserAuthProvider extends ChangeNotifier {
         AppToast.error(context: context, message: failure.errorMessage);
       },
       (data) async {
-        AppToast.success(context: context, message: "OTP resent successfully");
+        AppToast.success(
+          context: context,
+          message: context.translator.otpSentSuccessfully,
+        ); //"OTP resent successfully"
         _otpController.clear();
         // Restart the timer after successful resend
         _startResendTimer();
@@ -358,15 +377,25 @@ class UserAuthProvider extends ChangeNotifier {
       otp: _otpController.text.trim(),
       userId: userId,
     );
+    // clearResetPassError()
+    resetNewPassErr = "";
+    resetConfirmPassErr = "";
 
     result.fold(
       (failure) {
+        if (failure.errorMessage.contains("expired")) {
+          AppToast.error(
+            context: context,
+            message: context.translator.expireToken,
+          );
+          return;
+        }
         AppToast.error(context: context, message: failure.errorMessage);
       },
       (data) async {
         AppToast.success(
           context: context,
-          message: "OTP verified successfully",
+          message: context.translator.otpVerifiedSuccessfully,
         );
         context.pushNamed(
           MobileAppRoutes.resetPasswordScreen.name,
@@ -374,6 +403,8 @@ class UserAuthProvider extends ChangeNotifier {
         );
         _resetNewPassCtr.clear();
         _resetConfirmPassCtr.clear();
+        resetNewPassErr = "";
+        resetConfirmPassErr = "";
       },
     );
 
@@ -387,7 +418,7 @@ class UserAuthProvider extends ChangeNotifier {
     required BuildContext context,
     required String userId,
   }) async {
-    if (_validateResetPasswordData()) return;
+    if (_validateResetPasswordData(context)) return;
     isResetPasswordLoading = true;
     notifyListeners();
     final result = await UserAuthService.instance.resetPassword(
@@ -401,7 +432,10 @@ class UserAuthProvider extends ChangeNotifier {
         AppToast.error(context: context, message: failure.errorMessage);
       },
       (data) async {
-        AppToast.success(context: context, message: data['message']);
+        AppToast.success(
+          context: context,
+          message: context.translator.passwordResetSuccessfully,
+        );
         context.pop();
         context.pop();
         context.pop();
@@ -414,11 +448,19 @@ class UserAuthProvider extends ChangeNotifier {
   }
 
   //todo --------> validation functions for all fields are below
-  bool _validateLoginData() {
-    loginEmailErr = FieldValidators().email(_loginEmailCtr.text.trim());
-    loginPassErr = _loginPassCtr.text.trim().isEmpty
-        ? "Password is Required"
-        : "";
+  bool _validateLoginData(BuildContext context) {
+    loginEmailErr = FieldValidators().email(
+      _loginEmailCtr.text.trim(),
+      context,
+    );
+    loginPassErr = FieldValidators().required(
+      context,
+      _loginPassCtr.text.trim(),
+      context.translator.password,
+    );
+    // _loginPassCtr.text.trim().isEmpty
+    //     ? "Password is Required"
+    //     : "";
     notifyListeners();
 
     if (loginEmailErr.isNotEmpty || loginPassErr.isNotEmpty) {
@@ -435,11 +477,15 @@ class UserAuthProvider extends ChangeNotifier {
     );
 
     // validate email
-    registerEmailErr = FieldValidators().email(_registerEmailCtr.text.trim());
+    registerEmailErr = FieldValidators().email(
+      _registerEmailCtr.text.trim(),
+      context,
+    );
 
     // validate password
     registerPasswordErr = FieldValidators().password(
       _registerPasswordCtr.text.trim(),
+      context,
     );
 
     // validate confirm password
@@ -448,7 +494,7 @@ class UserAuthProvider extends ChangeNotifier {
         FieldValidators().match(
           _registerConfirmPassCtr.text.trim(),
           _registerPasswordCtr.text.trim(),
-          "Confirm Password should match with Password!",
+          context, //"Confirm Password should match with Password!",
         ) ??
         "";
 
@@ -476,13 +522,18 @@ class UserAuthProvider extends ChangeNotifier {
     return false;
   }
 
-  bool _validateResetPasswordData() {
-    resetNewPassErr = FieldValidators().password(_resetNewPassCtr.text.trim());
+  void clearResetPassError() {}
+
+  bool _validateResetPasswordData(BuildContext context) {
+    resetNewPassErr = FieldValidators().password(
+      _resetNewPassCtr.text.trim(),
+      context,
+    );
     resetConfirmPassErr =
         FieldValidators().match(
           _resetConfirmPassCtr.text.trim(),
           _resetNewPassCtr.text.trim(),
-          "Confirm Password should match with Password!",
+          context, //"Confirm Password should match with Password!",
         ) ??
         "";
 

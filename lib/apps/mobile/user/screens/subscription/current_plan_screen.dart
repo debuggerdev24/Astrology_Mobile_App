@@ -77,15 +77,18 @@ class CurrentPlanScreen extends StatelessWidget {
                           AppEnum.free.name) ...[
                         10.verticalSpace,
                         titleWithDetails(
-                          title: "Price",
+                          title: translator.price,
+
                           details: "\$${activePlan.price}",
                         ),
                         titleWithDetails(
-                          title: "Subscription date",
+                          title: translator
+                              .subscriptionDate, //"Subscription date",
                           details: activePlan.startDate,
                         ),
                         titleWithDetails(
-                          title: "Subscription Validity",
+                          title: translator
+                              .subscriptionValidity, //"Subscription Validity",
                           details: "September 30,2025",
                         ),
                         20.h.verticalSpace,

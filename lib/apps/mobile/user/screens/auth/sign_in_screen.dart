@@ -34,7 +34,7 @@ class SignInScreen extends StatelessWidget {
                     40.h.verticalSpace,
                     AppText(
                       text: translator.signIn,
-                      style: bold(fontFamily: AppFonts.secondary, fontSize: 46),
+                      style: bold(fontFamily: AppFonts.secondary, fontSize: 44),
                     ),
                     12.h.verticalSpace,
                     AppText(
@@ -43,23 +43,20 @@ class SignInScreen extends StatelessWidget {
                       style: regular(),
                     ),
                     32.h.verticalSpace,
-                    Column(
-                      spacing: 22.h,
-                      children: [
-                        AppTextField(
-                          controller: provider.loginEmailCtr,
-                          title: translator.email,
-                          hintText: translator.enterYourEmail,
-                          errorMessage: provider.loginEmailErr,
-                        ),
-                        AppTextField(
-                          controller: provider.loginPassCtr,
-                          title: translator.password,
-                          hintText: translator.enterYourPassword,
-                          errorMessage: provider.loginPassErr,
-                        ),
-                      ],
+                    AppTextField(
+                      controller: provider.loginEmailCtr,
+                      title: translator.email,
+                      hintText: translator.enterYourEmail,
+                      errorMessage: provider.loginEmailErr,
                     ),
+                    22.h.verticalSpace,
+                    AppTextField(
+                      controller: provider.loginPassCtr,
+                      title: translator.password,
+                      hintText: translator.enterYourPassword,
+                      errorMessage: provider.loginPassErr,
+                    ),
+
                     6.h.verticalSpace,
                     Align(
                       alignment: Alignment.centerRight,
@@ -68,6 +65,7 @@ class SignInScreen extends StatelessWidget {
                           context.pushNamed(
                             MobileAppRoutes.forgotPasswordScreen.name,
                           );
+                          provider.clearLoginError();
                         },
                         child: AppText(
                           text: "${translator.forgotPass} ?",

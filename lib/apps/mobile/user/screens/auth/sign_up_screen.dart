@@ -95,6 +95,7 @@ class SignUpScreen extends StatelessWidget {
                         onTap: () async {
                           FocusScope.of(context).unfocus();
                           provider.clearRegisterField();
+                          provider.clearRegisterErrors();
                           context.pushNamed(MobileAppRoutes.signInScreen.name);
                         },
                         child: RichText(

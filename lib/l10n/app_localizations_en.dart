@@ -594,11 +594,50 @@ class AppLocalizationsEn extends AppLocalizations {
   String get selectLang => 'Select Language';
 
   @override
-  String get registeredSuccessfully => 'Registered Successfully';
+  String get registeredSuccessfully => 'Registered successfully';
 
   @override
-  String get loginSuccessfully => 'Login Successfully';
+  String get loginSuccessfully => 'Login successfully';
 
   @override
-  String get loggedOutSuccessfully => 'Logged Out Successfully';
+  String get loggedOutSuccessfully => 'Logged out successfully';
+
+  @override
+  String get otpSentSuccessfully => 'OTP sent successfully';
+
+  @override
+  String get otpReSentSuccessfully => 'OTP resent successfully';
+
+  @override
+  String get otpVerifiedSuccessfully => 'OTP verified successfully';
+
+  @override
+  String get passwordResetSuccessfully => 'Password reset successfully';
+
+  @override
+  String get dailyReminderCreated => 'Daily Reminder Created';
+
+  @override
+  String get weeklyReminderCreated => 'Weekly Reminder Created';
+
+  @override
+  String get monthlyReminderCreated => 'Monthly Reminder Created';
+
+  @override
+  String get customReminderCreated => 'Custom Reminder Created';
+
+  @override
+  String get downloadedSuccessfully => 'Downloaded Successfully.';
+
+  @override
+  String get confirmPassShouldMatch => 'Confirm Password should match with Password!';
+
+  @override
+  String get confirmPasswordForValidation => 'Confirm Password';
+
+  @override
+  String get passwordSyntaxError => 'Password must be at least 8 characters, include a capital letter, a number, and a special character!';
+
+  @override
+  String get expireToken => 'Token has expired';
 }

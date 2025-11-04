@@ -8,11 +8,11 @@ class FieldValidators {
 
   factory FieldValidators() => _instance;
 
-  String? required(BuildContext context, String? val, String fieldName) {
+  String required(BuildContext context, String? val, String fieldName) {
     if (val == null || val.isEmpty) {
       return "$fieldName ${context.translator.isRequired}";
     }
-    return null;
+    return "";
   }
 
   String fullName(BuildContext context, String? val) {
@@ -29,9 +29,9 @@ class FieldValidators {
     return "";
   }
 
-  String email(String? val) {
+  String email(String? val, BuildContext context) {
     if (val!.isEmpty) {
-      return 'Email is required!';
+      return '${context.translator.email} ${context.translator.isRequired}';
     }
 
     RegExp emailPattern = RegExp(
@@ -44,9 +44,9 @@ class FieldValidators {
     return "";
   }
 
-  String password(String? val) {
+  String password(String? val, BuildContext context) {
     if (val == null || val.isEmpty) {
-      return 'Password is required!';
+      return '${context.translator.password} ${context.translator.isRequired}!';
     }
 
     RegExp passwordPattern = RegExp(
@@ -54,7 +54,8 @@ class FieldValidators {
     );
 
     if (!passwordPattern.hasMatch(val)) {
-      return "Password must be at least 8 characters, include a capital letter, a number, and a special character!";
+      return context.translator.passwordSyntaxError;
+      //return "Password must be at least 8 characters, include a capital letter, a number, and a special character!";
     }
     return "";
   }
@@ -155,9 +156,9 @@ class FieldValidators {
     return null;
   }
 
-  String? match(String? val, String secondValue, String errorMessage) {
+  String? match(String? val, String secondValue, BuildContext context) {
     if (val == null || val.trim().isEmpty) {
-      return "Confirm Password is required.";
+      return "${context.translator.confirmPasswordForValidation} ${context.translator.isRequired}!";
     }
 
     // final pattern = r'^\+?[1-9]\d{10,15}$';
@@ -166,7 +167,7 @@ class FieldValidators {
     // }
 
     if (val != secondValue) {
-      return errorMessage;
+      return context.translator.confirmPassShouldMatch;
     }
 
     return null;
