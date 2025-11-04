@@ -184,6 +184,7 @@ class UserAuthProvider extends ChangeNotifier {
           return;
         }
         LocaleStoaregService.setProfileCreated(true);
+
         context.goNamed(MobileAppRoutes.userDashBoardScreen.name);
       },
     );

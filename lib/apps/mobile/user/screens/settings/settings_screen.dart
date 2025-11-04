@@ -35,17 +35,19 @@ class _SettingScreenState extends State<SettingScreen>
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     // optional: check once at launch
-    Future.microtask(
-      () => context
-          .read<NotificationProvider>()
-          .checkSystemNotificationPermission(),
-    );
+    // Future.microtask(
+    //   () => context
+    //       .read<NotificationProvider>()
+    //       .checkSystemNotificationPermission(),
+    // );
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     // Detect app resume
-    if (state == AppLifecycleState.resumed) {
+    if (state == AppLifecycleState.resumed ||
+        state == AppLifecycleState.paused ||
+        state == AppLifecycleState.inactive) {
       Logger.printInfo("App is resumed");
 
       if (mounted) {
@@ -61,7 +63,7 @@ class _SettingScreenState extends State<SettingScreen>
     final translator = context.translator;
     final localeProvider = context.read<LocaleProvider>();
     return PopScope(
-      canPop: false,
+      canPop: true,
       onPopInvokedWithResult: (didPop, result) {
         indexTabUser.value = 0;
         return;

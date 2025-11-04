@@ -10,7 +10,6 @@ import 'package:intl/intl.dart';
 
 import '../../../../../core/constants/app_colors.dart';
 import '../../../../../core/utils/custom_toast.dart';
-import '../../services/settings/aw_notification_service.dart';
 import '../../services/settings/notification_service.dart';
 
 class SetReminderProvider extends ChangeNotifier {
@@ -112,6 +111,12 @@ class SetReminderProvider extends ChangeNotifier {
               alignment: Alignment.centerRight,
               child: TextButton(
                 onPressed: () {
+                  // final hours = DateTime.now().hour;
+                  // final minutes = DateTime.now().minute;
+                  // final time =
+                  //     "${hours.toString().padLeft(2, '0')}:"
+                  //     "${minutes.toString().padLeft(2, '0')}";
+                  // textTime.text = time;
                   context.pop();
                 },
                 child: Text(
@@ -367,77 +372,6 @@ class SetReminderProvider extends ChangeNotifier {
       return true;
     }
     return false;
-  }
-
-  //todo ------------------------> Awesome Notifications initialize function
-  // bool _isInitialized = false;
-  Future<void> initializeNotifications({required BuildContext context}) async {
-    try {
-      await AwNotificationService.initialize();
-
-      // Request permission
-      bool isAllowed = await AwNotificationService.isNotificationAllowed();
-      if (!isAllowed) {
-        bool permissionGranted =
-            await AwNotificationService.requestPermission();
-        if (!permissionGranted) {
-          AppToast.error(
-            context: context,
-            message: "Notification permission denied",
-          );
-          return;
-        }
-      }
-
-      // _isInitialized = true;
-      // AppToast.success(
-      //   context: context,
-      //   message: "Notifications initialized successfully",
-      // );
-    } catch (e) {
-      Logger.printError("Awesome Notification initialization error: $e");
-      // AppToast.error(
-      //   context: context,
-      //   message: "Failed to initialize notifications: $e",
-      // );
-    }
-  }
-
-  // Additional helper methods for Awesome Notifications
-
-  /// Cancel a specific reminder by ID
-  Future<void> cancelReminder(int notificationId, BuildContext context) async {
-    try {
-      await AwNotificationService.cancelNotification(notificationId);
-      AppToast.success(context: context, message: "Reminder cancelled");
-    } catch (e) {
-      Logger.printError("Failed to cancel notification: $e");
-      AppToast.error(context: context, message: "Failed to cancel reminder");
-    }
-  }
-
-  /// Cancel all reminders
-  Future<void> cancelAllReminders(BuildContext context) async {
-    try {
-      await AwNotificationService.cancelAllNotifications();
-      AppToast.success(context: context, message: "All reminders cancelled");
-    } catch (e) {
-      Logger.printError("Failed to cancel all notifications: $e");
-      AppToast.error(
-        context: context,
-        message: "Failed to cancel all reminders",
-      );
-    }
-  }
-
-  /// Get list of scheduled reminders
-  Future<List<dynamic>> getScheduledReminders() async {
-    try {
-      return await AwNotificationService.getScheduledNotifications();
-    } catch (e) {
-      Logger.printError("Failed to get scheduled notifications: $e");
-      return [];
-    }
   }
 
   /// Clear all form data

@@ -15,6 +15,7 @@ Future<void> main() async {
 
     DeviceOrientation.portraitDown,
   ]);
+  //
 
   await Future.wait([LocaleStoaregService.init()]);
   runApp(ToastificationWrapper(child: const MyApp()));
@@ -23,5 +24,4 @@ Future<void> main() async {
 //todo app changes :
 /*
  todo Vimaal
-
 */
