@@ -7,6 +7,7 @@
 */
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:astrology_app/apps/mobile/user/screens/user_dashboard.dart';
@@ -70,10 +71,10 @@ class SubscriptionService {
         productIds.values.toSet(),
       );
       Logger.printInfo("inside the load products");
-      // if (response.notFoundIDs.isNotEmpty) {
-      //   Logger.printError("Not found IDs: ${response.notFoundIDs}");
-      // }
-
+      if (response.notFoundIDs.isNotEmpty) {
+        Logger.printError("Not found IDs: ${response.notFoundIDs}");
+      }
+      //
       availableProducts = response.productDetails;
       for (var e in availableProducts) {
         Logger.printInfo(
@@ -123,6 +124,7 @@ class SubscriptionService {
         final purchaseToken = decoded["purchaseToken"];
 
         Logger.printInfo('Purchase Token: $purchaseToken');
+        log('Purchase Token: $purchaseToken');
         Logger.printInfo("purchaseID : ${purchase.purchaseID}");
         Logger.printInfo(
           "localVerificationData : ${purchase.verificationData.localVerificationData.toString()}",

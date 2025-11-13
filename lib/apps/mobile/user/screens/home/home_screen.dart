@@ -20,8 +20,10 @@ import '../../../../../core/constants/app_colors.dart';
 import '../../../../../core/utils/logger.dart';
 import '../../../../../core/widgets/app_text.dart';
 import '../../../../../core/widgets/global_methods.dart';
+import '../../model/home/daily_horo_scope_model.dart';
 import '../../model/home/mantra_model.dart';
 import '../../provider/setting/subscription_provider.dart';
+import '../subscription/current_plan_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -155,7 +157,6 @@ class _HomeScreenState extends State<HomeScreen>
             child: AppText(
               textAlign: TextAlign.center,
               style: medium(fontSize: context.isTamil ? 17.5 : 20),
-
               text: context.translator.noMantraToday,
             ),
           );
@@ -578,19 +579,19 @@ class _HomeScreenState extends State<HomeScreen>
               children: [
                 // Daily Tab
                 _buildHoroscopeContent(
-                  provider.dailyHoroScope,
+                  provider.dailyHoroScope!,
                   translator,
                   context,
                 ),
                 // Weekly Tab
                 _buildHoroscopeContent(
-                  provider.weeklyHoroScope,
+                  provider.weeklyHoroScope!,
                   translator,
                   context,
                 ),
                 // Monthly Tab
                 _buildHoroscopeContent(
-                  provider.monthlyHoroScope,
+                  provider.monthlyHoroScope!,
                   translator,
                   context,
                 ),
@@ -617,7 +618,7 @@ class _HomeScreenState extends State<HomeScreen>
 
   // Add this helper method to build content for each tab:
   Widget _buildHoroscopeContent(
-    dynamic horoscopeData,
+    DailyHoroScopeModel horoscopeData,
     AppLocalizations translator,
     BuildContext context,
   ) {
@@ -628,6 +629,41 @@ class _HomeScreenState extends State<HomeScreen>
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Date Display
+          // Container(
+          //   margin: EdgeInsets.only(bottom: 8.h),
+          //   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          //   decoration: BoxDecoration(
+          //     color: AppColors.primary,
+          //     // gradient: LinearGradient(
+          //     //   colors: [
+          //     //     AppColors.primary.withValues(alpha: 0.8),
+          //     //     .withValues(alpha: 0.6),
+          //     //   ],
+          //     //   begin: Alignment.topLeft,
+          //     //   end: Alignment.bottomRight,
+          //     // ),
+          //     borderRadius: BorderRadius.circular(12),
+          //     boxShadow: [
+          //       BoxShadow(
+          //         color: AppColors.primary.withValues(alpha: 0.3),
+          //         blurRadius: 8,
+          //         offset: Offset(0, 2),
+          //       ),
+          //     ],
+          //   ),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     children: [
+          //       Icon(Icons.calendar_today, color: AppColors.black, size: 18),
+          //       8.horizontalSpace,
+          //       AppText(
+          //         text: formatDate(horoscopeData.date),
+          //         style: bold(fontSize: 16, color: AppColors.black),
+          //       ),
+          //     ],
+          //   ),
+          // ),
           //todo Karma Focus Section
           greyColoredBox(
             margin: EdgeInsets.only(bottom: 18.h),
@@ -636,22 +672,45 @@ class _HomeScreenState extends State<HomeScreen>
               crossAxisAlignment: CrossAxisAlignment.start,
               spacing: 10.h,
               children: [
-                IntrinsicWidth(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      AppText(
-                        text: translator.karmaFocus,
-                        style: bold(
-                          height: 0,
-                          fontFamily: AppFonts.secondary,
-                          fontSize: 18,
-                          decorationColor: AppColors.whiteColor,
-                        ),
+                Row(
+                  children: [
+                    IntrinsicWidth(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          AppText(
+                            text: translator.karmaFocus,
+                            style: bold(
+                              height: 0,
+                              fontFamily: AppFonts.secondary,
+                              fontSize: 18,
+                              decorationColor: AppColors.whiteColor,
+                            ),
+                          ),
+                          Container(height: 1, color: AppColors.whiteColor),
+                        ],
                       ),
-                      Container(height: 1, color: AppColors.whiteColor),
-                    ],
-                  ),
+                    ),
+                    Spacer(),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.calendar_today,
+                          color: AppColors.whiteColor,
+                          size: 15,
+                        ),
+                        6.horizontalSpace,
+                        AppText(
+                          text: formatDate(horoscopeData.date),
+                          style: regular(
+                            fontSize: 16,
+                            color: AppColors.whiteColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
                 actionCaution(
                   title: translator.action,

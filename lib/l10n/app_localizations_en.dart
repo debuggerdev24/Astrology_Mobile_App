@@ -640,4 +640,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get expireToken => 'Token has expired';
+
+  @override
+  String get noMantraHistory => 'No mantra history available.';
 }

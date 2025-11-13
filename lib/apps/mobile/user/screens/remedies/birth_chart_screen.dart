@@ -44,7 +44,6 @@ class BirthChartScreen extends StatelessWidget {
                         ),
                       ),
                       32.h.verticalSpace,
-
                       //todo ----------> Birth Chart Summary
                       AppText(
                         text: translator.birthChartSummary,

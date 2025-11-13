@@ -12,10 +12,8 @@ Future<void> main() async {
 
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
-
     DeviceOrientation.portraitDown,
   ]);
-  //
 
   await Future.wait([LocaleStoaregService.init()]);
   runApp(ToastificationWrapper(child: const MyApp()));
@@ -23,5 +21,5 @@ Future<void> main() async {
 
 //todo app changes :
 /*
- todo Vimaal
+todo Vimaal
 */

@@ -640,4 +640,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get expireToken => 'टोकन की समय सीमा समाप्त हो गई है';
+
+  @override
+  String get noMantraHistory => 'कोई मंत्र इतिहास उपलब्ध नहीं है.';
 }

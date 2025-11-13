@@ -42,6 +42,7 @@ class DailyMantraScreen extends StatelessWidget {
                 fontFamily: AppFonts.secondary,
                 height: 1.1,
                 fontSize: 26,
+
               ),
             ),
             8.h.verticalSpace,
@@ -131,8 +132,14 @@ class DailyMantraScreen extends StatelessWidget {
 
                       final mantraList = mantraProvider.mantraHistoryList;
                       if (mantraList == null || mantraList.isEmpty) {
-                        return Center(
-                          child: AppText(text: "No mantra history available."),
+                        return Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 18.w),
+                          child: Center(
+                            child: AppText(
+                              text: translator.noMantraHistory,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
                         );
                       }
 

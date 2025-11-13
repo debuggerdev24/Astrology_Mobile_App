@@ -187,7 +187,7 @@ class UserProfileProvider extends ChangeNotifier {
           AppToast.error(context: context, message: failure.errorMessage);
         },
         (data) async {
-          LocaleStoaregService.setProfileCreated(true);
+          await LocaleStoaregService.setProfileCreated(true);
 
           AppToast.success(
             context: context,

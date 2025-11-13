@@ -640,4 +640,7 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get expireToken => 'டோக்கன் காலாவதியாகிவிட்டது.';
+
+  @override
+  String get noMantraHistory => 'மந்திர வரலாறு எதுவும் கிடைக்கவில்லை.';
 }

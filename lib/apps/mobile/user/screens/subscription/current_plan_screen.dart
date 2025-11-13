@@ -130,10 +130,9 @@ class CurrentPlanScreen extends StatelessWidget {
                                       }[activePlan.price] ??
                                       AppEnum.tier3;
                                   Logger.printInfo(tier.name);
-                                  // provider.cancelAutoRenewing(
-                                  //   context: context,
-                                  //   tier: tier,
-                                  // );
+                                  provider.cancelSubscriptionPlan(
+                                    context: context,
+                                  );
                                   openManageSubscription();
                                 },
                               ),

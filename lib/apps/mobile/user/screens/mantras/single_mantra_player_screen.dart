@@ -121,12 +121,16 @@ class _TodayMantraPlayScreenState extends State<TodayMantraPlayScreen>
                               ),
                             ],
                           ),
-                          AppText(
-                            text: meaning,
-                            style: regular(
-                              fontSize: 18,
-                              height: 1.2,
-                              color: AppColors.greyColor,
+                          Align(
+                            alignment: AlignmentDirectional.centerStart,
+
+                            child: AppText(
+                              text: meaning,
+                              style: regular(
+                                fontSize: 18,
+                                height: 1.2,
+                                color: AppColors.greyColor,
+                              ),
                             ),
                           ),
                           28.h.verticalSpace,

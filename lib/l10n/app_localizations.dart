@@ -1362,6 +1362,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Token has expired'**
   String get expireToken;
+
+  /// No description provided for @noMantraHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'No mantra history available.'**
+  String get noMantraHistory;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

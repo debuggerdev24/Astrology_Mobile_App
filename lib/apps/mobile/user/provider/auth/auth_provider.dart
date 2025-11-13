@@ -247,6 +247,8 @@ class UserAuthProvider extends ChangeNotifier {
         await LocaleStoaregService.saveUserToken("");
         await LocaleStoaregService.saveUserRefreshToken("");
         await LocaleStoaregService.setIsUserLoggedIn(value: false);
+        await LocaleStoaregService.setProfileCreated(false);
+
         await LocaleStoaregService.setLoggedInUserEmail("");
         await LocaleStoaregService.setLoggedInUserPassword("");
         indexTabUser.value = 0;

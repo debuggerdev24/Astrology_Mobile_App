@@ -19,6 +19,8 @@ class Endpoints {
   static const String getMoonDasha = '/horoscope/moon-dasha/';
   static const String palmReading = '/horoscope/palm-reading/';
   static const String getSubscriptionPlans = '/horoscope/subscription_plan/';
+  static const String cancelSubscriptionPlans =
+      '/horoscope/cancel-subscription/';
   static const String getTodayMantra = '/horoscope/today-mantra/';
   static const String getCurrentPlan = '/horoscope/get-current-plan/';
   static const String getMantraHistory = '/horoscope/mantra-history/';

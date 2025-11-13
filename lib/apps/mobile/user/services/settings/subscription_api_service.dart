@@ -13,6 +13,10 @@ class SubscriptionApiService {
     return await BaseApiHelper.instance.get(Endpoints.getSubscriptionPlans);
   }
 
+  Future<Either<ApiException, dynamic>> cancelPlans() async {
+    return await BaseApiHelper.instance.post(Endpoints.cancelSubscriptionPlans);
+  }
+
   Future<Either<ApiException, dynamic>> getCurrentActivePlans() async {
     return await BaseApiHelper.instance.get(Endpoints.getCurrentPlan);
   }

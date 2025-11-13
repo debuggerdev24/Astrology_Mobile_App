@@ -1,11 +1,7 @@
 class DailyHoroScopeModel {
   DateTime date;
-  String karmaAction;
-  String karmaCaution;
-  String rulingPlanet;
-  String oneLineSummary;
+  String karmaAction, karmaCaution, rulingPlanet, oneLineSummary, nakshatra;
   DetailedPredictions detailedPredictions;
-  String nakshatra;
 
   DailyHoroScopeModel({
     required this.date,

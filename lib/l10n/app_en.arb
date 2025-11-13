@@ -209,7 +209,8 @@
   "confirmPassShouldMatch": "Confirm Password should match with Password!",
   "confirmPasswordForValidation": "Confirm Password",
   "passwordSyntaxError": "Password must be at least 8 characters, include a capital letter, a number, and a special character!",
-  "expireToken": "Token has expired"
+  "expireToken": "Token has expired",
+  "noMantraHistory": "No mantra history available."
 
 
 }

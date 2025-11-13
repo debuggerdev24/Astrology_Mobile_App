@@ -118,7 +118,6 @@ class _MantraPlayScreenState extends State<MantraPlayScreen>
                           alignment: AlignmentDirectional.centerStart,
                           child: AppText(
                             text: mantra.meaning,
-
                             style: regular(
                               fontSize: 18,
                               height: 1.2,

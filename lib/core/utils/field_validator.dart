@@ -35,7 +35,7 @@ class FieldValidators {
     }
 
     RegExp emailPattern = RegExp(
-      r'^[a-z0-9!@#$%^&*_(),.?":{}|<>]+@(gmail\.com|mailinator\.com)$',
+      r'^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$',
     );
 
     if (!emailPattern.hasMatch(val)) {

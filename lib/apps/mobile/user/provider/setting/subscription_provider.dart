@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:astrology_app/apps/mobile/user/model/settings/subscription_plan_model.dart';
 import 'package:astrology_app/apps/mobile/user/services/settings/subscription_api_service.dart';
+import 'package:astrology_app/core/utils/custom_toast.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../../../core/enum/app_enums.dart';
@@ -23,6 +24,22 @@ class SubscriptionProvider extends ChangeNotifier {
         subscriptionPlans = (r["data"] as List)
             .map((e) => SubscriptionPlanModel.fromJson(e))
             .toList();
+        notifyListeners();
+      },
+    );
+  }
+
+  Future<void> cancelSubscriptionPlan({required BuildContext context}) async {
+    final result = await SubscriptionApiService.instance.cancelPlans();
+    result.fold(
+      (l) {
+        Logger.printError(l.errorMessage);
+      },
+      (r) {
+        AppToast.success(
+          context: context,
+          message: "Subscription cancelled successfully.",
+        );
         notifyListeners();
       },
     );
@@ -65,7 +82,6 @@ class SubscriptionProvider extends ChangeNotifier {
 
   Set<AppEnum> get activeSubscriptions => _activeSubscriptions;
 
-  // New state variables for quick access
   bool isTier1Subscribed = false,
       isTier2Subscribed = false,
       isTier3Subscribed = false;

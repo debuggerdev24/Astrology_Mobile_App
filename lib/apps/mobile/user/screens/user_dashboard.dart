@@ -208,7 +208,7 @@ class _UserDashboardState extends State<UserDashboard> {
                                 color: isCurrent
                                     ? Colors.white
                                     : AppColors.darkBlue,
-                                fontSize: 12,
+                                fontSize: 14,
                               )
                             : regular(
                                 color: isCurrent
