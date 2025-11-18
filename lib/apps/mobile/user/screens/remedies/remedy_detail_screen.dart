@@ -21,7 +21,7 @@ import '../../provider/mantra/mantra_provider.dart';
 
 class RemedyDetailScreen extends StatelessWidget {
   const RemedyDetailScreen({super.key});
-
+  //
   @override
   Widget build(BuildContext context) {
     final translator = context.translator;
@@ -35,7 +35,11 @@ class RemedyDetailScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   40.h.verticalSpace,
-                  topBar(context: context, title: remedy!.remedyName),
+                  topBar(
+                    context: context,
+                    title: remedy!.remedyName,
+                    rightPadding: 8,
+                  ),
                   21.h.verticalSpace,
                   AppText(
                     textAlign: TextAlign.center,
@@ -330,7 +334,7 @@ class RemedyDetailScreen extends StatelessWidget {
                 onTap: () {
                   Future.wait([
                     context.read<MantraProvider>().loadAndPlayMusic(
-                      "http://138.197.92.15${mantra.audio}",
+                      "http://209.38.20.86${mantra.audio}",
                     ),
                     context.pushNamed(
                       MobileAppRoutes.singleMantraPlayerScreen.name,

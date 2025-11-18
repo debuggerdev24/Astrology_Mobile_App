@@ -90,6 +90,7 @@ class UserAuthProvider extends ChangeNotifier {
           _registerNameCtr.text.trim(),
         );
         clearRegisterField();
+        clearLoginFields();
       },
     );
     isRegisterLoading = false;
@@ -121,7 +122,14 @@ class UserAuthProvider extends ChangeNotifier {
 
     result.fold(
       (failure) {
-        AppToast.error(context: context, message: failure.errorMessage);
+        Logger.printInfo(failure.errorMessage);
+
+        AppToast.error(
+          context: context,
+          message: (failure.errorMessage == "Invalid email or password")
+              ? context.translator.accNotFoundError
+              : failure.errorMessage,
+        );
       },
       (data) async {
         AppToast.success(
@@ -151,6 +159,11 @@ class UserAuthProvider extends ChangeNotifier {
     );
     isLoginLoading = false;
     notifyListeners();
+  }
+
+  void clearLoginFields() {
+    _loginEmailCtr.clear();
+    _loginPassCtr.clear();
   }
 
   void clearLoginError() {
@@ -184,6 +197,7 @@ class UserAuthProvider extends ChangeNotifier {
           return;
         }
         LocaleStoaregService.setProfileCreated(true);
+        print("sjbcvhjdbvhbvhbdff");
 
         context.goNamed(MobileAppRoutes.userDashBoardScreen.name);
       },
@@ -284,46 +298,40 @@ class UserAuthProvider extends ChangeNotifier {
     required BuildContext context,
     required String email,
   }) async {
-    if (email.isEmpty) {
-      forgotEmailErr =
-          FieldValidators().required(
-            context,
-            email,
-            context.translator.email,
-          ) ??
-          "";
+    forgotEmailErr = FieldValidators().email(email, context);
+    notifyListeners();
+
+    if (forgotEmailErr.isEmpty) {
+      isSendOtpLoading = true;
       notifyListeners();
-      return;
+      final result = await UserAuthService.instance.sendOtp(email: email);
+
+      result.fold(
+        (failure) {
+          AppToast.error(context: context, message: failure.errorMessage);
+        },
+        (data) async {
+          AppToast.success(
+            context: context,
+            message: context.translator.otpSentSuccessfully,
+          );
+          Logger.printInfo(data['message']);
+          // Store email for resend functionality
+          _currentEmail = email;
+
+          // Start the timer
+          _startResendTimer();
+
+          context.pushNamed(
+            MobileAppRoutes.verifyOtpScreen.name,
+            extra: (data["data"]["user_id"] as int).toString(),
+          );
+          _otpController.clear();
+        },
+      );
+      isSendOtpLoading = false;
+      notifyListeners();
     }
-    isSendOtpLoading = true;
-    notifyListeners();
-    final result = await UserAuthService.instance.sendOtp(email: email);
-
-    result.fold(
-      (failure) {
-        AppToast.error(context: context, message: failure.errorMessage);
-      },
-      (data) async {
-        AppToast.success(
-          context: context,
-          message: context.translator.otpSentSuccessfully,
-        );
-        Logger.printInfo(data['message']);
-        // Store email for resend functionality
-        _currentEmail = email;
-
-        // Start the timer
-        _startResendTimer();
-
-        context.pushNamed(
-          MobileAppRoutes.verifyOtpScreen.name,
-          extra: (data["data"]["user_id"] as int).toString(),
-        );
-        _otpController.clear();
-      },
-    );
-    isSendOtpLoading = false;
-    notifyListeners();
   }
 
   bool isResendOtpLoading = false;
@@ -493,13 +501,11 @@ class UserAuthProvider extends ChangeNotifier {
 
     // validate confirm password
 
-    registerConfirmPassWordErr =
-        FieldValidators().match(
-          _registerConfirmPassCtr.text.trim(),
-          _registerPasswordCtr.text.trim(),
-          context, //"Confirm Password should match with Password!",
-        ) ??
-        "";
+    registerConfirmPassWordErr = FieldValidators().match(
+      _registerConfirmPassCtr.text.trim(),
+      _registerPasswordCtr.text.trim(),
+      context, //"Confirm Password should match with Password!",
+    );
 
     // if (FieldValidators().match(
     //       _registerConfirmPassCtr.text.trim(),
@@ -532,13 +538,11 @@ class UserAuthProvider extends ChangeNotifier {
       _resetNewPassCtr.text.trim(),
       context,
     );
-    resetConfirmPassErr =
-        FieldValidators().match(
-          _resetConfirmPassCtr.text.trim(),
-          _resetNewPassCtr.text.trim(),
-          context, //"Confirm Password should match with Password!",
-        ) ??
-        "";
+    resetConfirmPassErr = FieldValidators().match(
+      _resetConfirmPassCtr.text.trim(),
+      _resetNewPassCtr.text.trim(),
+      context, //"Confirm Password should match with Password!",
+    );
 
     notifyListeners();
 

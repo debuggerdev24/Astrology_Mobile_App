@@ -342,7 +342,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get isRequired => 'is required';
 
   @override
-  String get validNameError => 'Enter a valid name (Only alphabets allowed).';
+  String get nameSyntaxError => 'Enter a valid name (Only alphabets allowed)!';
+
+  @override
+  String get emailSyntaxError => 'Enter a valid Email!';
+
+  @override
+  String get accNotFoundError => 'No account found with this email. Please try again or sign up!';
 
   @override
   String get birthPlace => 'Birth Place';
@@ -643,4 +649,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noMantraHistory => 'No mantra history available.';
+
+  @override
+  String get alreadySubscribed => 'You’ve already subscribed to this plan.';
+
+  @override
+  String get palmBirthChartAlignment => 'Palm + Birth Chart Alignment';
 }

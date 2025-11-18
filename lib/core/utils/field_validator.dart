@@ -23,9 +23,10 @@ class FieldValidators {
     }
 
     if (!namePattern.hasMatch(val) && val.isNotEmpty) {
-      return "Enter a valid name (Only alphabets allowed)."; //Enter a valid name (Only alphabets allowed).
+      return context
+          .translator
+          .nameSyntaxError; //"Enter a valid name (Only alphabets allowed)!";
     }
-
     return "";
   }
 
@@ -39,7 +40,7 @@ class FieldValidators {
     );
 
     if (!emailPattern.hasMatch(val)) {
-      return "Enter valid Email!";
+      return context.translator.emailSyntaxError;
     }
     return "";
   }
@@ -156,7 +157,7 @@ class FieldValidators {
     return null;
   }
 
-  String? match(String? val, String secondValue, BuildContext context) {
+  String match(String? val, String secondValue, BuildContext context) {
     if (val == null || val.trim().isEmpty) {
       return "${context.translator.confirmPasswordForValidation} ${context.translator.isRequired}!";
     }
@@ -170,6 +171,6 @@ class FieldValidators {
       return context.translator.confirmPassShouldMatch;
     }
 
-    return null;
+    return "";
   }
 }

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:astrology_app/apps/mobile/user/model/settings/subscription_plan_model.dart';
 import 'package:astrology_app/apps/mobile/user/provider/setting/subscription_provider.dart';
 import 'package:astrology_app/apps/mobile/user/screens/subscription/choose_plan_screen.dart';
@@ -29,7 +27,6 @@ class SelectedPlanScreen extends StatelessWidget {
       horizontalPadding: 0,
       body: Consumer<SubscriptionProvider>(
         builder: (context, provider, child) {
-          log("djksbfjsdfhjfhf ${provider.isSubscriptionLoading}");
           return Stack(
             children: [
               Column(

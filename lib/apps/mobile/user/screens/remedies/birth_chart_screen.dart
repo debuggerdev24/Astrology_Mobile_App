@@ -36,7 +36,7 @@ class BirthChartScreen extends StatelessWidget {
                     children: [
                       Center(
                         child: AppText(
-                          text: "Palm + Birth Chart Alignment",
+                          text: translator.palmBirthChartAlignment,
                           style: bold(
                             fontSize: 20,
                             fontFamily: AppFonts.secondary,
@@ -103,8 +103,8 @@ class BirthChartScreen extends StatelessWidget {
                       ),
                       12.h.verticalSpace,
                       AppText(
-                        text:
-                            "Your astrological and palm reading both indicate a favourable period for learning and spiritual growth.",
+                        text: birthChart.birthChartSummary.summary,
+                        //"Your astrological and palm reading both indicate a favourable period for learning and spiritual growth.",
                         style: medium(fontSize: 16),
                       ),
                       AppButton(

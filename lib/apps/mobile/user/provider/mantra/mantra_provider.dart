@@ -29,7 +29,7 @@ class MantraProvider extends ChangeNotifier {
     isDownloadLoading = true;
     notifyListeners();
     await DownloadManager().downloadRemedy(
-      url: "http://138.197.92.15$url",
+      url: "http://209.38.20.86$url",
       bhajanId: title,
       title: title,
       onProgress: (progress) {

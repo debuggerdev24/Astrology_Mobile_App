@@ -17,7 +17,7 @@ class ErrorBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FadeInDown(
-      from: 32.0,
+      from: 40,
       animate: true,
       curve: Curves.fastOutSlowIn,
       key: ValueKey(errorMessage),

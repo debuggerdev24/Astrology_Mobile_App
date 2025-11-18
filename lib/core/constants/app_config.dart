@@ -3,8 +3,8 @@ enum UserRole { customer, creator, admin }
 class AppConfig {
   AppConfig._();
   static final UserRole userRole = UserRole.customer;
-  static const String apiBaseurl = "http://170.64.218.78/api";
-  static const String imagesBaseurl = "http://170.64.218.78/"; //
+  static const String apiBaseurl = "http://209.38.20.86/api";
+  static const String imagesBaseurl = "http://209.38.20.86/"; //
 }
 
 /*

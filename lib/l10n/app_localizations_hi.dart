@@ -342,7 +342,13 @@ class AppLocalizationsHi extends AppLocalizations {
   String get isRequired => 'आवश्यक है';
 
   @override
-  String get validNameError => 'मान्य नाम दर्ज करें (केवल अक्षर अनुमत हैं).';
+  String get nameSyntaxError => 'मान्य नाम दर्ज करें (केवल अक्षर अनुमत हैं)!';
+
+  @override
+  String get emailSyntaxError => 'मान्य ईमेल दर्ज करें!';
+
+  @override
+  String get accNotFoundError => 'इस ईमेल से कोई खाता नहीं मिला। कृपया पुनः प्रयास करें या साइन अप करें!';
 
   @override
   String get birthPlace => 'जन्म स्थान';
@@ -411,7 +417,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get yes => 'हाँ';
 
   @override
-  String get noMantraToday => 'आज के लिए कोई मंत्र निर्धारित नहीं है';
+  String get noMantraToday => 'आज के लिए कोई मंत्र निर्धारित नहीं है।';
 
   @override
   String get date => 'तारीख';
@@ -603,10 +609,10 @@ class AppLocalizationsHi extends AppLocalizations {
   String get loggedOutSuccessfully => 'सफलतापूर्वक लॉग आउट हो गया';
 
   @override
-  String get otpSentSuccessfully => 'OTP सफलतापूर्वक भेजा गया';
+  String get otpSentSuccessfully => 'OTP सफलतापूर्वक भेजा गया हे';
 
   @override
-  String get otpReSentSuccessfully => 'OTP सफलतापूर्वक पुनः भेजा गया';
+  String get otpReSentSuccessfully => 'OTP सफलतापूर्वक पुनः भेजा गया हे';
 
   @override
   String get otpVerifiedSuccessfully => 'OTP सफलतापूर्वक सत्यापित';
@@ -642,5 +648,11 @@ class AppLocalizationsHi extends AppLocalizations {
   String get expireToken => 'टोकन की समय सीमा समाप्त हो गई है';
 
   @override
-  String get noMantraHistory => 'कोई मंत्र इतिहास उपलब्ध नहीं है.';
+  String get noMantraHistory => 'कोई मंत्र इतिहास उपलब्ध नहीं है।';
+
+  @override
+  String get alreadySubscribed => 'आपने पहले ही इस योजना की सदस्यता ले ली है।';
+
+  @override
+  String get palmBirthChartAlignment => 'हथेली + जन्म कुंडली संरेखण';
 }

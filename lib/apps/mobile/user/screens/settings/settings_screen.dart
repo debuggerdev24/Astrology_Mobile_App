@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:app_settings/app_settings.dart';
 import 'package:astrology_app/apps/mobile/user/provider/auth/auth_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/setting/locale_provider.dart';
@@ -34,7 +36,7 @@ class _SettingScreenState extends State<SettingScreen>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    // optional: check once at launch
+    context.read<NotificationProvider>().getAndroidVersion();
     // Future.microtask(
     //   () => context
     //       .read<NotificationProvider>()
@@ -99,28 +101,37 @@ class _SettingScreenState extends State<SettingScreen>
                         context.pushNamed(MobileAppRoutes.appInfoScreen.name);
                       },
                     ),
-                    buildDivider(),
                     Consumer<NotificationProvider>(
-                      builder: (context, provider, child) => _section(
-                        title: context.translator.notification,
-                        trailing: Transform.scale(
-                          scale: 0.8,
-                          child: CupertinoSwitch(
-                            inactiveTrackColor: AppColors.greyColor,
-                            value: provider.isNotificationOn,
-                            onChanged: (value) async {
-                              await AppSettings.openAppSettings(
-                                type: AppSettingsType.notification,
-                              );
-                            },
-                          ),
-                        ),
-                        onTap: () async {
-                          await AppSettings.openAppSettings(
-                            type: AppSettingsType.notification,
+                      builder: (context, provider, child) {
+                        if (Platform.isIOS || provider.androidVersion <= 12) {
+                          return Column(
+                            children: [
+                              buildDivider(),
+                              _section(
+                                title: context.translator.notification,
+                                trailing: Transform.scale(
+                                  scale: 0.8,
+                                  child: CupertinoSwitch(
+                                    inactiveTrackColor: AppColors.greyColor,
+                                    value: provider.isNotificationOn,
+                                    onChanged: (value) async {
+                                      await AppSettings.openAppSettings(
+                                        type: AppSettingsType.notification,
+                                      );
+                                    },
+                                  ),
+                                ),
+                                onTap: () async {
+                                  await AppSettings.openAppSettings(
+                                    type: AppSettingsType.notification,
+                                  );
+                                },
+                              ),
+                            ],
                           );
-                        },
-                      ),
+                        }
+                        return SizedBox();
+                      },
                     ),
                     buildDivider(),
                     _section(

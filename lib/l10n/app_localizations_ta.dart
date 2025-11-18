@@ -342,7 +342,13 @@ class AppLocalizationsTa extends AppLocalizations {
   String get isRequired => 'அவசியம்';
 
   @override
-  String get validNameError => 'செல்லுபடியாகும் பெயரை உள்ளிடவும் (எழுத்துக்கள் மட்டுமே அனுமதிக்கப்படும்).';
+  String get nameSyntaxError => 'செல்லுபடியாகும் பெயரை உள்ளிடவும் (எழுத்துக்கள் மட்டுமே அனுமதிக்கப்படும்)!';
+
+  @override
+  String get emailSyntaxError => 'செல்லுபடியாகும் மின்னஞ்சலை உள்ளிடவும்!';
+
+  @override
+  String get accNotFoundError => 'இந்த மின்னஞ்சலில் எந்தக் கணக்கும் இல்லை. மீண்டும் முயற்சிக்கவும் அல்லது பதிவு செய்யவும்!';
 
   @override
   String get birthPlace => 'பிறந்த இடம்';
@@ -643,4 +649,10 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get noMantraHistory => 'மந்திர வரலாறு எதுவும் கிடைக்கவில்லை.';
+
+  @override
+  String get alreadySubscribed => 'நீங்கள் ஏற்கனவே இந்தத் திட்டத்தில் சேர்ந்துள்ளீர்கள்.';
+
+  @override
+  String get palmBirthChartAlignment => 'உள்ளங்கை + பிறப்பு விளக்கப்பட சீரமைப்பு';
 }

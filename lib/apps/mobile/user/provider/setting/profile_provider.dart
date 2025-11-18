@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:astrology_app/apps/mobile/user/services/settings/profile_api_service.dart';
@@ -104,8 +103,8 @@ class UserProfileProvider extends ChangeNotifier {
         leftHandImageUrl = profile.palmImageLeft;
         rightHandImageUrl = profile.palmImageRight;
         isGetProfileLoading = false;
-        _activePalm = profile.activePalm ?? 'left';
-        _originalActivePalm = profile.activePalm ?? 'left';
+        _activePalm = profile.activePalm;
+        _originalActivePalm = profile.activePalm;
         notifyListeners();
       },
     );
@@ -126,13 +125,12 @@ class UserProfileProvider extends ChangeNotifier {
     errorTOBStr = "";
   }
 
-  //todo ---------------> edit profile
+  //todo ---------------> update profile
   bool isUpdateProfileLoading = false;
   Future<void> updateProfile({
     required BuildContext context,
     bool? isFromEdit,
   }) async {
-    log(LocaleStoaregService.profileCreated.toString());
     if (isFromEdit ?? false) {
       if (_validateEditFields(context)) return;
     } else {
@@ -184,6 +182,7 @@ class UserProfileProvider extends ChangeNotifier {
 
       result.fold(
         (failure) {
+          Logger.printInfo(failure.errorMessage);
           AppToast.error(context: context, message: failure.errorMessage);
         },
         (data) async {
@@ -204,7 +203,9 @@ class UserProfileProvider extends ChangeNotifier {
     }
     AppToast.warning(
       context: context,
-      message: "Please check the box to agree to the terms and continue.",
+      message: context
+          .translator
+          .checkBoxWarningMessage, //"Please check the box to agree to the terms and continue.",
     );
   }
 
@@ -360,34 +361,26 @@ class UserProfileProvider extends ChangeNotifier {
       context,
       nameController.text.trim(),
     );
-    errorDOBStr =
-        FieldValidators().required(
-          context,
-          birthDateController.text.trim(),
-          context.translator.dateOfBirth,
-        ) ??
-        "";
-    errorTOBStr =
-        FieldValidators().required(
-          context,
-          birthTimeController.text.trim(),
-          context.translator.timeOfBirth,
-        ) ??
-        "";
-    errorPlaceOfBirthStr =
-        FieldValidators().required(
-          context,
-          birthPlaceController.text.trim(),
-          context.translator.placeOfBirth,
-        ) ??
-        "";
-    errorCurrentLocationStr =
-        FieldValidators().required(
-          context,
-          currentLocationController.text.trim(),
-          context.translator.currentLocation,
-        ) ??
-        "";
+    errorDOBStr = FieldValidators().required(
+      context,
+      birthDateController.text.trim(),
+      context.translator.dateOfBirth,
+    );
+    errorTOBStr = FieldValidators().required(
+      context,
+      birthTimeController.text.trim(),
+      context.translator.timeOfBirth,
+    );
+    errorPlaceOfBirthStr = FieldValidators().required(
+      context,
+      birthPlaceController.text.trim(),
+      context.translator.placeOfBirth,
+    );
+    errorCurrentLocationStr = FieldValidators().required(
+      context,
+      currentLocationController.text.trim(),
+      context.translator.currentLocation,
+    );
     // if()
 
     if ((leftHandImageFile == null || rightHandImageFile == null)) {
@@ -415,34 +408,26 @@ class UserProfileProvider extends ChangeNotifier {
       context,
       editNameController.text.trim(),
     );
-    errorDOBStr =
-        FieldValidators().required(
-          context,
-          birthDateController.text.trim(),
-          "Birth Date",
-        ) ??
-        "";
-    errorTOBStr =
-        FieldValidators().required(
-          context,
-          editBirthTimeController.text.trim(),
-          context.translator.timeOfBirth,
-        ) ??
-        "";
-    errorPlaceOfBirthStr =
-        FieldValidators().required(
-          context,
-          editBirthPlaceController.text.trim(),
-          context.translator.birthPlace,
-        ) ??
-        "";
-    errorCurrentLocationStr =
-        FieldValidators().required(
-          context,
-          editCurrentLocationController.text.trim(),
-          context.translator.currentLocation,
-        ) ??
-        "";
+    errorDOBStr = FieldValidators().required(
+      context,
+      birthDateController.text.trim(),
+      "Birth Date",
+    );
+    errorTOBStr = FieldValidators().required(
+      context,
+      editBirthTimeController.text.trim(),
+      context.translator.timeOfBirth,
+    );
+    errorPlaceOfBirthStr = FieldValidators().required(
+      context,
+      editBirthPlaceController.text.trim(),
+      context.translator.birthPlace,
+    );
+    errorCurrentLocationStr = FieldValidators().required(
+      context,
+      editCurrentLocationController.text.trim(),
+      context.translator.currentLocation,
+    );
     notifyListeners();
 
     if (errorNameStr.isNotEmpty ||

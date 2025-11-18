@@ -210,9 +210,9 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
                               context.pushNamed(
                                 MobileAppRoutes.birthChartScreen.name,
                               );
-                              if (provider.birthChartDetails == null) {
-                                provider.getBirthChartDetails();
-                              }
+                              // if (provider.birthChartDetails == null) {
+                              provider.getBirthChartDetails();
+                              // }
                             } else {
                               showPremiumDialog(
                                 context: context,

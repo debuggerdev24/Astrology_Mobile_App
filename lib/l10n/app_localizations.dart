@@ -763,11 +763,23 @@ abstract class AppLocalizations {
   /// **'is required'**
   String get isRequired;
 
-  /// No description provided for @validNameError.
+  /// No description provided for @nameSyntaxError.
   ///
   /// In en, this message translates to:
-  /// **'Enter a valid name (Only alphabets allowed).'**
-  String get validNameError;
+  /// **'Enter a valid name (Only alphabets allowed)!'**
+  String get nameSyntaxError;
+
+  /// No description provided for @emailSyntaxError.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a valid Email!'**
+  String get emailSyntaxError;
+
+  /// No description provided for @accNotFoundError.
+  ///
+  /// In en, this message translates to:
+  /// **'No account found with this email. Please try again or sign up!'**
+  String get accNotFoundError;
 
   /// No description provided for @birthPlace.
   ///
@@ -1368,6 +1380,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No mantra history available.'**
   String get noMantraHistory;
+
+  /// No description provided for @alreadySubscribed.
+  ///
+  /// In en, this message translates to:
+  /// **'You’ve already subscribed to this plan.'**
+  String get alreadySubscribed;
+
+  /// No description provided for @palmBirthChartAlignment.
+  ///
+  /// In en, this message translates to:
+  /// **'Palm + Birth Chart Alignment'**
+  String get palmBirthChartAlignment;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

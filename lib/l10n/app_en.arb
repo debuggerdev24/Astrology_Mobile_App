@@ -110,7 +110,9 @@
   "profileUpdatedSuccessfully": "Profile Updated Successfully",
   "pleaseEnterPalmImage": "Please enter palm image",
   "isRequired": "is required",
-  "validNameError": "Enter a valid name (Only alphabets allowed).",
+  "nameSyntaxError": "Enter a valid name (Only alphabets allowed)!",
+  "emailSyntaxError": "Enter a valid Email!",
+  "accNotFoundError": "No account found with this email. Please try again or sign up!",
   "birthPlace": "Birth Place",
   "enterYourFullName": "Enter your Full Name",
   "enterYourBirthPlace": "Enter your Birth Place",
@@ -210,7 +212,7 @@
   "confirmPasswordForValidation": "Confirm Password",
   "passwordSyntaxError": "Password must be at least 8 characters, include a capital letter, a number, and a special character!",
   "expireToken": "Token has expired",
-  "noMantraHistory": "No mantra history available."
-
-
+  "noMantraHistory": "No mantra history available.",
+  "alreadySubscribed": "You’ve already subscribed to this plan.",
+  "palmBirthChartAlignment": "Palm + Birth Chart Alignment"
 }

@@ -1,8 +1,6 @@
 class BirthChartModel {
   BirthChartSummary birthChartSummary;
-  String palmSummary;
-  String interpretation;
-  String remediesCta;
+  String palmSummary, interpretation, remediesCta;
 
   BirthChartModel({
     required this.birthChartSummary,

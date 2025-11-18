@@ -152,16 +152,52 @@ class _HomeScreenState extends State<HomeScreen>
         if (provider.todayMantra != null) {
           return mantraPlayer(context: context, mantra: provider.todayMantra!);
         } else {
-          return Padding(
-            padding: EdgeInsets.symmetric(vertical: 20.h),
-            child: AppText(
-              textAlign: TextAlign.center,
-              style: medium(fontSize: context.isTamil ? 17.5 : 20),
-              text: context.translator.noMantraToday,
-            ),
-          );
+          return noMantaAvailable(context);
         }
       },
+    );
+  }
+
+  Widget noMantaAvailable(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(top: 14.h, bottom: 18.h),
+      padding: EdgeInsets.fromLTRB(12.w, 8.h, 12.w, 16.h),
+
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(8.r),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.white.withValues(alpha: 0.45),
+            blurRadius: 16,
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          4.h.verticalSpace,
+          AppText(
+            text: context.translator.dailyMantra,
+            style: bold(
+              color: AppColors.greyColor,
+              fontSize: context.isTamil ? 18 : 20,
+              fontFamily: AppFonts.secondary,
+            ),
+          ),
+          8.h.verticalSpace,
+          Center(
+            child: AppText(
+              textAlign: TextAlign.center,
+              style: regular(
+                fontSize: context.isTamil ? 16 : 18,
+                color: AppColors.greyColor,
+              ),
+              text: context.translator.noMantraToday,
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -173,7 +209,6 @@ class _HomeScreenState extends State<HomeScreen>
     return greyColoredBox(
       margin: EdgeInsets.only(bottom: 10.h),
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

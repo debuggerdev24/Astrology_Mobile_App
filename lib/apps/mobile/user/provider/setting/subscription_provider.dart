@@ -139,7 +139,7 @@ class SubscriptionProvider extends ChangeNotifier {
     required String planName,
   }) async {
     setSubscriptionProcessStatus(status: true);
-    final res = await SubscriptionService().buySubscription(
+    await SubscriptionService().buySubscription(
       tier: tier,
       planId: planId,
       planName: planName,

@@ -35,32 +35,36 @@ Widget topBar({
   String? title,
   Widget? actionIcon,
   Widget? leadingIcon,
+  double? rightPadding,
 }) {
   return Row(
-    // crossAxisAlignment: CrossAxisAlignment.start,
+    crossAxisAlignment: CrossAxisAlignment.start,
     mainAxisAlignment: title != null
         ? MainAxisAlignment.spaceBetween
         : MainAxisAlignment.start,
     children: [
       showBackButton ?? true
-          ? GestureDetector(
-              behavior: HitTestBehavior.deferToChild,
-              onTap:
-                  onLeadingTap ??
-                  () {
-                    context.pop();
-                  },
-              child: SizedBox(
-                height: 28.h,
-                width: 28.w,
-                child: Icon(
-                  Icons.arrow_back,
-                  color: AppColors.white,
-                  size: 25.w,
+          ? Padding(
+              padding: EdgeInsets.only(top: 3.5, right: rightPadding ?? 0),
+              child: GestureDetector(
+                behavior: HitTestBehavior.deferToChild,
+                onTap:
+                    onLeadingTap ??
+                    () {
+                      context.pop();
+                    },
+                child: SizedBox(
+                  height: 28.h,
+                  width: 28.w,
+                  child: Icon(
+                    Icons.arrow_back,
+                    color: AppColors.white,
+                    size: 25.w,
+                  ),
                 ),
               ),
             )
-          : SizedBox(width: 20.w),
+          : SizedBox(width: 22.w),
       Expanded(
         child: buildPageTitle(title: title ?? "", context: context),
       ),

@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -19,6 +22,26 @@ class NotificationProvider extends ChangeNotifier {
     _isNotificationOn = value;
     setNotificationStatus();
     notifyListeners();
+  }
+
+  int _androidVersion = 10;
+  int get androidVersion => _androidVersion;
+
+  Future<void> getAndroidVersion() async {
+    if (Platform.isAndroid) {
+      DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+
+      // Get Android version number (13, 14, 15, etc.)
+      int version = androidInfo.version.sdkInt;
+
+      // Get Android version release name ("13", "14", etc.)
+      _androidVersion = int.parse(androidInfo.version.release);
+      notifyListeners();
+
+      Logger.printInfo('Android SDK: $version');
+      Logger.printInfo('Android Version: $_androidVersion');
+    }
   }
 
   bool isSetNotificationLoading = false;

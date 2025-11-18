@@ -51,7 +51,7 @@ class SubscriptionService {
         return;
       }
 
-      await _loadProducts();
+      await _loadProducts(context);
 
       _subscription = _iap.purchaseStream.listen(
         (purchases) => _handlePurchaseUpdates(purchases, context),
@@ -65,8 +65,9 @@ class SubscriptionService {
     }
   }
 
-  Future<void> _loadProducts() async {
+  Future<void> _loadProducts(BuildContext context) async {
     try {
+      Logger.printInfo(productIds.values.toSet().toString());
       final response = await _iap.queryProductDetails(
         productIds.values.toSet(),
       );
@@ -80,6 +81,11 @@ class SubscriptionService {
         Logger.printInfo(
           "Product Details are below : \n${e.title}\n${e.price}\n${e.id}\n${e.description}",
         );
+        // AppToast.success(
+        //   context: context,
+        //   message:
+        //       "Product Details are below : \n${e.title}\n${e.price}\n${e.id}\n${e.description}",
+        // );
       }
     } catch (e) {
       Logger.printError("Error inside the _loadProducts function");
@@ -87,7 +93,7 @@ class SubscriptionService {
   }
 
   late int _planID;
-  late String _planName;
+  // late String _planName;
   Future<bool> buySubscription({
     required AppEnum tier,
     required int planId,
@@ -95,7 +101,7 @@ class SubscriptionService {
   }) async {
     try {
       _planID = planId;
-      _planName = planName;
+      // _planName = planName;
       final productId = productIds[tier];
       final product = availableProducts.firstWhere((p) {
         Logger.printInfo(p.id.toString() + productId.toString());
@@ -123,7 +129,7 @@ class SubscriptionService {
         final decoded = jsonDecode(localData);
         final purchaseToken = decoded["purchaseToken"];
 
-        Logger.printInfo('Purchase Token: $purchaseToken');
+        Logger.printInfo('Purchase Token: \n$purchaseToken');
         log('Purchase Token: $purchaseToken');
         Logger.printInfo("purchaseID : ${purchase.purchaseID}");
         Logger.printInfo(
@@ -144,6 +150,8 @@ class SubscriptionService {
           );
 
           indexTabUser.value = 0;
+          provider.setSubscriptionProcessStatus(status: false);
+
           context.pushNamed(MobileAppRoutes.userDashBoardScreen.name);
           // AppToast.success(
           //   context: context,

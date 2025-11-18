@@ -332,13 +332,11 @@ class SetReminderProvider extends ChangeNotifier {
   }
 
   bool validate({required BuildContext context, required bool checkDate}) {
-    titleError =
-        FieldValidators().required(
-          context,
-          textReminderTitle.text.trim(),
-          context.translator.reminderTitle,
-        ) ??
-        "";
+    titleError = FieldValidators().required(
+      context,
+      textReminderTitle.text.trim(),
+      context.translator.reminderTitle,
+    );
 
     //todo length validator
     // int len = textReminderTitle.text.trim().length;
@@ -350,22 +348,18 @@ class SetReminderProvider extends ChangeNotifier {
     // }
 
     if (checkDate) {
-      dateError =
-          FieldValidators().required(
-            context,
-            textDate.text.trim(),
-            context.translator.date,
-          ) ??
-          "";
+      dateError = FieldValidators().required(
+        context,
+        textDate.text.trim(),
+        context.translator.date,
+      );
     }
 
-    timeError =
-        FieldValidators().required(
-          context,
-          textTime.text.trim(),
-          context.translator.time,
-        ) ??
-        "";
+    timeError = FieldValidators().required(
+      context,
+      textTime.text.trim(),
+      context.translator.time,
+    );
 
     notifyListeners();
     if (timeError.isNotEmpty || dateError.isNotEmpty || titleError.isNotEmpty) {
