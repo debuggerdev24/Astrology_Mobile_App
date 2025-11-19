@@ -15,6 +15,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../../../core/constants/app_config.dart';
 import '../../../../../routes/mobile_routes/user_routes.dart';
 import '../../model/remedies/remedy_model.dart';
 import '../../provider/mantra/mantra_provider.dart';
@@ -334,7 +335,7 @@ class RemedyDetailScreen extends StatelessWidget {
                 onTap: () {
                   Future.wait([
                     context.read<MantraProvider>().loadAndPlayMusic(
-                      "http://209.38.20.86${mantra.audio}",
+                      "${AppConfig.audioBaseurl}${mantra.audio}",
                     ),
                     context.pushNamed(
                       MobileAppRoutes.singleMantraPlayerScreen.name,

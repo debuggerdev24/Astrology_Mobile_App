@@ -4,7 +4,8 @@ class AppConfig {
   AppConfig._();
   static final UserRole userRole = UserRole.customer;
   static const String apiBaseurl = "http://209.38.20.86/api";
-  static const String imagesBaseurl = "http://209.38.20.86/"; //
+  static const String imagesBaseurl = "http://209.38.20.86/";
+  static const String audioBaseurl = "http://209.38.20.86";
 }
 
 /*

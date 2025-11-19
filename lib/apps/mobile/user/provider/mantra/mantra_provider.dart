@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:astrology_app/core/constants/app_config.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 
@@ -29,12 +30,12 @@ class MantraProvider extends ChangeNotifier {
     isDownloadLoading = true;
     notifyListeners();
     await DownloadManager().downloadRemedy(
-      url: "http://209.38.20.86$url",
+      url: "${AppConfig.audioBaseurl}$url",
       bhajanId: title,
       title: title,
       onProgress: (progress) {
-        downloadProgress = progress; // Update progress
-        notifyListeners(); // Notify UI
+        downloadProgress = progress;
+        notifyListeners();
         onProgress(progress);
       },
       onSuccess: (filePath) {

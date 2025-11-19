@@ -209,8 +209,7 @@ class _TodayMantraPlayScreenState extends State<TodayMantraPlayScreen>
                                         onError: (errorMessage) {
                                           AppToast.error(
                                             context: context,
-                                            message:
-                                                'Download failed: $errorMessage',
+                                            message: errorMessage,
                                           );
                                         },
                                       );
@@ -225,9 +224,7 @@ class _TodayMantraPlayScreenState extends State<TodayMantraPlayScreen>
                                 onTap: () {
                                   deBouncer.run(() {
                                     SharePlus.instance.share(
-                                      ShareParams(
-                                        text: "http://138.197.92.15$url",
-                                      ),
+                                      ShareParams(text: "$url"),
                                     );
                                   });
                                 },

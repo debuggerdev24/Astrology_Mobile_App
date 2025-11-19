@@ -97,8 +97,9 @@ class SignUpScreen extends StatelessWidget {
                           provider.clearRegisterField();
                           provider.clearRegisterErrors();
                           provider.clearLoginError();
+                          provider.clearLoginFields();
                           context.pushNamed(MobileAppRoutes.signInScreen.name);
-                        },
+                        }, //
                         child: RichText(
                           textAlign: TextAlign.center,
                           text: TextSpan(
