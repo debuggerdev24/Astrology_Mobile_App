@@ -177,7 +177,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                               width: 18.w,
                               height: 18.w,
                               decoration: BoxDecoration(
-                                color: provider.isAgreementChecked
+                                color: LocaleStoaregService.profileCreated
                                     ? Colors.white
                                     : Colors.transparent,
                                 borderRadius: BorderRadius.circular(3.5.r),
@@ -186,7 +186,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                                   width: 1,
                                 ),
                               ),
-                              child: provider.isAgreementChecked
+                              child: LocaleStoaregService.profileCreated
                                   ? Icon(
                                       Icons.check,
                                       color: Colors.black,

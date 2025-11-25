@@ -10,8 +10,8 @@ class Logger {
   }
 
   static void printError(String text) {
-    if (kDebugMode) {
+    // if (kDebugMode) {
       print("Logger --- [ERROR] $text");
-    }
+    // }
   }
 }

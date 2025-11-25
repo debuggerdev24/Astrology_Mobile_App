@@ -13,36 +13,40 @@ class HomeProvider extends ChangeNotifier {
 
   Future<void> initHomeScreen() async {
     Logger.printInfo("initing home screen");
-    await getMoonDasha();
-    await Future.wait([
-      getDailyHoroScope(type: AppEnum.daily.name, num: 1),
-      getTodayMantra(),
+
+    Future.wait([
+    getTodayMantra(),
+    getDailyHoroScope(type: AppEnum.daily.name, num: 1),
+
     ]);
     await getDailyHoroScope(type: AppEnum.weekly.name, num: 2);
     await getDailyHoroScope(type: AppEnum.monthly.name, num: 3);
+
   }
 
   bool isMoonDashaLoading = true;
-  Future<void> getMoonDasha() async {
+  Future<bool> getMoonDasha() async {
     isMoonDashaLoading = true;
     notifyListeners();
     final result = await HomeApiService.instance.getMoonDasha();
     result.fold(
       (l) {
         Logger.printError(l.errorMessage);
+        return false;
       },
       (r) {
         final data = r["data"];
         moonSign = data["moon_sign"];
-        dasha =
-            "${data["dasha_periods"][0]["mahadasha"]} - ${data["dasha_periods"][0]["antardasha"]}";
+        dasha = "${data["dasha_periods"][0]["mahadasha"]} - ${data["dasha_periods"][0]["antardasha"]}";
+        return true;
       },
     );
     isMoonDashaLoading = false;
     notifyListeners();
+    return false;
   }
 
-  bool isDailyHoroScopeLoading = false;
+  bool isDailyHoroScopeLoading = true;
   Future<void> getDailyHoroScope({String? type, int? num}) async {
     isDailyHoroScopeLoading = true;
     notifyListeners();
@@ -56,18 +60,21 @@ class HomeProvider extends ChangeNotifier {
       (r) {
         if (num == 1) {
           this.dailyHoroScope = DailyHoroScopeModel.fromJson(r["data"]);
+          Logger.printInfo("Karma Action" + dailyHoroScope!.karmaAction.toString());
         } else if (num == 2) {
           weeklyHoroScope = DailyHoroScopeModel.fromJson(r["data"]);
+          Logger.printInfo("Karma Action" + dailyHoroScope!.karmaAction.toString());
         } else {
           monthlyHoroScope = DailyHoroScopeModel.fromJson(r["data"]);
+          Logger.printInfo("Karma Action" + dailyHoroScope!.karmaAction.toString());
+          isDailyHoroScopeLoading = false;
+          notifyListeners();
         }
       },
     );
-    isDailyHoroScopeLoading = false;
-    notifyListeners();
   }
 
-  bool isGetTodayMantraLoading = false;
+  bool isGetTodayMantraLoading = true;
   Future<void> getTodayMantra() async {
     todayMantra = null;
     isGetTodayMantraLoading = true;

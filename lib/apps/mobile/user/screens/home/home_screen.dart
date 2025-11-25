@@ -59,84 +59,34 @@ class _HomeScreenState extends State<HomeScreen>
       body: Consumer<UserProfileProvider>(
         builder: (context, profileProvider, child) => Consumer<HomeProvider>(
           builder: (context, provider, child) {
-            return (!provider.isMoonDashaLoading &&
+            if (!provider.isMoonDashaLoading &&
                     !provider.isDailyHoroScopeLoading &&
                     !profileProvider.isGetProfileLoading &&
                     !provider.isGetTodayMantraLoading)
-                ? Padding(
+                {
+                  return ListView(
                     padding: EdgeInsets.symmetric(horizontal: 12.w),
-                    child: ListView(
-                      padding: EdgeInsets.zero,
-                      children: [
-                        16.h.verticalSpace,
-                        userTopBar(
-                          context: context,
-                          userName: profileProvider.nameController.text,
-                        ),
-                        12.h.verticalSpace,
-                        dashaAndMoonSection(
-                          context: context,
-                          provider: provider,
-                        ),
-                        todayMantra(provider),
-                        horoscopeTabSection(provider, translator, context),
-                        //   greyColoredBox(
-                        //                             margin: EdgeInsets.only(bottom: 20.h),
-                        //                             padding: EdgeInsets.symmetric(
-                        //                               horizontal: 10,
-                        //                               vertical: 10, //
-                        //                             ),
-                        //                             child: Column(
-                        //                               crossAxisAlignment: CrossAxisAlignment.start,
-                        //                               spacing: 10.h,
-                        //                               children: [
-                        //                                 IntrinsicWidth(
-                        //                                   child: Column(
-                        //                                     crossAxisAlignment:
-                        //                                         CrossAxisAlignment.start,
-                        //                                     children: [
-                        //                                       AppText(
-                        //                                         text: translator.karmaFocus,
-                        //                                         style: bold(
-                        //                                           height: 0,
-                        //                                           fontFamily: AppFonts.secondary,
-                        //                                           fontSize: 18,
-                        //                                           decorationColor: AppColors.whiteColor,
-                        //                                         ),
-                        //                                       ),
-                        //                                       Container(
-                        //                                         height: 1,
-                        //                                         color: AppColors.whiteColor,
-                        //                                       ),
-                        //                                     ],
-                        //                                   ),
-                        //                                 ),
-                        //
-                        //                                 actionCaution(
-                        //                                   title: translator.action,
-                        //                                   context: context,
-                        //                                   detail: provider.dailyHoroScope!.karmaAction,
-                        //                                 ),
-                        //                                 actionCaution(
-                        //                                   context: context,
-                        //                                   title: translator.caution,
-                        //                                   detail: provider.dailyHoroScope!.karmaCaution,
-                        //                                   titleColor: AppColors.redColor,
-                        //                                 ),
-                        //                               ],
-                        //                             ),
-                        //                           ),
-                        //                           //todo -------------> Dasha Nakshtra
-                        //                           dashaNakshtra(
-                        //                             translator,
-                        //                             context,
-                        //                             provider.dailyHoroScope,
-                        //                           ),
-                      ],
-                    ),
-                  )
-                : _homeShimmer();
-          },
+                    children: [
+                      16.h.verticalSpace,
+                      userTopBar(
+                        context: context,
+                        userName: profileProvider.nameController.text,
+                      ),
+                      12.h.verticalSpace,
+                      dashaAndMoonSection(
+                        context: context,
+                        provider: provider,
+                      ),
+                      todayMantra(provider),
+                      horoscopeTabSection(provider, translator, context),
+                    ],
+                  );
+                }
+            else{
+              return _homeShimmer();
+
+            }
+            },
         ),
       ),
     );

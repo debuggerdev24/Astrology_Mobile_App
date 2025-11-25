@@ -19,7 +19,7 @@ class NotificationService {
     // Android initialization settings
     const AndroidInitializationSettings androidSettings =
         AndroidInitializationSettings(
-          "assets/icon/icon.png",
+          "@mipmap/ic_launcher",
         ); //@mipmap/ic_launcher
     // if (Platform.isAndroid) {
     //   AndroidDeviceInfo androidInfo = await DeviceInfoPlugin().androidInfo;

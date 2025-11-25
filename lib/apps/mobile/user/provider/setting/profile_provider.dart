@@ -81,7 +81,7 @@ class UserProfileProvider extends ChangeNotifier {
   }
 
   //todo ---------------> get profile
-  bool isGetProfileLoading = false;
+  bool isGetProfileLoading = true;
   Future<void> getProfile(BuildContext context) async {
     // if (_validateRegisterData()) return;
     isGetProfileLoading = true;
@@ -185,6 +185,7 @@ class UserProfileProvider extends ChangeNotifier {
           Logger.printInfo(failure.errorMessage);
           AppToast.error(context: context, message: failure.errorMessage);
         },
+
         (data) async {
           await LocaleStoaregService.setProfileCreated(true);
 
@@ -194,7 +195,7 @@ class UserProfileProvider extends ChangeNotifier {
           );
           // clearControllers();
 
-          await context.pushNamed(MobileAppRoutes.userDashBoardScreen.name);
+          context.pushNamed(MobileAppRoutes.userDashBoardScreen.name);
         },
       );
       isUpdateProfileLoading = false;
