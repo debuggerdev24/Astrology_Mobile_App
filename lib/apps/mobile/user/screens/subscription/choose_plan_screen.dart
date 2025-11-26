@@ -24,10 +24,6 @@ class SubscriptionPlansScreen extends StatefulWidget {
 }
 
 class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen> {
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -115,8 +111,8 @@ Widget premiumPlanBox({
             ),
             if (plan.price != "0")
               AppText(
-                text: "\$${double.parse(plan.price).toStringAsFixed(2)}",
-                style: bold(fontSize: 20, color: AppColors.primary),
+                text: plan.price,//"\$${double.parse().toStringAsFixed(2)}",
+                style: bold(fontSize: 18, color: AppColors.primary),
               ),
           ],
         ),

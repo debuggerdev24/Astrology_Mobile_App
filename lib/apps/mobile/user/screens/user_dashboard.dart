@@ -230,25 +230,22 @@ class _UserDashboardState extends State<UserDashboard> {
 
 void callInitAPIs({required BuildContext context}) {
   WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-    await context.read<HomeProvider>().getMoonDasha();
-    Future.delayed(Duration(seconds: 5),() {
-      Future.wait([
+    Future.wait([
 
-        context.read<HomeProvider>().initHomeScreen(),
-        context.read<MantraProvider>().getMantraHistory(),
-        context.read<SubscriptionProvider>().getActiveSubscriptionPlan(
-          context: context,
-        ),
-        context.read<UserProfileProvider>().getProfile(context),
-        context.read<SubscriptionProvider>().getSubscriptionPlans(),
-        // context.read<SetReminderProvider>().initializeNotifications(
-        //   context: context,
-        // ),
-        context.read<AppInfoProvider>().init(context: context),
-        SubscriptionService().initialize(context),
-        NotificationService.instance.init(),
-      ]);
-    },);
+      context.read<HomeProvider>().initHomeScreen(),
+      context.read<MantraProvider>().getMantraHistory(),
+      context.read<SubscriptionProvider>().getActiveSubscriptionPlan(
+        context: context,
+      ),
+      context.read<UserProfileProvider>().getProfile(context),
+      context.read<SubscriptionProvider>().getSubscriptionPlans(),
+      // context.read<SetReminderProvider>().initializeNotifications(
+      //   context: context,
+      // ),
+      context.read<AppInfoProvider>().init(context: context),
+      SubscriptionService().initialize(context),
+      NotificationService.instance.init(),
+    ]);
 
   });
 }

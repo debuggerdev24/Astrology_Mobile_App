@@ -64,11 +64,11 @@ class SubscriptionProvider extends ChangeNotifier {
           r["data"],
         );
         _activeSubscriptions.clear();
-        if (r["data"]["price"] == "20") {
+        if (r["data"]["price"] == "5 USD") {
           addSubscription(AppEnum.tier1);
           addSubscription(AppEnum.tier2);
         }
-        if (r["data"]["price"] == "10") {
+        if (r["data"]["price"] == "2 USD") {
           addSubscription(AppEnum.tier1);
         }
         isActivePlanLoading = false;

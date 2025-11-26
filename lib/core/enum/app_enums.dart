@@ -9,4 +9,5 @@ enum AppEnum {
   free,
   android,
   ios,
+  left,right
 }

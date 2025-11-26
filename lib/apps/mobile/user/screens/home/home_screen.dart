@@ -59,34 +59,32 @@ class _HomeScreenState extends State<HomeScreen>
       body: Consumer<UserProfileProvider>(
         builder: (context, profileProvider, child) => Consumer<HomeProvider>(
           builder: (context, provider, child) {
-            if (!provider.isMoonDashaLoading &&
-                    !provider.isDailyHoroScopeLoading &&
-                    !profileProvider.isGetProfileLoading &&
-                    !provider.isGetTodayMantraLoading)
-                {
-                  return ListView(
-                    padding: EdgeInsets.symmetric(horizontal: 12.w),
-                    children: [
-                      16.h.verticalSpace,
-                      userTopBar(
-                        context: context,
-                        userName: profileProvider.nameController.text,
-                      ),
-                      12.h.verticalSpace,
-                      dashaAndMoonSection(
-                        context: context,
-                        provider: provider,
-                      ),
-                      todayMantra(provider),
-                      horoscopeTabSection(provider, translator, context),
-                    ],
-                  );
-                }
-            else{
-              return _homeShimmer();
+            Logger.printInfo(
+              "isMoonDashaLoading ${provider.isMoonDashaLoading}\n isDailyHoroScopeLoading ${provider.isDailyHoroScopeLoading}\n isGetProfileLoading ${profileProvider.isGetProfileLoading}\n isGetTodayMantraLoading ${provider.isGetTodayMantraLoading}",
+            );
 
+            if (provider.isMoonDashaLoading ||
+                provider.isDailyHoroScopeLoading ||
+                profileProvider.isGetProfileLoading ||
+                provider.isGetTodayMantraLoading) {
+              return _homeShimmer();
+            } else {
+              return ListView(
+                padding: EdgeInsets.symmetric(horizontal: 12.w),
+                children: [
+                  16.h.verticalSpace,
+                  userTopBar(
+                    context: context,
+                    userName: profileProvider.nameController.text,
+                  ),
+                  12.h.verticalSpace,
+                  dashaAndMoonSection(context: context, provider: provider),
+                  todayMantra(provider),
+                  horoscopeTabSection(provider, translator, context),
+                ],
+              );
             }
-            },
+          },
         ),
       ),
     );

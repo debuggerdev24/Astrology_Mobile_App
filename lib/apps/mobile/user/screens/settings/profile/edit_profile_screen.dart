@@ -110,7 +110,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           hintText: translator.enterYourBirthPlace,
                           title: translator.placeOfBirth,
                           errorMessage: provider.errorPlaceOfBirthStr,
-
                           controller: provider.editBirthPlaceController,
                         ),
 
@@ -122,7 +121,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           title: translator.currentLocation,
                           controller: provider.editCurrentLocationController,
                         ),
-
                         //todo Uploaded Palm Section (OLD)
                         // Column(
                         //   crossAxisAlignment: CrossAxisAlignment.start,
@@ -164,7 +162,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               text: context.translator.uploadPalm,
                               style: medium(fontSize: 14),
                             ),
-
                             //todo Active palm indicator info banner
                             Container(
                               padding: EdgeInsets.symmetric(
@@ -276,7 +273,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       onTap: onTap,
       child: Stack(
         children: [
-          // 🌿 Palm Image
+          //todo -----------------> Palm Image
           Container(
             height: 130.h,
             decoration: BoxDecoration(
@@ -305,7 +302,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             ),
           ),
 
-          // ✅ Checkmark (Active Palm)
+          //todo Checkmark (Active Palm)
           Align(
             alignment: Alignment.topRight,
             child: isActive
@@ -335,7 +332,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
           ),
 
-          // 🏷 Label at bottom
+          //todo Label at bottom
           Positioned(
             bottom: 0,
             left: 0,

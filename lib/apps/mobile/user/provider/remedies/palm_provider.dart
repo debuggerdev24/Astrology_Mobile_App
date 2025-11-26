@@ -6,9 +6,12 @@ import 'package:astrology_app/core/utils/custom_toast.dart';
 import 'package:astrology_app/core/utils/logger.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 import '../../model/remedies/remedy_model.dart';
+import '../../screens/remedies/palm_reading_screen.dart';
 import '../../services/Remedies/remedy_api_service.dart';
 
 class PalmProvider extends ChangeNotifier {
@@ -18,6 +21,14 @@ class PalmProvider extends ChangeNotifier {
   RemedyModel? remedies;
   RemedyDetailsModel? remedyDetails;
   final ImagePicker _picker = ImagePicker();
+  String _activePalm = 'right';
+
+  String get activePalm => _activePalm;
+
+  void setActivePalm(String palm) {
+    _activePalm = palm;
+    notifyListeners();
+  }
 
   Future<void> pickImage({bool? isLeft}) async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
@@ -33,14 +44,15 @@ class PalmProvider extends ChangeNotifier {
 
   bool isUploading = false;
   Future<void> uploadForReading({
-    required VoidCallback onSuccess,
     required BuildContext context,
   }) async {
     isUploading = true;
     notifyListeners();
+    Logger.printInfo(_activePalm);
     FormData data = FormData.fromMap({
       "left_palm": await MultipartFile.fromFile(leftHandImageFile!.path),
       "right_palm": await MultipartFile.fromFile(rightHandImageFile!.path),
+      "active_palm": _activePalm
     });
     final result = await RemedyApiService.instance.uploadPalmFroReading(
       data: data,
@@ -53,13 +65,15 @@ class PalmProvider extends ChangeNotifier {
             context: context,
             message: "Only palm images are allowed.",
           );
+          isShowDialog = false;
+          context.pop();
         }
       },
       (r) {
         palmReading = PalmReadingModel.fromJson(r["data"]);
-        onSuccess.call();
         leftHandImageFile = null;
         rightHandImageFile = null;
+        isShowDialog = true;
         notifyListeners();
       },
     );

@@ -20,7 +20,10 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../../../core/utils/logger.dart';
 import '../../../../../l10n/app_localizations.dart';
+
+bool isShowDialog = true;
 
 class PalmReadingScreen extends StatefulWidget {
   const PalmReadingScreen({super.key});
@@ -38,7 +41,10 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, result) {
-        warningDialog(context, translator);
+        Logger.printInfo(isShowDialog.toString());
+        if(isShowDialog){
+          warningDialog(context, translator);
+        }
       },
       child: AppLayout(
         body: SingleChildScrollView(
@@ -512,6 +518,7 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
                         fontSize: 15,
                         title: translator.add,
                         onTap: () {
+                          isShowDialog = false;
                           context.pop();
                           context.pop();
                         },

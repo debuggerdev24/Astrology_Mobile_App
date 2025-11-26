@@ -13,11 +13,11 @@ class HomeProvider extends ChangeNotifier {
 
   Future<void> initHomeScreen() async {
     Logger.printInfo("initing home screen");
-
+    await getMoonDasha();
     Future.wait([
     getTodayMantra(),
     getDailyHoroScope(type: AppEnum.daily.name, num: 1),
-
+//gonhaonmpfcipjkaiideeioi.AO-J1Owa4YuB6hV-12rxpJKHrtFSU5Zyip7q_ldC9KjbceZMCsII1K-i2GyvZnbRdDzzgX9tnvt6JZya72Rcy9NlIpNariUDLNCZLXByJRNdyeqTBEaIIlo
     ]);
     await getDailyHoroScope(type: AppEnum.weekly.name, num: 2);
     await getDailyHoroScope(type: AppEnum.monthly.name, num: 3);
@@ -25,7 +25,7 @@ class HomeProvider extends ChangeNotifier {
   }
 
   bool isMoonDashaLoading = true;
-  Future<bool> getMoonDasha() async {
+  Future<void> getMoonDasha() async {
     isMoonDashaLoading = true;
     notifyListeners();
     final result = await HomeApiService.instance.getMoonDasha();
@@ -38,18 +38,19 @@ class HomeProvider extends ChangeNotifier {
         final data = r["data"];
         moonSign = data["moon_sign"];
         dasha = "${data["dasha_periods"][0]["mahadasha"]} - ${data["dasha_periods"][0]["antardasha"]}";
+        isMoonDashaLoading = false;
+        notifyListeners();
+
         return true;
       },
     );
-    isMoonDashaLoading = false;
-    notifyListeners();
-    return false;
+
   }
 
   bool isDailyHoroScopeLoading = true;
   Future<void> getDailyHoroScope({String? type, int? num}) async {
-    isDailyHoroScopeLoading = true;
-    notifyListeners();
+      isDailyHoroScopeLoading = true;
+      notifyListeners();
     final result = await HomeApiService.instance.getDailyHoroScope(
       queryParameter: {"horoscope_type": type},
     );
@@ -63,10 +64,10 @@ class HomeProvider extends ChangeNotifier {
           Logger.printInfo("Karma Action" + dailyHoroScope!.karmaAction.toString());
         } else if (num == 2) {
           weeklyHoroScope = DailyHoroScopeModel.fromJson(r["data"]);
-          Logger.printInfo("Karma Action" + dailyHoroScope!.karmaAction.toString());
-        } else {
+          // Logger.printInfo("Karma Action" + dailyHoroScope!.karmaAction.toString());
+        } else if(num == 3){
           monthlyHoroScope = DailyHoroScopeModel.fromJson(r["data"]);
-          Logger.printInfo("Karma Action" + dailyHoroScope!.karmaAction.toString());
+          // Logger.printInfo("Karma Action" + dailyHoroScope!.karmaAction.toString());
           isDailyHoroScopeLoading = false;
           notifyListeners();
         }

@@ -22,10 +22,5 @@ Future<void> main() async {
 //todo app changes :
 /*
 todo Vimaal
--> Debugged the provider module of the home screen to ensure proper state handling.
--> Added new attributes and logic to manage API loading states.
--> Tested and reviewed all home screen APIs to ensure proper performance.
--> Implemented error handling for API responses to prevent failures.
--> Updated shimmer loading conditions to avoid null errors.
--> Identified and fixed issues occurring on the home screen.
+
 */
