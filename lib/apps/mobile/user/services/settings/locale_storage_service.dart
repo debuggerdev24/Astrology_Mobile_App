@@ -19,6 +19,7 @@ class LocaleStoaregService {
   static const String _isProfileCreated = "is_profile_created";
   static const String _localeCode = "locale_code";
   static const String _isLanguageSelected = "is_language_selected";
+  static const String _isFirstTime = "is_First_Time";
 
   // save and get the value of is user logged in
   static bool get isLanguageSelected =>
@@ -51,6 +52,11 @@ class LocaleStoaregService {
       _pref.getString(_loggedInUserPasswordKey) ?? '';
   static Future<void> setLoggedInUserPassword(String value) async =>
       await _pref.setString(_loggedInUserPasswordKey, value);
+
+  static bool get isFirstTime =>
+      _pref.getBool(_loggedInUserPasswordKey) ?? true;
+  static Future<void> setIsFirstTime(bool value) async =>
+      await _pref.setBool(_loggedInUserPasswordKey, value);
 
   // save and get the user refresh auth token
   static String get userRefreshToken =>

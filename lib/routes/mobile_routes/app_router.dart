@@ -24,6 +24,7 @@ import 'package:astrology_app/core/extension/routes_extension.dart';
 import 'package:astrology_app/routes/mobile_routes/user_routes.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../apps/mobile/user/screens/app_tour/dash_board_tour.dart';
 import '../../apps/mobile/user/screens/auth/sign_up_screen.dart';
 import '../../apps/mobile/user/screens/init_screens/select_lang_screen.dart';
 import '../../apps/mobile/user/screens/init_screens/splash_screen.dart';
@@ -272,6 +273,13 @@ class MobileAppRouter {
       name: MobileAppRoutes.selectLanguageScreen.name,
       builder: (context, state) {
         return LanguageSelectionScreen();
+      },
+    ),
+    GoRoute(
+      path: MobileAppRoutes.userDashBoardTour.path,
+      name: MobileAppRoutes.userDashBoardTour.name,
+      builder: (context, state) {
+        return DashBoardTour();
       },
     ),
   ];

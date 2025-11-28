@@ -194,8 +194,8 @@ class UserProfileProvider extends ChangeNotifier {
             message: context.translator.profileUpdatedSuccessfully,
           );
           // clearControllers();
-
-          context.pushNamed(MobileAppRoutes.userDashBoardScreen.name);
+          // context.pushNamed(MobileAppRoutes.userDashBoardScreen.name);
+          context.pushNamed(MobileAppRoutes.userDashBoardTour.name);
         },
       );
       isUpdateProfileLoading = false;

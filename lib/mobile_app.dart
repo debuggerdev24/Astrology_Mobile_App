@@ -8,7 +8,7 @@ import 'package:astrology_app/apps/mobile/user/provider/setting/locale_provider.
 import 'package:astrology_app/apps/mobile/user/provider/setting/notification_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/setting/profile_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/setting/subscription_provider.dart';
-import 'package:astrology_app/routes/mobile_routes/go_router.dart';
+import 'package:astrology_app/routes/mobile_routes/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

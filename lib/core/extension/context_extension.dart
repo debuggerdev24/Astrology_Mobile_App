@@ -1,3 +1,4 @@
+import 'package:astrology_app/apps/mobile/user/provider/auth/auth_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/setting/locale_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -9,10 +10,5 @@ extension LocalizationExtension on BuildContext {
   bool get isTamil => read<LocaleProvider>().localeCode == "ta";
   bool get isHindi => read<LocaleProvider>().localeCode == "hi";
   bool get isEng => read<LocaleProvider>().localeCode == "en";
+  bool get isFirstTimeUser => read<UserAuthProvider>().isFirstTime;
 }
-
-// extension MediaQueryExtension on BuildContext {
-//   Size get size => MediaQuery.of(this).size;
-//   double get height => size.height;
-//   double get width => size.width;
-// }

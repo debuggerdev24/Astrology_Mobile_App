@@ -63,7 +63,7 @@ class PalmUploadScreen extends StatelessWidget {
                             },
                             label: "Left Palm",
                             fileImage: provider.leftHandImageFile,
-                            isActive: provider.activePalm == AppEnum.left.name
+                            isActive: provider.activePalm == AppEnum.left.name,
                           ),
                           uploadPalmSection(
                             onTap: () {
@@ -71,7 +71,7 @@ class PalmUploadScreen extends StatelessWidget {
                             },
                             label: "Right Palm",
                             fileImage: provider.rightHandImageFile,
-                              isActive: provider.activePalm == AppEnum.right.name,
+                            isActive: provider.activePalm == AppEnum.right.name,
                             onSetActive: () {
                               provider.setActivePalm(AppEnum.right.name);
                             },
@@ -151,9 +151,7 @@ class PalmUploadScreen extends StatelessWidget {
                             context.pushNamed(
                               MobileAppRoutes.palmReadingScreen.name,
                             );
-                            await provider.uploadForReading(
-                              context: context,
-                            );
+                            await provider.uploadForReading(context: context);
                           });
                         },
                         title: context.translator.submitForReading,
@@ -201,36 +199,39 @@ class PalmUploadScreen extends StatelessWidget {
               ),
             ),
           ),
-          if(fileImage != null)
-          ...[
+          if (fileImage != null) ...[
             //todo Checkmark (Active Palm)
             Align(
               alignment: Alignment.topRight,
               child: isActive
                   ? Container(
-                margin: EdgeInsets.only(top: 8, right: 8),
-                padding: EdgeInsets.all(4.w),
-                decoration: BoxDecoration(
-                  color: Colors.green,
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 4,
-                      offset: Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: Icon(Icons.check, color: Colors.white, size: 18.sp),
-              )
+                      margin: EdgeInsets.only(top: 8, right: 8),
+                      padding: EdgeInsets.all(4.w),
+                      decoration: BoxDecoration(
+                        color: Colors.green,
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black26,
+                            blurRadius: 4,
+                            offset: Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: Icon(
+                        Icons.check,
+                        color: Colors.white,
+                        size: 18.sp,
+                      ),
+                    )
                   : IconButton(
-                onPressed: onSetActive,
-                icon: Icon(
-                  Icons.check_circle_outline_rounded,
-                  color: Colors.white,
-                ),
-                splashRadius: 18,
-              ),
+                      onPressed: onSetActive,
+                      icon: Icon(
+                        Icons.check_circle_outline_rounded,
+                        color: Colors.white,
+                      ),
+                      splashRadius: 18,
+                    ),
             ),
             //todo Label at bottom
             Positioned(
@@ -258,7 +259,7 @@ class PalmUploadScreen extends StatelessWidget {
                 ),
               ),
             ),
-          ]
+          ],
         ],
       ),
     );

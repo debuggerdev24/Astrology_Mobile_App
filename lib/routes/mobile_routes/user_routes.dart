@@ -35,4 +35,5 @@ enum MobileAppRoutes {
   dashaNakshatraDetailsScreen,
   singleMantraPlayerScreen,
   selectLanguageScreen,
+  userDashBoardTour,
 }

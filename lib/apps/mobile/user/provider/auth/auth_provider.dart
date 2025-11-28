@@ -51,6 +51,8 @@ class UserAuthProvider extends ChangeNotifier {
   String _currentEmail = '';
   Timer? _resendTimer;
   int _resendSeconds = 0;
+  bool _firstTime = false;
+  bool get isFirstTime => _firstTime;
   bool get canResendOtp => _resendSeconds == 0;
 
   // Add getter for remaining time
@@ -136,15 +138,12 @@ class UserAuthProvider extends ChangeNotifier {
           context: context,
           message: context.translator.loginSuccessfully,
         );
-
+        _firstTime = data["data"]["first_time"];
         await LocaleStoaregService.saveUserToken(data['data']['access']);
-
         await LocaleStoaregService.saveUserRefreshToken(
           data['data']['refresh'],
         );
-
         await LocaleStoaregService.setIsUserLoggedIn();
-
         await LocaleStoaregService.setLoggedInUserEmail(
           _loginEmailCtr.text.trim(),
         );
@@ -152,7 +151,6 @@ class UserAuthProvider extends ChangeNotifier {
           _loginPassCtr.text.trim(),
         );
         await decideFirstScreen(context);
-        // Logger.printInfo(PrefHelper.userToken);
         _loginEmailCtr.clear();
         _loginPassCtr.clear();
       },

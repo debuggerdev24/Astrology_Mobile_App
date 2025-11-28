@@ -1,15 +1,7 @@
 import 'dart:io';
 
-import 'package:animate_do/animate_do.dart';
-import 'package:astrology_app/apps/mobile/user/provider/home/home_provider.dart';
-import 'package:astrology_app/apps/mobile/user/provider/mantra/mantra_provider.dart';
-import 'package:astrology_app/apps/mobile/user/provider/setting/app_info_provider.dart';
-import 'package:astrology_app/apps/mobile/user/provider/setting/profile_provider.dart';
-import 'package:astrology_app/apps/mobile/user/provider/setting/subscription_provider.dart';
-import 'package:astrology_app/apps/mobile/user/screens/home/home_screen.dart';
-import 'package:astrology_app/apps/mobile/user/screens/mantras/daily_mantra_screen.dart';
-import 'package:astrology_app/apps/mobile/user/screens/remedies/palm_upload_screen.dart';
-import 'package:astrology_app/apps/mobile/user/screens/settings/settings_screen.dart';
+import 'package:astrology_app/apps/mobile/user/screens/app_tour/mantra_screen_tour.dart';
+import 'package:astrology_app/apps/mobile/user/screens/app_tour/palm_upload_screen_tour.dart';
 import 'package:astrology_app/core/constants/text_style.dart';
 import 'package:astrology_app/core/extension/context_extension.dart';
 import 'package:astrology_app/core/widgets/app_layout.dart';
@@ -17,46 +9,32 @@ import 'package:astrology_app/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
 
-import '../../../../core/constants/app_assets.dart';
-import '../../../../core/constants/app_colors.dart';
-import '../../../../core/utils/logger.dart';
-import '../../../../core/widgets/app_text.dart';
-import '../../../../core/widgets/svg_image.dart';
-import '../services/settings/notification_service.dart';
-import '../services/subscription/subscription_service.dart';
+import '../../../../../core/constants/app_assets.dart';
+import '../../../../../core/constants/app_colors.dart';
+import '../../../../../core/widgets/app_text.dart';
+import '../../../../../core/widgets/svg_image.dart';
 
 final ValueNotifier<int> indexTabUser = ValueNotifier<int>(0);
 List<Widget> _pages = [
-  HomeScreen(),
-  DailyMantraScreen(),
-  PalmUploadScreen(),
-  // SetReminderScreen(),
-  SettingScreen(),
+  DailyMantraScreenTour(),
+  DailyMantraScreenTour(),
+  PalmUploadScreenTour(),
+  DailyMantraScreenTour(),
 ];
 
-class UserDashboard extends StatefulWidget {
-  const UserDashboard({super.key});
+class DashBoardTour extends StatefulWidget {
+  const DashBoardTour({super.key});
 
   @override
-  State<UserDashboard> createState() => _UserDashboardState();
+  State<DashBoardTour> createState() => _DashBoardTourState();
 }
 
-class _UserDashboardState extends State<UserDashboard> {
-  @override
-  void initState() {
-    callInitAPIs(context: context);
-    super.initState();
-  }
-
+class _DashBoardTourState extends State<DashBoardTour> {
   @override
   Widget build(BuildContext context) {
-    Logger.printInfo("Is First Time ${context.isFirstTimeUser.toString()}");
-
     final translator = context.translator;
     final isTamil = context.isTamil;
-    Logger.printInfo(context.isTamil.toString());
     return ValueListenableBuilder<int>(
       valueListenable: indexTabUser,
       builder: (BuildContext context, int index, Widget? child) {
@@ -66,11 +44,7 @@ class _UserDashboardState extends State<UserDashboard> {
             valueListenable: isNetworkConnected,
             builder: (context, connection, child) {
               if (connection) {
-                return FadeInUp(
-                  from: 0,
-                  key: ValueKey(indexTabUser.value),
-                  child: _pages[index],
-                );
+                return _pages[index];
               }
               return AppLayout(
                 body: Center(
@@ -225,26 +199,4 @@ class _UserDashboardState extends State<UserDashboard> {
       ),
     );
   }
-}
-
-void callInitAPIs({required BuildContext context}) {
-  WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-    await context.read<HomeProvider>().getMoonDasha();
-
-    Future.wait([
-      context.read<HomeProvider>().initHomeScreen(),
-      context.read<MantraProvider>().getMantraHistory(),
-      context.read<SubscriptionProvider>().getActiveSubscriptionPlan(
-        context: context,
-      ),
-      context.read<UserProfileProvider>().getProfile(context),
-      context.read<SubscriptionProvider>().getSubscriptionPlans(),
-      // context.read<SetReminderProvider>().initializeNotifications(
-      //   context: context,
-      // ),
-      context.read<AppInfoProvider>().init(context: context),
-      SubscriptionService().initialize(context),
-      NotificationService.instance.init(),
-    ]);
-  });
 }

@@ -97,14 +97,14 @@ class SignInScreen extends StatelessWidget {
                             TextSpan(
                               text: "${translator.dontHaveAcc} ",
                               style: regular(
-                                fontSize: 15.sp,
+                                fontSize: 15,
                                 fontFamily: "Primary",
                               ),
                             ),
                             TextSpan(
                               text: "${translator.signUp}",
                               style: semiBold(
-                                fontSize: 15.sp,
+                                fontSize: 15,
                                 color: AppColors.primary,
                                 fontFamily: "Primary",
                               ),

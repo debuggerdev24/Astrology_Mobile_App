@@ -42,7 +42,7 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
       canPop: false,
       onPopInvokedWithResult: (didPop, result) {
         Logger.printInfo(isShowDialog.toString());
-        if(isShowDialog){
+        if (isShowDialog) {
           warningDialog(context, translator);
         }
       },
