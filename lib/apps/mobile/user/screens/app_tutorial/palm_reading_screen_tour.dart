@@ -17,6 +17,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../l10n/app_localizations.dart';
+import 'app_tour.dart';
 
 class PalmReadingScreenTour extends StatefulWidget {
   const PalmReadingScreenTour({super.key});
@@ -29,115 +30,121 @@ class _PalmReadingScreenTourState extends State<PalmReadingScreenTour> {
   int index = 0;
 
   @override
-  Widget build(BuildContext context) {
-    showPremiumDialog(
-      context: context,
-      title: context.translator.premiumAccess,
-      contentBody: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          18.h.verticalSpace,
-          AppText(
-            textAlign: TextAlign.center,
-            text: context.translator.premiumMessageMatchWithRemedies,
-            style: medium(
-              fontSize: 16,
-              color: AppColors.black.withValues(alpha: 0.8),
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      showPremiumDialog(
+        context: context,
+        title: context.translator.premiumAccess,
+        contentBody: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            18.h.verticalSpace,
+            AppText(
+              textAlign: TextAlign.center,
+              text: context.translator.premiumMessageMatchWithRemedies,
+              style: medium(
+                fontSize: 16,
+                color: AppColors.black.withValues(alpha: 0.8),
+              ),
             ),
-          ),
-          8.h.verticalSpace,
-          AppText(
-            textAlign: TextAlign.center,
-            text: context.translator.premiumSloganMessageRemedies,
-            style: medium(fontSize: 16, color: AppColors.greyColor),
-          ),
-        ],
-      ),
+            8.h.verticalSpace,
+            AppText(
+              textAlign: TextAlign.center,
+              text: context.translator.premiumSloganMessageRemedies,
+              style: medium(fontSize: 16, color: AppColors.greyColor),
+            ),
+          ],
+        ),
+      );
+      _showTutorial();
+    });
+
+    super.initState();
+  }
+
+  void _showTutorial() {
+    // Check your existing shared prefs here
+    // if (!yourSharedPrefs.hasSeenPalmUploadTutorial) {
+    AppTourManager.showPalmReadingTutorial(
+      context: context,
+      onFinish: () {
+        // Save to your shared prefs
+        // yourSharedPrefs.setPalmUploadTutorialSeen();
+
+        context.pushNamed(MobileAppRoutes.remediesListScreenTour.name);
+      },
+      onSkip: () {
+        context.goNamed(MobileAppRoutes.userDashBoardScreen.name, extra: true);
+
+        // Save to your shared prefs
+        // yourSharedPrefs.setPalmUploadTutorialSeen();
+      },
     );
+    // }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final translator = context.translator;
     return AppLayout(
       body: SingleChildScrollView(
         child: Column(
           children: [
             40.h.verticalSpace,
-            topBar(
-              context: context,
-              title: translator.palmReading,
-              onLeadingTap: () {
-                warningDialog(context, translator);
-              },
-            ),
-
+            topBar(context: context, title: translator.palmReading),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 15.h.verticalSpace,
                 toggleLeftRight(translator: translator),
-                Align(
-                  alignment: Alignment.center,
-                  child: Container(
-                    margin: EdgeInsets.only(top: 30.h, bottom: 24.h),
-                    width: 285.w,
-                    height: 200.h,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.r),
-                      border: Border.all(color: AppColors.whiteColor, width: 2),
+                Column(
+                  key: AppTourKeys.premiumDialogKey,
+                  children: [
+                    Align(
+                      alignment: Alignment.center,
+                      child: Container(
+                        margin: EdgeInsets.only(top: 30.h, bottom: 24.h),
+                        width: 260.w,
+                        height: 180.h,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12.r),
+                          border: Border.all(
+                            color: AppColors.whiteColor,
+                            width: 2,
+                          ),
+                        ),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 50.w,
+                          vertical: 18.h,
+                        ),
+                        child: Image.asset(AppAssets.palm),
+                      ),
                     ),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 50.w,
-                      vertical: 18.h,
+                    AppText(
+                      text: translator.summary,
+                      style: semiBold(fontSize: 18, color: AppColors.primary),
                     ),
-                    child: Image.asset(AppAssets.palm),
-                  ),
+                    14.h.verticalSpace,
+                    topicWithDetails(
+                      topic: translator.lifeLine,
+                      details: "Strong, steady, good health",
+                    ),
+                    topicWithDetails(
+                      topic: translator.headLine,
+                      details: "Balanced intellect",
+                    ),
+                    topicWithDetails(
+                      topic: translator.heartLine,
+                      details: "Emotionally intuitive",
+                    ),
+                    mountAnalysisLocked(translator: translator),
+                  ],
                 ),
-                AppText(
-                  text: translator.summary,
-                  style: semiBold(fontSize: 18, color: AppColors.primary),
-                ),
-                14.h.verticalSpace,
-                topicWithDetails(
-                  topic: translator.lifeLine,
-                  details: "Strong, steady, good health",
-                ),
-                topicWithDetails(
-                  topic: translator.headLine,
-                  details: "Balanced intellect",
-                ),
-                topicWithDetails(
-                  topic: translator.heartLine,
-                  details: "Emotionally intuitive",
-                ),
-                mountAnalysisLocked(translator: translator),
                 AppButton(
                   onTap: () {
-                    showPremiumDialog(
-                      context: context,
-                      title: translator.premiumAccess,
-                      contentBody: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          18.h.verticalSpace,
-                          AppText(
-                            textAlign: TextAlign.center,
-                            text: translator.premiumMessageMatchWithRemedies,
-                            style: medium(
-                              fontSize: 16,
-                              color: AppColors.black.withValues(alpha: 0.8),
-                            ),
-                          ),
-                          8.h.verticalSpace,
-                          AppText(
-                            textAlign: TextAlign.center,
-                            text: translator.premiumSloganMessageRemedies,
-                            style: medium(
-                              fontSize: 16,
-                              color: AppColors.greyColor,
-                            ),
-                          ),
-                        ],
-                      ),
+                    context.pushNamed(
+                      MobileAppRoutes.remediesListScreenTour.name,
                     );
                   },
                   buttonColor: AppColors.secondary,
@@ -438,29 +445,29 @@ class _PalmReadingScreenTourState extends State<PalmReadingScreenTour> {
               SVGImage(path: AppAssets.lockIcon, height: 18.h),
             ],
           ),
-
           12.h.verticalSpace,
-
-          topicWithDetails2(
-            topic: translator.mountOfJupiter,
-            details: "Dominant (leadership)",
-            isLocked: true,
-          ),
-          topicWithDetails2(
-            topic: translator.mountOfVenus,
-            details: "Balanced (love & com-passion)",
-            isLocked: true,
-          ),
-          AppText(
-            text:
-                "Your palm indicates a balance of logic and intuition. Likely to lead with emotional wisdom. Favorable times for career: Aug–Nov.",
-            style: medium(
-              fontSize: 16,
-              color: AppColors.whiteColor.withValues(alpha: 0.2),
-            ),
-          ),
         ],
       ),
+    );
+  }
+
+  Widget remainPart(AppLocalizations translator) {
+    return Column(
+      children: [
+        topicWithDetails2(
+          topic: translator.mountOfVenus,
+          details: "Balanced (love & com-passion)",
+          isLocked: true,
+        ),
+        AppText(
+          text:
+              "Your palm indicates a balance of logic and intuition. Likely to lead with emotional wisdom. Favorable times for career: Aug–Nov.",
+          style: medium(
+            fontSize: 16,
+            color: AppColors.whiteColor.withValues(alpha: 0.2),
+          ),
+        ),
+      ],
     );
   }
 

@@ -36,4 +36,8 @@ enum MobileAppRoutes {
   singleMantraPlayerScreen,
   selectLanguageScreen,
   userDashBoardTour,
+  palmReadingScreenTour,
+  remediesListScreenTour,
+  profileScreenTour,
+  appInfoTour,
 }

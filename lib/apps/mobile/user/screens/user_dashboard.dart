@@ -37,7 +37,8 @@ List<Widget> _pages = [
 ];
 
 class UserDashboard extends StatefulWidget {
-  const UserDashboard({super.key});
+  final bool? isFromTutorial;
+  const UserDashboard({super.key, this.isFromTutorial = false});
 
   @override
   State<UserDashboard> createState() => _UserDashboardState();
@@ -46,7 +47,10 @@ class UserDashboard extends StatefulWidget {
 class _UserDashboardState extends State<UserDashboard> {
   @override
   void initState() {
-    callInitAPIs(context: context);
+    bool temp = widget.isFromTutorial ?? false;
+    if (!temp) {
+      callInitAPIs(context: context);
+    }
     super.initState();
   }
 

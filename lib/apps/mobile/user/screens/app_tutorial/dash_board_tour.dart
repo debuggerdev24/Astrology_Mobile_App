@@ -1,7 +1,6 @@
 import 'dart:io';
 
-import 'package:astrology_app/apps/mobile/user/screens/app_tour/mantra_screen_tour.dart';
-import 'package:astrology_app/apps/mobile/user/screens/app_tour/palm_upload_screen_tour.dart';
+import 'package:astrology_app/apps/mobile/user/screens/app_tutorial/palm_upload_screen_tour.dart';
 import 'package:astrology_app/core/constants/text_style.dart';
 import 'package:astrology_app/core/extension/context_extension.dart';
 import 'package:astrology_app/core/widgets/app_layout.dart';
@@ -14,8 +13,9 @@ import '../../../../../core/constants/app_assets.dart';
 import '../../../../../core/constants/app_colors.dart';
 import '../../../../../core/widgets/app_text.dart';
 import '../../../../../core/widgets/svg_image.dart';
+import 'daily_mantra_screen_tour.dart';
 
-final ValueNotifier<int> indexTabUser = ValueNotifier<int>(0);
+final ValueNotifier<int> indexTabUserTour = ValueNotifier<int>(1);
 List<Widget> _pages = [
   DailyMantraScreenTour(),
   DailyMantraScreenTour(),
@@ -36,7 +36,7 @@ class _DashBoardTourState extends State<DashBoardTour> {
     final translator = context.translator;
     final isTamil = context.isTamil;
     return ValueListenableBuilder<int>(
-      valueListenable: indexTabUser,
+      valueListenable: indexTabUserTour,
       builder: (BuildContext context, int index, Widget? child) {
         return Scaffold(
           backgroundColor: AppColors.bgColor,
@@ -137,11 +137,11 @@ class _DashBoardTourState extends State<DashBoardTour> {
     int index,
     bool isTamil,
   ) {
-    bool isCurrent = index == indexTabUser.value;
+    bool isCurrent = index == indexTabUserTour.value;
     return Expanded(
       child: GestureDetector(
         onTap: () {
-          indexTabUser.value = index;
+          indexTabUserTour.value = index;
         },
         child: AnimatedContainer(
           curve: Curves.easeInOut,

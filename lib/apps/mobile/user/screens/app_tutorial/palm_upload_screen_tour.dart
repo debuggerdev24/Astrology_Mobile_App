@@ -3,7 +3,6 @@ import 'package:astrology_app/core/constants/app_colors.dart';
 import 'package:astrology_app/core/constants/text_style.dart';
 import 'package:astrology_app/core/enum/app_enums.dart';
 import 'package:astrology_app/core/extension/context_extension.dart';
-import 'package:astrology_app/core/utils/de_bouncing.dart';
 import 'package:astrology_app/core/widgets/app_button.dart';
 import 'package:astrology_app/core/widgets/app_layout.dart';
 import 'package:astrology_app/core/widgets/app_text.dart';
@@ -17,9 +16,43 @@ import 'package:provider/provider.dart';
 
 import '../../../../../routes/mobile_routes/user_routes.dart';
 import '../../provider/remedies/palm_provider.dart';
+import 'app_tour.dart';
 
-class PalmUploadScreenTour extends StatelessWidget {
+class PalmUploadScreenTour extends StatefulWidget {
   const PalmUploadScreenTour({super.key});
+
+  @override
+  State<PalmUploadScreenTour> createState() => _PalmUploadScreenTourState();
+}
+
+class _PalmUploadScreenTourState extends State<PalmUploadScreenTour> {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _showTutorial();
+    });
+    super.initState();
+  }
+
+  void _showTutorial() {
+    // Check your existing shared prefs here
+    // if (!yourSharedPrefs.hasSeenPalmUploadTutorial) {
+    AppTourManager.showPalmUploadTutorial(
+      context: context,
+      onFinish: () {
+        // Save to your shared prefs
+        // yourSharedPrefs.setPalmUploadTutorialSeen();
+
+        context.pushNamed(MobileAppRoutes.palmReadingScreenTour.name);
+      },
+      onSkip: () {
+        // Save to your shared prefs
+        // yourSharedPrefs.setPalmUploadTutorialSeen();
+        context.goNamed(MobileAppRoutes.userDashBoardScreen.name, extra: true);
+      },
+    );
+    // }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +74,7 @@ class PalmUploadScreenTour extends StatelessWidget {
                     ),
                     42.h.verticalSpace,
                     Row(
+                      key: AppTourKeys.palmSectionsKey,
                       spacing: 11.w,
                       children: [
                         uploadPalmSection(
@@ -83,12 +117,9 @@ class PalmUploadScreenTour extends StatelessWidget {
                     AppButton(
                       margin: EdgeInsets.only(bottom: 25.h, top: 50.h),
                       onTap: () {
-                        deBouncer.run(() async {
-                          context.pushNamed(
-                            MobileAppRoutes.palmReadingScreen.name,
-                          );
-                          await provider.uploadForReading(context: context);
-                        });
+                        context.pushNamed(
+                          MobileAppRoutes.palmReadingScreenTour.name,
+                        );
                       },
                       title: context.translator.submitForReading,
                     ),

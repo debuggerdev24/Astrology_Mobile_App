@@ -1,5 +1,6 @@
 import 'package:astrology_app/apps/mobile/user/model/home/daily_horo_scope_model.dart';
 import 'package:astrology_app/apps/mobile/user/model/settings/subscription_plan_model.dart';
+import 'package:astrology_app/apps/mobile/user/screens/app_tutorial/app_info_screen_tour.dart';
 import 'package:astrology_app/apps/mobile/user/screens/auth/forgot_password_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/auth/otp_verfication_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/auth/reset_password_screen.dart';
@@ -24,7 +25,10 @@ import 'package:astrology_app/core/extension/routes_extension.dart';
 import 'package:astrology_app/routes/mobile_routes/user_routes.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../apps/mobile/user/screens/app_tour/dash_board_tour.dart';
+import '../../apps/mobile/user/screens/app_tutorial/dash_board_tour.dart';
+import '../../apps/mobile/user/screens/app_tutorial/palm_reading_screen_tour.dart';
+import '../../apps/mobile/user/screens/app_tutorial/profile_screen_tour.dart';
+import '../../apps/mobile/user/screens/app_tutorial/remedies_list_screen_tour.dart';
 import '../../apps/mobile/user/screens/auth/sign_up_screen.dart';
 import '../../apps/mobile/user/screens/init_screens/select_lang_screen.dart';
 import '../../apps/mobile/user/screens/init_screens/splash_screen.dart';
@@ -94,8 +98,9 @@ class MobileAppRouter {
       path: MobileAppRoutes.userDashBoardScreen.path,
       name: MobileAppRoutes.userDashBoardScreen.name,
       builder: (context, state) {
-        // final String name = state.extra as String;
-        return UserDashboard();
+        final bool isFromTutorial = (state.extra as bool?) ?? false;
+
+        return UserDashboard(isFromTutorial: isFromTutorial);
       },
     ),
     GoRoute(
@@ -280,6 +285,34 @@ class MobileAppRouter {
       name: MobileAppRoutes.userDashBoardTour.name,
       builder: (context, state) {
         return DashBoardTour();
+      },
+    ),
+    GoRoute(
+      path: MobileAppRoutes.palmReadingScreenTour.path,
+      name: MobileAppRoutes.palmReadingScreenTour.name,
+      builder: (context, state) {
+        return PalmReadingScreenTour();
+      },
+    ),
+    GoRoute(
+      path: MobileAppRoutes.remediesListScreenTour.path,
+      name: MobileAppRoutes.remediesListScreenTour.name,
+      builder: (context, state) {
+        return RemediesScreenTour();
+      },
+    ),
+    GoRoute(
+      path: MobileAppRoutes.profileScreenTour.path,
+      name: MobileAppRoutes.profileScreenTour.name,
+      builder: (context, state) {
+        return ProfileScreenTour();
+      },
+    ),
+    GoRoute(
+      path: MobileAppRoutes.appInfoTour.path,
+      name: MobileAppRoutes.appInfoTour.name,
+      builder: (context, state) {
+        return AppInfoTour();
       },
     ),
   ];

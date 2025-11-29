@@ -122,63 +122,67 @@ Future<dynamic> showPremiumDialog({
   required BuildContext context,
   required String title,
   required Widget contentBody,
+  GlobalKey? key,
 }) {
   return showDialog(
     barrierColor: AppColors.black.withValues(alpha: 0.7),
     barrierDismissible: false,
     context: context,
     builder: (context) {
-      return ZoomIn(
-        curve: Curves.fastOutSlowIn,
-        duration: Duration(milliseconds: 400),
-        child: AlertDialog(
-          contentPadding: EdgeInsets.symmetric(horizontal: 14.w),
-          title: Center(
-            child: AppText(
-              textAlign: TextAlign.center,
-              text: title, //"Premium Access"
-              style: bold(
-                fontSize: 28,
-                color: AppColors.darkBlue,
-                fontFamily: AppFonts.secondary,
+      return Container(
+        key: key,
+        child: ZoomIn(
+          curve: Curves.fastOutSlowIn,
+          duration: Duration(milliseconds: 400),
+          child: AlertDialog(
+            contentPadding: EdgeInsets.symmetric(horizontal: 14.w),
+            title: Center(
+              child: AppText(
+                textAlign: TextAlign.center,
+                text: title, //"Premium Access"
+                style: bold(
+                  fontSize: 28,
+                  color: AppColors.darkBlue,
+                  fontFamily: AppFonts.secondary,
+                ),
               ),
             ),
-          ),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              contentBody,
-              30.h.verticalSpace,
-              Row(
-                spacing: 12.w,
-                children: [
-                  Expanded(
-                    child: AppButton(
-                      fontSize: 15,
-                      title: AppLocalizations.of(context)!.upgradeNow,
-                      onTap: () {
-                        // context.pop();
-                        context.pushNamed(
-                          MobileAppRoutes.premiumPlanScreen.name,
-                        );
-                      },
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                contentBody,
+                30.h.verticalSpace,
+                Row(
+                  spacing: 12.w,
+                  children: [
+                    Expanded(
+                      child: AppButton(
+                        fontSize: 15,
+                        title: AppLocalizations.of(context)!.upgradeNow,
+                        onTap: () {
+                          // context.pop();
+                          context.pushNamed(
+                            MobileAppRoutes.premiumPlanScreen.name,
+                          );
+                        },
+                      ),
                     ),
-                  ),
-                  Expanded(
-                    child: AppButton(
-                      onTap: () {
-                        context.pop();
-                      },
-                      fontSize: 15,
-                      title: AppLocalizations.of(context)!.cancel,
-                      buttonColor: AppColors.secondary,
+                    Expanded(
+                      child: AppButton(
+                        onTap: () {
+                          context.pop();
+                        },
+                        fontSize: 15,
+                        title: AppLocalizations.of(context)!.cancel,
+                        buttonColor: AppColors.secondary,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
+            actions: [],
           ),
-          actions: [],
         ),
       );
       // .animate().scaleXY(

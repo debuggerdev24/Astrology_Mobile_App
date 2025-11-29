@@ -1,8 +1,9 @@
-import 'package:astrology_app/apps/mobile/user/provider/mantra/mantra_provider.dart';
+import 'package:astrology_app/apps/mobile/user/screens/app_tutorial/dash_board_tour.dart';
 import 'package:astrology_app/core/extension/context_extension.dart';
+import 'package:astrology_app/routes/mobile_routes/user_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../../core/constants/app_assets.dart';
 import '../../../../../core/constants/app_colors.dart';
@@ -10,13 +11,45 @@ import '../../../../../core/constants/text_style.dart';
 import '../../../../../core/widgets/app_layout.dart';
 import '../../../../../core/widgets/app_text.dart';
 import '../../../../../core/widgets/svg_image.dart';
-import '../../provider/setting/subscription_provider.dart';
 import '../subscription/current_plan_screen.dart';
+import 'app_tour.dart';
 
-class DailyMantraScreenTour extends StatelessWidget {
+class DailyMantraScreenTour extends StatefulWidget {
   const DailyMantraScreenTour({super.key});
 
   @override
+  State<DailyMantraScreenTour> createState() => _DailyMantraScreenTourState();
+}
+
+class _DailyMantraScreenTourState extends State<DailyMantraScreenTour> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _showTutorial();
+    });
+  }
+
+  void _showTutorial() {
+    // Check your existing shared prefs here
+    // if (!yourSharedPrefs.hasSeenMantraTutorial) {
+    AppTourManager.showMantraTutorial(
+      context: context,
+      onFinish: () {
+        // Save to your shared prefs
+        // yourSharedPrefs.setMantraTutorialSeen();
+
+        // Navigate to palm upload screen
+        indexTabUserTour.value = 2;
+      },
+      onSkip: () {
+        // Save to your shared prefs
+        context.goNamed(MobileAppRoutes.userDashBoardScreen.name, extra: true);
+      },
+    );
+    // }
+  }
+
   Widget build(BuildContext context) {
     final translator = context.translator;
     return AppLayout(
@@ -24,29 +57,26 @@ class DailyMantraScreenTour extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           20.h.verticalSpace,
-          AppText(
-            text: translator.dailyMantraLog,
-            textAlign: TextAlign.center,
-            style: bold(
-              fontFamily: AppFonts.secondary,
-              height: 1.1,
-              fontSize: 26,
+          GestureDetector(
+            onTap: () {
+              _showTutorial();
+            },
+            child: AppText(
+              text: translator.dailyMantraLog,
+              textAlign: TextAlign.center,
+              style: bold(
+                fontFamily: AppFonts.secondary,
+                height: 1.1,
+                fontSize: 26,
+              ),
             ),
           ),
           8.h.verticalSpace,
           Expanded(
-            child: Consumer<SubscriptionProvider>(
-              builder: (context, subscriptionProvider, _) {
-                return Consumer<MantraProvider>(
-                  builder: (context, mantraProvider, _) {
-                    return ListView.builder(
-                      itemCount: 10,
-                      itemBuilder: (context, index) {
-                        return mantraPlayer(context: context);
-                      },
-                    );
-                  },
-                );
+            child: ListView.builder(
+              itemCount: 10,
+              itemBuilder: (context, index) {
+                return _mantraPlayer(context: context, isFirstItem: index == 0);
               },
             ),
           ),
@@ -55,8 +85,13 @@ class DailyMantraScreenTour extends StatelessWidget {
     );
   }
 
-  Widget mantraPlayer({required BuildContext context}) {
+  Widget _mantraPlayer({
+    required BuildContext context,
+    required bool isFirstItem,
+  }) {
     return Container(
+      // Attach key only to first item
+      key: isFirstItem ? AppTourKeys.mantraPlayerCardKey : null,
       margin: EdgeInsets.only(bottom: 16.h),
       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
       decoration: BoxDecoration(
@@ -99,6 +134,8 @@ class DailyMantraScreenTour extends StatelessWidget {
             ],
           ),
           Row(
+            // Attach key only to first item
+            // key: isFirstItem ? AppTourKeys.mantraMeaningKey : null,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Expanded(
@@ -110,10 +147,16 @@ class DailyMantraScreenTour extends StatelessWidget {
                   ),
                 ),
               ),
-              //todo --------------------> text Content
-              SVGImage(path: AppAssets.tIcon, height: 34.w),
-              //todo --------------------> audio Content
-              SVGImage(path: AppAssets.playIcon, height: 34.w),
+              // Text Content Icon
+              Container(
+                // key: isFirstItem ? AppTourKeys.mantraTextIconKey : null,
+                child: SVGImage(path: AppAssets.tIcon, height: 34.w),
+              ),
+              // Audio Content Icon
+              Container(
+                // key: isFirstItem ? AppTourKeys.mantraAudioIconKey : null,
+                child: SVGImage(path: AppAssets.playIcon, height: 34.w),
+              ),
             ],
           ),
         ],
