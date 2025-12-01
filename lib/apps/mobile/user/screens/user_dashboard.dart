@@ -21,7 +21,6 @@ import 'package:provider/provider.dart';
 
 import '../../../../core/constants/app_assets.dart';
 import '../../../../core/constants/app_colors.dart';
-import '../../../../core/utils/logger.dart';
 import '../../../../core/widgets/app_text.dart';
 import '../../../../core/widgets/svg_image.dart';
 import '../services/settings/notification_service.dart';
@@ -47,8 +46,7 @@ class UserDashboard extends StatefulWidget {
 class _UserDashboardState extends State<UserDashboard> {
   @override
   void initState() {
-    bool temp = widget.isFromTutorial ?? false;
-    if (!temp) {
+    if (!(widget.isFromTutorial ?? false)) {
       callInitAPIs(context: context);
     }
     super.initState();
@@ -56,11 +54,8 @@ class _UserDashboardState extends State<UserDashboard> {
 
   @override
   Widget build(BuildContext context) {
-    Logger.printInfo("Is First Time ${context.isFirstTimeUser.toString()}");
-
     final translator = context.translator;
     final isTamil = context.isTamil;
-    Logger.printInfo(context.isTamil.toString());
     return ValueListenableBuilder<int>(
       valueListenable: indexTabUser,
       builder: (BuildContext context, int index, Widget? child) {

@@ -115,6 +115,8 @@
   "accNotFoundError": "No account found with this email. Please try again or sign up!",
   "birthPlace": "Birth Place",
   "enterYourFullName": "Enter your Full Name",
+  "enterYourBirthDate": "Enter your DOB",
+  "enterYourBirthTime": "Enter your TOB",
   "enterYourBirthPlace": "Enter your Birth Place",
   "enterYourCurrentLocation": "Enter your Current Location",
   "repeatFrequency": "Repeat Frequency",
@@ -214,5 +216,16 @@
   "expireToken": "Token has expired",
   "noMantraHistory": "No mantra history available.",
   "alreadySubscribed": "You’ve already subscribed to this plan.",
-  "palmBirthChartAlignment": "Palm + Birth Chart Alignment"
+  "palmBirthChartAlignment": "Palm + Birth Chart Alignment",
+  "agreementDetails": "This app offers spiritual guidance and is not a substitute for professional advice. By continuing, you accept the terms of use and privacy policy.",
+  "understandAndAgree": "I understand and agree.",
+  "continueText": "Continue",
+  "next": "Next",
+  "mantraSectionTutorial": "Listen to daily mantras and keep your mind calm. Tap on a mantra’s text or audio icon to open the full audio screen.",
+  "palmSectionTutorial": "Capture both your palms and reflect on your life balance — observe your lines, focus on mindfulness, and understand yourself better.",
+  "premiumDialogTutorial": "This is the Premium Access dialog. Upgrade to unlock advanced features like Mount Analysis and Birth Chart matching.",
+  "remedySectionTutorial": "Know how planets, dasha, and their energies influence your palm. Discover their effects and remedies — unlock Premium Access for deeper insights.",
+  "profileSectionTutorial": "Add your personal details and secure your account in the app.",
+  "appInfoSectionTutorial": "All information about the app is available on the App Info screen. Tap to explore more details.",
+  "skip": "Skip"
 }

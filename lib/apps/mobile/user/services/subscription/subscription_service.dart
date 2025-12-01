@@ -7,7 +7,6 @@
 */
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:astrology_app/apps/mobile/user/screens/user_dashboard.dart';
@@ -41,10 +40,10 @@ class SubscriptionService {
 
   Future<void> initialize(BuildContext context) async {
     try {
-      Logger.printInfo("I am Here");
+      Logger.printInfo("Subscription product fetching");
 
       final bool available = await _iap.isAvailable();
-      Logger.printInfo("I am Here $available");
+      Logger.printInfo("is Available $available");
 
       if (!available) {
         Logger.printInfo("products are not available");
@@ -79,13 +78,8 @@ class SubscriptionService {
       availableProducts = response.productDetails;
       for (var e in availableProducts) {
         Logger.printInfo(
-          "Product Details are below : \n${e.title}\n${e.price}\n${e.id}\n${e.description}",
+          "Product Details are below : \ntitle : ${e.title}\nprice : ${e.price}\nid : ${e.id}\ndescription : ${e.description}",
         );
-        // AppToast.success(
-        //   context: context,
-        //   message:
-        //       "Product Details are below : \n${e.title}\n${e.price}\n${e.id}\n${e.description}",
-        // );
       }
     } catch (e) {
       Logger.printError("Error inside the _loadProducts function");
@@ -124,22 +118,24 @@ class SubscriptionService {
     final provider = Provider.of<SubscriptionProvider>(context, listen: false);
     for (final purchase in purchases) {
       Logger.printInfo("-----------------> ${purchase.status}");
-      if (purchase.status == PurchaseStatus.purchased) {
-        final localData = purchase.verificationData.localVerificationData;
-        final decoded = jsonDecode(localData);
-        final purchaseToken = decoded["purchaseToken"];
+      if (purchase.status == PurchaseStatus.purchased ||
+          purchase.status == PurchaseStatus.restored) {
+        String purchaseToken = "";
+        if (Platform.isAndroid) {
+          final localData = purchase.verificationData.localVerificationData;
+          final decoded = jsonDecode(localData);
+          purchaseToken = decoded["purchaseToken"];
+          Logger.printInfo("Decode data : ${decoded}");
 
-        Logger.printInfo('Purchase Token: \n$purchaseToken');
-        log('Purchase Token: $purchaseToken');
-        Logger.printInfo("purchaseID : ${purchase.purchaseID}");
-        Logger.printInfo(
-          "localVerificationData : ${purchase.verificationData.localVerificationData.toString()}",
-        );
-        Logger.printInfo(
-          "serverVerificationData : ${purchase.verificationData.serverVerificationData}",
-        );
-        Logger.printInfo("source : ${purchase.verificationData.source}");
-        Logger.printInfo("id : ${purchase.purchaseID}");
+          Logger.printInfo('Purchase Token: \n$purchaseToken');
+          Logger.printInfo("purchaseID : ${purchase.purchaseID}");
+          Logger.printInfo(
+            "localVerificationData : ${purchase.verificationData.serverVerificationData.toString()}",
+          );
+          Logger.printInfo(
+            "serverVerificationData : ${purchase.verificationData.serverVerificationData.toString()}",
+          );
+        }
 
         final tier = _getTierFromProductId(purchase.productID);
         if (tier != null) {

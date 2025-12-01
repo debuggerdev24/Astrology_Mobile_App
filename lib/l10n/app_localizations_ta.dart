@@ -357,6 +357,12 @@ class AppLocalizationsTa extends AppLocalizations {
   String get enterYourFullName => 'உங்கள் முழுப் பெயரை உள்ளிடவும்';
 
   @override
+  String get enterYourBirthDate => 'உங்கள் பிறந்த தேதியை உள்ளிடவும்';
+
+  @override
+  String get enterYourBirthTime => 'உங்கள் பிறந்த நேரத்தை உள்ளிடவும்';
+
+  @override
   String get enterYourBirthPlace => 'உங்கள் பிறந்த இடத்தை உள்ளிடவும்';
 
   @override
@@ -655,4 +661,37 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get palmBirthChartAlignment => 'உள்ளங்கை + பிறப்பு விளக்கப்பட சீரமைப்பு';
+
+  @override
+  String get agreementDetails => 'இந்த ஆப் ஆன்மீக வழிகாட்டுதலை வழங்குகிறது மற்றும் தொழில்முறை ஆலோசனைக்கு மாற்றாக இல்லை. தொடர்வதன் மூலம், நீங்கள் பயன்பாட்டு விதிமுறைகள் மற்றும் தனியுரிமைக் கொள்கையை ஏற்றுக்கொள்கிறீர்கள்.';
+
+  @override
+  String get understandAndAgree => 'நான் புரிந்துகொண்டு ஒப்புக்கொள்கிறேன்.';
+
+  @override
+  String get continueText => 'தொடரவும்';
+
+  @override
+  String get next => 'அடுத்து';
+
+  @override
+  String get mantraSectionTutorial => 'தினசரி மந்திரங்களைக் கேட்டு உங்கள் மனதை அமைதியாக வைத்திருங்கள். முழு ஆடியோ திரையைத் திறக்க மந்திரத்தின் உரை அல்லது ஆடியோ ஐகானைத் தட்டவும்.';
+
+  @override
+  String get palmSectionTutorial => 'உங்கள் இரு உள்ளங்கைகளையும் பிடித்து உங்கள் வாழ்க்கை சமநிலையைப் பற்றி சிந்தியுங்கள் - உங்கள் கோடுகளைக் கவனியுங்கள், நினைவாற்றலில் கவனம் செலுத்துங்கள், உங்களை நன்றாகப் புரிந்து கொள்ளுங்கள்.';
+
+  @override
+  String get premiumDialogTutorial => 'இது பிரீமியம் அணுகல் உரையாடல். மவுண்ட் பகுப்பாய்வு மற்றும் பிறப்பு விளக்கப்பட பொருத்தம் போன்ற மேம்பட்ட அம்சங்களைத் திறக்க மேம்படுத்தவும்.';
+
+  @override
+  String get remedySectionTutorial => 'கிரகங்கள், தசா மற்றும் அவற்றின் சக்திகள் உங்கள் உள்ளங்கையை எவ்வாறு பாதிக்கின்றன என்பதை அறிந்து கொள்ளுங்கள். அவற்றின் விளைவுகள் மற்றும் தீர்வுகளைக் கண்டறியவும் - ஆழமான நுண்ணறிவுகளுக்கு பிரீமியம் அணுகலைத் திறக்கவும்.';
+
+  @override
+  String get profileSectionTutorial => 'உங்கள் தனிப்பட்ட விவரங்களைச் சேர்த்து, பயன்பாட்டில் உங்கள் கணக்கைப் பாதுகாக்கவும்.';
+
+  @override
+  String get appInfoSectionTutorial => 'பயன்பாட்டைப் பற்றிய அனைத்து தகவல்களும் பயன்பாட்டுத் தகவல் திரையில் கிடைக்கின்றன. மேலும் விவரங்களை ஆராய தட்டவும்.';
+
+  @override
+  String get skip => 'தவிர்';
 }

@@ -1,4 +1,5 @@
 import 'package:astrology_app/apps/mobile/user/screens/app_tutorial/dash_board_tour.dart';
+import 'package:astrology_app/apps/mobile/user/services/settings/locale_storage_service.dart';
 import 'package:astrology_app/core/extension/context_extension.dart';
 import 'package:astrology_app/routes/mobile_routes/user_routes.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +45,7 @@ class _DailyMantraScreenTourState extends State<DailyMantraScreenTour> {
       },
       onSkip: () {
         // Save to your shared prefs
-        context.goNamed(MobileAppRoutes.userDashBoardScreen.name, extra: true);
+        onSkip(context: context);
       },
     );
     // }
@@ -163,4 +164,9 @@ class _DailyMantraScreenTourState extends State<DailyMantraScreenTour> {
       ),
     );
   }
+}
+
+void onSkip({required BuildContext context}) {
+  LocaleStoaregService.setIsFirstTime(false);
+  context.goNamed(MobileAppRoutes.userDashBoardScreen.name, extra: true);
 }

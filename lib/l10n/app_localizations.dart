@@ -793,6 +793,18 @@ abstract class AppLocalizations {
   /// **'Enter your Full Name'**
   String get enterYourFullName;
 
+  /// No description provided for @enterYourBirthDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your DOB'**
+  String get enterYourBirthDate;
+
+  /// No description provided for @enterYourBirthTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your TOB'**
+  String get enterYourBirthTime;
+
   /// No description provided for @enterYourBirthPlace.
   ///
   /// In en, this message translates to:
@@ -1392,6 +1404,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Palm + Birth Chart Alignment'**
   String get palmBirthChartAlignment;
+
+  /// No description provided for @agreementDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'This app offers spiritual guidance and is not a substitute for professional advice. By continuing, you accept the terms of use and privacy policy.'**
+  String get agreementDetails;
+
+  /// No description provided for @understandAndAgree.
+  ///
+  /// In en, this message translates to:
+  /// **'I understand and agree.'**
+  String get understandAndAgree;
+
+  /// No description provided for @continueText.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continueText;
+
+  /// No description provided for @next.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get next;
+
+  /// No description provided for @mantraSectionTutorial.
+  ///
+  /// In en, this message translates to:
+  /// **'Listen to daily mantras and keep your mind calm. Tap on a mantra’s text or audio icon to open the full audio screen.'**
+  String get mantraSectionTutorial;
+
+  /// No description provided for @palmSectionTutorial.
+  ///
+  /// In en, this message translates to:
+  /// **'Capture both your palms and reflect on your life balance — observe your lines, focus on mindfulness, and understand yourself better.'**
+  String get palmSectionTutorial;
+
+  /// No description provided for @premiumDialogTutorial.
+  ///
+  /// In en, this message translates to:
+  /// **'This is the Premium Access dialog. Upgrade to unlock advanced features like Mount Analysis and Birth Chart matching.'**
+  String get premiumDialogTutorial;
+
+  /// No description provided for @remedySectionTutorial.
+  ///
+  /// In en, this message translates to:
+  /// **'Know how planets, dasha, and their energies influence your palm. Discover their effects and remedies — unlock Premium Access for deeper insights.'**
+  String get remedySectionTutorial;
+
+  /// No description provided for @profileSectionTutorial.
+  ///
+  /// In en, this message translates to:
+  /// **'Add your personal details and secure your account in the app.'**
+  String get profileSectionTutorial;
+
+  /// No description provided for @appInfoSectionTutorial.
+  ///
+  /// In en, this message translates to:
+  /// **'All information about the app is available on the App Info screen. Tap to explore more details.'**
+  String get appInfoSectionTutorial;
+
+  /// No description provided for @skip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get skip;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

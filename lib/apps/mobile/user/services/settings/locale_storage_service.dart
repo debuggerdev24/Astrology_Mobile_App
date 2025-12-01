@@ -53,10 +53,9 @@ class LocaleStoaregService {
   static Future<void> setLoggedInUserPassword(String value) async =>
       await _pref.setString(_loggedInUserPasswordKey, value);
 
-  static bool get isFirstTime =>
-      _pref.getBool(_loggedInUserPasswordKey) ?? true;
+  static bool get isFirstTime => _pref.getBool(_isFirstTime) ?? true;
   static Future<void> setIsFirstTime(bool value) async =>
-      await _pref.setBool(_loggedInUserPasswordKey, value);
+      await _pref.setBool(_isFirstTime, value);
 
   // save and get the user refresh auth token
   static String get userRefreshToken =>

@@ -357,6 +357,12 @@ class AppLocalizationsHi extends AppLocalizations {
   String get enterYourFullName => 'अपना पूरा नाम भरें';
 
   @override
+  String get enterYourBirthDate => 'अपना जन्म दिनांक डालें';
+
+  @override
+  String get enterYourBirthTime => 'अपना जन्म समय दर्ज करें';
+
+  @override
   String get enterYourBirthPlace => 'अपना जन्म स्थान दर्ज करें';
 
   @override
@@ -655,4 +661,37 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get palmBirthChartAlignment => 'हथेली + जन्म कुंडली संरेखण';
+
+  @override
+  String get agreementDetails => 'यह ऐप स्पिरिचुअल गाइडेंस देता है और प्रोफेशनल सलाह का सब्स्टीट्यूट नहीं है। जारी रखकर, आप इस्तेमाल की शर्तें और प्राइवेसी पॉलिसी स्वीकार करते हैं।';
+
+  @override
+  String get understandAndAgree => 'मैं समझता हूं और सहमत हूं।';
+
+  @override
+  String get continueText => 'जारी रखे';
+
+  @override
+  String get next => 'अगला';
+
+  @override
+  String get mantraSectionTutorial => 'रोज़ाना मंत्र सुनें और अपने मन को शांत रखें। पूरी ऑडियो स्क्रीन खोलने के लिए मंत्र के टेक्स्ट या ऑडियो आइकन पर टैप करें।';
+
+  @override
+  String get palmSectionTutorial => 'अपनी दोनों हथेलियों को कैप्चर करें और अपने जीवन संतुलन पर विचार करें - अपनी रेखाओं को देखें, माइंडफुलनेस पर ध्यान केंद्रित करें, और खुद को बेहतर समझें।';
+
+  @override
+  String get premiumDialogTutorial => 'यह प्रीमियम एक्सेस डायलॉग है। माउंट एनालिसिस और बर्थ चार्ट मैचिंग जैसे एडवांस्ड फीचर्स को अनलॉक करने के लिए अपग्रेड करें।';
+
+  @override
+  String get remedySectionTutorial => 'जानें कि ग्रह, दशा और उनकी एनर्जी आपकी हथेली पर कैसे असर डालती हैं। उनके असर और उपाय जानें — ज़्यादा जानकारी के लिए प्रीमियम एक्सेस अनलॉक करें।';
+
+  @override
+  String get profileSectionTutorial => 'अपनी पर्सनल डिटेल्स जोड़ें और ऐप में अपना अकाउंट सिक्योर करें।';
+
+  @override
+  String get appInfoSectionTutorial => 'ऐप के बारे में सारी जानकारी ऐप इन्फो स्क्रीन पर उपलब्ध है। ज़्यादा जानकारी के लिए टैप करें।';
+
+  @override
+  String get skip => 'छोड़िए';
 }

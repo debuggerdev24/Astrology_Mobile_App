@@ -39,6 +39,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final translator = context.translator;
     Logger.printInfo(
       "Logged User Name : ${LocaleStoaregService.loggedInUserName}",
     );
@@ -65,8 +66,8 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                         children: [
                           // Full Name Field
                           AppTextField(
-                            hintText: "Enter your Full Name",
-                            title: "Full Name",
+                            hintText: translator.enterYourFullName,
+                            title: translator.fullName,
                             controller: provider.nameController,
                             errorMessage: provider.errorNameStr,
                             inputFormatters: [
@@ -85,12 +86,12 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                                   onTap: () =>
                                       provider.pickBirthDate(context: context),
                                   readOnly: true,
-                                  hintText: "Enter your DOB",
+                                  hintText: translator.enterYourBirthDate,
                                   suffix: Icon(
                                     Icons.calendar_month,
                                     color: AppColors.whiteColor,
                                   ),
-                                  title: "Date Of Birth",
+                                  title: translator.dateOfBirth,
                                   controller: provider.birthDateController,
                                   errorMessage: provider.errorDOBStr,
                                 ),
@@ -101,14 +102,14 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                                   onTap: () =>
                                       provider.pickBirthTime(context: context),
                                   readOnly: true,
-                                  hintText: "Enter your TOB",
+                                  hintText: translator.enterYourBirthTime,
                                   suffix: Icon(
                                     Icons.access_time_rounded,
                                     color: AppColors.whiteColor,
                                   ),
                                   errorMessage: provider.errorTOBStr,
 
-                                  title: "Time Of Birth",
+                                  title: translator.timeOfBirth,
                                   controller: provider.birthTimeController,
                                 ),
                               ),
@@ -117,16 +118,16 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                           22.h.verticalSpace,
                           // Place of Birth Field
                           AppTextField(
-                            hintText: "Enter your Birth Place",
-                            title: "Place Of Birth",
+                            hintText: translator.enterYourBirthPlace,
+                            title: translator.placeOfBirth,
                             controller: provider.birthPlaceController,
                             errorMessage: provider.errorPlaceOfBirthStr,
                           ),
                           22.h.verticalSpace,
                           // Current Location Field
                           AppTextField(
-                            hintText: "Enter your Current Location",
-                            title: "Current Location",
+                            hintText: translator.enterYourCurrentLocation,
+                            title: translator.currentLocation,
                             controller: provider.currentLocationController,
                             errorMessage: provider.errorCurrentLocationStr,
                           ),
@@ -134,7 +135,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
 
                           // Uploaded Palm Section
                           AppText(
-                            text: "Upload Palm",
+                            text: translator.uploadPalm,
                             style: medium(fontSize: 16),
                           ),
                           6.h.verticalSpace,
@@ -144,14 +145,14 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                               // Left Hand
                               handUploadBox(
                                 imageFile: provider.leftHandImageFile,
-                                label: "Left Hand",
+                                label: translator.leftHand,
                                 onTap: () => provider.pickImage(isLeft: true),
                               ),
 
                               // Right Hand
                               handUploadBox(
                                 imageFile: provider.rightHandImageFile,
-                                label: "Right Hand",
+                                label: translator.rightHand,
                                 onTap: () => provider.pickImage(isLeft: false),
                               ),
                             ],
@@ -160,8 +161,8 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                       ),
                       30.h.verticalSpace,
                       AppText(
-                        text:
-                            "This app offers spiritual guidance and is not a substitute for professional advice. By continuing, you accept the terms of use and privacy policy.",
+                        text: translator
+                            .agreementDetails, //"This app offers spiritual guidance and is not a substitute for professional advice. By continuing, you accept the terms of use and privacy policy.",
                         style: regular(fontSize: 16),
                       ),
                       12.h.verticalSpace,
@@ -172,7 +173,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                           spacing: 12.w,
                           children: [
                             AnimatedContainer(
-                              duration: Duration(milliseconds: 500),
+                              duration: Duration(milliseconds: 300),
                               curve: Curves.easeInOut,
                               width: 18.w,
                               height: 18.w,
@@ -195,12 +196,13 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                                   : null,
                             ),
                             AppText(
-                              text: "I understand and agree.",
+                              text: translator.understandAndAgree,
                               style: regular(fontSize: 18),
                             ),
                           ],
                         ),
                       ),
+
                       // Save Button
                       AppButton(
                         onTap: () {
@@ -208,7 +210,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                             provider.updateProfile(context: context);
                           });
                         },
-                        title: "Continue",
+                        title: translator.continueText,
                         margin: EdgeInsets.symmetric(vertical: 45.h),
                       ),
                     ],

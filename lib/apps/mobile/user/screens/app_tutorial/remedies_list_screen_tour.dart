@@ -12,6 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
+import 'daily_mantra_screen_tour.dart';
+
 class RemediesScreenTour extends StatefulWidget {
   const RemediesScreenTour({super.key});
 
@@ -29,8 +31,6 @@ class _RemediesScreenTourState extends State<RemediesScreenTour> {
   }
 
   void _showTutorial() {
-    // Check your existing shared prefs here
-    // if (!yourSharedPrefs.hasSeenPalmUploadTutorial) {
     AppTourManager.showRemedyTutorial(
       context: context,
       onFinish: () {
@@ -40,13 +40,11 @@ class _RemediesScreenTourState extends State<RemediesScreenTour> {
         context.pushNamed(MobileAppRoutes.profileScreenTour.name);
       },
       onSkip: () {
-        context.goNamed(MobileAppRoutes.userDashBoardScreen.name, extra: true);
-
+        onSkip(context: context);
         // Save to your shared prefs
         // yourSharedPrefs.setPalmUploadTutorialSeen();
       },
     );
-    // }
   }
 
   @override

@@ -189,12 +189,10 @@ class UserProfileProvider extends ChangeNotifier {
 
         (data) async {
           await LocaleStoaregService.setProfileCreated(true);
-
           AppToast.success(
             context: context,
             message: context.translator.profileUpdatedSuccessfully,
           );
-          // clearControllers();
           // context.pushNamed(MobileAppRoutes.userDashBoardScreen.name);
           callInitAPIs(context: context);
           context.pushNamed(MobileAppRoutes.userDashBoardTour.name);

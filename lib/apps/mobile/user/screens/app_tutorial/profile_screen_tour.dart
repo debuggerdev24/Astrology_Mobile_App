@@ -15,6 +15,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../../../core/constants/app_colors.dart';
 import '../../../../../../core/widgets/global_methods.dart';
+import 'daily_mantra_screen_tour.dart';
 
 class ProfileScreenTour extends StatefulWidget {
   const ProfileScreenTour({super.key});
@@ -44,7 +45,7 @@ class _ProfileScreenTourState extends State<ProfileScreenTour> {
         context.pushNamed(MobileAppRoutes.appInfoTour.name);
       },
       onSkip: () {
-        context.goNamed(MobileAppRoutes.userDashBoardScreen.name, extra: true);
+        onSkip(context: context);
 
         // Save to your shared prefs
         // yourSharedPrefs.setPalmUploadTutorialSeen();

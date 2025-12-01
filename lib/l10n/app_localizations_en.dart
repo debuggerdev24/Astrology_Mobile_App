@@ -357,6 +357,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get enterYourFullName => 'Enter your Full Name';
 
   @override
+  String get enterYourBirthDate => 'Enter your DOB';
+
+  @override
+  String get enterYourBirthTime => 'Enter your TOB';
+
+  @override
   String get enterYourBirthPlace => 'Enter your Birth Place';
 
   @override
@@ -655,4 +661,37 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get palmBirthChartAlignment => 'Palm + Birth Chart Alignment';
+
+  @override
+  String get agreementDetails => 'This app offers spiritual guidance and is not a substitute for professional advice. By continuing, you accept the terms of use and privacy policy.';
+
+  @override
+  String get understandAndAgree => 'I understand and agree.';
+
+  @override
+  String get continueText => 'Continue';
+
+  @override
+  String get next => 'Next';
+
+  @override
+  String get mantraSectionTutorial => 'Listen to daily mantras and keep your mind calm. Tap on a mantra’s text or audio icon to open the full audio screen.';
+
+  @override
+  String get palmSectionTutorial => 'Capture both your palms and reflect on your life balance — observe your lines, focus on mindfulness, and understand yourself better.';
+
+  @override
+  String get premiumDialogTutorial => 'This is the Premium Access dialog. Upgrade to unlock advanced features like Mount Analysis and Birth Chart matching.';
+
+  @override
+  String get remedySectionTutorial => 'Know how planets, dasha, and their energies influence your palm. Discover their effects and remedies — unlock Premium Access for deeper insights.';
+
+  @override
+  String get profileSectionTutorial => 'Add your personal details and secure your account in the app.';
+
+  @override
+  String get appInfoSectionTutorial => 'All information about the app is available on the App Info screen. Tap to explore more details.';
+
+  @override
+  String get skip => 'Skip';
 }

@@ -10,6 +10,7 @@ import '../../../../../../core/constants/text_style.dart';
 import '../../../../../../core/widgets/app_text.dart';
 import '../../../../../../core/widgets/global_methods.dart';
 import 'app_tour.dart';
+import 'daily_mantra_screen_tour.dart';
 
 class AppInfoTour extends StatefulWidget {
   const AppInfoTour({super.key});
@@ -39,7 +40,7 @@ class _AppInfoTourState extends State<AppInfoTour> {
         context.goNamed(MobileAppRoutes.userDashBoardScreen.name, extra: true);
       },
       onSkip: () {
-        context.goNamed(MobileAppRoutes.userDashBoardScreen.name, extra: true);
+        onSkip(context: context);
 
         // Save to your shared prefs
         // yourSharedPrefs.setPalmUploadTutorialSeen();

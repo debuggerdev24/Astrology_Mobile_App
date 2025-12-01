@@ -17,6 +17,7 @@ import 'package:provider/provider.dart';
 import '../../../../../routes/mobile_routes/user_routes.dart';
 import '../../provider/remedies/palm_provider.dart';
 import 'app_tour.dart';
+import 'daily_mantra_screen_tour.dart';
 
 class PalmUploadScreenTour extends StatefulWidget {
   const PalmUploadScreenTour({super.key});
@@ -47,8 +48,7 @@ class _PalmUploadScreenTourState extends State<PalmUploadScreenTour> {
       },
       onSkip: () {
         // Save to your shared prefs
-        // yourSharedPrefs.setPalmUploadTutorialSeen();
-        context.goNamed(MobileAppRoutes.userDashBoardScreen.name, extra: true);
+        onSkip(context: context);
       },
     );
     // }

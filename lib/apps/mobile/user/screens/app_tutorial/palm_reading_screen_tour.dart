@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:astrology_app/apps/mobile/user/model/remedies/palm_reading_model.dart';
 import 'package:astrology_app/apps/mobile/user/provider/setting/subscription_provider.dart';
+import 'package:astrology_app/apps/mobile/user/screens/app_tutorial/daily_mantra_screen_tour.dart';
 import 'package:astrology_app/core/constants/app_assets.dart';
 import 'package:astrology_app/core/constants/app_colors.dart';
 import 'package:astrology_app/core/constants/text_style.dart';
@@ -75,13 +76,9 @@ class _PalmReadingScreenTourState extends State<PalmReadingScreenTour> {
         context.pushNamed(MobileAppRoutes.remediesListScreenTour.name);
       },
       onSkip: () {
-        context.goNamed(MobileAppRoutes.userDashBoardScreen.name, extra: true);
-
-        // Save to your shared prefs
-        // yourSharedPrefs.setPalmUploadTutorialSeen();
+        onSkip(context: context);
       },
     );
-    // }
   }
 
   @override

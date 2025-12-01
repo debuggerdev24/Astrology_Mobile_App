@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:astrology_app/core/constants/text_style.dart';
+import 'package:astrology_app/core/extension/context_extension.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,7 +10,7 @@ import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 import '../../../../../core/constants/app_colors.dart';
 import '../../../../../core/widgets/app_text.dart';
 
-/// Central manager for all app tours/tutorials
+//todo Central manager for all app tours/tutorials
 class AppTourManager {
   static TutorialCoachMark? _currentTutorial;
 
@@ -20,7 +21,7 @@ class AppTourManager {
     VoidCallback? onSkip,
   }) {
     _currentTutorial = _createTutorial(
-      targets: AppTourTargets.mantraScreenTargets,
+      targets: AppTourTargets.mantraScreenTargets(context: context),
       onFinish: onFinish,
       onSkip: onSkip,
     );
@@ -34,7 +35,7 @@ class AppTourManager {
     VoidCallback? onSkip,
   }) {
     _currentTutorial = _createTutorial(
-      targets: AppTourTargets.palmUploadTargets,
+      targets: AppTourTargets.palmUploadTargets(context: context),
       onFinish: onFinish,
       onSkip: onSkip,
     );
@@ -48,7 +49,7 @@ class AppTourManager {
     VoidCallback? onSkip,
   }) {
     _currentTutorial = _createTutorial(
-      targets: AppTourTargets.palmReadingTargets,
+      targets: AppTourTargets.palmReadingTargets(context: context),
       onFinish: onFinish,
       onSkip: onSkip,
     );
@@ -62,7 +63,7 @@ class AppTourManager {
     VoidCallback? onSkip,
   }) {
     _currentTutorial = _createTutorial(
-      targets: AppTourTargets.remediesTargets,
+      targets: AppTourTargets.remediesTargets(context: context),
       onFinish: onFinish,
       onSkip: onSkip,
     );
@@ -76,7 +77,7 @@ class AppTourManager {
     VoidCallback? onSkip,
   }) {
     _currentTutorial = _createTutorial(
-      targets: AppTourTargets.profileTargets,
+      targets: AppTourTargets.profileTargets(context: context),
       onFinish: onFinish,
       onSkip: onSkip,
     );
@@ -90,7 +91,7 @@ class AppTourManager {
     VoidCallback? onSkip,
   }) {
     _currentTutorial = _createTutorial(
-      targets: AppTourTargets.appInfoTargets,
+      targets: AppTourTargets.appInfoTargets(context: context),
       onFinish: onFinish,
       onSkip: onSkip,
     );
@@ -139,38 +140,42 @@ class AppTourManager {
   }
 }
 
-// All tutorial targets configuration
+//todo All tutorial targets configuration
 class AppTourTargets {
   // Mantra Screen Targets
-  static List<TargetFocus> get mantraScreenTargets => [
+  static List<TargetFocus> mantraScreenTargets({
+    required BuildContext context,
+  }) => [
     _createTargetFocus(
       key: AppTourKeys.mantraPlayerCardKey,
       contents: [
         _createTargetContent(
           align: ContentAlign.bottom,
-          text:
-              "Listen to daily mantras and keep your mind calm. Tap on a mantra’s text or audio icon to open the full audio screen.",
+          text: context.translator.mantraSectionTutorial,
+          //"Listen to daily mantras and keep your mind calm. Tap on a mantra’s text or audio icon to open the full audio screen.",
         ),
       ],
     ),
   ];
 
   /// Palm Upload Screen Targets
-  static List<TargetFocus> get palmUploadTargets => [
-    _createTargetFocus(
-      key: AppTourKeys.palmSectionsKey,
-      contents: [
-        _createTargetContent(
-          align: ContentAlign.bottom,
-          text:
-              "Capture both your palms and reflect on your life balance — observe your lines, focus on mindfulness, and understand yourself better.",
+  static List<TargetFocus> palmUploadTargets({required BuildContext context}) =>
+      [
+        _createTargetFocus(
+          key: AppTourKeys.palmSectionsKey,
+          contents: [
+            _createTargetContent(
+              align: ContentAlign.bottom,
+              text: context.translator.palmSectionTutorial,
+            ),
+          ],
         ),
-      ],
-    ),
-  ];
+      ];
 
   /// Palm Reading Screen Targets
-  static List<TargetFocus> get palmReadingTargets => [
+  static List<TargetFocus> palmReadingTargets({
+    required BuildContext context,
+  }) => [
     _createTargetFocus(
       key: AppTourKeys.premiumDialogKey,
       shape: ShapeLightFocus.RRect,
@@ -178,49 +183,46 @@ class AppTourTargets {
       contents: [
         _createTargetContent(
           align: ContentAlign.bottom,
-          text:
-              "This is the Premium Access dialog. Upgrade to unlock advanced features like Mount Analysis and Birth Chart matching.",
+          text: context.translator.premiumDialogTutorial,
         ),
       ],
     ),
   ];
 
   /// Remedies Screen Targets
-  static List<TargetFocus> get remediesTargets => [
+  static List<TargetFocus> remediesTargets({required BuildContext context}) => [
     _createTargetFocus(
       key: AppTourKeys.remediesKey,
       contents: [
         _createTargetContent(
           align: ContentAlign.bottom,
-          text:
-              "Know how planets, dashas, and their energies influence your palm. Discover their effects and remedies — unlock Premium Access for deeper insights.",
+          text: context.translator.remedySectionTutorial,
         ),
       ],
     ),
   ];
 
   /// Profile Targets
-  static List<TargetFocus> get profileTargets => [
+  static List<TargetFocus> profileTargets({required BuildContext context}) => [
     _createTargetFocus(
       key: AppTourKeys.profileKey,
       contents: [
         _createTargetContent(
           align: ContentAlign.bottom,
-          text: "Add your personal details and secure your account in the app.",
+          text: context.translator.profileSectionTutorial,
         ),
       ],
     ),
   ];
 
   /// Profile Targets
-  static List<TargetFocus> get appInfoTargets => [
+  static List<TargetFocus> appInfoTargets({required BuildContext context}) => [
     _createTargetFocus(
       key: AppTourKeys.appInfo,
       contents: [
         _createTargetContent(
           align: ContentAlign.bottom,
-          text:
-              "All information about the app is available on the App Info screen. Tap to explore more details.",
+          text: context.translator.appInfoSectionTutorial,
         ),
       ],
     ),
@@ -290,7 +292,7 @@ class AppTourTargets {
                       ),
 
                       child: AppText(
-                        text: "Next",
+                        text: context.translator.next,
                         style: regular(fontSize: 14, color: AppColors.black),
                       ),
                     ),
