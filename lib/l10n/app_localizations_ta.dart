@@ -492,7 +492,7 @@ class AppLocalizationsTa extends AppLocalizations {
   String get premiumSloganMessageMatchWithBirthChart => '\"பிறப்பு விளக்கப்படத்துடன் பொருத்து\" அம்சம் பிரீமியம் திட்டம் (நிலை 2) பயனர்களுக்கு மட்டுமே கிடைக்கிறது.';
 
   @override
-  String get premiumSloganMessageRemedies => '\"வைத்தியம்\" அம்சம் பிரீமியம் திட்டம் (நிலை 2) பயனர்களுக்கு மட்டுமே கிடைக்கிறது.';
+  String get premiumSloganMessageRemedies => 'உங்கள் உள்ளங்கையின் உயரங்கள் மற்றும் உங்கள் வாழ்க்கைப் பாதையில் அவற்றின் செல்வாக்கு பற்றிய தனிப்பயனாக்கப்பட்ட நுண்ணறிவுகளைத் திறக்கவும்.';
 
   @override
   String get premiumMantraHistory => 'மந்திர வரலாற்றைத் திறந்து உங்கள் ஆன்மீக பயணத்தைக் கண்காணிக்கவும்';

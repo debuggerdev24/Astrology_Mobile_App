@@ -46,6 +46,7 @@ class SubscriptionProvider extends ChangeNotifier {
   }
 
   bool isActivePlanLoading = true;
+
   Future<void> getActiveSubscriptionPlan({
     required BuildContext context,
   }) async {
@@ -64,6 +65,7 @@ class SubscriptionProvider extends ChangeNotifier {
           r["data"],
         );
         _activeSubscriptions.clear();
+        //todo must be need to change right side if in the API price format get changes
         if (r["data"]["price"] == "5 USD") {
           addSubscription(AppEnum.tier1);
           addSubscription(AppEnum.tier2);
@@ -94,10 +96,11 @@ class SubscriptionProvider extends ChangeNotifier {
   }
 
   bool isSubscriptionLoading = false;
+
   Future<void> manageSubscriptionToDB({
     required AppEnum tier,
     required int planId,
-    required String serverVerificationToken,
+    required String serverVerificationData,
   }) async {
     final initApiData = {
       "plan_id": planId,
@@ -109,7 +112,7 @@ class SubscriptionProvider extends ChangeNotifier {
           ? AppEnum.android.name
           : AppEnum.ios.name,
       (Platform.isAndroid) ? "purchase_token" : "receipt_data":
-          (Platform.isAndroid) ? serverVerificationToken : AppEnum.ios.name,
+          serverVerificationData,
     };
 
     await SubscriptionApiService.instance.initiateSubscription(
@@ -136,13 +139,13 @@ class SubscriptionProvider extends ChangeNotifier {
   Future<void> buySubscription({
     required AppEnum tier,
     required int planId,
-    required String planName,
+    required BuildContext context,
   }) async {
     setSubscriptionProcessStatus(status: true);
     await SubscriptionService().buySubscription(
       tier: tier,
       planId: planId,
-      planName: planName,
+      context: context,
     );
   }
 

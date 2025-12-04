@@ -344,7 +344,6 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
                 ),
               ],
             ),
-
             16.h.verticalSpace,
 
             // Palm image placeholder

@@ -107,7 +107,6 @@ class AppTourManager {
     return TutorialCoachMark(
       targets: targets,
       colorShadow: Colors.black,
-      paddingFocus: 10,
       opacityShadow: 0.8,
       imageFilter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
       onFinish: onFinish,
@@ -115,15 +114,15 @@ class AppTourManager {
         onSkip?.call();
         return true;
       },
-      onClickTarget: (target) {
-        // Handle target click if needed
-      },
-      onClickTargetWithTapPosition: (target, tapDetails) {
-        // Handle tap position if needed
-      },
-      onClickOverlay: (target) {
-        // Handle overlay click if needed
-      },
+      // onClickTarget: (target) {
+      //   // Handle target click if needed
+      // },
+      // onClickTargetWithTapPosition: (target, tapDetails) {
+      //   // Handle tap position if needed
+      // },
+      // onClickOverlay: (target) {
+      //   onFinish?.call();
+      // },
     );
   }
 
@@ -148,10 +147,12 @@ class AppTourTargets {
   }) => [
     _createTargetFocus(
       key: AppTourKeys.mantraPlayerCardKey,
+      context: context,
       contents: [
         _createTargetContent(
           align: ContentAlign.bottom,
           text: context.translator.mantraSectionTutorial,
+
           //"Listen to daily mantras and keep your mind calm. Tap on a mantra’s text or audio icon to open the full audio screen.",
         ),
       ],
@@ -163,6 +164,8 @@ class AppTourTargets {
       [
         _createTargetFocus(
           key: AppTourKeys.palmSectionsKey,
+          context: context,
+
           contents: [
             _createTargetContent(
               align: ContentAlign.bottom,
@@ -178,6 +181,8 @@ class AppTourTargets {
   }) => [
     _createTargetFocus(
       key: AppTourKeys.premiumDialogKey,
+      context: context,
+
       shape: ShapeLightFocus.RRect,
       radius: 12,
       contents: [
@@ -193,6 +198,8 @@ class AppTourTargets {
   static List<TargetFocus> remediesTargets({required BuildContext context}) => [
     _createTargetFocus(
       key: AppTourKeys.remediesKey,
+      context: context,
+
       contents: [
         _createTargetContent(
           align: ContentAlign.bottom,
@@ -206,6 +213,8 @@ class AppTourTargets {
   static List<TargetFocus> profileTargets({required BuildContext context}) => [
     _createTargetFocus(
       key: AppTourKeys.profileKey,
+      context: context,
+
       contents: [
         _createTargetContent(
           align: ContentAlign.bottom,
@@ -219,6 +228,8 @@ class AppTourTargets {
   static List<TargetFocus> appInfoTargets({required BuildContext context}) => [
     _createTargetFocus(
       key: AppTourKeys.appInfo,
+      context: context,
+
       contents: [
         _createTargetContent(
           align: ContentAlign.bottom,
@@ -236,6 +247,8 @@ class AppTourTargets {
     bool enableTargetTab = true,
     ShapeLightFocus shape = ShapeLightFocus.RRect,
     double radius = 8,
+
+    required BuildContext context,
   }) {
     return TargetFocus(
       keyTarget: key,
@@ -243,10 +256,7 @@ class AppTourTargets {
       enableOverlayTab: true,
       shape: shape,
       radius: radius,
-      borderSide: const BorderSide(
-        color: Color(0xFFFF9800), // Orange color
-        width: 2,
-      ),
+      borderSide: const BorderSide(color: Color(0xFFFF9800), width: 2),
       contents: contents,
     );
   }

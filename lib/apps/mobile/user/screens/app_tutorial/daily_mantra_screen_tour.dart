@@ -37,9 +37,6 @@ class _DailyMantraScreenTourState extends State<DailyMantraScreenTour> {
     AppTourManager.showMantraTutorial(
       context: context,
       onFinish: () {
-        // Save to your shared prefs
-        // yourSharedPrefs.setMantraTutorialSeen();
-
         // Navigate to palm upload screen
         indexTabUserTour.value = 2;
       },
@@ -91,8 +88,8 @@ class _DailyMantraScreenTourState extends State<DailyMantraScreenTour> {
     required bool isFirstItem,
   }) {
     return Container(
-      // Attach key only to first item
       key: isFirstItem ? AppTourKeys.mantraPlayerCardKey : null,
+
       margin: EdgeInsets.only(bottom: 16.h),
       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
       decoration: BoxDecoration(

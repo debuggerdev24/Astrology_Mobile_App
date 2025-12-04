@@ -492,7 +492,7 @@ class AppLocalizationsHi extends AppLocalizations {
   String get premiumSloganMessageMatchWithBirthChart => '\"जन्म कुंडली से मिलान\" सुविधा केवल प्रीमियम प्लान (टियर 2) उपयोगकर्ताओं के लिए उपलब्ध है।';
 
   @override
-  String get premiumSloganMessageRemedies => '\"रिमेडिज\" सुविधा केवल प्रीमियम प्लान (टियर 2) उपयोगकर्ताओं के लिए उपलब्ध है।';
+  String get premiumSloganMessageRemedies => 'अपनी हथेली के पर्वतों और आपके जीवन पथ पर उनके प्रभाव के बारे में पर्सनलाइज़्ड जानकारी पाएं।';
 
   @override
   String get premiumMantraHistory => 'मंत्रों का इतिहास जानें और अपनी आध्यात्मिक यात्रा को ट्रैक करें';

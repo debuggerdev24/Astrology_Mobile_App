@@ -13,6 +13,7 @@ import 'package:astrology_app/apps/mobile/user/screens/user_dashboard.dart';
 import 'package:astrology_app/core/utils/custom_toast.dart';
 import 'package:astrology_app/routes/mobile_routes/user_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:provider/provider.dart';
@@ -28,6 +29,8 @@ class SubscriptionService {
 
   final InAppPurchase _iap = InAppPurchase.instance;
   late StreamSubscription<List<PurchaseDetails>> _subscription;
+  final GlobalKey<NavigatorState> globalNavigatorKey =
+      GlobalKey<NavigatorState>();
 
   /// Only Tier 1 & Tier 2
   static const Map<AppEnum, String> productIds = {
@@ -86,12 +89,12 @@ class SubscriptionService {
     }
   }
 
+  //todo buy subscription method
   late int _planID;
-  // late String _planName;
-  Future<bool> buySubscription({
+  Future<void> buySubscription({
     required AppEnum tier,
     required int planId,
-    required String planName,
+    required BuildContext context,
   }) async {
     try {
       _planID = planId;
@@ -102,12 +105,23 @@ class SubscriptionService {
         return p.id == productId;
       }, orElse: () => throw Exception('Product not found'));
       final param = PurchaseParam(productDetails: product);
-      return await _iap.buyNonConsumable(purchaseParam: param);
+      await _iap.buyNonConsumable(purchaseParam: param);
+    } on PlatformException catch (e) {
+      if (e.code == 'storekit2_purchase_cancelled') {
+        AppToast.info(
+          context: context,
+          message: "You have cancelled subscription process",
+        );
+
+        Provider.of<SubscriptionProvider>(
+          context,
+          listen: false,
+        ).setSubscriptionProcessStatus(status: false);
+      }
     } catch (e, stack) {
       Logger.printError(
         "Error inside the buySubscription function : $e\n$stack",
       );
-      return false;
     }
   }
 
@@ -120,21 +134,21 @@ class SubscriptionService {
       Logger.printInfo("-----------------> ${purchase.status}");
       if (purchase.status == PurchaseStatus.purchased ||
           purchase.status == PurchaseStatus.restored) {
-        String purchaseToken = "";
+        String serverVerificationData = "";
+        // if (Platform.isAndroid) {
+        final localData = purchase.verificationData.localVerificationData;
+        final serverData = purchase.verificationData.serverVerificationData;
+        final localDecodedData = jsonDecode(localData);
+        Logger.printInfo("Decode data : ${localDecodedData}");
+        Logger.printInfo("serverVerificationData : ${serverData}");
         if (Platform.isAndroid) {
-          final localData = purchase.verificationData.localVerificationData;
-          final decoded = jsonDecode(localData);
-          purchaseToken = decoded["purchaseToken"];
-          Logger.printInfo("Decode data : ${decoded}");
-
-          Logger.printInfo('Purchase Token: \n$purchaseToken');
-          Logger.printInfo("purchaseID : ${purchase.purchaseID}");
+          serverVerificationData = localDecodedData["purchaseToken"];
           Logger.printInfo(
-            "localVerificationData : ${purchase.verificationData.serverVerificationData.toString()}",
+            "Purchase Token For Android: \n$serverVerificationData",
           );
-          Logger.printInfo(
-            "serverVerificationData : ${purchase.verificationData.serverVerificationData.toString()}",
-          );
+        } else if (Platform.isIOS) {
+          serverVerificationData = localDecodedData["originalTransactionId"];
+          Logger.printInfo("Transaction Id For iOS: \n$serverVerificationData");
         }
 
         final tier = _getTierFromProductId(purchase.productID);
@@ -142,7 +156,7 @@ class SubscriptionService {
           await provider.manageSubscriptionToDB(
             tier: tier,
             planId: _planID,
-            serverVerificationToken: purchaseToken,
+            serverVerificationData: serverVerificationData,
           );
 
           indexTabUser.value = 0;
@@ -158,7 +172,9 @@ class SubscriptionService {
         _iap.completePurchase(purchase);
       } else if (purchase.status == PurchaseStatus.error) {
         debugPrint("Purchase error: ${purchase.error}");
-      } else if (purchase.status == PurchaseStatus.canceled) {
+      }
+      // else if (purchase.status == PurchaseStatus.restored) {}
+      else if (purchase.status == PurchaseStatus.canceled) {
         AppToast.info(
           context: context,
           message: "You have cancelled subscription process",

@@ -79,7 +79,7 @@ class SelectedPlanScreen extends StatelessWidget {
                       await provider.buySubscription(
                         tier: selectedPlan,
                         planId: plan.id,
-                        planName: plan.plan,
+                        context: context,
                       );
                       // context.pushNamed(MobileAppRoutes.paymentDetailScreen.name);
                     },

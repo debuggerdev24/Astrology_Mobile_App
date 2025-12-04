@@ -1066,7 +1066,7 @@ abstract class AppLocalizations {
   /// No description provided for @premiumSloganMessageRemedies.
   ///
   /// In en, this message translates to:
-  /// **'The \"Remedies\" feature is available exclusively for Premium Plan (Tier 2) users.'**
+  /// **'Unlock personalized insights into your palm’s mounts and their influence on your life path.'**
   String get premiumSloganMessageRemedies;
 
   /// No description provided for @premiumMantraHistory.

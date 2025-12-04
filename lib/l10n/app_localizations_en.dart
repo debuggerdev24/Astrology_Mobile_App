@@ -492,7 +492,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get premiumSloganMessageMatchWithBirthChart => 'The \"Match with Birth Chart\" feature is available exclusively for Premium Plan (Tier 2) users.';
 
   @override
-  String get premiumSloganMessageRemedies => 'The \"Remedies\" feature is available exclusively for Premium Plan (Tier 2) users.';
+  String get premiumSloganMessageRemedies => 'Unlock personalized insights into your palm’s mounts and their influence on your life path.';
 
   @override
   String get premiumMantraHistory => 'Unlock mantra history and track your spiritual journey';
