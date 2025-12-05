@@ -79,7 +79,7 @@ class CurrentPlanScreen extends StatelessWidget {
                         titleWithDetails(
                           title: translator.price,
 
-                          details: "\$${activePlan.price}",
+                          details: "${activePlan.price}",
                         ),
                         titleWithDetails(
                           title: translator

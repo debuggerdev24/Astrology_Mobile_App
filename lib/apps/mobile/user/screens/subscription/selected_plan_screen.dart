@@ -55,19 +55,19 @@ class SelectedPlanScreen extends StatelessWidget {
                     margin: EdgeInsets.only(bottom: 30.h),
                     title: translator.payAndSubscribe,
                     onTap: () async {
-                      if (plan.price == "20" && provider.isTier2Subscribed) {
+                      if (plan.price == "5 USD" && provider.isTier2Subscribed) {
                         AppToast.info(
                           context: context,
                           message: "You’ve already subscribed to this plan.",
                         );
                         return;
                       }
-                      if (plan.price == "10" && provider.isTier1Subscribed) {
+                      if (plan.price == "2 USD" && provider.isTier1Subscribed) {
                         AppToast.info(
                           context: context,
                           message: "You’ve already subscribed to this plan.",
                         );
-                        return; //
+                        return;
                       }
                       var selectedPlan = AppEnum.tier1;
                       if (plan.id == 3) {
@@ -76,11 +76,13 @@ class SelectedPlanScreen extends StatelessWidget {
                         selectedPlan = AppEnum.tier3;
                       }
                       Logger.printInfo(selectedPlan.name);
+                      Logger.printInfo(plan.id.toString());
                       await provider.buySubscription(
                         tier: selectedPlan,
                         planId: plan.id,
                         context: context,
                       );
+
                       // context.pushNamed(MobileAppRoutes.paymentDetailScreen.name);
                     },
                   ),

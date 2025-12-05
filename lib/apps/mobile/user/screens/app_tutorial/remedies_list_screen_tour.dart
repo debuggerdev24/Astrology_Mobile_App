@@ -34,14 +34,11 @@ class _RemediesScreenTourState extends State<RemediesScreenTour> {
     AppTourManager.showRemedyTutorial(
       context: context,
       onFinish: () {
-        // Save to your shared prefs
         // yourSharedPrefs.setPalmUploadTutorialSeen();
-
         context.pushNamed(MobileAppRoutes.profileScreenTour.name);
       },
       onSkip: () {
         onSkip(context: context);
-        // Save to your shared prefs
         // yourSharedPrefs.setPalmUploadTutorialSeen();
       },
     );
@@ -61,13 +58,21 @@ class _RemediesScreenTourState extends State<RemediesScreenTour> {
               child: Column(
                 children: [
                   8.h.verticalSpace,
-                  SizedBox(
-                    key: AppTourKeys.remediesKey,
-                    child: buildRemedySection(
-                      translator: translator,
-                      title: "Planet",
-                      context: context,
-                    ),
+                  Stack(
+                    children: [
+                      buildRemedySection(
+                        translator: translator,
+                        title: "Planet",
+                        context: context,
+                      ),
+                      Positioned.fill(
+                        child: Container(
+                          // color: Colors.red,
+                          margin: EdgeInsets.only(right: 20.w),
+                          key: AppTourKeys.remediesKey,
+                        ),
+                      ),
+                    ],
                   ),
                   buildRemedySection(
                     translator: translator,
@@ -96,7 +101,7 @@ class _RemediesScreenTourState extends State<RemediesScreenTour> {
         mainAxisSize: MainAxisSize.min,
         children: [
           AppText(
-            text: title, //translator.planet
+            text: title,
             style: bold(
               fontSize: 20,
               fontFamily: AppFonts.secondary,

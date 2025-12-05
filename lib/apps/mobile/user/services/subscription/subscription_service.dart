@@ -113,10 +113,9 @@ class SubscriptionService {
           message: "You have cancelled subscription process",
         );
 
-        Provider.of<SubscriptionProvider>(
-          context,
-          listen: false,
-        ).setSubscriptionProcessStatus(status: false);
+        context.read<SubscriptionProvider>().setSubscriptionProcessStatus(
+          status: false,
+        );
       }
     } catch (e, stack) {
       Logger.printError(
@@ -129,7 +128,6 @@ class SubscriptionService {
     List<PurchaseDetails> purchases,
     BuildContext context,
   ) async {
-    final provider = Provider.of<SubscriptionProvider>(context, listen: false);
     for (final purchase in purchases) {
       Logger.printInfo("-----------------> ${purchase.status}");
       if (purchase.status == PurchaseStatus.purchased ||
@@ -147,11 +145,13 @@ class SubscriptionService {
             "Purchase Token For Android: \n$serverVerificationData",
           );
         } else if (Platform.isIOS) {
-          serverVerificationData = localDecodedData["originalTransactionId"];
+          serverVerificationData = localDecodedData["transactionId"];
           Logger.printInfo("Transaction Id For iOS: \n$serverVerificationData");
         }
 
         final tier = _getTierFromProductId(purchase.productID);
+        final provider = context.read<SubscriptionProvider>();
+
         if (tier != null) {
           await provider.manageSubscriptionToDB(
             tier: tier,
@@ -179,6 +179,8 @@ class SubscriptionService {
           context: context,
           message: "You have cancelled subscription process",
         );
+        final provider = context.read<SubscriptionProvider>();
+
         provider.setSubscriptionProcessStatus(status: false);
       }
     }
