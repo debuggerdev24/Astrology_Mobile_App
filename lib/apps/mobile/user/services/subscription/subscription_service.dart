@@ -150,7 +150,7 @@ class SubscriptionService {
         }
 
         final tier = _getTierFromProductId(purchase.productID);
-        final provider = context.read<SubscriptionProvider>();
+        final provider = SubscriptionProvider();
 
         if (tier != null) {
           await provider.manageSubscriptionToDB(
@@ -160,7 +160,9 @@ class SubscriptionService {
           );
 
           indexTabUser.value = 0;
-          provider.setSubscriptionProcessStatus(status: false);
+          context.read<SubscriptionProvider>().setSubscriptionProcessStatus(
+            status: false,
+          );
 
           context.pushNamed(MobileAppRoutes.userDashBoardScreen.name);
           // AppToast.success(

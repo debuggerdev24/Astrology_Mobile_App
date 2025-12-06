@@ -44,12 +44,46 @@ class UserDashboard extends StatefulWidget {
 }
 
 class _UserDashboardState extends State<UserDashboard> {
+  HomeProvider? homeProvider;
+  MantraProvider? mantraProvider;
+  SubscriptionProvider? subscriptionProvider;
+  UserProfileProvider? userProfileProvider;
+  AppInfoProvider? appInfoProvider;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    homeProvider = context.read<HomeProvider>();
+    mantraProvider = context.read<MantraProvider>();
+    subscriptionProvider = context.read<SubscriptionProvider>();
+    userProfileProvider = context.read<UserProfileProvider>();
+    appInfoProvider = context.read<AppInfoProvider>();
+  }
+
   @override
   void initState() {
     if (!(widget.isFromTutorial ?? false)) {
-      callInitAPIs(context: context);
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        initAPIs();
+      });
     }
     super.initState();
+  }
+
+  Future<void> initAPIs() async {
+    await homeProvider?.getMoonDasha();
+
+    await Future.wait([
+      homeProvider!.initHomeScreen(),
+      mantraProvider!.getMantraHistory(),
+      subscriptionProvider!.getActiveSubscriptionPlan(context: context),
+      userProfileProvider!.getProfile(context),
+      subscriptionProvider!.getSubscriptionPlans(),
+      appInfoProvider!.init(context: context),
+      SubscriptionService().initialize(context),
+      NotificationService.instance.init(),
+    ]);
   }
 
   @override
@@ -238,9 +272,6 @@ void callInitAPIs({required BuildContext context}) {
       ),
       context.read<UserProfileProvider>().getProfile(context),
       context.read<SubscriptionProvider>().getSubscriptionPlans(),
-      // context.read<SetReminderProvider>().initializeNotifications(
-      //   context: context,
-      // ),
       context.read<AppInfoProvider>().init(context: context),
       SubscriptionService().initialize(context),
       NotificationService.instance.init(),

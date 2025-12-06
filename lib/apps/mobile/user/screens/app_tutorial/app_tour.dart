@@ -252,12 +252,13 @@ class AppTourTargets {
   }) {
     return TargetFocus(
       keyTarget: key,
-      enableTargetTab: enableTargetTab,
-      enableOverlayTab: true,
-      shape: shape,
+      enableTargetTab: false,
+      enableOverlayTab: false,
+      shape: ShapeLightFocus.RRect,
       radius: radius,
       borderSide: const BorderSide(color: Color(0xFFFF9800), width: 2),
       contents: contents,
+      paddingFocus: 6,
     );
   }
 

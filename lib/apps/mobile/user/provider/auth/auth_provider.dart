@@ -196,12 +196,12 @@ class UserAuthProvider extends ChangeNotifier {
         }
         LocaleStoaregService.setProfileCreated(true);
 
-        if (LocaleStoaregService.isFirstTime) {
-          context.goNamed(MobileAppRoutes.userDashBoardTour.name);
-          return;
-        }
+        // if (LocaleStoaregService.isFirstTime) {
+        //   context.goNamed(MobileAppRoutes.userDashBoardTour.name);
+        //   return;
+        // }
         context.goNamed(
-          MobileAppRoutes.userDashBoardScreen.name, //
+          MobileAppRoutes.userDashBoardTour.name, //userDashBoardScreen
         ); //
       },
     );

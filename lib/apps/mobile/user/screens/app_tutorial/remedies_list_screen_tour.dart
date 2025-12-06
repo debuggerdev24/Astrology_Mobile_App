@@ -58,21 +58,10 @@ class _RemediesScreenTourState extends State<RemediesScreenTour> {
               child: Column(
                 children: [
                   8.h.verticalSpace,
-                  Stack(
-                    children: [
-                      buildRemedySection(
-                        translator: translator,
-                        title: "Planet",
-                        context: context,
-                      ),
-                      Positioned.fill(
-                        child: Container(
-                          // color: Colors.red,
-                          margin: EdgeInsets.only(right: 20.w),
-                          key: AppTourKeys.remediesKey,
-                        ),
-                      ),
-                    ],
+                  buildRemedySection(
+                    translator: translator,
+                    title: "Planet",
+                    context: context,
                   ),
                   buildRemedySection(
                     translator: translator,
