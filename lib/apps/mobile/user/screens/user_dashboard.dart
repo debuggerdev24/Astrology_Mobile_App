@@ -27,6 +27,11 @@ import '../services/settings/notification_service.dart';
 import '../services/subscription/subscription_service.dart';
 
 final ValueNotifier<int> indexTabUser = ValueNotifier<int>(0);
+HomeProvider? homeProvider;
+MantraProvider? mantraProvider;
+SubscriptionProvider? subscriptionProvider;
+UserProfileProvider? userProfileProvider;
+AppInfoProvider? appInfoProvider;
 List<Widget> _pages = [
   HomeScreen(),
   DailyMantraScreen(),
@@ -44,46 +49,19 @@ class UserDashboard extends StatefulWidget {
 }
 
 class _UserDashboardState extends State<UserDashboard> {
-  HomeProvider? homeProvider;
-  MantraProvider? mantraProvider;
-  SubscriptionProvider? subscriptionProvider;
-  UserProfileProvider? userProfileProvider;
-  AppInfoProvider? appInfoProvider;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
-    homeProvider = context.read<HomeProvider>();
-    mantraProvider = context.read<MantraProvider>();
-    subscriptionProvider = context.read<SubscriptionProvider>();
-    userProfileProvider = context.read<UserProfileProvider>();
-    appInfoProvider = context.read<AppInfoProvider>();
-  }
-
   @override
   void initState() {
     if (!(widget.isFromTutorial ?? false)) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        initAPIs();
+        homeProvider = context.read<HomeProvider>();
+        mantraProvider = context.read<MantraProvider>();
+        subscriptionProvider = context.read<SubscriptionProvider>();
+        userProfileProvider = context.read<UserProfileProvider>();
+        appInfoProvider = context.read<AppInfoProvider>();
+        callInitAPIs(context: context);
       });
     }
     super.initState();
-  }
-
-  Future<void> initAPIs() async {
-    await homeProvider?.getMoonDasha();
-
-    await Future.wait([
-      homeProvider!.initHomeScreen(),
-      mantraProvider!.getMantraHistory(),
-      subscriptionProvider!.getActiveSubscriptionPlan(context: context),
-      userProfileProvider!.getProfile(context),
-      subscriptionProvider!.getSubscriptionPlans(),
-      appInfoProvider!.init(context: context),
-      SubscriptionService().initialize(context),
-      NotificationService.instance.init(),
-    ]);
   }
 
   @override
@@ -260,21 +238,38 @@ class _UserDashboardState extends State<UserDashboard> {
   }
 }
 
-void callInitAPIs({required BuildContext context}) {
-  WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-    await context.read<HomeProvider>().getMoonDasha();
+Future<void> callInitAPIs({required BuildContext context}) async {
+  await homeProvider?.getMoonDasha();
 
-    Future.wait([
-      context.read<HomeProvider>().initHomeScreen(),
-      context.read<MantraProvider>().getMantraHistory(),
-      context.read<SubscriptionProvider>().getActiveSubscriptionPlan(
-        context: context,
-      ),
-      context.read<UserProfileProvider>().getProfile(context),
-      context.read<SubscriptionProvider>().getSubscriptionPlans(),
-      context.read<AppInfoProvider>().init(context: context),
-      SubscriptionService().initialize(context),
-      NotificationService.instance.init(),
-    ]);
-  });
+  await Future.wait([
+    homeProvider!.initHomeScreen(),
+    mantraProvider!.getMantraHistory(),
+    subscriptionProvider!.getActiveSubscriptionPlan(context: context),
+    userProfileProvider!.getProfile(context),
+    subscriptionProvider!.getSubscriptionPlans(),
+    appInfoProvider!.init(context: context),
+    SubscriptionService().initialize(context),
+    NotificationService.instance.init(),
+  ]);
 }
+
+// void callInitAPIs({required BuildContext context}) {
+//   WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+//     await context.read<HomeProvider>().getMoonDasha();
+//
+//     Future.wait([
+//       context
+//           .read<HomeProvider>()
+//           .initHomeScreen(), //getting error here in this line
+//       context.read<MantraProvider>().getMantraHistory(),
+//       context.read<SubscriptionProvider>().getActiveSubscriptionPlan(
+//         context: context,
+//       ),
+//       context.read<UserProfileProvider>().getProfile(context),
+//       context.read<SubscriptionProvider>().getSubscriptionPlans(),
+//       context.read<AppInfoProvider>().init(context: context),
+//       SubscriptionService().initialize(context),
+//       NotificationService.instance.init(),
+//     ]);
+//   });
+// }

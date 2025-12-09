@@ -44,8 +44,7 @@ class CurrentPlanScreen extends StatelessWidget {
             builder: (context, provider, child) {
               if (!provider.isActivePlanLoading &&
                   provider.activeSubscriptionPlan != null) {
-                final activePlan = provider.activeSubscriptionPlan;
-                Logger.printInfo(activePlan!.startDate);
+                final activePlan = provider.activeSubscriptionPlan!;
 
                 return greyColoredBox(
                   showShadow: true,
@@ -95,7 +94,7 @@ class CurrentPlanScreen extends StatelessWidget {
                         Row(
                           spacing: 10.w,
                           children: [
-                            if (activePlan.price != "20")
+                            if (activePlan.price != "5 USD")
                               Expanded(
                                 child: AppButton(
                                   title: context.translator.upgradePlan,
@@ -107,12 +106,13 @@ class CurrentPlanScreen extends StatelessWidget {
                                           listen: false,
                                         );
                                     late SubscriptionPlanModel plan;
-                                    if (activePlan.price == "10") {
+                                    if (activePlan.price == "2 USD") {
                                       plan = provider.subscriptionPlans![2];
                                       context.pushNamed(
                                         MobileAppRoutes.selectedPlanScreen.name,
                                         extra: plan,
-                                      );
+                                      ); //2000001076716791
+                                      //705079220937521237
                                     }
                                   },
                                 ),

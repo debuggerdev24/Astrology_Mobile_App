@@ -657,7 +657,10 @@ class AppLocalizationsHi extends AppLocalizations {
   String get noMantraHistory => 'कोई मंत्र इतिहास उपलब्ध नहीं है।';
 
   @override
-  String get alreadySubscribed => 'आपने पहले ही इस योजना की सदस्यता ले ली है।';
+  String get alreadySubscribedTier1 => 'आपने पहले ही टियर 1 को सब्सक्राइब कर लिया है।';
+
+  @override
+  String get alreadySubscribedTier2 => 'आपने पहले ही टियर 2 को सब्सक्राइब कर लिया है।';
 
   @override
   String get palmBirthChartAlignment => 'हथेली + जन्म कुंडली संरेखण';
@@ -694,4 +697,10 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get skip => 'छोड़िए';
+
+  @override
+  String get tier1PurchasedSuccessfully => 'टियर 1 सफलतापूर्वक खरीदा गया है।';
+
+  @override
+  String get tier2PurchasedSuccessfully => 'टियर 2 सफलतापूर्वक खरीदा गया है।';
 }

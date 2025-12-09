@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 class SubscriptionPlansScreen extends StatefulWidget {
   const SubscriptionPlansScreen({super.key});
@@ -24,7 +25,6 @@ class SubscriptionPlansScreen extends StatefulWidget {
 }
 
 class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen> {
-
   @override
   Widget build(BuildContext context) {
     final translator = context.translator;
@@ -45,24 +45,29 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen> {
                 children: [
                   SizedBox(),
                   Consumer<SubscriptionProvider>(
-                    builder: (context, provider, child) => Column(
-                      children: List.generate(
-                        provider.subscriptionPlans!.length,
-                        (index) {
-                          final plan = provider.subscriptionPlans![index];
-                          return premiumPlanBox(
-                            translator: translator,
-                            plan: plan,
-                            onTap: () {
-                              context.pushNamed(
-                                MobileAppRoutes.selectedPlanScreen.name,
-                                extra: plan,
-                              );
-                            },
-                          );
-                        },
-                      ),
-                    ),
+                    builder: (context, provider, child) {
+                      if (provider.isPlansLoading) {
+                        return _shimmer();
+                      }
+                      return Column(
+                        children: List.generate(
+                          provider.subscriptionPlans!.length,
+                          (index) {
+                            final plan = provider.subscriptionPlans![index];
+                            return premiumPlanBox(
+                              translator: translator,
+                              plan: plan,
+                              onTap: () {
+                                context.pushNamed(
+                                  MobileAppRoutes.selectedPlanScreen.name,
+                                  extra: plan,
+                                );
+                              },
+                            );
+                          },
+                        ),
+                      );
+                    },
                   ),
                   AppButton(
                     onTap: () {
@@ -77,6 +82,142 @@ class _SubscriptionPlansScreenState extends State<SubscriptionPlansScreen> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _shimmer() {
+    return Shimmer.fromColors(
+      baseColor: AppColors.greyColor,
+      highlightColor: Colors.grey[400]!,
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 12.w),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              16.h.verticalSpace,
+              // ---------------- Top Bar Placeholder ----------------
+              Row(
+                children: [
+                  Container(
+                    width: 200.w,
+                    height: 28.h,
+
+                    decoration: BoxDecoration(
+                      color: AppColors.greyColor,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                  ),
+                  Spacer(),
+                  Container(
+                    width: 40.w,
+                    height: 40.h,
+                    decoration: BoxDecoration(
+                      color: AppColors.greyColor,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                ],
+              ),
+              16.h.verticalSpace,
+
+              // ---------------- Dasha & Moon Section ----------------
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: 150.w,
+                    height: 18.h,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      color: AppColors.greyColor,
+                    ),
+                  ),
+                  6.h.verticalSpace,
+                  Container(
+                    width: 100.w,
+                    height: 18.h,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      color: AppColors.greyColor,
+                    ),
+                  ),
+                  4.h.verticalSpace,
+                  Container(
+                    width: 120.w,
+                    height: 16.h,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      color: AppColors.greyColor,
+                    ),
+                  ),
+                ],
+              ),
+              16.h.verticalSpace,
+              // ---------------- Today Mantra Card ----------------
+              Container(
+                width: double.infinity,
+                height: 110.h,
+                decoration: BoxDecoration(
+                  color: AppColors.greyColor,
+                  borderRadius: BorderRadius.circular(8.r),
+                ),
+              ),
+              16.h.verticalSpace,
+
+              // ---------------- Karma Focus Box ----------------
+              Container(
+                width: double.infinity,
+                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                decoration: BoxDecoration(
+                  color: AppColors.greyColor.withValues(alpha: 0.6),
+                  borderRadius: BorderRadius.circular(8.r),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: List.generate(
+                    3,
+                    (_) => Padding(
+                      padding: EdgeInsets.symmetric(vertical: 7.h),
+                      child: Container(
+                        width: double.infinity,
+                        height: 20.h,
+                        color: AppColors.greyColor,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              16.h.verticalSpace,
+
+              // ---------------- Dasha Nakshatra Box ----------------
+              Container(
+                width: double.infinity,
+                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                decoration: BoxDecoration(
+                  color: AppColors.greyColor.withValues(alpha: 0.6),
+                  borderRadius: BorderRadius.circular(8.r),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: List.generate(
+                    4,
+                    (_) => Padding(
+                      padding: EdgeInsets.symmetric(vertical: 7.h),
+                      child: Container(
+                        width: double.infinity,
+                        height: 20.h,
+                        color: AppColors.greyColor,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              20.h.verticalSpace,
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -111,7 +252,7 @@ Widget premiumPlanBox({
             ),
             if (plan.price != "0")
               AppText(
-                text: plan.price,//"\$${double.parse().toStringAsFixed(2)}",
+                text: plan.price, //"\$${double.parse().toStringAsFixed(2)}",
                 style: bold(fontSize: 18, color: AppColors.primary),
               ),
           ],

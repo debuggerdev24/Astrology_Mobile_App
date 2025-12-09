@@ -9,12 +9,9 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:astrology_app/apps/mobile/user/screens/user_dashboard.dart';
 import 'package:astrology_app/core/utils/custom_toast.dart';
-import 'package:astrology_app/routes/mobile_routes/user_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:go_router/go_router.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:provider/provider.dart';
 
@@ -132,8 +129,8 @@ class SubscriptionService {
       Logger.printInfo("-----------------> ${purchase.status}");
       if (purchase.status == PurchaseStatus.purchased ||
           purchase.status == PurchaseStatus.restored) {
-        String serverVerificationData = "";
-        // if (Platform.isAndroid) {
+        String serverVerificationData = ""; //2000001077169960
+
         final localData = purchase.verificationData.localVerificationData;
         final serverData = purchase.verificationData.serverVerificationData;
         final localDecodedData = jsonDecode(localData);
@@ -153,29 +150,18 @@ class SubscriptionService {
         final provider = SubscriptionProvider();
 
         if (tier != null) {
-          await provider.manageSubscriptionToDB(
+          await provider.updateSubscriptionInDataBase(
             tier: tier,
             planId: _planID,
             serverVerificationData: serverVerificationData,
+            context: context,
+            isRestore: purchase.status == PurchaseStatus.restored,
           );
-
-          indexTabUser.value = 0;
-          context.read<SubscriptionProvider>().setSubscriptionProcessStatus(
-            status: false,
-          );
-
-          context.pushNamed(MobileAppRoutes.userDashBoardScreen.name);
-          // AppToast.success(
-          //   context: context,
-          //   message: "${_planName} purchased successfully!",
-          // );
-          // callInitAPIs(context: context);
         }
         _iap.completePurchase(purchase);
       } else if (purchase.status == PurchaseStatus.error) {
         debugPrint("Purchase error: ${purchase.error}");
-      }
-      // else if (purchase.status == PurchaseStatus.restored) {}
+      } //
       else if (purchase.status == PurchaseStatus.canceled) {
         AppToast.info(
           context: context,

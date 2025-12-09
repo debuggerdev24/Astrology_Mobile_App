@@ -4,9 +4,12 @@ import 'package:astrology_app/apps/mobile/user/model/settings/subscription_plan_
 import 'package:astrology_app/apps/mobile/user/services/settings/subscription_api_service.dart';
 import 'package:astrology_app/core/utils/custom_toast.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../../core/enum/app_enums.dart';
 import '../../../../../core/utils/logger.dart';
+import '../../../../../routes/mobile_routes/user_routes.dart';
+import '../../screens/user_dashboard.dart';
 import '../../services/subscription/subscription_service.dart';
 
 class SubscriptionProvider extends ChangeNotifier {
@@ -14,7 +17,10 @@ class SubscriptionProvider extends ChangeNotifier {
   List<SubscriptionPlanModel>? subscriptionPlans;
   ActiveSubscriptionPlanModel? activeSubscriptionPlan;
 
+  bool isPlansLoading = true;
   Future<void> getSubscriptionPlans() async {
+    isPlansLoading = true;
+    notifyListeners();
     final result = await SubscriptionApiService.instance.getPlans();
     result.fold(
       (l) {
@@ -27,6 +33,8 @@ class SubscriptionProvider extends ChangeNotifier {
         notifyListeners();
       },
     );
+    isPlansLoading = false;
+    notifyListeners();
   }
 
   Future<void> cancelSubscriptionPlan({required BuildContext context}) async {
@@ -97,10 +105,12 @@ class SubscriptionProvider extends ChangeNotifier {
 
   bool isSubscriptionLoading = false;
 
-  Future<void> manageSubscriptionToDB({
+  Future<void> updateSubscriptionInDataBase({
     required AppEnum tier,
     required int planId,
     required String serverVerificationData,
+    required BuildContext context,
+    required bool isRestore,
   }) async {
     final initApiData = {
       "plan_id": planId,
@@ -118,20 +128,34 @@ class SubscriptionProvider extends ChangeNotifier {
     await SubscriptionApiService.instance.initiateSubscription(
       data: initApiData,
     );
+
     final result = await SubscriptionApiService.instance.validateSubscription(
       data: validateApiData,
     );
+
     result.fold(
       (l) {
         Logger.printError(l.errorMessage.toString());
       },
       (r) {
         setSubscriptionProcessStatus(status: false);
+        AppToast.success(
+          context: context,
+          message: (tier == AppEnum.tier1)
+              ? "Tier 1 Purchased Successfully"
+              : "Tier 2 Purchased Successfully",
+        );
+        indexTabUser.value = 0;
+        context.pushNamed(MobileAppRoutes.userDashBoardScreen.name);
       },
     );
   }
 
+  //todo 1.st {transactionId: 2000001077087364, originalTransactionId: 2000001076846733
+  //todo 2nd {transactionId: 2000001077100909, originalTransactionId: 2000001076846733
+
   void setSubscriptionProcessStatus({required bool status}) {
+    Logger.printInfo("Updating loading status");
     isSubscriptionLoading = status;
     notifyListeners();
   }

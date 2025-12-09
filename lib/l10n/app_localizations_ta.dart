@@ -657,7 +657,10 @@ class AppLocalizationsTa extends AppLocalizations {
   String get noMantraHistory => 'மந்திர வரலாறு எதுவும் கிடைக்கவில்லை.';
 
   @override
-  String get alreadySubscribed => 'நீங்கள் ஏற்கனவே இந்தத் திட்டத்தில் சேர்ந்துள்ளீர்கள்.';
+  String get alreadySubscribedTier1 => 'நீங்கள் ஏற்கனவே அடுக்கு 1 க்கு குழுசேர்ந்துள்ளீர்கள்.';
+
+  @override
+  String get alreadySubscribedTier2 => 'நீங்கள் ஏற்கனவே அடுக்கு 2 க்கு குழுசேர்ந்துள்ளீர்கள்.';
 
   @override
   String get palmBirthChartAlignment => 'உள்ளங்கை + பிறப்பு விளக்கப்பட சீரமைப்பு';
@@ -694,4 +697,10 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get skip => 'தவிர்';
+
+  @override
+  String get tier1PurchasedSuccessfully => 'टஅடுக்கு 1 வெற்றிகரமாக வாங்கப்பட்டது.';
+
+  @override
+  String get tier2PurchasedSuccessfully => 'அடுக்கு 2 வெற்றிகரமாக வாங்கப்பட்டது.';
 }

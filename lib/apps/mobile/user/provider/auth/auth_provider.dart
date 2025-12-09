@@ -196,19 +196,20 @@ class UserAuthProvider extends ChangeNotifier {
         }
         LocaleStoaregService.setProfileCreated(true);
 
-        // if (LocaleStoaregService.isFirstTime) {
-        //   context.goNamed(MobileAppRoutes.userDashBoardTour.name);
-        //   return;
-        // }
+        if (LocaleStoaregService.isFirstTime) {
+          context.goNamed(MobileAppRoutes.userDashBoardTour.name);
+          return;
+        }
         context.goNamed(
-          MobileAppRoutes.userDashBoardTour.name, //userDashBoardScreen
-        ); //
+          MobileAppRoutes.userDashBoardScreen.name, //userDashBoardTour
+        );
       },
     );
   }
 
   //todo ---------------> log out
   bool isLogOutLoading = false;
+  //eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzY1MzQyOTU3LCJpYXQiOjE3NjUyNzA5NTcsImp0aSI6IjBiMTc1OTJiYWYwMDRiZDI5NWZkYzEzNTM1Yjk0ZTBmIiwidXNlcl9pZCI6IjE0NyJ9.lAeD3BXeUW-lq3ZDs_TJdDBoGJQlyUGHYFH1Itycz2o
 
   // Future<void> logOutUser(BuildContext context) async {
   //   isLogOutLoading = true;

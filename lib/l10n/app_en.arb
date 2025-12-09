@@ -215,7 +215,8 @@
   "passwordSyntaxError": "Password must be at least 8 characters, include a capital letter, a number, and a special character!",
   "expireToken": "Token has expired",
   "noMantraHistory": "No mantra history available.",
-  "alreadySubscribed": "You’ve already subscribed to this plan.",
+  "alreadySubscribedTier1": "You’ve already subscribed to Tier 1.",
+  "alreadySubscribedTier2": "You’ve already subscribed to Tier 2.",
   "palmBirthChartAlignment": "Palm + Birth Chart Alignment",
   "agreementDetails": "This app offers spiritual guidance and is not a substitute for professional advice. By continuing, you accept the terms of use and privacy policy.",
   "understandAndAgree": "I understand and agree.",
@@ -227,5 +228,7 @@
   "remedySectionTutorial": "Know how planets, dasha, and their energies influence your palm. Discover their effects and remedies — unlock Premium Access for deeper insights.",
   "profileSectionTutorial": "Add your personal details and secure your account in the app.",
   "appInfoSectionTutorial": "All information about the app is available on the App Info screen. Tap to explore more details.",
-  "skip": "Skip"
+  "skip": "Skip",
+  "tier1PurchasedSuccessfully": "Tier 1 Purchased Successfully",
+  "tier2PurchasedSuccessfully": "Tier 2 Purchased Successfully"
 }

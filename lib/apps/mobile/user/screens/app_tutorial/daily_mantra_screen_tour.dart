@@ -163,7 +163,7 @@ class _DailyMantraScreenTourState extends State<DailyMantraScreenTour> {
         ),
         Positioned.fill(
           child: Padding(
-            padding: EdgeInsets.only(right: Platform.isIOS ? 20.w : 0),
+            padding: EdgeInsets.only(right: Platform.isIOS ? 12.w : 0),
 
             child: Container(
               key: isFirstItem ? AppTourKeys.mantraPlayerCardKey : null,

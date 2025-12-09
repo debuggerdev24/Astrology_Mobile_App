@@ -114,15 +114,15 @@ class AppTourManager {
         onSkip?.call();
         return true;
       },
-      // onClickTarget: (target) {
-      //   // Handle target click if needed
-      // },
+      onClickTarget: (target) {
+        onFinish?.call();
+      },
       // onClickTargetWithTapPosition: (target, tapDetails) {
       //   // Handle tap position if needed
       // },
-      // onClickOverlay: (target) {
-      //   onFinish?.call();
-      // },
+      onClickOverlay: (target) {
+        onFinish?.call();
+      },
     );
   }
 

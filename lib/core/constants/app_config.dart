@@ -3,9 +3,10 @@ enum UserRole { customer, creator, admin }
 class AppConfig {
   AppConfig._();
   static final UserRole userRole = UserRole.customer;
-  static const String apiBaseurl = "http://209.38.20.86/api";
-  static const String imagesBaseurl = "http://209.38.20.86/";
-  static const String audioBaseurl = "http://209.38.20.86";
+  static const String apiBaseurl = "https://app.innerpeacepath.org/api";
+  static const String imagesBaseurl = "https://app.innerpeacepath.org/";
+  static const String audioBaseurl =
+      "https://app.innerpeacepath.org"; //http://209.38.20.86
 }
 
 /*

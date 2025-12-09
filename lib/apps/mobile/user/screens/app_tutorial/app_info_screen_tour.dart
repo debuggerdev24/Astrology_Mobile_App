@@ -59,16 +59,14 @@ class _AppInfoTourState extends State<AppInfoTour> {
           topBar(context: context, title: context.translator.appInfo),
           32.h.verticalSpace,
           Column(
-            children: [
-              SizedBox(
-                key: AppTourKeys.appInfo,
+            key: AppTourKeys.appInfo,
 
-                child: _section(
-                  title: context.translator.privacyPolicy,
-                  onTap: () {
-                    context.pushNamed(MobileAppRoutes.privacyPolicyScreen.name);
-                  },
-                ),
+            children: [
+              _section(
+                title: context.translator.privacyPolicy,
+                onTap: () {
+                  context.pushNamed(MobileAppRoutes.privacyPolicyScreen.name);
+                },
               ),
               buildDivider(),
               _section(

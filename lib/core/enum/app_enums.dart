@@ -9,5 +9,8 @@ enum AppEnum {
   free,
   android,
   ios,
-  left,right
+  left,
+  right,
+  Tier1,
+  Tier2,
 }

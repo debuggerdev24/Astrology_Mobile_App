@@ -32,6 +32,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void init() {
     Logger.printInfo("Authorized Token : $userToken /");
+
     Future.delayed(Duration(seconds: 3)).then((value) async {
       // context.pushNamed(MobileAppRoutes.signUpScreen.name);
       // SubscriptionService().initialize(context);

@@ -657,7 +657,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noMantraHistory => 'No mantra history available.';
 
   @override
-  String get alreadySubscribed => 'You’ve already subscribed to this plan.';
+  String get alreadySubscribedTier1 => 'You’ve already subscribed to Tier 1.';
+
+  @override
+  String get alreadySubscribedTier2 => 'You’ve already subscribed to Tier 2.';
 
   @override
   String get palmBirthChartAlignment => 'Palm + Birth Chart Alignment';
@@ -694,4 +697,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get skip => 'Skip';
+
+  @override
+  String get tier1PurchasedSuccessfully => 'Tier 1 Purchased Successfully';
+
+  @override
+  String get tier2PurchasedSuccessfully => 'Tier 2 Purchased Successfully';
 }

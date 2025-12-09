@@ -1393,11 +1393,17 @@ abstract class AppLocalizations {
   /// **'No mantra history available.'**
   String get noMantraHistory;
 
-  /// No description provided for @alreadySubscribed.
+  /// No description provided for @alreadySubscribedTier1.
   ///
   /// In en, this message translates to:
-  /// **'You’ve already subscribed to this plan.'**
-  String get alreadySubscribed;
+  /// **'You’ve already subscribed to Tier 1.'**
+  String get alreadySubscribedTier1;
+
+  /// No description provided for @alreadySubscribedTier2.
+  ///
+  /// In en, this message translates to:
+  /// **'You’ve already subscribed to Tier 2.'**
+  String get alreadySubscribedTier2;
 
   /// No description provided for @palmBirthChartAlignment.
   ///
@@ -1470,6 +1476,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Skip'**
   String get skip;
+
+  /// No description provided for @tier1PurchasedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Tier 1 Purchased Successfully'**
+  String get tier1PurchasedSuccessfully;
+
+  /// No description provided for @tier2PurchasedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Tier 2 Purchased Successfully'**
+  String get tier2PurchasedSuccessfully;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
