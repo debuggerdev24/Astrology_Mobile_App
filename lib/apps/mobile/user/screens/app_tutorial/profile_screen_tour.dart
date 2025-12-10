@@ -57,81 +57,85 @@ class _ProfileScreenTourState extends State<ProfileScreenTour> {
   @override
   Widget build(BuildContext context) {
     final translator = context.translator;
-    return AppLayout(
-      body: Consumer<UserProfileProvider>(
-        builder: (context, provider, child) => Column(
-          children: [
-            40.h.verticalSpace,
-            topBar(
-              context: context,
-              leadingIcon: GestureDetector(
-                onTap: () {
-                  context.pop();
-                },
-                child: Icon(Icons.arrow_back, color: AppColors.white),
+    return PopScope(
+      canPop: false,
+
+      child: AppLayout(
+        body: Consumer<UserProfileProvider>(
+          builder: (context, provider, child) => Column(
+            children: [
+              40.h.verticalSpace,
+              topBar(
+                context: context,
+                leadingIcon: GestureDetector(
+                  onTap: () {
+                    context.pop();
+                  },
+                  child: Icon(Icons.arrow_back, color: AppColors.white),
+                ),
+                title: context.translator.profile,
+                actionIcon: GestureDetector(
+                  onTap: () {
+                    context.pushNamed(MobileAppRoutes.editProfileScreen.name);
+                  },
+                  child: SVGImage(path: AppAssets.editIcon),
+                ),
               ),
-              title: context.translator.profile,
-              actionIcon: GestureDetector(
-                onTap: () {
-                  context.pushNamed(MobileAppRoutes.editProfileScreen.name);
-                },
-                child: SVGImage(path: AppAssets.editIcon),
+              32.h.verticalSpace,
+              Column(
+                key: AppTourKeys.profileKey,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                spacing: 22.h,
+                children: [
+                  UnderLinedAppTextField(
+                    readOnly: true,
+                    title: translator.fullName,
+                    controller: TextEditingController(text: "Priya Sharma"),
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: UnderLinedAppTextField(
+                          readOnly: true,
+                          title: translator.dateOfBirth,
+                          controller: TextEditingController(text: "31/05/2000"),
+                        ),
+                      ),
+                      Expanded(
+                        child: UnderLinedAppTextField(
+                          readOnly: true,
+                          title: translator.timeOfBirth,
+                          controller: TextEditingController(text: "10.00 AM"),
+                        ),
+                      ),
+                    ],
+                  ),
+                  UnderLinedAppTextField(
+                    readOnly: true,
+                    title: translator.placeOfBirth,
+                    controller: TextEditingController(text: "United Kingdom"),
+                  ),
+                  UnderLinedAppTextField(
+                    readOnly: true,
+                    title: translator.currentLocation,
+                    controller: TextEditingController(text: "United Kingdom"),
+                  ),
+                  AppText(
+                    text: translator.uploadedPalm,
+                    style: medium(fontSize: 14),
+                  ),
+                ],
               ),
-            ),
-            32.h.verticalSpace,
-            Column(
-              key: AppTourKeys.profileKey,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              spacing: 22.h,
-              children: [
-                UnderLinedAppTextField(
-                  readOnly: true,
-                  title: translator.fullName,
-                  controller: TextEditingController(text: "Priya Sharma"),
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: UnderLinedAppTextField(
-                        readOnly: true,
-                        title: translator.dateOfBirth,
-                        controller: TextEditingController(text: "31/05/2000"),
-                      ),
-                    ),
-                    Expanded(
-                      child: UnderLinedAppTextField(
-                        readOnly: true,
-                        title: translator.timeOfBirth,
-                        controller: TextEditingController(text: "10.00 AM"),
-                      ),
-                    ),
-                  ],
-                ),
-                UnderLinedAppTextField(
-                  readOnly: true,
-                  title: translator.placeOfBirth,
-                  controller: TextEditingController(text: "United Kingdom"),
-                ),
-                UnderLinedAppTextField(
-                  readOnly: true,
-                  title: translator.currentLocation,
-                  controller: TextEditingController(text: "United Kingdom"),
-                ),
-                AppText(
-                  text: translator.uploadedPalm,
-                  style: medium(fontSize: 14),
-                ),
-              ],
-            ),
-            22.h.verticalSpace,
-            Row(
-              spacing: 11.w,
-              children: [
-                buildPalmSection(palmImage: AppAssets.palm),
-                buildPalmSection(palmImage: AppAssets.palm),
-              ],
-            ),
-          ],
+              22.h.verticalSpace,
+              Row(
+                spacing: 11.w,
+                children: [
+                  buildPalmSection(palmImage: AppAssets.palm),
+                  buildPalmSection(palmImage: AppAssets.palm),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

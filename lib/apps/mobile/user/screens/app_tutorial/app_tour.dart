@@ -118,7 +118,7 @@ class AppTourManager {
         onFinish?.call();
       },
       // onClickTargetWithTapPosition: (target, tapDetails) {
-      //   // Handle tap position if needed
+      //   onFinish?.call();
       // },
       onClickOverlay: (target) {
         onFinish?.call();
@@ -152,7 +152,6 @@ class AppTourTargets {
         _createTargetContent(
           align: ContentAlign.bottom,
           text: context.translator.mantraSectionTutorial,
-
           //"Listen to daily mantras and keep your mind calm. Tap on a mantra’s text or audio icon to open the full audio screen.",
         ),
       ],

@@ -96,6 +96,7 @@ class _SelectedPlanScreenState extends State<SelectedPlanScreen> {
                           selectedPlan = AppEnum.tier3;
                         }
                         Logger.printInfo(selectedPlan.name);
+
                         await provider.buySubscription(
                           tier: selectedPlan,
                           planId: widget.plan.id,

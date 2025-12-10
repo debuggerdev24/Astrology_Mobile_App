@@ -4,11 +4,10 @@ import 'package:astrology_app/apps/mobile/user/model/settings/subscription_plan_
 import 'package:astrology_app/apps/mobile/user/services/settings/subscription_api_service.dart';
 import 'package:astrology_app/core/utils/custom_toast.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../../../core/enum/app_enums.dart';
+import '../../../../../core/utils/de_bouncing.dart';
 import '../../../../../core/utils/logger.dart';
-import '../../../../../routes/mobile_routes/user_routes.dart';
 import '../../screens/user_dashboard.dart';
 import '../../services/subscription/subscription_service.dart';
 
@@ -16,6 +15,7 @@ class SubscriptionProvider extends ChangeNotifier {
   //todo ----------------> Subscription API service
   List<SubscriptionPlanModel>? subscriptionPlans;
   ActiveSubscriptionPlanModel? activeSubscriptionPlan;
+  String appAccountToken = "";
 
   bool isPlansLoading = true;
   Future<void> getSubscriptionPlans() async {
@@ -107,28 +107,22 @@ class SubscriptionProvider extends ChangeNotifier {
 
   Future<void> updateSubscriptionInDataBase({
     required AppEnum tier,
-    required int planId,
     required String serverVerificationData,
     required BuildContext context,
     required bool isRestore,
+    required VoidCallback onSuccess,
   }) async {
-    final initApiData = {
-      "plan_id": planId,
-      "platform": Platform.isAndroid ? AppEnum.android.name : AppEnum.ios.name,
-    };
-
     final validateApiData = {
       "platform": (Platform.isAndroid)
           ? AppEnum.android.name
-          : AppEnum.ios.name,
+          : AppEnum
+                .ios
+                .name, //ilkminbcnljcgigbmpaocgfl.AO-J1Oxs5qEbs7hlOEdwcbFJbVKs-5kXWcejsJKWQvvEVuRS1baXZXHcYGlhGk1CO7ThQkUwQrUNNrcwq5uf6Rm9_X3VRmKC0VEgD5TzWGTNecIHEj9G22U
       (Platform.isAndroid) ? "purchase_token" : "receipt_data":
           serverVerificationData,
     };
 
-    await SubscriptionApiService.instance.initiateSubscription(
-      data: initApiData,
-    );
-
+    //todo validation API
     final result = await SubscriptionApiService.instance.validateSubscription(
       data: validateApiData,
     );
@@ -138,21 +132,20 @@ class SubscriptionProvider extends ChangeNotifier {
         Logger.printError(l.errorMessage.toString());
       },
       (r) {
-        setSubscriptionProcessStatus(status: false);
-        AppToast.success(
-          context: context,
-          message: (tier == AppEnum.tier1)
-              ? "Tier 1 Purchased Successfully"
-              : "Tier 2 Purchased Successfully",
-        );
-        indexTabUser.value = 0;
-        context.pushNamed(MobileAppRoutes.userDashBoardScreen.name);
+        deBouncer.run(() {
+          setSubscriptionProcessStatus(status: false);
+          AppToast.success(
+            context: context,
+            message: (tier == AppEnum.tier1)
+                ? "Tier 1 Purchased Successfully"
+                : "Tier 2 Purchased Successfully",
+          );
+          indexTabUser.value = 0;
+          onSuccess.call();
+        });
       },
     );
   }
-
-  //todo 1.st {transactionId: 2000001077087364, originalTransactionId: 2000001076846733
-  //todo 2nd {transactionId: 2000001077100909, originalTransactionId: 2000001076846733
 
   void setSubscriptionProcessStatus({required bool status}) {
     Logger.printInfo("Updating loading status");
@@ -166,11 +159,40 @@ class SubscriptionProvider extends ChangeNotifier {
     required BuildContext context,
   }) async {
     setSubscriptionProcessStatus(status: true);
-    await SubscriptionService().buySubscription(
-      tier: tier,
-      planId: planId,
-      context: context,
+    final initApiData = {
+      "plan_id": planId,
+      "platform": Platform.isAndroid ? AppEnum.android.name : AppEnum.ios.name,
+    };
+    final result = await SubscriptionApiService.instance.initiateSubscription(
+      data: initApiData,
     );
+    if (Platform.isIOS) {
+      result.fold(
+        (l) {
+          Logger.printInfo(
+            "Error in initiate-subscription API ${l.errorMessage}",
+          );
+        },
+        (r) {
+          appAccountToken = r["data"]["app_account_token"];
+        },
+      );
+    }
+
+    if (Platform.isIOS) {
+      await SubscriptionService().buySubscription(
+        tier: tier,
+        planId: planId,
+        context: context,
+        appAccountToken: appAccountToken,
+      );
+    } else {
+      await SubscriptionService().buySubscription(
+        tier: tier,
+        planId: planId,
+        context: context,
+      );
+    }
   }
 
   // Remove a subscription and update flags

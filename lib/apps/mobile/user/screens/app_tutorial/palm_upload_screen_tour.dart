@@ -43,7 +43,6 @@ class _PalmUploadScreenTourState extends State<PalmUploadScreenTour> {
       onFinish: () {
         // Save to your shared prefs
         // yourSharedPrefs.setPalmUploadTutorialSeen();
-
         context.pushNamed(MobileAppRoutes.palmReadingScreenTour.name);
       },
       onSkip: () {
@@ -56,80 +55,85 @@ class _PalmUploadScreenTourState extends State<PalmUploadScreenTour> {
 
   @override
   Widget build(BuildContext context) {
-    return AppLayout(
-      horizontalPadding: 0,
-      body: Consumer<PalmProvider>(
-        builder: (context, provider, child) {
-          return Stack(
-            children: [
-              SingleChildScrollView(
-                padding: EdgeInsets.symmetric(horizontal: 12.w),
-                child: Column(
-                  children: [
-                    40.h.verticalSpace,
-                    topBar(
-                      showBackButton: false,
-                      context: context,
-                      title: context.translator.pleaseUploadYourPalmImageFirst,
-                    ),
-                    42.h.verticalSpace,
-                    Row(
-                      key: AppTourKeys.palmSectionsKey,
-                      spacing: 11.w,
-                      children: [
-                        uploadPalmSection(
-                          label: "Left Palm",
-                          isActive: provider.activePalm == AppEnum.left.name,
-                        ),
-                        uploadPalmSection(
-                          label: "Right Palm",
-                          isActive: provider.activePalm == AppEnum.right.name,
-                        ),
-                      ],
-                    ),
-                    12.h.verticalSpace,
-                    Row(
-                      spacing: 11.w,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        AppText(
-                          text: context.translator.leftHand,
-                          style: regular(
-                            fontSize: 14,
-                            color: AppColors.whiteColor,
+    return PopScope(
+      canPop: false,
+
+      child: AppLayout(
+        horizontalPadding: 0,
+        body: Consumer<PalmProvider>(
+          builder: (context, provider, child) {
+            return Stack(
+              children: [
+                SingleChildScrollView(
+                  padding: EdgeInsets.symmetric(horizontal: 12.w),
+                  child: Column(
+                    children: [
+                      40.h.verticalSpace,
+                      topBar(
+                        showBackButton: false,
+                        context: context,
+                        title:
+                            context.translator.pleaseUploadYourPalmImageFirst,
+                      ),
+                      42.h.verticalSpace,
+                      Row(
+                        key: AppTourKeys.palmSectionsKey,
+                        spacing: 11.w,
+                        children: [
+                          uploadPalmSection(
+                            label: "Left Palm",
+                            isActive: provider.activePalm == AppEnum.left.name,
                           ),
-                        ),
-                        AppText(
-                          text: context.translator.rightHand,
-                          style: regular(
-                            fontSize: 14,
-                            color: AppColors.whiteColor,
+                          uploadPalmSection(
+                            label: "Right Palm",
+                            isActive: provider.activePalm == AppEnum.right.name,
                           ),
-                        ),
-                      ],
-                    ),
-                    50.h.verticalSpace,
-                    AppText(
-                      textAlign: TextAlign.center,
-                      text: context.translator.uploadImageScreenPara,
-                      style: regular(fontSize: 18),
-                    ),
-                    AppButton(
-                      margin: EdgeInsets.only(bottom: 25.h, top: 50.h),
-                      onTap: () {
-                        context.pushNamed(
-                          MobileAppRoutes.palmReadingScreenTour.name,
-                        );
-                      },
-                      title: context.translator.submitForReading,
-                    ),
-                  ],
+                        ],
+                      ),
+                      12.h.verticalSpace,
+                      Row(
+                        spacing: 11.w,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          AppText(
+                            text: context.translator.leftHand,
+                            style: regular(
+                              fontSize: 14,
+                              color: AppColors.whiteColor,
+                            ),
+                          ),
+                          AppText(
+                            text: context.translator.rightHand,
+                            style: regular(
+                              fontSize: 14,
+                              color: AppColors.whiteColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                      50.h.verticalSpace,
+                      AppText(
+                        textAlign: TextAlign.center,
+                        text: context.translator.uploadImageScreenPara,
+                        style: regular(fontSize: 18),
+                      ),
+                      AppButton(
+                        margin: EdgeInsets.only(bottom: 25.h, top: 50.h),
+                        onTap: () {
+                          context.pushNamed(
+                            MobileAppRoutes.palmReadingScreenTour.name,
+                          );
+                        },
+                        title: context.translator.submitForReading,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              // if (provider.isUploading) FullPageIndicator(),
-            ],
-          );
-        },
+                // if (provider.isUploading) FullPageIndicator(),
+              ],
+            );
+          },
+        ),
       ),
     );
   }

@@ -50,36 +50,43 @@ class _DailyMantraScreenTourState extends State<DailyMantraScreenTour> {
 
   Widget build(BuildContext context) {
     final translator = context.translator;
-    return AppLayout(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          20.h.verticalSpace,
-          GestureDetector(
-            onTap: () {
-              _showTutorial();
-            },
-            child: AppText(
-              text: translator.dailyMantraLog,
-              textAlign: TextAlign.center,
-              style: bold(
-                fontFamily: AppFonts.secondary,
-                height: 1.1,
-                fontSize: 26,
+    return PopScope(
+      canPop: false,
+
+      child: AppLayout(
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            20.h.verticalSpace,
+            GestureDetector(
+              onTap: () {
+                _showTutorial();
+              },
+              child: AppText(
+                text: translator.dailyMantraLog,
+                textAlign: TextAlign.center,
+                style: bold(
+                  fontFamily: AppFonts.secondary,
+                  height: 1.1,
+                  fontSize: 26,
+                ),
               ),
             ),
-          ),
-          8.h.verticalSpace,
-          Expanded(
-            child: ListView.separated(
-              separatorBuilder: (context, index) => 16.h.verticalSpace,
-              itemCount: 10,
-              itemBuilder: (context, index) {
-                return _mantraPlayer(context: context, isFirstItem: index == 0);
-              },
+            8.h.verticalSpace,
+            Expanded(
+              child: ListView.separated(
+                separatorBuilder: (context, index) => 16.h.verticalSpace,
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return _mantraPlayer(
+                    context: context,
+                    isFirstItem: index == 0,
+                  );
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

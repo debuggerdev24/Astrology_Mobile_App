@@ -57,147 +57,81 @@ class _PalmReadingScreenTourState extends State<PalmReadingScreenTour> {
   @override
   Widget build(BuildContext context) {
     final translator = context.translator;
-    return AppLayout(
-      horizontalPadding: 0,
-      body: SingleChildScrollView(
-        child: Stack(
-          children: [
-            //todo main body
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12.w),
-              child: Column(
-                children: [
-                  40.h.verticalSpace,
-                  topBar(context: context, title: translator.palmReading),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      15.h.verticalSpace,
-                      toggleLeftRight(translator: translator),
-                      Column(
-                        children: [
-                          Align(
-                            alignment: Alignment.center,
-                            child: Container(
-                              margin: EdgeInsets.only(top: 30.h, bottom: 24.h),
-                              width: 260.w,
-                              height: 180.h,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12.r),
-                                border: Border.all(
-                                  color: AppColors.whiteColor,
-                                  width: 2,
-                                ),
-                              ),
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 50.w,
-                                vertical: 18.h,
-                              ),
-                              child: Image.asset(AppAssets.palm),
-                            ),
-                          ),
-                          AppText(
-                            text: translator.summary,
-                            style: semiBold(
-                              fontSize: 18,
-                              color: AppColors.primary,
-                            ),
-                          ),
-                          14.h.verticalSpace,
-                          topicWithDetails(
-                            topic: translator.lifeLine,
-                            details: "Strong, steady, good health",
-                          ),
-                          topicWithDetails(
-                            topic: translator.headLine,
-                            details: "Balanced intellect",
-                          ),
-                          topicWithDetails(
-                            topic: translator.heartLine,
-                            details: "Emotionally intuitive",
-                          ),
-                          mountAnalysisLocked(translator: translator),
-                        ],
-                      ),
-                      AppButton(
-                        onTap: () {
-                          context.pushNamed(
-                            MobileAppRoutes.remediesListScreenTour.name,
-                          );
-                        },
-                        buttonColor: AppColors.secondary,
-                        margin: EdgeInsets.only(top: 48.h, bottom: 14.h),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          spacing: 10.w,
-                          mainAxisAlignment: MainAxisAlignment.center,
+    return PopScope(
+      canPop: false,
+      child: AppLayout(
+        horizontalPadding: 0,
+        body: SingleChildScrollView(
+          child: Stack(
+            children: [
+              //todo main body
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 12.w),
+                child: Column(
+                  children: [
+                    40.h.verticalSpace,
+                    topBar(context: context, title: translator.palmReading),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        15.h.verticalSpace,
+                        toggleLeftRight(translator: translator),
+                        Column(
                           children: [
-                            AppText(
-                              textAlign: TextAlign.center,
-                              text: translator.viewRemedies,
-                              style: bold(
-                                fontSize: context.isTamil ? 14 : 16,
-                                color: AppColors.black,
+                            Align(
+                              alignment: Alignment.center,
+                              child: Container(
+                                margin: EdgeInsets.only(
+                                  top: 30.h,
+                                  bottom: 24.h,
+                                ),
+                                width: 260.w,
+                                height: 180.h,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12.r),
+                                  border: Border.all(
+                                    color: AppColors.whiteColor,
+                                    width: 2,
+                                  ),
+                                ),
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 50.w,
+                                  vertical: 18.h,
+                                ),
+                                child: Image.asset(AppAssets.palm),
                               ),
                             ),
-                            if (!context
-                                .read<SubscriptionProvider>()
-                                .isTier2Subscribed)
-                              SVGImage(
-                                path: AppAssets.lockIcon,
-                                color: AppColors.darkBlue,
+                            AppText(
+                              text: translator.summary,
+                              style: semiBold(
+                                fontSize: 18,
+                                color: AppColors.primary,
                               ),
+                            ),
+                            14.h.verticalSpace,
+                            topicWithDetails(
+                              topic: translator.lifeLine,
+                              details: "Strong, steady, good health",
+                            ),
+                            topicWithDetails(
+                              topic: translator.headLine,
+                              details: "Balanced intellect",
+                            ),
+                            topicWithDetails(
+                              topic: translator.heartLine,
+                              details: "Emotionally intuitive",
+                            ),
+                            mountAnalysisLocked(translator: translator),
                           ],
                         ),
-                      ),
-                      AppButton(
-                        margin: EdgeInsets.only(bottom: 18.h),
-                        onTap: () {
-                          if (context
-                              .read<SubscriptionProvider>()
-                              .isTier2Subscribed) {
+                        AppButton(
+                          onTap: () {
                             context.pushNamed(
-                              MobileAppRoutes.birthChartScreen.name,
+                              MobileAppRoutes.remediesListScreenTour.name,
                             );
-                          } else {
-                            showPremiumDialog(
-                              context: context,
-                              title: translator.premiumAccess,
-                              contentBody: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  18.h.verticalSpace,
-                                  AppText(
-                                    textAlign: TextAlign.center,
-                                    text: translator
-                                        .premiumMessageMatchWithBirthChart,
-                                    //'The "Match with Birth Chart" feature is available exclusively for Premium Plan (Tier 2) users.',
-                                    style: medium(
-                                      fontSize: 16,
-                                      color: AppColors.black.withValues(
-                                        alpha: 0.8,
-                                      ),
-                                    ),
-                                  ),
-                                  8.h.verticalSpace,
-                                  AppText(
-                                    textAlign: TextAlign.center,
-                                    text: translator
-                                        .premiumSloganMessageMatchWithBirthChart,
-                                    // "Unlock advanced insights by aligning your palm reading with your birth chart for a more accurate spiritual analysis.",
-                                    style: medium(
-                                      fontSize: 16,
-                                      color: AppColors.greyColor,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          }
-                        },
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 18.w),
+                          },
+                          buttonColor: AppColors.secondary,
+                          margin: EdgeInsets.only(top: 48.h, bottom: 14.h),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             spacing: 10.w,
@@ -205,7 +139,7 @@ class _PalmReadingScreenTourState extends State<PalmReadingScreenTour> {
                             children: [
                               AppText(
                                 textAlign: TextAlign.center,
-                                text: translator.matchWithBirthCart,
+                                text: translator.viewRemedies,
                                 style: bold(
                                   fontSize: context.isTamil ? 14 : 16,
                                   color: AppColors.black,
@@ -221,111 +155,188 @@ class _PalmReadingScreenTourState extends State<PalmReadingScreenTour> {
                             ],
                           ),
                         ),
-                      ),
-                      AppButton(
-                        margin: EdgeInsets.only(bottom: 18.h),
-                        onTap: () {},
-                        child: AppText(
-                          textAlign: TextAlign.center,
-                          text: translator.addNewPalm,
-                          style: bold(
-                            fontSize: context.isTamil ? 14 : 16,
-                            color: AppColors.black,
-                          ),
-                        ),
-                      ),
-                      30.h.verticalSpace,
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              width: 1.sw,
-              height: 1.sh,
-              color: AppColors.black.withValues(alpha: 0.5),
-            ),
-            //todo static dialogue
-            Container(
-              alignment: AlignmentGeometry.center,
-              width: 1.sw,
-              height: 1.sh,
-              child: Container(
-                key: AppTourKeys.premiumDialogKey,
-                height: 310.h,
-                width: 320.w,
-                padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 12.h),
-                decoration: BoxDecoration(
-                  color: AppColors.white,
-                  borderRadius: BorderRadius.circular(22.r),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    AppText(
-                      textAlign: TextAlign.center,
-                      text: context.translator.premiumAccess, //"Premium Access"
-                      style: bold(
-                        fontSize: 28,
-                        color: AppColors.darkBlue,
-                        fontFamily: AppFonts.secondary,
-                      ),
-                    ),
-                    18.h.verticalSpace,
-                    AppText(
-                      textAlign: TextAlign.center,
-                      text: context.translator.premiumMessageMatchWithRemedies,
-                      style: medium(
-                        fontSize: 16,
-                        color: AppColors.black.withValues(alpha: 0.8),
-                      ),
-                    ),
-                    8.h.verticalSpace,
-                    AppText(
-                      textAlign: TextAlign.center,
-                      text: context.translator.premiumSloganMessageRemedies,
-                      style: medium(fontSize: 16, color: AppColors.greyColor),
-                    ),
-                    30.h.verticalSpace,
-                    Row(
-                      spacing: 12.w,
-                      children: [
-                        Expanded(
-                          child: AppButton(
-                            fontSize: 15,
-                            title: AppLocalizations.of(context)!.upgradeNow,
-                            onTap: () {
-                              // context.pop();
-                              // context.pushNamed(
-                              //   MobileAppRoutes.premiumPlanScreen.name,
-                              // );
+                        AppButton(
+                          margin: EdgeInsets.only(bottom: 18.h),
+                          onTap: () {
+                            if (context
+                                .read<SubscriptionProvider>()
+                                .isTier2Subscribed) {
                               context.pushNamed(
-                                MobileAppRoutes.remediesListScreenTour.name,
+                                MobileAppRoutes.birthChartScreen.name,
                               );
-                            },
+                            } else {
+                              showPremiumDialog(
+                                context: context,
+                                title: translator.premiumAccess,
+                                contentBody: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    18.h.verticalSpace,
+                                    AppText(
+                                      textAlign: TextAlign.center,
+                                      text: translator
+                                          .premiumMessageMatchWithBirthChart,
+                                      //'The "Match with Birth Chart" feature is available exclusively for Premium Plan (Tier 2) users.',
+                                      style: medium(
+                                        fontSize: 16,
+                                        color: AppColors.black.withValues(
+                                          alpha: 0.8,
+                                        ),
+                                      ),
+                                    ),
+                                    8.h.verticalSpace,
+                                    AppText(
+                                      textAlign: TextAlign.center,
+                                      text: translator
+                                          .premiumSloganMessageMatchWithBirthChart,
+                                      // "Unlock advanced insights by aligning your palm reading with your birth chart for a more accurate spiritual analysis.",
+                                      style: medium(
+                                        fontSize: 16,
+                                        color: AppColors.greyColor,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
+                          },
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 18.w),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              spacing: 10.w,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                AppText(
+                                  textAlign: TextAlign.center,
+                                  text: translator.matchWithBirthCart,
+                                  style: bold(
+                                    fontSize: context.isTamil ? 14 : 16,
+                                    color: AppColors.black,
+                                  ),
+                                ),
+                                if (!context
+                                    .read<SubscriptionProvider>()
+                                    .isTier2Subscribed)
+                                  SVGImage(
+                                    path: AppAssets.lockIcon,
+                                    color: AppColors.darkBlue,
+                                  ),
+                              ],
+                            ),
                           ),
                         ),
-                        Expanded(
-                          child: AppButton(
-                            onTap: () {
-                              context.pushNamed(
-                                MobileAppRoutes.remediesListScreenTour.name,
-                              );
-                            },
-                            fontSize: 15,
-                            title: AppLocalizations.of(context)!.cancel,
-                            buttonColor: AppColors.secondary,
+                        AppButton(
+                          margin: EdgeInsets.only(bottom: 18.h),
+                          onTap: () {},
+                          child: AppText(
+                            textAlign: TextAlign.center,
+                            text: translator.addNewPalm,
+                            style: bold(
+                              fontSize: context.isTamil ? 14 : 16,
+                              color: AppColors.black,
+                            ),
                           ),
                         ),
+                        30.h.verticalSpace,
                       ],
                     ),
                   ],
                 ),
               ),
-            ),
-          ],
+              Container(
+                width: 1.sw,
+                height: 1.sh,
+                color: AppColors.black.withValues(alpha: 0.5),
+              ),
+              //todo static dialogue
+              Container(
+                alignment: AlignmentGeometry.center,
+                width: 1.sw,
+                height: 1.sh,
+                child: Container(
+                  key: AppTourKeys.premiumDialogKey,
+                  height: 310.h,
+                  width: 320.w,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 14.w,
+                    vertical: 12.h,
+                  ),
+                  decoration: BoxDecoration(
+                    color: AppColors.white,
+                    borderRadius: BorderRadius.circular(22.r),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      AppText(
+                        textAlign: TextAlign.center,
+                        text:
+                            context.translator.premiumAccess, //"Premium Access"
+                        style: bold(
+                          fontSize: 28,
+                          color: AppColors.darkBlue,
+                          fontFamily: AppFonts.secondary,
+                        ),
+                      ),
+                      18.h.verticalSpace,
+                      AppText(
+                        textAlign: TextAlign.center,
+                        text:
+                            context.translator.premiumMessageMatchWithRemedies,
+                        style: medium(
+                          fontSize: 16,
+                          color: AppColors.black.withValues(alpha: 0.8),
+                        ),
+                      ),
+                      8.h.verticalSpace,
+                      AppText(
+                        textAlign: TextAlign.center,
+                        text: context.translator.premiumSloganMessageRemedies,
+                        style: medium(fontSize: 16, color: AppColors.greyColor),
+                      ),
+                      30.h.verticalSpace,
+                      Row(
+                        spacing: 12.w,
+                        children: [
+                          Expanded(
+                            child: AppButton(
+                              fontSize: 15,
+                              title: AppLocalizations.of(context)!.upgradeNow,
+                              onTap: () {
+                                // context.pop();
+                                // context.pushNamed(
+                                //   MobileAppRoutes.premiumPlanScreen.name,
+                                // );
+                                context.pushNamed(
+                                  MobileAppRoutes.remediesListScreenTour.name,
+                                );
+                              },
+                            ),
+                          ),
+                          Expanded(
+                            child: AppButton(
+                              onTap: () {
+                                context.pushNamed(
+                                  MobileAppRoutes.remediesListScreenTour.name,
+                                );
+                              },
+                              fontSize: 15,
+                              title: AppLocalizations.of(context)!.cancel,
+                              buttonColor: AppColors.secondary,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

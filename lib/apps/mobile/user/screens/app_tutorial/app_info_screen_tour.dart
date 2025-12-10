@@ -51,51 +51,54 @@ class _AppInfoTourState extends State<AppInfoTour> {
 
   @override
   Widget build(BuildContext context) {
-    return AppLayout(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          40.h.verticalSpace,
-          topBar(context: context, title: context.translator.appInfo),
-          32.h.verticalSpace,
-          Column(
-            key: AppTourKeys.appInfo,
+    return PopScope(
+      canPop: false,
+      child: AppLayout(
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            40.h.verticalSpace,
+            topBar(context: context, title: context.translator.appInfo),
+            32.h.verticalSpace,
+            Column(
+              key: AppTourKeys.appInfo,
 
-            children: [
-              _section(
-                title: context.translator.privacyPolicy,
-                onTap: () {
-                  context.pushNamed(MobileAppRoutes.privacyPolicyScreen.name);
-                },
-              ),
-              buildDivider(),
-              _section(
-                title: context.translator.spiritualDisclaimers,
-                onTap: () {
-                  context.pushNamed(
-                    MobileAppRoutes.spiritualDisclaimerScreen.name,
-                  );
-                },
-              ),
-              buildDivider(),
-              _section(
-                title: context.translator.faqS,
-                onTap: () {
-                  context.pushNamed(MobileAppRoutes.faqScreen.name);
-                },
-              ),
-              buildDivider(),
-              _section(
-                title: context.translator.termsAndConditions,
-                onTap: () {
-                  context.pushNamed(
-                    MobileAppRoutes.termsAndConditionScreen.name,
-                  );
-                },
-              ),
-            ],
-          ),
-        ],
+              children: [
+                _section(
+                  title: context.translator.privacyPolicy,
+                  onTap: () {
+                    context.pushNamed(MobileAppRoutes.privacyPolicyScreen.name);
+                  },
+                ),
+                buildDivider(),
+                _section(
+                  title: context.translator.spiritualDisclaimers,
+                  onTap: () {
+                    context.pushNamed(
+                      MobileAppRoutes.spiritualDisclaimerScreen.name,
+                    );
+                  },
+                ),
+                buildDivider(),
+                _section(
+                  title: context.translator.faqS,
+                  onTap: () {
+                    context.pushNamed(MobileAppRoutes.faqScreen.name);
+                  },
+                ),
+                buildDivider(),
+                _section(
+                  title: context.translator.termsAndConditions,
+                  onTap: () {
+                    context.pushNamed(
+                      MobileAppRoutes.termsAndConditionScreen.name,
+                    );
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

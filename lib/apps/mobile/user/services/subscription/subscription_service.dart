@@ -10,18 +10,23 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:astrology_app/core/utils/custom_toast.dart';
+import 'package:astrology_app/core/utils/de_bouncing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../core/enum/app_enums.dart';
 import '../../../../../core/utils/logger.dart';
+import '../../../../../routes/mobile_routes/user_routes.dart';
 import '../../provider/setting/subscription_provider.dart';
 
 class SubscriptionService {
   static final SubscriptionService _instance = SubscriptionService._internal();
+
   factory SubscriptionService() => _instance;
+
   SubscriptionService._internal();
 
   final InAppPurchase _iap = InAppPurchase.instance;
@@ -87,21 +92,33 @@ class SubscriptionService {
   }
 
   //todo buy subscription method
-  late int _planID;
+  // late int _planID;
+
   Future<void> buySubscription({
     required AppEnum tier,
     required int planId,
     required BuildContext context,
+    String? appAccountToken,
   }) async {
     try {
-      _planID = planId;
-      // _planName = planName;
+      // _planID = planId;
+      PurchaseParam param;
       final productId = productIds[tier];
       final product = availableProducts.firstWhere((p) {
         Logger.printInfo(p.id.toString() + productId.toString());
         return p.id == productId;
       }, orElse: () => throw Exception('Product not found'));
-      final param = PurchaseParam(productDetails: product);
+      Logger.printInfo(
+        "appAccountToken : ${appAccountToken ?? "appAccountToken"}",
+      );
+      if (Platform.isIOS) {
+        param = PurchaseParam(
+          productDetails: product,
+          applicationUserName: appAccountToken,
+        );
+      } else {
+        param = PurchaseParam(productDetails: product);
+      }
       await _iap.buyNonConsumable(purchaseParam: param);
     } on PlatformException catch (e) {
       if (e.code == 'storekit2_purchase_cancelled') {
@@ -129,7 +146,7 @@ class SubscriptionService {
       Logger.printInfo("-----------------> ${purchase.status}");
       if (purchase.status == PurchaseStatus.purchased ||
           purchase.status == PurchaseStatus.restored) {
-        String serverVerificationData = ""; //2000001077169960
+        String serverVerificationData = "";
 
         final localData = purchase.verificationData.localVerificationData;
         final serverData = purchase.verificationData.serverVerificationData;
@@ -152,21 +169,26 @@ class SubscriptionService {
         if (tier != null) {
           await provider.updateSubscriptionInDataBase(
             tier: tier,
-            planId: _planID,
             serverVerificationData: serverVerificationData,
             context: context,
             isRestore: purchase.status == PurchaseStatus.restored,
+            onSuccess: () {
+              context.pushNamed(MobileAppRoutes.userDashBoardScreen.name);
+            },
           );
         }
-        _iap.completePurchase(purchase);
+        // _iap.completePurchase(purchase);
       } else if (purchase.status == PurchaseStatus.error) {
         debugPrint("Purchase error: ${purchase.error}");
       } //
       else if (purchase.status == PurchaseStatus.canceled) {
-        AppToast.info(
-          context: context,
-          message: "You have cancelled subscription process",
-        );
+        deBouncer.run(() {
+          AppToast.info(
+            context: context,
+            message: "You have cancelled subscription process",
+          );
+        });
+
         final provider = context.read<SubscriptionProvider>();
 
         provider.setSubscriptionProcessStatus(status: false);

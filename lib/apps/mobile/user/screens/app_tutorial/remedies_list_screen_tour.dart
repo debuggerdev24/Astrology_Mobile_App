@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:astrology_app/apps/mobile/user/screens/app_tutorial/app_tour.dart';
 import 'package:astrology_app/core/constants/app_colors.dart';
 import 'package:astrology_app/core/constants/text_style.dart';
@@ -34,8 +36,11 @@ class _RemediesScreenTourState extends State<RemediesScreenTour> {
     AppTourManager.showRemedyTutorial(
       context: context,
       onFinish: () {
-        // yourSharedPrefs.setPalmUploadTutorialSeen();
-        context.pushNamed(MobileAppRoutes.profileScreenTour.name);
+        if (Platform.isAndroid) {
+          context.pushNamed(MobileAppRoutes.profileScreenTour.name);
+          return;
+        }
+        onSkip(context: context);
       },
       onSkip: () {
         onSkip(context: context);
@@ -47,35 +52,39 @@ class _RemediesScreenTourState extends State<RemediesScreenTour> {
   @override
   Widget build(BuildContext context) {
     final translator = context.translator;
-    return AppLayout(
-      body: Column(
-        children: [
-          40.h.verticalSpace,
-          topBar(context: context, title: translator.remedies),
-          8.h.verticalSpace,
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  8.h.verticalSpace,
-                  SizedBox(
-                    key: AppTourKeys.remediesKey,
-                    child: buildRemedySection(
+    return PopScope(
+      canPop: false,
+
+      child: AppLayout(
+        body: Column(
+          children: [
+            40.h.verticalSpace,
+            topBar(context: context, title: translator.remedies),
+            8.h.verticalSpace,
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    8.h.verticalSpace,
+                    SizedBox(
+                      key: AppTourKeys.remediesKey,
+                      child: buildRemedySection(
+                        translator: translator,
+                        title: "Planet",
+                        context: context,
+                      ),
+                    ),
+                    buildRemedySection(
                       translator: translator,
-                      title: "Planet",
+                      title: "Dasha",
                       context: context,
                     ),
-                  ),
-                  buildRemedySection(
-                    translator: translator,
-                    title: "Dasha",
-                    context: context,
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

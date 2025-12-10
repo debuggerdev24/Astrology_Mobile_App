@@ -117,26 +117,27 @@ class CurrentPlanScreen extends StatelessWidget {
                                   },
                                 ),
                               ),
-                            Expanded(
-                              child: AppButton(
-                                buttonColor: AppColors.secondary,
-                                title: context.translator.cancel,
-                                verticalPadding: 11.h,
-                                onTap: () {
-                                  final tier =
-                                      {
-                                        "10": AppEnum.tier1,
-                                        "20": AppEnum.tier2,
-                                      }[activePlan.price] ??
-                                      AppEnum.tier3;
-                                  Logger.printInfo(tier.name);
-                                  provider.cancelSubscriptionPlan(
-                                    context: context,
-                                  );
-                                  openManageSubscription();
-                                },
+                            if (Platform.isAndroid)
+                              Expanded(
+                                child: AppButton(
+                                  buttonColor: AppColors.secondary,
+                                  title: context.translator.cancel,
+                                  verticalPadding: 11.h,
+                                  onTap: () {
+                                    final tier =
+                                        {
+                                          "10": AppEnum.tier1,
+                                          "20": AppEnum.tier2,
+                                        }[activePlan.price] ??
+                                        AppEnum.tier3;
+                                    Logger.printInfo(tier.name);
+                                    provider.cancelSubscriptionPlan(
+                                      context: context,
+                                    );
+                                    openManageSubscription();
+                                  },
+                                ),
                               ),
-                            ),
                           ],
                         ),
                       ],

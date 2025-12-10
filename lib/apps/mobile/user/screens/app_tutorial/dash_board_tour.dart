@@ -35,99 +35,103 @@ class _DashBoardTourState extends State<DashBoardTour> {
   Widget build(BuildContext context) {
     final translator = context.translator;
     final isTamil = context.isTamil;
-    return ValueListenableBuilder<int>(
-      valueListenable: indexTabUserTour,
-      builder: (BuildContext context, int index, Widget? child) {
-        return Scaffold(
-          backgroundColor: AppColors.bgColor,
-          body: ValueListenableBuilder<bool>(
-            valueListenable: isNetworkConnected,
-            builder: (context, connection, child) {
-              if (connection) {
-                return _pages[index];
-              }
-              return AppLayout(
-                body: Center(
-                  child: Column(
-                    spacing: 10,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        CupertinoIcons.wifi_slash,
-                        color: AppColors.whiteColor,
-                        size: 30,
-                      ),
-                      AppText(
-                        text: "No Internet Connection!",
-                        style: regular(fontSize: 20),
-                      ),
-                      // Container(
-                      //   decoration: BoxDecoration(
-                      //     color: AppColors.whiteColor,
-                      //     borderRadius: BorderRadius.circular(5).r,
-                      //   ),
-                      //   padding: EdgeInsets.all(12).r,
-                      //   child: CupertinoActivityIndicator(
-                      //     radius: 18.h,
-                      //     color: AppColors.bgColor,
-                      //   ),
-                      // ),
-                    ],
+    return PopScope(
+      canPop: false,
+
+      child: ValueListenableBuilder<int>(
+        valueListenable: indexTabUserTour,
+        builder: (BuildContext context, int index, Widget? child) {
+          return Scaffold(
+            backgroundColor: AppColors.bgColor,
+            body: ValueListenableBuilder<bool>(
+              valueListenable: isNetworkConnected,
+              builder: (context, connection, child) {
+                if (connection) {
+                  return _pages[index];
+                }
+                return AppLayout(
+                  body: Center(
+                    child: Column(
+                      spacing: 10,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          CupertinoIcons.wifi_slash,
+                          color: AppColors.whiteColor,
+                          size: 30,
+                        ),
+                        AppText(
+                          text: "No Internet Connection!",
+                          style: regular(fontSize: 20),
+                        ),
+                        // Container(
+                        //   decoration: BoxDecoration(
+                        //     color: AppColors.whiteColor,
+                        //     borderRadius: BorderRadius.circular(5).r,
+                        //   ),
+                        //   padding: EdgeInsets.all(12).r,
+                        //   child: CupertinoActivityIndicator(
+                        //     radius: 18.h,
+                        //     color: AppColors.bgColor,
+                        //   ),
+                        // ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+            bottomNavigationBar: SafeArea(
+              child: Container(
+                height: 80.h,
+                width: 1.sw,
+                decoration: BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(14.r),
+                    topLeft: Radius.circular(14.r),
                   ),
                 ),
-              );
-            },
-          ),
-          bottomNavigationBar: SafeArea(
-            child: Container(
-              height: 80.h,
-              width: 1.sw,
-              decoration: BoxDecoration(
-                color: AppColors.white,
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(14.r),
-                  topLeft: Radius.circular(14.r),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    myBottomBrItem(
+                      AppAssets.homeIcon,
+                      translator.home,
+                      0,
+                      isTamil,
+                    ),
+                    myBottomBrItem(
+                      AppAssets.mantrasIcon,
+                      translator.mantras,
+                      1,
+                      isTamil,
+                    ),
+                    myBottomBrItem(
+                      AppAssets.remediesIcon,
+                      translator.remedies,
+                      2,
+                      isTamil,
+                    ),
+                    // myBottomBrItem(
+                    //   AppAssets.consultIcon,
+                    //   translator.consult,
+                    //   3,
+                    //   isTamil,
+                    // ),
+                    myBottomBrItem(
+                      AppAssets.settingsIcon,
+                      translator.settings,
+                      3,
+                      isTamil,
+                    ),
+                  ],
                 ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  myBottomBrItem(
-                    AppAssets.homeIcon,
-                    translator.home,
-                    0,
-                    isTamil,
-                  ),
-                  myBottomBrItem(
-                    AppAssets.mantrasIcon,
-                    translator.mantras,
-                    1,
-                    isTamil,
-                  ),
-                  myBottomBrItem(
-                    AppAssets.remediesIcon,
-                    translator.remedies,
-                    2,
-                    isTamil,
-                  ),
-                  // myBottomBrItem(
-                  //   AppAssets.consultIcon,
-                  //   translator.consult,
-                  //   3,
-                  //   isTamil,
-                  // ),
-                  myBottomBrItem(
-                    AppAssets.settingsIcon,
-                    translator.settings,
-                    3,
-                    isTamil,
-                  ),
-                ],
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 

@@ -53,11 +53,6 @@ class _UserDashboardState extends State<UserDashboard> {
   void initState() {
     if (!(widget.isFromTutorial ?? false)) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        homeProvider = context.read<HomeProvider>();
-        mantraProvider = context.read<MantraProvider>();
-        subscriptionProvider = context.read<SubscriptionProvider>();
-        userProfileProvider = context.read<UserProfileProvider>();
-        appInfoProvider = context.read<AppInfoProvider>();
         callInitAPIs(context: context);
       });
     }
@@ -239,6 +234,12 @@ class _UserDashboardState extends State<UserDashboard> {
 }
 
 Future<void> callInitAPIs({required BuildContext context}) async {
+  homeProvider = context.read<HomeProvider>();
+  mantraProvider = context.read<MantraProvider>();
+  subscriptionProvider = context.read<SubscriptionProvider>();
+  userProfileProvider = context.read<UserProfileProvider>();
+  appInfoProvider = context.read<AppInfoProvider>();
+
   await homeProvider?.getMoonDasha();
 
   await Future.wait([
