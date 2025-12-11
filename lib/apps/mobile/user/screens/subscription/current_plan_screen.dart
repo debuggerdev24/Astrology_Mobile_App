@@ -117,13 +117,15 @@ class CurrentPlanScreen extends StatelessWidget {
                                   },
                                 ),
                               ),
-                            if (Platform.isAndroid)
-                              Expanded(
-                                child: AppButton(
-                                  buttonColor: AppColors.secondary,
-                                  title: context.translator.cancel,
-                                  verticalPadding: 11.h,
-                                  onTap: () {
+                            // if (Platform.isAndroid)
+                            Expanded(
+                              child: AppButton(
+                                buttonColor: AppColors.secondary,
+                                title: context.translator.cancel,
+                                verticalPadding: 11.h,
+                                onTap: () {
+                                  //todo for android
+                                  if (Platform.isAndroid) {
                                     final tier =
                                         {
                                           "10": AppEnum.tier1,
@@ -134,10 +136,13 @@ class CurrentPlanScreen extends StatelessWidget {
                                     provider.cancelSubscriptionPlan(
                                       context: context,
                                     );
-                                    openManageSubscription();
-                                  },
-                                ),
+                                    return;
+                                  }
+                                  //todo for iOS
+                                  openManageSubscription();
+                                },
                               ),
+                            ),
                           ],
                         ),
                       ],

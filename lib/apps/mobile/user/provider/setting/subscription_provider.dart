@@ -121,8 +121,7 @@ class SubscriptionProvider extends ChangeNotifier {
       (Platform.isAndroid) ? "purchase_token" : "receipt_data":
           serverVerificationData,
     };
-
-    //todo validation API
+    // todo validation API
     final result = await SubscriptionApiService.instance.validateSubscription(
       data: validateApiData,
     );
@@ -174,7 +173,8 @@ class SubscriptionProvider extends ChangeNotifier {
           );
         },
         (r) {
-          appAccountToken = r["data"]["app_account_token"];
+          appAccountToken =
+              "c04412ce-b848-40cd-a31c-d82d61b2422d"; //r["data"]["app_account_token"];
         },
       );
     }

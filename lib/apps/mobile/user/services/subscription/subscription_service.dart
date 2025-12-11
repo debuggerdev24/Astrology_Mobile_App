@@ -13,13 +13,11 @@ import 'package:astrology_app/core/utils/custom_toast.dart';
 import 'package:astrology_app/core/utils/de_bouncing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:go_router/go_router.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../core/enum/app_enums.dart';
 import '../../../../../core/utils/logger.dart';
-import '../../../../../routes/mobile_routes/user_routes.dart';
 import '../../provider/setting/subscription_provider.dart';
 
 class SubscriptionService {
@@ -167,30 +165,27 @@ class SubscriptionService {
         final provider = SubscriptionProvider();
 
         if (tier != null) {
-          await provider.updateSubscriptionInDataBase(
-            tier: tier,
-            serverVerificationData: serverVerificationData,
-            context: context,
-            isRestore: purchase.status == PurchaseStatus.restored,
-            onSuccess: () {
-              context.pushNamed(MobileAppRoutes.userDashBoardScreen.name);
-            },
-          );
+          // await provider.updateSubscriptionInDataBase(
+          //   tier: tier,
+          //   serverVerificationData: serverVerificationData,
+          //   context: context,
+          //   isRestore: purchase.status == PurchaseStatus.restored,
+          //   onSuccess: () {
+          //     context.pushNamed(MobileAppRoutes.userDashBoardScreen.name);
+          //   },
+          // );
         }
-        // _iap.completePurchase(purchase);
+        _iap.completePurchase(purchase);
       } else if (purchase.status == PurchaseStatus.error) {
         debugPrint("Purchase error: ${purchase.error}");
-      } //
-      else if (purchase.status == PurchaseStatus.canceled) {
+      } else if (purchase.status == PurchaseStatus.canceled) {
         deBouncer.run(() {
           AppToast.info(
             context: context,
             message: "You have cancelled subscription process",
           );
         });
-
         final provider = context.read<SubscriptionProvider>();
-
         provider.setSubscriptionProcessStatus(status: false);
       }
     }
