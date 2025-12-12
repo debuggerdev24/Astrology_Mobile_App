@@ -51,6 +51,7 @@ class UserDashboard extends StatefulWidget {
 class _UserDashboardState extends State<UserDashboard> {
   @override
   void initState() {
+    indexTabUser.value = 0;
     if (!(widget.isFromTutorial ?? false)) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         callInitAPIs(context: context);

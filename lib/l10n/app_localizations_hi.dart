@@ -420,6 +420,9 @@ class AppLocalizationsHi extends AppLocalizations {
   String get logOutConfirmation => 'क्या आप लॉग आउट करना चाहते हैं?';
 
   @override
+  String get deleteConfirmation => 'क्या आप इस खाते को हटाने के लिए सुनिश्चित हैं?';
+
+  @override
   String get yes => 'हाँ';
 
   @override
@@ -615,6 +618,9 @@ class AppLocalizationsHi extends AppLocalizations {
   String get loggedOutSuccessfully => 'सफलतापूर्वक लॉग आउट हो गया';
 
   @override
+  String get accountDeleteSuccessfully => 'अकाउंट सफलतापूर्वक डिलीट हो गया हैं।';
+
+  @override
   String get otpSentSuccessfully => 'OTP सफलतापूर्वक भेजा गया हे';
 
   @override
@@ -703,4 +709,7 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get tier2PurchasedSuccessfully => 'टियर 2 सफलतापूर्वक खरीदा गया है।';
+
+  @override
+  String get deleteAccount => 'खाता हटा दीजिए';
 }

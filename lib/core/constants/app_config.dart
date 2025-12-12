@@ -1,8 +1,5 @@
-enum UserRole { customer, creator, admin }
-
 class AppConfig {
   AppConfig._();
-  static final UserRole userRole = UserRole.customer;
   static const String apiBaseurl = "https://app.innerpeacepath.org/api";
   static const String imagesBaseurl = "https://app.innerpeacepath.org/";
   static const String audioBaseurl =

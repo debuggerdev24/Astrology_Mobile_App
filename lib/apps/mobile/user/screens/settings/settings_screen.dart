@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:animate_do/animate_do.dart';
 import 'package:app_settings/app_settings.dart';
 import 'package:astrology_app/apps/mobile/user/provider/auth/auth_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/setting/locale_provider.dart';
@@ -13,6 +14,7 @@ import 'package:astrology_app/core/utils/custom_loader.dart';
 import 'package:astrology_app/core/widgets/app_text.dart';
 import 'package:astrology_app/core/widgets/global_methods.dart';
 import 'package:astrology_app/core/widgets/svg_image.dart';
+import 'package:astrology_app/l10n/app_localizations.dart';
 import 'package:astrology_app/routes/mobile_routes/user_routes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -150,39 +152,21 @@ class _SettingScreenState extends State<SettingScreen>
                         await context.read<UserAuthProvider>().logOutUser(
                           context,
                         );
-                        // showDialog(
-                        //   context: context,
-                        //   builder: (context) {
-                        //     return ZoomIn(
-                        //       child: AlertDialog(
-                        //         title: AppText(
-                        //           text: translator.logOutConfirmation,
-                        //           style: regular(color: AppColors.black),
-                        //         ),
-                        //         actions: [
-                        //           myActionButtonTheme(() async {
-                        //             context.pop();
-                        //
-                        //             // await context
-                        //             //     .read<UserAuthProvider>()
-                        //             //     .logOutUser(context);
-                        //           }, translator.yes),
-                        //           myActionButtonTheme(() {
-                        //             context.pop();
-                        //           }, translator.cancel),
-                        //         ],
-                        //       ),
-                        //     );
-                        //   },
-                        // );
-
-                        // context_extension.pushNamed(MobileAppRoutes.premiumPlanScreen.name);
+                      },
+                    ),
+                    buildDivider(),
+                    _section(
+                      title: translator.deleteAccount,
+                      titleColor: Colors.red,
+                      onTap: () async {
+                        showConfirmationDialog(translator: translator);
                       },
                     ),
                   ],
                 ),
               ),
-              if (provider.isLogOutLoading) FullPageIndicator(),
+              if (provider.isLogOutLoading || provider.isDeleteAccount)
+                FullPageIndicator(),
             ],
           ),
         ),
@@ -190,7 +174,34 @@ class _SettingScreenState extends State<SettingScreen>
     );
   }
 
-  TextButton myActionButtonTheme(VoidCallback onPressed, String title) {
+  void showConfirmationDialog({required AppLocalizations translator}) {
+    showDialog(
+      context: context,
+      builder: (dialogContext) {
+        return ZoomIn(
+          child: AlertDialog(
+            title: AppText(
+              text: translator.deleteConfirmation,
+              style: regular(color: AppColors.black),
+            ),
+            actions: [
+              myActionButtonTheme(() async {
+                Navigator.pop(dialogContext);
+                // થોડો delay આપો અને પછી મુખ્ય context use કરો
+                await Future.delayed(const Duration(milliseconds: 100));
+                await context.read<UserAuthProvider>().deleteAccount(context);
+              }, translator.yes),
+              myActionButtonTheme(() {
+                context.pop();
+              }, translator.cancel),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget myActionButtonTheme(VoidCallback onPressed, String title) {
     return TextButton(
       onPressed: onPressed,
       child: AppText(

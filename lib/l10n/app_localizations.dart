@@ -919,6 +919,12 @@ abstract class AppLocalizations {
   /// **'Are you sure you want to Log Out?'**
   String get logOutConfirmation;
 
+  /// No description provided for @deleteConfirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to Delete Account?'**
+  String get deleteConfirmation;
+
   /// No description provided for @yes.
   ///
   /// In en, this message translates to:
@@ -1309,6 +1315,12 @@ abstract class AppLocalizations {
   /// **'Logged out successfully'**
   String get loggedOutSuccessfully;
 
+  /// No description provided for @accountDeleteSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Account deleted successfully.'**
+  String get accountDeleteSuccessfully;
+
   /// No description provided for @otpSentSuccessfully.
   ///
   /// In en, this message translates to:
@@ -1488,6 +1500,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Tier 2 Purchased Successfully'**
   String get tier2PurchasedSuccessfully;
+
+  /// No description provided for @deleteAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Account'**
+  String get deleteAccount;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

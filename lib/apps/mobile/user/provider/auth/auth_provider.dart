@@ -197,6 +197,7 @@ class UserAuthProvider extends ChangeNotifier {
         LocaleStoaregService.setProfileCreated(true);
 
         if (LocaleStoaregService.isFirstTime) {
+          indexTabUser.value = 0;
           context.goNamed(MobileAppRoutes.userDashBoardTour.name);
           return;
         }
@@ -209,34 +210,6 @@ class UserAuthProvider extends ChangeNotifier {
 
   //todo ---------------> log out
   bool isLogOutLoading = false;
-  //eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzY1MzQyOTU3LCJpYXQiOjE3NjUyNzA5NTcsImp0aSI6IjBiMTc1OTJiYWYwMDRiZDI5NWZkYzEzNTM1Yjk0ZTBmIiwidXNlcl9pZCI6IjE0NyJ9.lAeD3BXeUW-lq3ZDs_TJdDBoGJQlyUGHYFH1Itycz2o
-
-  // Future<void> logOutUser(BuildContext context) async {
-  //   isLogOutLoading = true;
-  //   notifyListeners();
-  //   final result = await UserAuthService.instance.logOutUser();
-  //
-  //   result.fold(
-  //     (failure) {
-  //       AppToast.error(context: context, message: failure.errorMessage);
-  //     },
-  //     (data) async {
-  //       AppToast.success(context: context, message: 'Logged out successfully.');
-  //       Future.microtask(() {
-  //         context.goNamed(MobileAppRoutes.signUpScreen.name);
-  //       });
-  //       await LocaleStoaregService.saveUserToken("");
-  //       await LocaleStoaregService.saveUserRefreshToken("");
-  //       await LocaleStoaregService.setIsUserLoggedIn(value: false);
-  //       await LocaleStoaregService.setLoggedInUserEmail("");
-  //       await LocaleStoaregService.setLoggedInUserPassword("");
-  //       indexTabUser.value = 0;
-  //     },
-  //   );
-  //   isLogOutLoading = false;
-  //   notifyListeners();
-  // }
-
   Future<void> logOutUser(BuildContext context) async {
     isLogOutLoading = true;
     notifyListeners();
@@ -278,6 +251,50 @@ class UserAuthProvider extends ChangeNotifier {
       },
     );
     isLogOutLoading = false;
+    notifyListeners();
+  }
+
+  //todo ---------------> delete account
+  bool isDeleteAccount = false;
+  Future<void> deleteAccount(BuildContext context) async {
+    isDeleteAccount = true;
+    notifyListeners();
+    final result = await UserAuthService.instance.deleteAccount();
+    result.fold(
+      (failure) {
+        if (context.mounted) {
+          AppToast.error(context: context, message: failure.errorMessage);
+        }
+      },
+      (data) async {
+        if (context.mounted) {
+          AppToast.success(
+            context: context,
+            message: context.translator.accountDeleteSuccessfully,
+          );
+          context.read<SubscriptionProvider>().removeSubscription(
+            AppEnum.tier1,
+          );
+          context.read<SubscriptionProvider>().removeSubscription(
+            AppEnum.tier2,
+          );
+        }
+
+        await LocaleStoaregService.saveUserToken("");
+        await LocaleStoaregService.saveUserRefreshToken("");
+        await LocaleStoaregService.setIsUserLoggedIn(value: false);
+        await LocaleStoaregService.setProfileCreated(false);
+
+        await LocaleStoaregService.setLoggedInUserEmail("");
+        await LocaleStoaregService.setLoggedInUserPassword("");
+
+        // Navigate after clearing storage and only if context is still mounted
+        // if (context.mounted) {
+        context.goNamed(MobileAppRoutes.signUpScreen.name);
+        // }
+      },
+    );
+    isDeleteAccount = false;
     notifyListeners();
   }
 

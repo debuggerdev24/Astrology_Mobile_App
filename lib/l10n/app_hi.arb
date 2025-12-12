@@ -136,6 +136,8 @@
   "nakshatra": "नक्षत्र",
   "inSights": "इनसाइट्स",
   "logOutConfirmation": "क्या आप लॉग आउट करना चाहते हैं?",
+  "deleteConfirmation": "क्या आप इस खाते को हटाने के लिए सुनिश्चित हैं?",
+  "accountDeleteSuccessfully": "अकाउंट सफलतापूर्वक डिलीट हो गया हैं।",
   "yes": "हाँ",
   "noMantraToday": "आज के लिए कोई मंत्र निर्धारित नहीं है।",
   "date": "तारीख",
@@ -230,6 +232,7 @@
   "appInfoSectionTutorial": "ऐप के बारे में सारी जानकारी ऐप इन्फो स्क्रीन पर उपलब्ध है। ज़्यादा जानकारी के लिए टैप करें।",
   "skip": "छोड़िए",
   "tier1PurchasedSuccessfully": "टियर 1 सफलतापूर्वक खरीदा गया है।",
-  "tier2PurchasedSuccessfully": "टियर 2 सफलतापूर्वक खरीदा गया है।"
+  "tier2PurchasedSuccessfully": "टियर 2 सफलतापूर्वक खरीदा गया है।",
+  "deleteAccount": "खाता हटा दीजिए"
 
 }

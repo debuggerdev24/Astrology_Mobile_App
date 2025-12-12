@@ -39,9 +39,13 @@ class UserAuthService {
 
   Future<Either<ApiException, Map<String, dynamic>>> logOutUser() async {
     return await BaseApiHelper.instance.post(
-      Endpoints.userLogout,
+      Endpoints.logOut,
       data: {"refresh": LocaleStoaregService.userRefreshToken},
     );
+  }
+
+  Future<Either<ApiException, Map<String, dynamic>>> deleteAccount() async {
+    return await BaseApiHelper.instance.delete(Endpoints.delete);
   }
 
   Future<Either<ApiException, Map<String, dynamic>>> sendOtp({
