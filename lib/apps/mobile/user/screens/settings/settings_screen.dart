@@ -149,9 +149,7 @@ class _SettingScreenState extends State<SettingScreen>
                       title: translator.logOut,
                       titleColor: Colors.red,
                       onTap: () async {
-                        await context.read<UserAuthProvider>().logOutUser(
-                          context,
-                        );
+                        showLogOutConfirmationDialog(translator: translator);
                       },
                     ),
                     buildDivider(),
@@ -159,7 +157,7 @@ class _SettingScreenState extends State<SettingScreen>
                       title: translator.deleteAccount,
                       titleColor: Colors.red,
                       onTap: () async {
-                        showConfirmationDialog(translator: translator);
+                        showDeleteConfirmationDialog(translator: translator);
                       },
                     ),
                   ],
@@ -174,7 +172,7 @@ class _SettingScreenState extends State<SettingScreen>
     );
   }
 
-  void showConfirmationDialog({required AppLocalizations translator}) {
+  void showDeleteConfirmationDialog({required AppLocalizations translator}) {
     showDialog(
       context: context,
       builder: (dialogContext) {
@@ -185,15 +183,20 @@ class _SettingScreenState extends State<SettingScreen>
               style: regular(color: AppColors.black),
             ),
             actions: [
-              myActionButtonTheme(() async {
-                Navigator.pop(dialogContext);
-                // થોડો delay આપો અને પછી મુખ્ય context use કરો
-                await Future.delayed(const Duration(milliseconds: 100));
-                await context.read<UserAuthProvider>().deleteAccount(context);
-              }, translator.yes),
-              myActionButtonTheme(() {
-                context.pop();
-              }, translator.cancel),
+              myActionButtonTheme(
+                onPressed: () async {
+                  Navigator.pop(dialogContext);
+                  await Future.delayed(const Duration(milliseconds: 100));
+                  await context.read<UserAuthProvider>().deleteAccount(context);
+                },
+                title: translator.yes,
+              ),
+              myActionButtonTheme(
+                onPressed: () {
+                  context.pop();
+                },
+                title: translator.cancel,
+              ),
             ],
           ),
         );
@@ -201,7 +204,41 @@ class _SettingScreenState extends State<SettingScreen>
     );
   }
 
-  Widget myActionButtonTheme(VoidCallback onPressed, String title) {
+  void showLogOutConfirmationDialog({required AppLocalizations translator}) {
+    showDialog(
+      context: context,
+      builder: (dialogContext) {
+        return ZoomIn(
+          child: AlertDialog(
+            title: AppText(
+              text: translator.logOutConfirmation,
+              style: regular(color: AppColors.black),
+            ),
+            actions: [
+              myActionButtonTheme(
+                onPressed: () async {
+                  Navigator.pop(dialogContext);
+                  await context.read<UserAuthProvider>().logOutUser(context);
+                },
+                title: translator.yes,
+              ),
+              myActionButtonTheme(
+                onPressed: () {
+                  context.pop();
+                },
+                title: translator.cancel,
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget myActionButtonTheme({
+    required VoidCallback onPressed,
+    required String title,
+  }) {
     return TextButton(
       onPressed: onPressed,
       child: AppText(
