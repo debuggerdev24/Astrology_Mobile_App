@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:astrology_app/apps/mobile/user/provider/home/home_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/mantra/mantra_provider.dart';
 import 'package:astrology_app/apps/mobile/user/provider/setting/profile_provider.dart';
@@ -40,6 +42,14 @@ class _HomeScreenState extends State<HomeScreen>
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
+    // Timer(Duration(seconds: 5), () {
+    //   if (context.read<HomeProvider>().isMoonDashaLoading) {
+    //     AppToast.info(
+    //       context: context,
+    //       message: "You Account setting up in progress",
+    //     );
+    //   }
+    // });
   }
 
   @override
