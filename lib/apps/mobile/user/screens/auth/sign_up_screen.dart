@@ -14,7 +14,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../core/utils/logger.dart';
 import '../../../../../core/widgets/app_layout.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -23,7 +22,6 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final translator = context.translator;
-    Logger.printInfo(context.isTamil.toString());
     return AppLayout(
       horizontalPadding: 0,
       body: SingleChildScrollView(

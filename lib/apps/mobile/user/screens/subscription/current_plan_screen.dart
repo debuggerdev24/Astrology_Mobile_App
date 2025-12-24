@@ -117,32 +117,32 @@ class CurrentPlanScreen extends StatelessWidget {
                                   },
                                 ),
                               ),
-                            // if (Platform.isAndroid)
-                            Expanded(
-                              child: AppButton(
-                                buttonColor: AppColors.secondary,
-                                title: context.translator.cancel,
-                                verticalPadding: 11.h,
-                                onTap: () {
-                                  //todo for android
-                                  if (Platform.isAndroid) {
-                                    final tier =
-                                        {
-                                          "10": AppEnum.tier1,
-                                          "20": AppEnum.tier2,
-                                        }[activePlan.price] ??
-                                        AppEnum.tier3;
-                                    Logger.printInfo(tier.name);
-                                    provider.cancelSubscriptionPlan(
-                                      context: context,
-                                    );
-                                    return;
-                                  }
-                                  //todo for iOS
-                                  openManageSubscription();
-                                },
+                            if (Platform.isAndroid)
+                              Expanded(
+                                child: AppButton(
+                                  buttonColor: AppColors.secondary,
+                                  title: context.translator.cancel,
+                                  verticalPadding: 11.h,
+                                  onTap: () {
+                                    //todo for android
+                                    if (Platform.isAndroid) {
+                                      final tier =
+                                          {
+                                            "10": AppEnum.tier1,
+                                            "20": AppEnum.tier2,
+                                          }[activePlan.price] ??
+                                          AppEnum.tier3;
+                                      Logger.printInfo(tier.name);
+                                      provider.cancelSubscriptionPlan(
+                                        context: context,
+                                      );
+                                      return;
+                                    }
+                                    //todo for iOS
+                                    openManageSubscription();
+                                  },
+                                ),
                               ),
-                            ),
                           ],
                         ),
                       ],

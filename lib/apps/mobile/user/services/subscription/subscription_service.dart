@@ -13,11 +13,13 @@ import 'package:astrology_app/core/utils/custom_toast.dart';
 import 'package:astrology_app/core/utils/de_bouncing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../core/enum/app_enums.dart';
 import '../../../../../core/utils/logger.dart';
+import '../../../../../routes/mobile_routes/user_routes.dart';
 import '../../provider/setting/subscription_provider.dart';
 
 class SubscriptionService {
@@ -117,7 +119,7 @@ class SubscriptionService {
       } else {
         param = PurchaseParam(productDetails: product);
       }
-      await _iap.buyNonConsumable(purchaseParam: param);
+      _iap.buyNonConsumable(purchaseParam: param);
     } on PlatformException catch (e) {
       if (e.code == 'storekit2_purchase_cancelled') {
         AppToast.info(
@@ -162,18 +164,26 @@ class SubscriptionService {
         }
 
         final tier = _getTierFromProductId(purchase.productID);
-        final provider = SubscriptionProvider();
+        // final provider = SubscriptionProvider();
+        final provider = Provider.of<SubscriptionProvider>(
+          globalNavigatorKey.currentContext!,
+          listen: false,
+        );
 
         if (tier != null) {
-          // await provider.updateSubscriptionInDataBase(
-          //   tier: tier,
-          //   serverVerificationData: serverVerificationData,
-          //   context: context,
-          //   isRestore: purchase.status == PurchaseStatus.restored,
-          //   onSuccess: () {
-          //     context.pushNamed(MobileAppRoutes.userDashBoardScreen.name);
-          //   },
-          // );
+          await provider.updateSubscriptionInDataBase(
+            tier: tier,
+            serverVerificationData: serverVerificationData,
+            context: globalNavigatorKey.currentContext!,
+            isRestore: purchase.status == PurchaseStatus.restored,
+            onSuccess: () {
+              // context.pushNamed(MobileAppRoutes.userDashBoardScreen.name);
+              final ctx = globalNavigatorKey.currentContext;
+              if (ctx != null && ctx.mounted) {
+                ctx.goNamed(MobileAppRoutes.userDashBoardScreen.name);
+              }
+            },
+          );
         }
         _iap.completePurchase(purchase);
       } else if (purchase.status == PurchaseStatus.error) {

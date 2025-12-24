@@ -40,9 +40,11 @@ import '../../apps/mobile/user/screens/subscription/failed_payment_screen.dart';
 import '../../apps/mobile/user/screens/subscription/payment_detail_screen.dart';
 import '../../apps/mobile/user/screens/subscription/selected_plan_screen.dart';
 import '../../apps/mobile/user/screens/subscription/success_payment_screen.dart';
+import '../../apps/mobile/user/services/subscription/subscription_service.dart';
 
 class MobileAppRouter {
   static final GoRouter goRouter = GoRouter(
+    navigatorKey: SubscriptionService().globalNavigatorKey,
     initialLocation: MobileAppRoutes.splashScreen.path, //
     routes: routes,
   );
