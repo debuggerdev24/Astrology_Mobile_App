@@ -115,9 +115,7 @@ class SubscriptionProvider extends ChangeNotifier {
     final validateApiData = {
       "platform": (Platform.isAndroid)
           ? AppEnum.android.name
-          : AppEnum
-                .ios
-                .name, //ilkminbcnljcgigbmpaocgfl.AO-J1Oxs5qEbs7hlOEdwcbFJbVKs-5kXWcejsJKWQvvEVuRS1baXZXHcYGlhGk1CO7ThQkUwQrUNNrcwq5uf6Rm9_X3VRmKC0VEgD5TzWGTNecIHEj9G22U
+          : AppEnum.ios.name,
       (Platform.isAndroid) ? "purchase_token" : "receipt_data":
           serverVerificationData,
     };

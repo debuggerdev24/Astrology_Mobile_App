@@ -14,7 +14,6 @@ Future<void> main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-
   await Future.wait([LocaleStoaregService.init()]);
   runApp(ToastificationWrapper(child: const MyApp()));
 }
@@ -27,7 +26,7 @@ todo Vimaal
 sandbox password:
 -> Test.dds123@
 
-todo vimal
+
 
 flutter: Logger --- com.innerpeacepath.tier2com.innerpeacepath.tier2
 flutter: Logger --- appAccountToken : c04412ce-b848-40cd-a31c-d82d61b2422d

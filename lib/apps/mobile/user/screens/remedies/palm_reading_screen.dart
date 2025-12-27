@@ -5,6 +5,7 @@ import 'package:astrology_app/apps/mobile/user/provider/setting/subscription_pro
 import 'package:astrology_app/core/constants/app_assets.dart';
 import 'package:astrology_app/core/constants/app_colors.dart';
 import 'package:astrology_app/core/constants/text_style.dart';
+import 'package:astrology_app/core/enum/app_enums.dart';
 import 'package:astrology_app/core/extension/context_extension.dart';
 import 'package:astrology_app/core/widgets/app_button.dart';
 import 'package:astrology_app/core/widgets/app_layout.dart';
@@ -106,6 +107,17 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
                             ),
                           ),
                         ),
+                        if (provider.selectedIndex == 0 &&
+                                provider.activePalm == AppEnum.left.name ||
+                            provider.selectedIndex == 1 &&
+                                provider.activePalm == AppEnum.right.name)
+                          AppText(
+                            text: "(Active Palm)",
+                            style: medium(
+                              color: AppColors.greenColor,
+                              fontSize: 14.sp,
+                            ),
+                          ),
                         AppText(
                           text: translator.summary,
                           style: semiBold(
@@ -139,74 +151,81 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
                             );
                           },
                         ),
-                        AppButton(
-                          onTap: () {
-                            if (context
-                                .read<SubscriptionProvider>()
-                                .isTier2Subscribed) {
-                              context.pushNamed(
-                                MobileAppRoutes.remediesListScreen.name,
-                              );
-                            } else {
-                              showPremiumDialog(
-                                context: context,
-                                title: translator.premiumAccess,
-                                contentBody: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    18.h.verticalSpace,
-                                    AppText(
-                                      textAlign: TextAlign.center,
-                                      text: translator
-                                          .premiumMessageMatchWithRemedies,
-                                      style: medium(
-                                        fontSize: 16,
-                                        color: AppColors.black.withValues(
-                                          alpha: 0.8,
+                        if (provider.selectedIndex == 0 &&
+                                provider.activePalm == AppEnum.left.name ||
+                            provider.selectedIndex == 1 &&
+                                provider.activePalm == AppEnum.right.name)
+                          AppButton(
+                            onTap: () {
+                              if (context
+                                  .read<SubscriptionProvider>()
+                                  .isTier2Subscribed) {
+                                context.pushNamed(
+                                  MobileAppRoutes.remediesListScreen.name,
+                                );
+                              } else {
+                                showPremiumDialog(
+                                  context: context,
+                                  title: translator.premiumAccess,
+                                  contentBody: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      18.h.verticalSpace,
+                                      AppText(
+                                        textAlign: TextAlign.center,
+                                        text: translator
+                                            .premiumMessageMatchWithRemedies,
+                                        style: medium(
+                                          fontSize: 16,
+                                          color: AppColors.black.withValues(
+                                            alpha: 0.8,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    8.h.verticalSpace,
-                                    AppText(
-                                      textAlign: TextAlign.center,
-                                      text: translator
-                                          .premiumSloganMessageRemedies,
-                                      style: medium(
-                                        fontSize: 16,
-                                        color: AppColors.greyColor,
+                                      8.h.verticalSpace,
+                                      AppText(
+                                        textAlign: TextAlign.center,
+                                        text: translator
+                                            .premiumSloganMessageRemedies,
+                                        style: medium(
+                                          fontSize: 16,
+                                          color: AppColors.greyColor,
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
+                                );
+                              }
+                            },
+                            buttonColor: AppColors.secondary,
+                            margin: EdgeInsets.only(top: 35.h, bottom: 14.h),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              spacing: 10.w,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                AppText(
+                                  textAlign: TextAlign.center,
+                                  text: translator.viewRemedies,
+                                  style: bold(
+                                    fontSize: context.isTamil ? 14 : 16,
+                                    color: AppColors.black,
+                                  ),
                                 ),
-                              );
-                            }
-                          },
-                          buttonColor: AppColors.secondary,
-                          margin: EdgeInsets.only(top: 48.h, bottom: 14.h),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            spacing: 10.w,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              AppText(
-                                textAlign: TextAlign.center,
-                                text: translator.viewRemedies,
-                                style: bold(
-                                  fontSize: context.isTamil ? 14 : 16,
-                                  color: AppColors.black,
-                                ),
-                              ),
-                              if (!context
-                                  .read<SubscriptionProvider>()
-                                  .isTier2Subscribed)
-                                SVGImage(
-                                  path: AppAssets.lockIcon,
-                                  color: AppColors.darkBlue,
-                                ),
-                            ],
-                          ),
-                        ),
+                                if (!context
+                                    .read<SubscriptionProvider>()
+                                    .isTier2Subscribed)
+                                  SVGImage(
+                                    path: AppAssets.lockIcon,
+                                    color: AppColors.darkBlue,
+                                  ),
+                              ],
+                            ),
+                          )
+                        else
+                          35.h.verticalSpace,
                         AppButton(
                           margin: EdgeInsets.only(bottom: 18.h),
                           onTap: () {

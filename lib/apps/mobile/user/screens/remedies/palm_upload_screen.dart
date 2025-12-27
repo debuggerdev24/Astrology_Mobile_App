@@ -12,6 +12,7 @@ import 'package:astrology_app/core/widgets/app_layout.dart';
 import 'package:astrology_app/core/widgets/app_text.dart';
 import 'package:astrology_app/core/widgets/global_methods.dart';
 import 'package:astrology_app/core/widgets/svg_image.dart';
+import 'package:astrology_app/l10n/app_localizations.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -61,7 +62,7 @@ class PalmUploadScreen extends StatelessWidget {
                             onSetActive: () {
                               provider.setActivePalm(AppEnum.left.name);
                             },
-                            label: "Left Palm",
+                            translator: context.translator,
                             fileImage: provider.leftHandImageFile,
                             isActive: provider.activePalm == AppEnum.left.name,
                           ),
@@ -69,7 +70,7 @@ class PalmUploadScreen extends StatelessWidget {
                             onTap: () {
                               provider.pickImage();
                             },
-                            label: "Right Palm",
+                            translator: context.translator,
                             fileImage: provider.rightHandImageFile,
                             isActive: provider.activePalm == AppEnum.right.name,
                             onSetActive: () {
@@ -171,8 +172,8 @@ class PalmUploadScreen extends StatelessWidget {
   Widget uploadPalmSection({
     required VoidCallback onTap,
     required VoidCallback onSetActive,
-    // required PalmProvider provider,
-    required String label,
+
+    required AppLocalizations translator,
     required File? fileImage,
     required bool isActive,
   }) {
@@ -252,7 +253,7 @@ class PalmUploadScreen extends StatelessWidget {
                     ),
                   ),
                   child: AppText(
-                    text: label,
+                    text: translator.active,
                     style: medium(fontSize: 12, color: Colors.white),
                     textAlign: TextAlign.center,
                   ),

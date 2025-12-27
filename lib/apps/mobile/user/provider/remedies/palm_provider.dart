@@ -8,7 +8,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:provider/provider.dart';
 
 import '../../model/remedies/remedy_model.dart';
 import '../../screens/remedies/palm_reading_screen.dart';
@@ -21,8 +20,7 @@ class PalmProvider extends ChangeNotifier {
   RemedyModel? remedies;
   RemedyDetailsModel? remedyDetails;
   final ImagePicker _picker = ImagePicker();
-  String _activePalm = 'right';
-
+  String _activePalm = "right";
   String get activePalm => _activePalm;
 
   void setActivePalm(String palm) {
@@ -43,16 +41,14 @@ class PalmProvider extends ChangeNotifier {
   }
 
   bool isUploading = false;
-  Future<void> uploadForReading({
-    required BuildContext context,
-  }) async {
+  Future<void> uploadForReading({required BuildContext context}) async {
     isUploading = true;
     notifyListeners();
     Logger.printInfo(_activePalm);
     FormData data = FormData.fromMap({
       "left_palm": await MultipartFile.fromFile(leftHandImageFile!.path),
       "right_palm": await MultipartFile.fromFile(rightHandImageFile!.path),
-      "active_palm": _activePalm
+      "active_palm": _activePalm,
     });
     final result = await RemedyApiService.instance.uploadPalmFroReading(
       data: data,

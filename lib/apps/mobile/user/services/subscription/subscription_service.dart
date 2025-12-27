@@ -9,6 +9,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:astrology_app/apps/mobile/user/screens/user_dashboard.dart';
 import 'package:astrology_app/core/utils/custom_toast.dart';
 import 'package:astrology_app/core/utils/de_bouncing.dart';
 import 'package:flutter/material.dart';
@@ -181,6 +182,7 @@ class SubscriptionService {
               final ctx = globalNavigatorKey.currentContext;
               if (ctx != null && ctx.mounted) {
                 ctx.goNamed(MobileAppRoutes.userDashBoardScreen.name);
+                callInitAPIs(context: context);
               }
             },
           );
@@ -195,7 +197,8 @@ class SubscriptionService {
             message: "You have cancelled subscription process",
           );
         });
-        final provider = context.read<SubscriptionProvider>();
+        final provider = globalNavigatorKey.currentContext!
+            .read<SubscriptionProvider>();
         provider.setSubscriptionProcessStatus(status: false);
       }
     }

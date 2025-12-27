@@ -1,10 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+
 import '../../apps/mobile/user/services/settings/locale_storage_service.dart';
 import '../constants/app_config.dart';
 import '../utils/logger.dart';
 import 'end_points.dart';
+
 class DioClient {
   static final DioClient _instance = DioClient._internal();
   late Dio dio;
@@ -41,12 +43,12 @@ class BaseApiHelper {
   static BaseApiHelper get instance => _instance;
   final Dio _dio = DioClient().dio;
   Future<Either<ApiException, T>> get<T>(
-      String path, {
-        dynamic data,
-        Map<String, dynamic>? queryParameters,
-        Options? options,
-        T Function(dynamic)? parser,
-      }) async {
+    String path, {
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+    T Function(dynamic)? parser,
+  }) async {
     try {
       final mergedQueryParams = {
         "lang": LocaleStoaregService.localeCode,
@@ -82,13 +84,14 @@ class BaseApiHelper {
       );
     }
   }
+
   Future<Either<ApiException, T>> post<T>(
-      String path, {
-        dynamic data,
-        Map<String, dynamic>? queryParameters,
-        Options? options,
-        T Function(dynamic)? parser,
-      }) async {
+    String path, {
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+    T Function(dynamic)? parser,
+  }) async {
     try {
       final mergedQueryParams = {
         "lang": LocaleStoaregService.localeCode,
@@ -126,13 +129,14 @@ class BaseApiHelper {
       );
     }
   }
+
   Future<Either<ApiException, T>> delete<T>(
-      String path, {
-        dynamic data,
-        Map<String, dynamic>? queryParameters,
-        Options? options,
-        T Function(dynamic)? parser,
-      }) async {
+    String path, {
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+    T Function(dynamic)? parser,
+  }) async {
     try {
       final mergedQueryParams = {
         "lang": LocaleStoaregService.localeCode,
@@ -169,13 +173,14 @@ class BaseApiHelper {
       );
     }
   }
+
   Future<Either<ApiException, T>> patch<T>(
-      String path, {
-        dynamic data,
-        Map<String, dynamic>? queryParameters,
-        Options? options,
-        T Function(dynamic)? parser,
-      }) async {
+    String path, {
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+    T Function(dynamic)? parser,
+  }) async {
     try {
       final mergedQueryParams = {
         "lang": LocaleStoaregService.localeCode,
@@ -212,6 +217,7 @@ class BaseApiHelper {
       );
     }
   }
+
   Future<Either<ApiException, bool>> checkTokenExpired() async {
     try {
       final response = await _dio.get(Endpoints.checkTokenExpired);
@@ -220,7 +226,6 @@ class BaseApiHelper {
         "inside try section -> ${result["messages"].toString()}",
       );
       if (result['details'] == "token_not_valid") {
-        Logger.printInfo("expired");
         return Right(true);
       } else {
         return Right(false);
@@ -232,6 +237,7 @@ class BaseApiHelper {
       return Right(false);
     }
   }
+
   Future<Either<ApiException, void>> refreshAuthToken() async {
     Logger.printInfo(
       "refresh auth token : ${LocaleStoaregService.userRefreshToken}",
@@ -274,6 +280,7 @@ class BaseApiHelper {
       );
     }
   }
+
   String _handleErrorMessage(DioException e) {
     if (e.type == DioExceptionType.connectionTimeout) {
       return 'Connection timed out';
@@ -325,10 +332,10 @@ class ApiException implements Exception {
   final String? code;
   final String? originalErrorMessage;
   ApiException(
-      this.errorMessage, {
-        required this.code,
-        this.originalErrorMessage,
-      });
+    this.errorMessage, {
+    required this.code,
+    this.originalErrorMessage,
+  });
   @override
   String toString() {
     return "api error: $errorMessage ----- status code: $code";
