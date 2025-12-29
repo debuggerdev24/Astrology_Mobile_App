@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:astrology_app/apps/mobile/user/screens/user_dashboard.dart';
 import 'package:astrology_app/apps/mobile/user/services/settings/profile_api_service.dart';
 import 'package:astrology_app/core/extension/context_extension.dart';
 import 'package:astrology_app/core/utils/field_validator.dart';
@@ -196,9 +195,9 @@ class UserProfileProvider extends ChangeNotifier {
             );
           }
 
-          callInitAPIs(context: context);
+          // callInitAPIs(context: context);
 
-          context.pushNamed(MobileAppRoutes.userDashBoardTour.name);
+          context.pushNamed(MobileAppRoutes.userDashBoardScreen.name);
         },
       );
       isUpdateProfileLoading = false;

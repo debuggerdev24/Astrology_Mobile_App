@@ -20,6 +20,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:super_banners/super_banners.dart';
 
 import '../../../../../core/utils/logger.dart';
 import '../../../../../l10n/app_localizations.dart';
@@ -62,6 +63,11 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
 
               Consumer<PalmProvider>(
                 builder: (context, provider, child) {
+                  final isActive =
+                      provider.selectedIndex == 0 &&
+                          provider.activePalm == AppEnum.left.name ||
+                      provider.selectedIndex == 1 &&
+                          provider.activePalm == AppEnum.right.name;
                   if (!provider.isUploading) {
                     final palm = (provider.selectedIndex == 0)
                         ? provider.palmReading!.leftPalm
@@ -70,10 +76,12 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         15.h.verticalSpace,
+                        //todo toggle left and right selection
                         toggleLeftRight(
                           translator: translator,
                           provider: provider,
                         ),
+                        //todo toggle palm images
                         Align(
                           alignment: Alignment.center,
                           child: Container(
@@ -87,37 +95,38 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
                                 width: 2,
                               ),
                             ),
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 50.w,
-                              vertical: 18.h,
-                            ),
-                            child: CachedNetworkImage(
-                              imageUrl: palm.image,
-                              placeholder: (context, url) => Container(
-                                decoration: BoxDecoration(
-                                  color: AppColors.whiteColor,
-                                  borderRadius: BorderRadius.circular(5).r,
+                            child: Stack(
+                              children: [
+                                Center(
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 50.w,
+                                      vertical: 18.h,
+                                    ),
+                                    child: CachedNetworkImage(
+                                      imageUrl: palm.image,
+                                      placeholder: (context, url) => Container(
+                                        decoration: BoxDecoration(
+                                          color: AppColors.whiteColor,
+                                          borderRadius: BorderRadius.circular(
+                                            5,
+                                          ).r,
+                                        ),
+                                        padding: EdgeInsets.all(12).r,
+                                        child: CupertinoActivityIndicator(
+                                          radius: 18.h,
+                                          color: AppColors.bgColor,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                                padding: EdgeInsets.all(12).r,
-                                child: CupertinoActivityIndicator(
-                                  radius: 18.h,
-                                  color: AppColors.bgColor,
-                                ),
-                              ),
+                                if (isActive)
+                                  _buildStatusBanner(translator: translator),
+                              ],
                             ),
                           ),
                         ),
-                        if (provider.selectedIndex == 0 &&
-                                provider.activePalm == AppEnum.left.name ||
-                            provider.selectedIndex == 1 &&
-                                provider.activePalm == AppEnum.right.name)
-                          AppText(
-                            text: "(Active Palm)",
-                            style: medium(
-                              color: AppColors.greenColor,
-                              fontSize: 14.sp,
-                            ),
-                          ),
                         AppText(
                           text: translator.summary,
                           style: semiBold(
@@ -151,10 +160,7 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
                             );
                           },
                         ),
-                        if (provider.selectedIndex == 0 &&
-                                provider.activePalm == AppEnum.left.name ||
-                            provider.selectedIndex == 1 &&
-                                provider.activePalm == AppEnum.right.name)
+                        if (isActive)
                           AppButton(
                             onTap: () {
                               if (context
@@ -325,6 +331,17 @@ class _PalmReadingScreenState extends State<PalmReadingScreen> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildStatusBanner({required AppLocalizations translator}) {
+    return CornerBanner(
+      bannerPosition: CornerBannerPosition.topLeft,
+      bannerColor: AppColors.greenColor.withValues(alpha: 0.86),
+      child: AppText(
+        text: translator.active,
+        style: medium(color: AppColors.white, fontSize: 12.5.sp),
       ),
     );
   }

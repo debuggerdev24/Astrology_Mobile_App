@@ -9,7 +9,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:astrology_app/apps/mobile/user/screens/user_dashboard.dart';
 import 'package:astrology_app/core/utils/custom_toast.dart';
 import 'package:astrology_app/core/utils/de_bouncing.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +21,7 @@ import '../../../../../core/enum/app_enums.dart';
 import '../../../../../core/utils/logger.dart';
 import '../../../../../routes/mobile_routes/user_routes.dart';
 import '../../provider/setting/subscription_provider.dart';
+import '../../screens/user_dashboard.dart';
 
 class SubscriptionService {
   static final SubscriptionService _instance = SubscriptionService._internal();
@@ -94,7 +94,6 @@ class SubscriptionService {
 
   //todo buy subscription method
   // late int _planID;
-
   Future<void> buySubscription({
     required AppEnum tier,
     required int planId,
@@ -109,17 +108,61 @@ class SubscriptionService {
         Logger.printInfo(p.id.toString() + productId.toString());
         return p.id == productId;
       }, orElse: () => throw Exception('Product not found'));
-      Logger.printInfo(
-        "appAccountToken : ${appAccountToken ?? "appAccountToken"}",
-      );
+
+      //todo to get the offer token (7 days trial)
+      //todo ----------------------------------------
+      // String? offerToken;
+      // if (Platform.isAndroid && product is GooglePlayProductDetails) {
+      //   final subscriptionOfferDetails =
+      //       product.productDetails.subscriptionOfferDetails;
+      //
+      //   if (subscriptionOfferDetails != null &&
+      //       subscriptionOfferDetails.isNotEmpty) {
+      //     // Try to find a free trial offer first
+      //     final trialOffer = subscriptionOfferDetails.firstWhere(
+      //       (offer) => offer.pricingPhases.any(
+      //         (phase) => phase.priceAmountMicros == 0, // Free trial has 0 price
+      //       ),
+      //       orElse: () =>
+      //           subscriptionOfferDetails.first, // Fallback to first offer
+      //     );
+      //     offerToken = trialOffer.offerIdToken;
+      //
+      //     Logger.printInfo("Selected Offer Token: $offerToken");
+      //     Logger.printInfo("Selected Offer Token: ${trialOffer.basePlanId}");
+      //
+      //     for (var phase in trialOffer.pricingPhases) {
+      //       Logger.printInfo(
+      //         "Pricing Phase: ${phase.formattedPrice}, "
+      //         "Duration: ${phase.billingPeriod}, "
+      //         "Price: ${phase.priceAmountMicros}",
+      //       );
+      //     }
+      //   } else {
+      //     Logger.printError(
+      //       "No subscription offers found for product: ${product.productDetails.name}",
+      //     );
+      //   }
+      // }
+
+      //todo ---------------> set the purchase param
       if (Platform.isIOS) {
+        Logger.printInfo(
+          "appAccountToken : ${appAccountToken ?? "appAccountToken"}",
+        );
         param = PurchaseParam(
           productDetails: product,
           applicationUserName: appAccountToken,
         );
       } else {
+        // param = GooglePlayPurchaseParam(
+        //   productDetails: product as GooglePlayProductDetails,
+        //   applicationUserName: appAccountToken,
+        //   changeSubscriptionParam: null,
+        // );
         param = PurchaseParam(productDetails: product);
       }
+      //todo ---------------> buy product
       _iap.buyNonConsumable(purchaseParam: param);
     } on PlatformException catch (e) {
       if (e.code == 'storekit2_purchase_cancelled') {
@@ -127,7 +170,6 @@ class SubscriptionService {
           context: context,
           message: "You have cancelled subscription process",
         );
-
         context.read<SubscriptionProvider>().setSubscriptionProcessStatus(
           status: false,
         );
@@ -171,6 +213,8 @@ class SubscriptionService {
           listen: false,
         );
 
+        final ctx = globalNavigatorKey.currentContext;
+
         if (tier != null) {
           await provider.updateSubscriptionInDataBase(
             tier: tier,
@@ -179,10 +223,12 @@ class SubscriptionService {
             isRestore: purchase.status == PurchaseStatus.restored,
             onSuccess: () {
               // context.pushNamed(MobileAppRoutes.userDashBoardScreen.name);
-              final ctx = globalNavigatorKey.currentContext;
               if (ctx != null && ctx.mounted) {
-                ctx.goNamed(MobileAppRoutes.userDashBoardScreen.name);
-                callInitAPIs(context: context);
+                ctx.goNamed(
+                  MobileAppRoutes.userDashBoardScreen.name,
+                  extra: false,
+                );
+                callInitAPIs(context: ctx);
               }
             },
           );

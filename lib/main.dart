@@ -23,6 +23,21 @@ Future<void> main() async {
 
 todo Vimaal
 
+-> Worked on added the new dependency to show the active palm banner in the palm readings screen
+-> Worked on added the new dependency to check the offer is reflacting or not in the debug mode.
+-> Worked on created the new offer for the tier 2 in android.
+-> Worked on created the trial offer in the iOS.
+-> Worked on testing the subscription at the both side android and iOS.
+-> Worked on prepare an iOS and android build and upload the build for the review in the play store and internal testing.
+-> Worked on uploaded thw upload the build to the testflight.
+
+
+Note: I’ve uploaded the app with the provided changes to the Play Store review and internal testing. However, the trial feature is only visible in the production environment, so it won’t appear in the testing build.
+ For iOS, the app is currently under review, and I’ve also uploaded it to TestFlight for testing.
+Please take a look and let me know your feedback.
+
+
+
 sandbox password:
 -> Test.dds123@
 
