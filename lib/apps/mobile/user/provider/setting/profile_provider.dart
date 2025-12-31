@@ -20,7 +20,7 @@ import '../../services/settings/locale_storage_service.dart';
 class UserProfileProvider extends ChangeNotifier {
   // Text controllers
   TextEditingController nameController = TextEditingController(
-    text: LocaleStoaregService.loggedInUserName,
+    text: LocaleStorageService.loggedInUserName,
   );
   TextEditingController currentLocationController = TextEditingController();
   TextEditingController birthPlaceController = TextEditingController();
@@ -64,7 +64,7 @@ class UserProfileProvider extends ChangeNotifier {
 
   void toggleAgreement() {
     _isAgreementChecked = !_isAgreementChecked;
-    LocaleStoaregService.setProfileCreated(_isAgreementChecked);
+    LocaleStorageService.setProfileCreated(_isAgreementChecked);
     notifyListeners();
   }
 
@@ -136,7 +136,7 @@ class UserProfileProvider extends ChangeNotifier {
     } else {
       if (_validateFields(context)) return;
     }
-    if (LocaleStoaregService.profileCreated) {
+    if (LocaleStorageService.profileCreated) {
       if (!isNetworkConnected.value) {
         AppToast.info(
           context: context,
@@ -187,7 +187,7 @@ class UserProfileProvider extends ChangeNotifier {
         },
 
         (data) async {
-          await LocaleStoaregService.setProfileCreated(true);
+          await LocaleStorageService.setProfileCreated(true);
           if (isFromEdit ?? false) {
             AppToast.success(
               context: context,

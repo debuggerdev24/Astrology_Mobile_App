@@ -1,7 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-class LocaleStoaregService {
-  LocaleStoaregService._();
+class LocaleStorageService {
+  LocaleStorageService._();
 
   static late SharedPreferences _pref;
   static Future<void> init() async {

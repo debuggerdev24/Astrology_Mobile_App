@@ -183,6 +183,6 @@ class _DailyMantraScreenTourState extends State<DailyMantraScreenTour> {
 }
 
 void onSkip({required BuildContext context}) {
-  LocaleStoaregService.setIsFirstTime(false);
+  LocaleStorageService.setIsFirstTime(false);
   context.goNamed(MobileAppRoutes.userDashBoardScreen.name, extra: true);
 }

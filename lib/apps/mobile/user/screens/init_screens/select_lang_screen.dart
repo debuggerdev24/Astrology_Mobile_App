@@ -72,7 +72,7 @@ class LanguageSelectionScreen extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () async {
                     Future.wait([
-                      LocaleStoaregService.setIsLanguageSelected(value: true),
+                      LocaleStorageService.setIsLanguageSelected(value: true),
                       context.read<UserAuthProvider>().decideFirstScreen(
                         context,
                       ),

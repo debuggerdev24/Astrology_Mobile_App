@@ -17,7 +17,7 @@ class DioClient {
     dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
-          final token = LocaleStoaregService.userToken;
+          final token = LocaleStorageService.userToken;
           if (token.isNotEmpty) {
             options.headers['Authorization'] = "Bearer $token";
           }
@@ -51,7 +51,7 @@ class BaseApiHelper {
   }) async {
     try {
       final mergedQueryParams = {
-        "lang": LocaleStoaregService.localeCode,
+        "lang": LocaleStorageService.localeCode,
         ...?queryParameters, // spread only if not null
       };
       final response = await _dio.get(
@@ -94,7 +94,7 @@ class BaseApiHelper {
   }) async {
     try {
       final mergedQueryParams = {
-        "lang": LocaleStoaregService.localeCode,
+        "lang": LocaleStorageService.localeCode,
         ...?queryParameters, // spread only if not null
       };
       final response = await _dio.post(
@@ -139,7 +139,7 @@ class BaseApiHelper {
   }) async {
     try {
       final mergedQueryParams = {
-        "lang": LocaleStoaregService.localeCode,
+        "lang": LocaleStorageService.localeCode,
         ...?queryParameters, // spread only if not null
       };
       final response = await _dio.delete(
@@ -183,7 +183,7 @@ class BaseApiHelper {
   }) async {
     try {
       final mergedQueryParams = {
-        "lang": LocaleStoaregService.localeCode,
+        "lang": LocaleStorageService.localeCode,
         ...?queryParameters, // spread only if not null
       };
       final response = await _dio.patch(
@@ -240,10 +240,10 @@ class BaseApiHelper {
 
   Future<Either<ApiException, void>> refreshAuthToken() async {
     Logger.printInfo(
-      "refresh auth token : ${LocaleStoaregService.userRefreshToken}",
+      "refresh auth token : ${LocaleStorageService.userRefreshToken}",
     );
     var data = FormData.fromMap({
-      'refresh': LocaleStoaregService.userRefreshToken,
+      'refresh': LocaleStorageService.userRefreshToken,
     });
     try {
       final response = await _dio.post(Endpoints.refreshToken, data: data);
@@ -258,7 +258,7 @@ class BaseApiHelper {
         );
       } else {
         final newToken = result["access"];
-        await LocaleStoaregService.saveUserToken(newToken);
+        await LocaleStorageService.saveUserToken(newToken);
       }
       return Right(null);
     } on DioException catch (e) {

@@ -4,7 +4,7 @@ import '../../../../../core/utils/logger.dart';
 import '../../services/settings/locale_storage_service.dart';
 
 class LocaleProvider extends ChangeNotifier {
-  String _localeCode = LocaleStoaregService.localeCode;
+  String _localeCode = LocaleStorageService.localeCode;
   String get localeCode => _localeCode;
 
   void setLocale(String code) {
@@ -16,7 +16,7 @@ class LocaleProvider extends ChangeNotifier {
     }
 
     _localeCode = code;
-    LocaleStoaregService.setLocaleCode(code);
+    LocaleStorageService.setLocaleCode(code);
     Logger.printInfo("Locale updated to: $_localeCode");
     notifyListeners();
   }

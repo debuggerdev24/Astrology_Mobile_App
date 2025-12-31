@@ -31,7 +31,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
   @override
   void initState() {
     context.read<UserProfileProvider>().nameController.text =
-        LocaleStoaregService.loggedInUserName;
+        LocaleStorageService.loggedInUserName;
     context.read<UserProfileProvider>().clearControllers();
     super.initState();
   }
@@ -175,7 +175,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                               width: 18.w,
                               height: 18.w,
                               decoration: BoxDecoration(
-                                color: LocaleStoaregService.profileCreated
+                                color: LocaleStorageService.profileCreated
                                     ? Colors.white
                                     : Colors.transparent,
                                 borderRadius: BorderRadius.circular(3.5.r),
@@ -184,7 +184,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                                   width: 1,
                                 ),
                               ),
-                              child: LocaleStoaregService.profileCreated
+                              child: LocaleStorageService.profileCreated
                                   ? Icon(
                                       Icons.check,
                                       color: Colors.black,

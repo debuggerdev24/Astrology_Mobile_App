@@ -80,15 +80,15 @@ class UserAuthProvider extends ChangeNotifier {
           context: context,
           message: context.translator.registeredSuccessfully,
         );
-        await LocaleStoaregService.setLoggedInCustomerEmail(
+        await LocaleStorageService.setLoggedInCustomerEmail(
           _registerEmailCtr.text.trim(),
         );
-        await LocaleStoaregService.setLoggedInCustomerPassword(
+        await LocaleStorageService.setLoggedInCustomerPassword(
           _registerPasswordCtr.text.trim(),
         );
 
         context.pushNamed(MobileAppRoutes.signInScreen.name);
-        await LocaleStoaregService.setLoggedInUserName(
+        await LocaleStorageService.setLoggedInUserName(
           _registerNameCtr.text.trim(),
         );
         clearRegisterField();
@@ -139,15 +139,15 @@ class UserAuthProvider extends ChangeNotifier {
           message: context.translator.loginSuccessfully,
         );
         _firstTime = data["data"]["first_time"];
-        await LocaleStoaregService.saveUserToken(data['data']['access']);
-        await LocaleStoaregService.saveUserRefreshToken(
+        await LocaleStorageService.saveUserToken(data['data']['access']);
+        await LocaleStorageService.saveUserRefreshToken(
           data['data']['refresh'],
         );
-        await LocaleStoaregService.setIsUserLoggedIn();
-        await LocaleStoaregService.setLoggedInUserEmail(
+        await LocaleStorageService.setIsUserLoggedIn();
+        await LocaleStorageService.setLoggedInUserEmail(
           _loginEmailCtr.text.trim(),
         );
-        await LocaleStoaregService.setLoggedInUserPassword(
+        await LocaleStorageService.setLoggedInUserPassword(
           _loginPassCtr.text.trim(),
         );
         await decideFirstScreen(context);
@@ -172,18 +172,18 @@ class UserAuthProvider extends ChangeNotifier {
     final result = await UserProfileService.instance.getProfile();
     result.fold(
       (l) async {
-        if (!LocaleStoaregService.isLanguageSelected) {
+        if (!LocaleStorageService.isLanguageSelected) {
           context.goNamed(MobileAppRoutes.selectLanguageScreen.name);
           return;
         }
-        await LocaleStoaregService.saveUserToken("");
-        await LocaleStoaregService.saveUserRefreshToken("");
+        await LocaleStorageService.saveUserToken("");
+        await LocaleStorageService.saveUserRefreshToken("");
         context.pushNamed(MobileAppRoutes.signUpScreen.name);
       },
       (r) {
         final data = r["data"]["palm_image_left"];
         Logger.printInfo("---------------> ${data.toString()}");
-        if (!LocaleStoaregService.isLanguageSelected) {
+        if (!LocaleStorageService.isLanguageSelected) {
           context.goNamed(MobileAppRoutes.selectLanguageScreen.name);
           return;
         }
@@ -194,9 +194,9 @@ class UserAuthProvider extends ChangeNotifier {
           context.goNamed(MobileAppRoutes.createProfileScreen.name);
           return;
         }
-        LocaleStoaregService.setProfileCreated(true);
+        LocaleStorageService.setProfileCreated(true);
 
-        if (LocaleStoaregService.isFirstTime) {
+        if (LocaleStorageService.isFirstTime) {
           indexTabUser.value = 0;
           context.goNamed(MobileAppRoutes.userDashBoardTour.name);
           return;
@@ -235,13 +235,13 @@ class UserAuthProvider extends ChangeNotifier {
           );
         }
 
-        await LocaleStoaregService.saveUserToken("");
-        await LocaleStoaregService.saveUserRefreshToken("");
-        await LocaleStoaregService.setIsUserLoggedIn(value: false);
-        await LocaleStoaregService.setProfileCreated(false);
+        await LocaleStorageService.saveUserToken("");
+        await LocaleStorageService.saveUserRefreshToken("");
+        await LocaleStorageService.setIsUserLoggedIn(value: false);
+        await LocaleStorageService.setProfileCreated(false);
 
-        await LocaleStoaregService.setLoggedInUserEmail("");
-        await LocaleStoaregService.setLoggedInUserPassword("");
+        await LocaleStorageService.setLoggedInUserEmail("");
+        await LocaleStorageService.setLoggedInUserPassword("");
         indexTabUser.value = 0;
 
         // Navigate after clearing storage and only if context is still mounted
@@ -280,13 +280,13 @@ class UserAuthProvider extends ChangeNotifier {
           );
         }
 
-        await LocaleStoaregService.saveUserToken("");
-        await LocaleStoaregService.saveUserRefreshToken("");
-        await LocaleStoaregService.setIsUserLoggedIn(value: false);
-        await LocaleStoaregService.setProfileCreated(false);
+        await LocaleStorageService.saveUserToken("");
+        await LocaleStorageService.saveUserRefreshToken("");
+        await LocaleStorageService.setIsUserLoggedIn(value: false);
+        await LocaleStorageService.setProfileCreated(false);
 
-        await LocaleStoaregService.setLoggedInUserEmail("");
-        await LocaleStoaregService.setLoggedInUserPassword("");
+        await LocaleStorageService.setLoggedInUserEmail("");
+        await LocaleStorageService.setLoggedInUserPassword("");
 
         // Navigate after clearing storage and only if context is still mounted
         // if (context.mounted) {

@@ -22,7 +22,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  String userToken = LocaleStoaregService.userToken;
+  String userToken = LocaleStorageService.userToken;
 
   @override
   void initState() {
@@ -51,8 +51,8 @@ class _SplashScreenState extends State<SplashScreen> {
             res.fold(
               (err) async {
                 if (err.code == "token_not_valid") {
-                  await LocaleStoaregService.saveUserToken("");
-                  await LocaleStoaregService.saveUserRefreshToken("");
+                  await LocaleStorageService.saveUserToken("");
+                  await LocaleStorageService.saveUserRefreshToken("");
                   context.goNamed(MobileAppRoutes.signUpScreen.name);
                 }
               },
@@ -68,7 +68,7 @@ class _SplashScreenState extends State<SplashScreen> {
         });
         return;
       }
-      if (!LocaleStoaregService.isLanguageSelected) {
+      if (!LocaleStorageService.isLanguageSelected) {
         context.goNamed(MobileAppRoutes.selectLanguageScreen.name);
         return;
       }

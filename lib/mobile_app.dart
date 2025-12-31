@@ -45,7 +45,7 @@ class AstrologyMobileApp extends StatelessWidget {
           child: Consumer<LocaleProvider>(
             builder: (context, value, child) => MaterialApp.router(
               theme: AppTheme.appThemeData,
-              locale: Locale(LocaleStoaregService.localeCode),
+              locale: Locale(LocaleStorageService.localeCode),
               supportedLocales: const [
                 Locale("en"),
                 Locale("hi"),
