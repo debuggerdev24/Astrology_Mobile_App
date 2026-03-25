@@ -14,7 +14,7 @@ import '../../../../../core/constants/text_style.dart';
 import '../../../../../core/widgets/app_layout.dart';
 import '../../../../../core/widgets/app_text.dart';
 import '../../../../../core/widgets/svg_image.dart';
-import '../../../../../routes/mobile_routes/user_routes.dart';
+import '../../../../../core/routes/mobile_routes/user_routes.dart';
 import '../../model/mantra/mantra_history_model.dart';
 import '../../provider/setting/subscription_provider.dart';
 import '../user_dashboard.dart';

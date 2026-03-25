@@ -7,7 +7,7 @@ import 'package:astrology_app/core/utils/de_bouncing.dart';
 import 'package:astrology_app/core/widgets/app_button.dart';
 import 'package:astrology_app/core/widgets/app_text.dart';
 import 'package:astrology_app/core/widgets/app_text_field.dart';
-import 'package:astrology_app/routes/mobile_routes/user_routes.dart';
+import 'package:astrology_app/core/routes/mobile_routes/user_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

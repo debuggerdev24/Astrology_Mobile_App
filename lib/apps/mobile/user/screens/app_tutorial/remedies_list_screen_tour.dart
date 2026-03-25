@@ -9,7 +9,7 @@ import 'package:astrology_app/core/widgets/app_layout.dart';
 import 'package:astrology_app/core/widgets/app_text.dart';
 import 'package:astrology_app/core/widgets/global_methods.dart';
 import 'package:astrology_app/l10n/app_localizations.dart';
-import 'package:astrology_app/routes/mobile_routes/user_routes.dart';
+import 'package:astrology_app/core/routes/mobile_routes/user_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';

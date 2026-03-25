@@ -9,7 +9,6 @@ ValueNotifier<bool> isNetworkConnected = ValueNotifier(true);
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
