@@ -12,7 +12,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../../../../routes/mobile_routes/user_routes.dart';
+import '../../../../../core/routes/mobile_routes/user_routes.dart';
 
 class RemediesScreen extends StatefulWidget {
   const RemediesScreen({super.key});

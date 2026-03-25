@@ -19,7 +19,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../routes/mobile_routes/user_routes.dart';
+import '../../../../../core/routes/mobile_routes/user_routes.dart';
 import '../../provider/remedies/palm_provider.dart';
 import '../user_dashboard.dart';
 

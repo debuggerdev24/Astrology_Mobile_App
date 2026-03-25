@@ -16,7 +16,7 @@ import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../../../core/constants/app_config.dart';
-import '../../../../../routes/mobile_routes/user_routes.dart';
+import '../../../../../core/routes/mobile_routes/user_routes.dart';
 import '../../model/remedies/remedy_model.dart';
 import '../../provider/mantra/mantra_provider.dart';
 

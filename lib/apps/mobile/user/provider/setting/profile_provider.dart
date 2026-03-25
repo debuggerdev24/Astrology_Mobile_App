@@ -13,7 +13,7 @@ import 'package:image_picker/image_picker.dart';
 import '../../../../../core/constants/app_colors.dart';
 import '../../../../../core/utils/custom_toast.dart';
 import '../../../../../main.dart';
-import '../../../../../routes/mobile_routes/user_routes.dart';
+import '../../../../../core/routes/mobile_routes/user_routes.dart';
 import '../../model/settings/profile_model.dart';
 import '../../services/settings/locale_storage_service.dart';
 

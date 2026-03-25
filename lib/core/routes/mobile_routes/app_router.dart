@@ -22,25 +22,25 @@ import 'package:astrology_app/apps/mobile/user/screens/settings/app_info/terms_a
 import 'package:astrology_app/apps/mobile/user/screens/settings/profile/profile_screen.dart';
 import 'package:astrology_app/apps/mobile/user/screens/user_dashboard.dart';
 import 'package:astrology_app/core/extension/routes_extension.dart';
-import 'package:astrology_app/routes/mobile_routes/user_routes.dart';
+import 'package:astrology_app/core/routes/mobile_routes/user_routes.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../apps/mobile/user/screens/app_tutorial/dash_board_tour.dart';
-import '../../apps/mobile/user/screens/app_tutorial/palm_reading_screen_tour.dart';
-import '../../apps/mobile/user/screens/app_tutorial/profile_screen_tour.dart';
-import '../../apps/mobile/user/screens/app_tutorial/remedies_list_screen_tour.dart';
-import '../../apps/mobile/user/screens/auth/sign_up_screen.dart';
-import '../../apps/mobile/user/screens/init_screens/select_lang_screen.dart';
-import '../../apps/mobile/user/screens/init_screens/splash_screen.dart';
-import '../../apps/mobile/user/screens/mantras/single_mantra_player_screen.dart';
-import '../../apps/mobile/user/screens/settings/profile/edit_profile_screen.dart';
-import '../../apps/mobile/user/screens/subscription/choose_plan_screen.dart';
-import '../../apps/mobile/user/screens/subscription/current_plan_screen.dart';
-import '../../apps/mobile/user/screens/subscription/failed_payment_screen.dart';
-import '../../apps/mobile/user/screens/subscription/payment_detail_screen.dart';
-import '../../apps/mobile/user/screens/subscription/selected_plan_screen.dart';
-import '../../apps/mobile/user/screens/subscription/success_payment_screen.dart';
-import '../../apps/mobile/user/services/subscription/subscription_service.dart';
+import '../../../apps/mobile/user/screens/app_tutorial/dash_board_tour.dart';
+import '../../../apps/mobile/user/screens/app_tutorial/palm_reading_screen_tour.dart';
+import '../../../apps/mobile/user/screens/app_tutorial/profile_screen_tour.dart';
+import '../../../apps/mobile/user/screens/app_tutorial/remedies_list_screen_tour.dart';
+import '../../../apps/mobile/user/screens/auth/sign_up_screen.dart';
+import '../../../apps/mobile/user/screens/init_screens/select_lang_screen.dart';
+import '../../../apps/mobile/user/screens/init_screens/splash_screen.dart';
+import '../../../apps/mobile/user/screens/mantras/single_mantra_player_screen.dart';
+import '../../../apps/mobile/user/screens/settings/profile/edit_profile_screen.dart';
+import '../../../apps/mobile/user/screens/subscription/choose_plan_screen.dart';
+import '../../../apps/mobile/user/screens/subscription/current_plan_screen.dart';
+import '../../../apps/mobile/user/screens/subscription/failed_payment_screen.dart';
+import '../../../apps/mobile/user/screens/subscription/payment_detail_screen.dart';
+import '../../../apps/mobile/user/screens/subscription/selected_plan_screen.dart';
+import '../../../apps/mobile/user/screens/subscription/success_payment_screen.dart';
+import '../../../apps/mobile/user/services/subscription/subscription_service.dart';
 
 class MobileAppRouter {
   static final GoRouter goRouter = GoRouter(

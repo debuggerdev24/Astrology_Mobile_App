@@ -19,7 +19,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../../core/enum/app_enums.dart';
 import '../../../../../core/utils/logger.dart';
-import '../../../../../routes/mobile_routes/user_routes.dart';
+import '../../../../../core/routes/mobile_routes/user_routes.dart';
 import '../../provider/setting/subscription_provider.dart';
 import '../../screens/user_dashboard.dart';
 
@@ -202,7 +202,7 @@ class SubscriptionService {
             "Purchase Token For Android: \n$serverVerificationData",
           );
         } else if (Platform.isIOS) {
-          serverVerificationData = localDecodedData["transactionId"];
+          serverVerificationData = localDecodedData["`transactionId`"];
           Logger.printInfo("Transaction Id For iOS: \n$serverVerificationData");
         }
 
@@ -222,7 +222,7 @@ class SubscriptionService {
             context: globalNavigatorKey.currentContext!,
             isRestore: purchase.status == PurchaseStatus.restored,
             onSuccess: () {
-              // context.pushNamed(MobileAppRoutes.userDashBoardScreen.name);
+              
               if (ctx != null && ctx.mounted) {
                 ctx.goNamed(
                   MobileAppRoutes.userDashBoardScreen.name,
@@ -258,33 +258,6 @@ class SubscriptionService {
     } catch (e) {
       Logger.printError("Error inside the _getTierFromProductId function : $e");
       return null;
-    }
-  }
-
-  Future<void> checkBackendSubscriptionStatus(BuildContext context) async {
-    try {
-      // Replace this with your actual API call logic
-      final response = await _fakeFetchFromBackend();
-
-      final provider = Provider.of<SubscriptionProvider>(
-        context,
-        listen: false,
-      );
-
-      for (var sub in response["subscriptions"]) {
-        final tier = _parseTier(sub["tier"]);
-        final isActive = sub["isActive"] == true;
-
-        if (tier != null) {
-          if (isActive) {
-            provider.addSubscription(tier);
-          } else {
-            provider.removeSubscription(tier);
-          }
-        }
-      }
-    } catch (e) {
-      debugPrint("Subscription check failed: $e");
     }
   }
 

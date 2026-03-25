@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../../core/utils/custom_toast.dart';
 import '../../../../../core/utils/field_validator.dart';
-import '../../../../../routes/mobile_routes/user_routes.dart';
+import '../../../../../core/routes/mobile_routes/user_routes.dart';
 import '../../services/settings/locale_storage_service.dart';
 import '../../services/settings/profile_api_service.dart';
 
@@ -298,7 +298,7 @@ class UserAuthProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  //todo ---------------> forgot password
+  //todo ---------------> timer for the resend Otp
   void _startResendTimer() {
     _resendSeconds = 60; // 1 minute
     notifyListeners();
