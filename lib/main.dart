@@ -17,18 +17,13 @@ Future<void> main() async {
   runApp(ToastificationWrapper(child: const MyApp()));
 }
 
-//todo app changes :
+//* app changes :
 /*
 
-todo Vimaal
-
-
-
-
+* Vimaal
 
 sandbox password:
 -> Test.dds123@
-
 
 
 flutter: Logger --- com.innerpeacepath.tier2com.innerpeacepath.tier2

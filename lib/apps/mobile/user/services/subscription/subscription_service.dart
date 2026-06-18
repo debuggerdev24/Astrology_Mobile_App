@@ -202,7 +202,7 @@ class SubscriptionService {
             "Purchase Token For Android: \n$serverVerificationData",
           );
         } else if (Platform.isIOS) {
-          serverVerificationData = localDecodedData["`transactionId`"];
+          serverVerificationData = localDecodedData["transactionId"];
           Logger.printInfo("Transaction Id For iOS: \n$serverVerificationData");
         }
 
